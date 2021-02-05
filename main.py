@@ -71,23 +71,24 @@ class Block:
 # return list of blocks in this node's blockchain
 def get_blocks():
 
-    chain_to_send = blockchain
+    # chain_to_send = blockchain
+    chain_to_send = []
     # Convert our blocks into dictionaries
     # so we can send them as json objects later
-    for i in range(len(chain_to_send)):
-        block = chain_to_send[i]
+    for i in range(len(blockchain)):
+        block = blockchain[i]
         block_index = block.index
         block_timestamp = str(block.timestamp)
         block_data = str(block.data)
         block_hash = block.hash
         block_prevhash = block.previous_hash
-        chain_to_send[i] = {
+        chain_to_send.append({
             "index": block_index,
             "timestamp": block_timestamp,
             "data": block_data,
             "previous_hash": block_prevhash,
             "hash": block_hash
-        }
+        })
     chain_to_send = json.dumps(chain_to_send)
     return chain_to_send
 
@@ -118,6 +119,7 @@ def consensus():
     # sort consensus dict by quantity of nodes agreeing on a hash
     sorted_consensus = sorted(consensus_dict, key=lambda k: len(consensus_dict[k]), reverse=True)
 
+    print(f"before consensus performed, chain: {blockchain}")
     # If most popular choice has > than half of all nodes agreeing, go with that choice
     if len(consensus_dict[sorted_consensus[0]]) > (len(node_list))/2:
         # erase own blockchain if it hasn't performed consensus yet
@@ -152,7 +154,6 @@ def validate(chain, lasthash):
     # also check that the provided blockchain is longer than what we've agreed on already
     if lasthash != sha.hexdigest() or (consensus_index >= chain[-1]['index']):
         print("False bad hash/index")
-        breakpoint()
         return False
 
     print("True")
@@ -169,7 +170,7 @@ class Receiver(threading.Thread):
         self.port = my_port
 
     def listen(self):
-
+        global blockchain
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
@@ -219,7 +220,7 @@ class Receiver(threading.Thread):
                             # Response algorithm
                             if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
                                     and msgJson['to'] == self.port:
-
+                                print(f"current blockchain: {blockchain}")
                                 # respond with port and blockchain for consensus
                                 try:
                                     message = {
@@ -237,6 +238,7 @@ class Receiver(threading.Thread):
                                     sendMessage(json.dumps(message), int(msgData['fromport']))
                                 except Exception as e:
                                     print("could not respond to introduction because ", e)
+                                    breakpoint()
 
                                 # reaction to response
                             elif msgJson['type'] == "response":
@@ -346,6 +348,7 @@ def sendMessage(message,destPort):
 
 def main():
     blockchain.append(create_genesis_block())
+    #breakpoint()
     print(f"Genesis block: {blockchain[0].hash}")
     # my_host = "localhost"
     #my_host = input("which is my host? ")
