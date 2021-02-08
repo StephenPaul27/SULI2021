@@ -1,7 +1,10 @@
+"""
+This file contains classes and functions relative to sockets enabling communication between blockchain nodes
+Every node will have a server for receiving and reacting to messages, and a client for actively sending messages out
+"""
+
 # imports
 from all_imports import *
-
-######### COMMUNICATION CODE #####################
 
 """
 This class is responsible for receiving and reacting to messages from other nodes
@@ -170,6 +173,8 @@ class Sender(threading.Thread):
                         "time": time.time()
                     })
                     sendMessage(message, BASE_PORT + i)
+
+                    # track ports/nodes that successfully connected
                     node_list.append(BASE_PORT+i)
                 except Exception as e:
                     print(f"no connection detected at {BASE_PORT+i}")
@@ -192,7 +197,10 @@ class Sender(threading.Thread):
                     except Exception as e:
                         do_nothing = True
 
-def sendMessage(message,destPort):
+"""
+This function sends a given message to a given port
+"""
+def sendMessage(message, destPort):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((BASE_HOST, destPort))
 
