@@ -9,6 +9,7 @@ Nodes will communicate with each other via P2P where each node is both server an
 The goal is to attain stability when <=1/3rd of nodes provide faulty information
 """
 
+# imports
 import socket
 import threading
 import sys
@@ -17,12 +18,19 @@ import json
 import hashlib as hasher
 import datetime as date
 
+# file imports
+#import blockchain_funcs
+
+# Constants
 ENCODING = 'utf-8'
 BASE_PORT = 8080            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
-NUM_NODES = 3      # maximum number of nodes in system
-MSG_PERIOD = 60     # seconds between broadcast of powerref
+NUM_NODES = 5      # maximum number of nodes in system
+MSG_PERIOD = 30     # seconds between broadcast of powerref
 CONSENSUS_TIMEOUT = 5 # seconds until consensus times out
+
+# Building to building map (indexed by sender -> receiver of power reference)
+network_map = {}
 
 # create random hash to represent this node
 my_hasher = hasher.sha256()
@@ -62,13 +70,17 @@ class Block:
         self.previous_hash = previous_hash
         self.hash = self.hash_block()
 
-    # Create a hash for the block
+    """
+    This function returns the hash of the local block, using the index, timestamp, data, and previous hash
+    """
     def hash_block(self):
         sha = hasher.sha256()
         sha.update((str(self.index) + str(self.timestamp) + str(self.data) + str(self.previous_hash)).encode())
         return sha.hexdigest()
 
-# return list of blocks in this node's blockchain
+"""
+This function returns a json-string of blocks in this node's blockchain 
+"""
 def get_blocks():
 
     # chain_to_send = blockchain
@@ -116,27 +128,36 @@ def consensus():
     global consensus_dict
     global chain_dict
     global blockchain
+
     # sort consensus dict by quantity of nodes agreeing on a hash
     sorted_consensus = sorted(consensus_dict, key=lambda k: len(consensus_dict[k]), reverse=True)
 
-    print(f"before consensus performed, chain: {blockchain}")
+    #print(f"before consensus performed, chain: {blockchain}")
+
     # If most popular choice has > than half of all nodes agreeing, go with that choice
     if len(consensus_dict[sorted_consensus[0]]) > (len(node_list))/2:
-        # erase own blockchain if it hasn't performed consensus yet
-        if consensus_index == -1:
-            blockchain = []
+
+        # erase any blocks in our chain that have not been agreed on
+        while blockchain[-1].index > consensus_index:
+            blockchain.pop(-1)
+
         # add each block to our blockchain that is past what we've already agreed on
         for i in chain_dict[sorted_consensus[0]]:
             if i['index'] > consensus_index:
                 blockchain.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
                 consensus_index = i['index']
+
+    # Reset consensus variables
     consensus_count = 0
     consensus_dict = {}
     chain_dict = {}
-    print(f"Consensus performed, resulting chain: {blockchain}")
+
+    #print(f"Consensus performed, resulting chain: {blockchain}")
 
 
-# validate a chain against its given hash
+"""
+This function validates a chain against itself and its claimed hash
+"""
 def validate(chain, lasthash):
     print("Validating...")
     # initialize the hash
@@ -147,21 +168,24 @@ def validate(chain, lasthash):
         for i in range(0, len(chain)-1):
             sha.update((str(chain[i]['index']) + str(chain[i]['timestamp']) + str(chain[i]['data']) + str(chain[i]['previous_hash'])).encode())
             if sha.hexdigest() != chain[i + 1]['previous_hash'] or sha.hexdigest() != chain[i]['hash']:
-                print("False- bad chain")
+                print("Failed: bad chain")
                 return False
 
     # check final hash against provided hash
     # also check that the provided blockchain is longer than what we've agreed on already
     if lasthash != sha.hexdigest() or (consensus_index >= chain[-1]['index']):
-        print("False bad hash/index")
+        print("Failed: bad hash/index")
         return False
 
-    print("True")
+    # If nothing failed, then the chain is valid
+    print("Passed")
     return True
 
 ######### COMMUNICATION CODE #####################
 
-# Server to receive incoming transmissions
+"""
+This class is responsible for receiving and reacting to messages from other nodes
+"""
 class Receiver(threading.Thread):
 
     def __init__(self, my_host, my_port):
@@ -170,12 +194,15 @@ class Receiver(threading.Thread):
         self.port = my_port
 
     def listen(self):
+
         global blockchain
+
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
         sock.listen(NUM_NODES)
         # print("server started")
+
         # while loop to accept incoming connections/messages
         while True:
 
@@ -192,8 +219,10 @@ class Receiver(threading.Thread):
                     data = connection.recv(1024)
                     full_message = full_message + data.decode(ENCODING)
                     # print(data.decode(ENCODING))
+
                     # once data has stopped coming in, decode the message
                     if not data:
+
                         # print("received a message")
                         try:
                             # load the message structure
@@ -215,12 +244,12 @@ class Receiver(threading.Thread):
                                     node_list.append(msgJson['from'])
                                     #print(f"node list: {node_list}")
 
-                                print(f"received handshake from {msgJson['data']}")
+                                # print(f"received handshake from {msgJson['data']}")
 
                             # Response algorithm
                             if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
                                     and msgJson['to'] == self.port:
-                                print(f"current blockchain: {blockchain}")
+                                # print(f"current blockchain: {blockchain}")
                                 # respond with port and blockchain for consensus
                                 try:
                                     message = {
@@ -238,7 +267,7 @@ class Receiver(threading.Thread):
                                     sendMessage(json.dumps(message), int(msgData['fromport']))
                                 except Exception as e:
                                     print("could not respond to introduction because ", e)
-                                    breakpoint()
+                                    # breakpoint()
 
                                 # reaction to response
                             elif msgJson['type'] == "response":
@@ -318,10 +347,11 @@ class Sender(threading.Thread):
                     })
                     sendMessage(message, BASE_PORT + i)
                 except Exception as e:
-                    print(f"no connection at {BASE_PORT+i}")
+                    print(f"no connection detected at {BASE_PORT+i}")
 
         while True:
             time.sleep(MSG_PERIOD)      # sleep X seconds before each broadcast
+            breakpoint()
             # print(f"node list: {node_list}")
             for i in node_list:   # broadcast to connected clients in node list
                 if(hash_to_port[i] != self.my_port):
