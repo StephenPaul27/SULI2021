@@ -11,7 +11,7 @@ MSG_PERIOD = 30     # seconds between broadcast of powerref
 CONSENSUS_TIMEOUT = 5 # seconds until consensus times out
 
 # Read encryption key from storage
-f = open("Cryptokey.txt","r")
+f = open("CryptoKey.txt","r")
 cryptoKey = f.read()
 f.close()
 
