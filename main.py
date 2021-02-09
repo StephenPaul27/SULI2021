@@ -12,6 +12,9 @@ The goal is to attain stability when <=1/3rd of nodes provide faulty information
 #imports
 from all_imports import *
 
+"""
+This is the main function, it executes the rest of the code
+"""
 def main():
     blockchain.append(bf.create_genesis_block())
     #breakpoint()
@@ -27,6 +30,8 @@ def main():
     # my_friends_port = int(input("what is your friend's port?"))
     sender = comm.Sender(BASE_HOST, my_port)
     threads = [receiver.start(), sender.start()]
-
+"""
+This executes the main function upon script execution
+"""
 if __name__ == '__main__':
     main()

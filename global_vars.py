@@ -1,3 +1,7 @@
+"""
+This file contains and initializes the global variables shared across files
+"""
+
 import hashlib as hasher
 import time
 from cryptography.fernet import Fernet

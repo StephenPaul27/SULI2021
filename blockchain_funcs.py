@@ -1,9 +1,17 @@
+"""
+This file contains functions and classes related to the blockchain
+This includes the general structure, consensus, validation
+"""
+
 # imports
 from all_imports import *
 
 ######### BLOCKCHAIN CODE ##################
 
-# Define what a block is
+
+"""
+This class defines the structure of a block
+"""
 class Block:
 
     # block structure
@@ -120,7 +128,8 @@ def validate(chain, lasthash):
         for i in range(0, len(chain)-1):
             # reproduce the hash from the data in each block
             sha.update((str(chain[i]['index']) + str(chain[i]['timestamp']) + str(chain[i]['data']) + str(chain[i]['previous_hash'])).encode())
-            # if fail to reproduce, then blockchain is invalid
+            # if fail to reproduce the same hash as the current block,
+            # as well as the 'previous hash' of the next block, then blockchain is invalid
             if sha.hexdigest() != chain[i + 1]['previous_hash'] or sha.hexdigest() != chain[i]['hash']:
                 print("Failed: bad chain")
                 return False
