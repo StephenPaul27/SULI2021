@@ -182,7 +182,8 @@ class Sender(threading.Thread):
                     # track ports/nodes that successfully connected
                     node_list.append(BASE_PORT+i)
                 except Exception as e:
-                    print(f"no connection detected at {BASE_PORT+i}")
+                    #print(f"no connection detected at {BASE_PORT+i}")
+                    do_nothing = True
 
         while True:
             time.sleep(MSG_PERIOD)      # sleep X seconds before each broadcast
