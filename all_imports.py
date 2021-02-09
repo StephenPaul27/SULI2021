@@ -6,6 +6,7 @@ import time
 import json
 import hashlib as hasher
 import datetime as date
+from cryptography.fernet import Fernet
 
 
 from global_vars import *

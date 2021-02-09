@@ -48,7 +48,12 @@ class Receiver(threading.Thread):
                     # once data has stopped coming in, decode the message
                     if not data:
 
-                        #print("received a message: ", full_message)
+                        #print("received encrypted message:",full_message)
+
+                        # decrypt received message using known key:
+                        full_message = Fkey.decrypt(full_message.encode(ENCODING)).decode(ENCODING)
+
+                        #print("decrypted message:", full_message)
 
                         try:
                             # load the message structure
@@ -203,8 +208,8 @@ This function sends a given message to a given port
 def sendMessage(message, destPort):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((BASE_HOST, destPort))
-
-    s.sendall(str(message).encode(ENCODING))
+    message = Fkey.encrypt(message.encode(ENCODING))
+    s.sendall(message)
 
     # s.shutdown(2)
     s.close()

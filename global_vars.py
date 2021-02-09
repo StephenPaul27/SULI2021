@@ -1,5 +1,6 @@
 import hashlib as hasher
 import time
+from cryptography.fernet import Fernet
 
 # Constants
 ENCODING = 'utf-8'
@@ -8,6 +9,14 @@ BASE_HOST = "localhost"     # local host (must change code if using an IP instea
 NUM_NODES = 5      # maximum number of nodes in system
 MSG_PERIOD = 30     # seconds between broadcast of powerref
 CONSENSUS_TIMEOUT = 5 # seconds until consensus times out
+
+# Read encryption key from storage
+f = open("Cryptokey.txt","r")
+cryptoKey = f.read()
+f.close()
+
+# integrate encryption key
+Fkey = Fernet(cryptoKey)
 
 # Building to building map (indexed by sender -> receiver of power reference)
 network_map = {}
