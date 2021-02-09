@@ -6,12 +6,12 @@ from cryptography.fernet import Fernet
 ENCODING = 'utf-8'
 BASE_PORT = 8080            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
-NUM_NODES = 5      # maximum number of nodes in system
-MSG_PERIOD = 30     # seconds between broadcast of powerref
-CONSENSUS_TIMEOUT = 5 # seconds until consensus times out
+NUM_NODES = 5               # maximum number of nodes in system
+MSG_PERIOD = 30             # seconds between broadcast of powerref
+CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 
 # Read encryption key from storage
-f = open("CryptoKey.txt","r")
+f = open("CryptoKey.txt", "r")
 cryptoKey = f.read()
 f.close()
 
