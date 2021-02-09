@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Variables
+NUM_NODES=2
+BASE_PORT=8080
+TEST_DURATION=10 # seconds
+
+echo Starting Nodes...
+
+# start python script for each node
+for ((i=0; i<$NUM_NODES; i++))
+do
+  python main.py $((BASE_PORT+i)) &
+  sleep .5
+done
+
+echo Nodes Started
+
+sleep $TEST_DURATION
+
+echo Killing Nodes...
+pkill -f main.py
+echo Nodes Killed
