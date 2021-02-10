@@ -16,21 +16,31 @@ from all_imports import *
 This is the main function, it executes the rest of the code
 """
 def main():
+    # assign port from system arguments
+    my_port = int(sys.argv[1])
+
+    # create genesis block for this node
     blockchain.append(bf.create_genesis_block())
 
-    my_port = int(sys.argv[1])
-    #breakpoint()
-    print(f"Node started at port {my_port}, Genesis: {blockchain[0].hash}")
-    # my_host = "localhost"
-    #my_host = input("which is my host? ")
+    # format the log
+    logging.basicConfig(filename='blockchain.log', filemode='a',
+                        format='%(asctime)s %(levelname)s: %(message)s',
+                        level=logging.DEBUG)
+
+    logging.info(f"Node started at port {my_port}, Genesis: {blockchain[0].hash}")
+    print(f"Node started at port {my_port}")
+
+    # add port and hash into the map
     port_to_hash[my_port] = my_hash
-    # print(node_list)
-    #my_port = int(input("which is my port? "))
+    hash_to_port[my_hash] = my_port
+
+    # set up server and client objects
     receiver = comm.Receiver(BASE_HOST, my_port)
-    # my_friends_host = input("what is your friend's host? ")
-    # my_friends_port = int(input("what is your friend's port?"))
     sender = comm.Sender(BASE_HOST, my_port)
+
     threads = [receiver.start(), sender.start()]
+
+
 """
 This executes the main function upon script execution
 """

@@ -65,6 +65,7 @@ class Receiver(threading.Thread):
                         # Exception catch from message conversion to json
                         except Exception as e:
                             print(f"Error decoding received message: {e}")
+                            logging.warning(f"Error decoding received message at port {self.port}: {e}")
                             break
                         # action upon handshake
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
@@ -99,7 +100,8 @@ class Receiver(threading.Thread):
                                                                   "chain": bf.get_blocks()})
                                 sendMessage(json.dumps(message), int(msgData['fromport']))
                             except Exception as e:
-                                print("could not respond to introduction because ", e)
+                                print("could not respond to introduction because", e)
+                                logging.warning(f"port {self.port} could not respond to introduction because {e}")
                                 # breakpoint()
 
                             # reaction to response
@@ -196,21 +198,24 @@ class Sender(threading.Thread):
                             "type": "powerref",
                             "from": my_hash,
                             "to": port_to_hash[i],
-                            "data": 32.56,
+                            "data": {"kW": 32.56},
                             "time": time.time()
                         })
                         sendMessage(message, i)
                     except Exception as e:
-                        do_nothing = True
+                        logging.warning(f"Unable to send power reference from port {self.my_port} to port {i}")
 
 """
 This function sends a given message to a given port
 """
 def sendMessage(message, destPort):
+    # establish connection to port
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((BASE_HOST, destPort))
+
+    # encrypt message before sending
     message = Fkey.encrypt(message.encode(ENCODING))
     s.sendall(message)
 
-    # s.shutdown(2)
+    # close connection
     s.close()

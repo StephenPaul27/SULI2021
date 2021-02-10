@@ -3,7 +3,7 @@
 # This program is used to start and stop multiple nodes
 
 # Variables
-NUM_NODES=5
+NUM_NODES=4
 BASE_PORT=8080
 TEST_DURATION=10 # seconds
 
