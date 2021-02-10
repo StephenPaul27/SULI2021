@@ -1,0 +1,18 @@
+{
+    "0": {
+            "port": 8080,
+            "hash": "a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3"
+          },
+    "1": {
+            "port": 8081,
+            "hash": "f077484707ed242757eb5e1a38098eacb701b7d7059aa5e2c64a5e5cb329972e"
+          },
+    "2": {
+            "port": 8082,
+            "hash": "623083c15fb9031301383b3315dd3de60842397e6ef3af5096103807e1bbc5e0"
+          },
+    "3": {
+            "port": 8083,
+            "hash": "60300fb8e94352daab65247d38eb553a8453bdb03772d48a6b305a1b4ac023b0"
+          }
+}

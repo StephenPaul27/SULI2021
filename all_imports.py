@@ -1,7 +1,6 @@
 # imports
 import socket
 import threading
-import sys
 import time
 import json
 import hashlib as hasher

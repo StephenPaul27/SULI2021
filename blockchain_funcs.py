@@ -104,6 +104,8 @@ def consensus():
             if i['index'] > consensus_index:
                 blockchain.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
                 consensus_index = i['index']
+    else:
+        logging.warning(f"consensus error: popular choice <= half of all nodes, at port {my_port}")
 
     # Reset consensus variables
     consensus_count = 0
@@ -132,12 +134,14 @@ def validate(chain, lasthash):
             # as well as the 'previous hash' of the next block, then blockchain is invalid
             if sha.hexdigest() != chain[i + 1]['previous_hash'] or sha.hexdigest() != chain[i]['hash']:
                 print("Failed: bad chain")
+                logging.warning(f"chain of {lasthash} was invalid ")
                 return False
 
     # check final hash against provided hash
     # also check that the provided blockchain is longer than what we've agreed on already
     if lasthash != sha.hexdigest() or (consensus_index >= chain[-1]['index']):
         print("Failed: bad hash/index")
+        logging.warning(f"{lasthash} did not match it chain or was not long enough")
         return False
 
     # If nothing failed, then the chain is valid

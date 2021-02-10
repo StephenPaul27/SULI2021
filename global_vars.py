@@ -5,6 +5,8 @@ This file contains and initializes the global variables shared across files
 import hashlib as hasher
 import time
 from cryptography.fernet import Fernet
+import sys
+import json
 
 # Constants
 ENCODING = 'utf-8'
@@ -19,6 +21,11 @@ f = open("CryptoKey.txt", "r")
 cryptoKey = f.read()
 f.close()
 
+# load node connections
+f = open("node_connections.json", 'r')
+node_conn = json.loads(f.read())
+f.close()
+
 # integrate encryption key
 Fkey = Fernet(cryptoKey)
 
@@ -29,6 +36,9 @@ network_map = {}
 my_hasher = hasher.sha256()
 my_hasher.update(str(time.time()).encode())
 my_hash = str(my_hasher.hexdigest())
+
+# assign port from system arguments
+my_port = int(sys.argv[1])
 
 # List of node hashes seen by this node (i.e. exclusive of itself)
 node_list = []      # list of node hashes

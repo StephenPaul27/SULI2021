@@ -16,16 +16,13 @@ from all_imports import *
 This is the main function, it executes the rest of the code
 """
 def main():
-    # assign port from system arguments
-    my_port = int(sys.argv[1])
-
-    # create genesis block for this node
-    blockchain.append(bf.create_genesis_block())
-
     # format the log
     logging.basicConfig(filename='blockchain.log', filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
+
+    # create genesis block for this node
+    blockchain.append(bf.create_genesis_block())
 
     logging.info(f"Node started at port {my_port}, Genesis: {blockchain[0].hash}")
     print(f"Node started at port {my_port}")

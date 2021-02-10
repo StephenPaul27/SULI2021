@@ -188,10 +188,11 @@ class Sender(threading.Thread):
                     do_nothing = True
 
         while True:
-            time.sleep(MSG_PERIOD)      # sleep X seconds before each broadcast
+            time.sleep(MSG_PERIOD)      # broadcast every MSG_PERIOD seconds
             # breakpoint()
             # print(f"node list: {node_list}")
-            for i in node_list:   # broadcast to connected clients in node list
+            for i in node_conn[self.my_port]["downstream"]:   # broadcast to connected clients in node list
+                # failsafe: dont broadcast to yourself
                 if(i != self.my_port):
                     try:
                         message = json.dumps({
