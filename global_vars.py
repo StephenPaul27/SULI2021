@@ -17,12 +17,12 @@ MSG_PERIOD = 30             # seconds between broadcast of powerref
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 
 # Read encryption key from storage
-f = open("CryptoKey.txt", "r")
+f = open("Storage/CryptoKey.txt", "r")
 cryptoKey = f.read()
 f.close()
 
 # load node connections
-f = open("node_connections.json", 'r')
+f = open("Storage/node_connections.json", 'r')
 node_conn = json.loads(f.read())
 f.close()
 

@@ -17,7 +17,7 @@ This is the main function, it executes the rest of the code
 """
 def main():
     # format the log
-    logging.basicConfig(filename='blockchain.log', filemode='a',
+    logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 
