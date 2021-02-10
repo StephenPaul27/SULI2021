@@ -17,11 +17,12 @@ This is the main function, it executes the rest of the code
 """
 def main():
     blockchain.append(bf.create_genesis_block())
+
+    my_port = int(sys.argv[1])
     #breakpoint()
-    print(f"Genesis block: {blockchain[0].hash}")
+    print(f"Node started at port {my_port}, Genesis: {blockchain[0].hash}")
     # my_host = "localhost"
     #my_host = input("which is my host? ")
-    my_port = int(sys.argv[1])
     port_to_hash[my_port] = my_hash
     # print(node_list)
     #my_port = int(input("which is my port? "))
