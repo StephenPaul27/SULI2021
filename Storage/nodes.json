@@ -1,18 +1,22 @@
 {
     "0": {
-            "port": 8080,
-            "hash": "a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3"
-          },
+        "hash": "a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3",
+        "port": 8080
+    },
     "1": {
-            "port": 8081,
-            "hash": "f077484707ed242757eb5e1a38098eacb701b7d7059aa5e2c64a5e5cb329972e"
-          },
+        "hash": "4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7",
+        "port": 8081
+    },
     "2": {
-            "port": 8082,
-            "hash": "623083c15fb9031301383b3315dd3de60842397e6ef3af5096103807e1bbc5e0"
-          },
+        "hash": "c948d92047172488035ab13b28a319bd354d79338033aec9176b6d472654b108",
+        "port": 8082
+    },
     "3": {
-            "port": 8083,
-            "hash": "60300fb8e94352daab65247d38eb553a8453bdb03772d48a6b305a1b4ac023b0"
-          }
+        "hash": "71bf0f293a6aa3277f9798c45d644389e73c324e860ae5bcfe87bb7f5f5ed4e7",
+        "port": 8083
+    },
+    "4": {
+        "hash": "0488d6e31fd03e256af022de52f6e786814b7a8fc6a49c2a5faefe65a0e1fcf0",
+        "port": 8084
+    }
 }

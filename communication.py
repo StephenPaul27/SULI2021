@@ -111,8 +111,8 @@ class Receiver(threading.Thread):
                             global consensus_count
                             global chain_dict
                             loaded_chain = json.loads(msgData['chain'])
-                            # recognize consensus only on NEW blocks
 
+                            # recognize consensus only on NEW blocks
                             if loaded_chain[-1]['index'] > consensus_index:
 
                                 consensus_count += 1    #increment number of consensus messages received
@@ -183,6 +183,7 @@ class Sender(threading.Thread):
 
                     # track ports/nodes that successfully connected
                     node_list.append(BASE_PORT+i)
+
                 except Exception as e:
                     #print(f"no connection detected at {BASE_PORT+i}")
                     do_nothing = True
@@ -191,7 +192,7 @@ class Sender(threading.Thread):
             time.sleep(MSG_PERIOD)      # broadcast every MSG_PERIOD seconds
             # breakpoint()
             # print(f"node list: {node_list}")
-            for i in node_conn[self.my_port]["downstream"]:   # broadcast to connected clients in node list
+            for i in node_conn[self.my_port]["downstream"]:   # broadcast power reference to downstream nodes
                 # failsafe: dont broadcast to yourself
                 if(i != self.my_port):
                     try:

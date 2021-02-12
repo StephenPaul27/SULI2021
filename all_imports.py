@@ -12,3 +12,4 @@ import logging
 from global_vars import *
 import blockchain_funcs as bf
 import communication as comm
+import node_editor as ne

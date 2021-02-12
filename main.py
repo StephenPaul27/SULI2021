@@ -16,15 +16,25 @@ from all_imports import *
 This is the main function, it executes the rest of the code
 """
 def main():
+
+    global my_hash
+
     # format the log
     logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 
+    # Identify start of new log
+    if my_port == BASE_PORT:
+        logging.info("New Session Started")
+
+    # create random hash to represent this node (if needed)
+    my_hash = ne.new_node(my_port)
+
     # create genesis block for this node
     blockchain.append(bf.create_genesis_block())
 
-    logging.info(f"Node started at port {my_port}, Genesis: {blockchain[0].hash}")
+    logging.info(f"Node started at port {my_port} with hash {my_hash}")
     print(f"Node started at port {my_port}")
 
     # add port and hash into the map

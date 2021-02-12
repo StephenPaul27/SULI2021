@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # This program is used to start and stop multiple nodes
+# Usage: bash node_runner <num nodes> <base port> <test duration>
 
 # Variables
-NUM_NODES=4
-BASE_PORT=8080
-TEST_DURATION=10 # seconds
+NUM_NODES=${1:-5}       # Number of nodes to create
+BASE_PORT=${2:-8080}    # Base port to start creating nodes
+TEST_DURATION=${3:-10}  # Seconds
 
 echo Starting Nodes...
 
@@ -20,8 +21,9 @@ echo Nodes Started
 
 sleep $TEST_DURATION
 
+# stop all nodes
 echo Killing Nodes...
 pkill -f main.py
 echo Nodes Killed
 
-# check: ps -fA | grep python
+# check by using: "ps -fA | grep python"

@@ -13,18 +13,16 @@ ENCODING = 'utf-8'
 BASE_PORT = 8080            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
 NUM_NODES = 5               # maximum number of nodes in system
-MSG_PERIOD = 30             # seconds between broadcast of powerref
+MSG_PERIOD = 30             # seconds between broadcast of powerref downstream
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 
 # Read encryption key from storage
-f = open("Storage/CryptoKey.txt", "r")
-cryptoKey = f.read()
-f.close()
+with open("Storage/CryptoKey.txt", "r") as f:
+    cryptoKey = f.read()
 
 # load node connections
-f = open("Storage/node_connections.json", 'r')
-node_conn = json.loads(f.read())
-f.close()
+with open("Storage/node_connections.json", 'r') as f:
+    node_conn = json.loads(f.read())
 
 # integrate encryption key
 Fkey = Fernet(cryptoKey)
@@ -32,13 +30,10 @@ Fkey = Fernet(cryptoKey)
 # Building to building map (indexed by sender -> receiver of power reference)
 network_map = {}
 
-# create random hash to represent this node
-my_hasher = hasher.sha256()
-my_hasher.update(str(time.time()).encode())
-my_hash = str(my_hasher.hexdigest())
-
-# assign port from system arguments
+# read port from system arguments
 my_port = int(sys.argv[1])
+
+my_hash = 0         # filler for global hash variable
 
 # List of node hashes seen by this node (i.e. exclusive of itself)
 node_list = []      # list of node hashes
