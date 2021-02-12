@@ -12,10 +12,11 @@ The goal is to attain stability when <=1/3rd of nodes provide faulty information
 #imports
 from all_imports import *
 
-"""
-This is the main function, it executes the rest of the code
-"""
+
 def main():
+    """
+    This is the main function, it executes the rest of the code
+    """
 
     global my_hash
 
@@ -48,8 +49,8 @@ def main():
     threads = [receiver.start(), sender.start()]
 
 
-"""
-This executes the main function upon script execution
-"""
 if __name__ == '__main__':
+    """
+    This executes the main function upon script execution
+    """
     main()

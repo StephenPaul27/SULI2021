@@ -1,9 +1,10 @@
 from all_imports import *
 
-"""
-This function will add a node to the local storage with a unique hash
-"""
+
 def add_node():
+    """
+    This function will add a node to the local storage with a unique hash
+    """
 
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:
@@ -26,10 +27,11 @@ def add_node():
     # return the hash created
     return sha.hexdigest()
 
-"""
-This function will delete a node from the local storage
-"""
+
 def del_node(id_number):
+    """
+    This function will delete a node from the local storage
+    """
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:
         node_file = json.load(f)
@@ -42,10 +44,10 @@ def del_node(id_number):
         json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
 
 
-"""
-This function will add a new node if it does not already exist in the file
-"""
 def new_node(port):
+    """
+    This function will add a new node if it does not already exist in the file
+    """
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:
         node_file = json.load(f)

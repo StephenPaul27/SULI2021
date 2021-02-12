@@ -6,10 +6,11 @@ Every node will have a server for receiving and reacting to messages, and a clie
 # imports
 from all_imports import *
 
-"""
-This class is responsible for receiving and reacting to messages from other nodes
-"""
+
 class Receiver(threading.Thread):
+    """
+    This class is responsible for receiving and reacting to messages from other nodes
+    """
 
     def __init__(self, my_host, my_port):
         threading.Thread.__init__(self, name="messenger_receiver")
@@ -17,6 +18,9 @@ class Receiver(threading.Thread):
         self.port = my_port
 
     def listen(self):
+        """
+        This function is the listener for incoming messages
+        """
 
         global blockchain
         global NUM_NODES
@@ -48,12 +52,12 @@ class Receiver(threading.Thread):
                     # once data has stopped coming in, decode the message
                     if not data:
 
-                        #print("received encrypted message:",full_message)
+                        print("received encrypted message:",full_message)
 
                         # decrypt received message using known key:
                         full_message = Fkey.decrypt(full_message.encode(ENCODING)).decode(ENCODING)
 
-                        #print("decrypted message:", full_message)
+                        print("decrypted message:", full_message)
 
                         try:
                             # load the message structure
@@ -153,11 +157,10 @@ class Receiver(threading.Thread):
         self.listen()
 
 
-"""
-This class is responsible for actively sending data including power references and introduction
-"""
 class Sender(threading.Thread):
-
+    """
+    This class is responsible for actively sending data including power references and introduction
+    """
     def __init__(self, my_host, my_port):
         threading.Thread.__init__(self, name="messenger_sender")
         # self.host = my_friends_host
@@ -181,7 +184,7 @@ class Sender(threading.Thread):
                     })
                     sendMessage(message, BASE_PORT + i)
 
-                    # track ports/nodes that successfully connected
+                    # track active ports/nodes that successfully connected
                     node_list.append(BASE_PORT+i)
 
                 except Exception as e:

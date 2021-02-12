@@ -9,11 +9,10 @@ from all_imports import *
 ######### BLOCKCHAIN CODE ##################
 
 
-"""
-This class defines the structure of a block
-"""
 class Block:
-
+    """
+    This class defines the structure of a block
+    """
     # block structure
     def __init__(self, index, timestamp, data, previous_hash):
         self.index = index
@@ -22,18 +21,19 @@ class Block:
         self.previous_hash = previous_hash
         self.hash = self.hash_block()
 
-    """
-    This function returns the hash of the local block, using the index, timestamp, data, and previous hash
-    """
     def hash_block(self):
+        """
+        This function returns the hash of the local block, using the index, timestamp, data, and previous hash
+        """
         sha = hasher.sha256()
         sha.update((str(self.index) + str(self.timestamp) + str(self.data) + str(self.previous_hash)).encode())
         return sha.hexdigest()
 
-"""
-This function returns a json-string of blocks in this node's blockchain 
-"""
+
 def get_blocks():
+    """
+    This function returns a json-string of blocks in this node's blockchain
+    """
     global blockchain
     # chain_to_send = blockchain
     chain_to_send = []
@@ -56,12 +56,13 @@ def get_blocks():
     chain_to_send = json.dumps(chain_to_send)
     return chain_to_send
 
-"""
-This function creates the genesis block upon this node's instantiation.
-This is only relevant if it is the first node in the system, as all other nodes will
-seek consensus and throw away their genesis block
-"""
+
 def create_genesis_block():
+    """
+    This function creates the genesis block upon this node's instantiation.
+    This is only relevant if it is the first node in the system, as all other nodes will
+    seek consensus and throw away their genesis block
+    """
     # Manually construct a block with
     # index zero and arbitrary previous hash
     return Block(0, date.datetime.now(), {
@@ -69,12 +70,13 @@ def create_genesis_block():
         "transactions": None
     }, "0")
 
-"""
-This function is responsible for enacting consensus on this node's blockchain.
-Once all "votes" have been received or the time window has expired, the most popular
-"vote" is copied to our blockchain if it is agreed upon by >50% of the nodes
-"""
+
 def consensus():
+    """
+    This function is responsible for enacting consensus on this node's blockchain.
+    Once all "votes" have been received or the time window has expired, the most popular
+    "vote" is copied to our blockchain if it is agreed upon by >50% of the nodes
+    """
     global consensus_index
     global consensus_count
     global consensus_dict
@@ -116,10 +118,10 @@ def consensus():
     print(f"Consensus performed, resulting chain: {blockchain[-1].hash}")
 
 
-"""
-This function validates a chain against itself and its claimed hash
-"""
 def validate(chain, lasthash):
+    """
+    This function validates a chain against itself and its claimed hash
+    """
     print("Validating:", lasthash)
     # initialize the hash
     sha = hasher.sha256()
