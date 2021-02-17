@@ -1,32 +1,9 @@
-2021-02-17 13:16:37,658 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:16:43,776 INFO: New Session Started
-2021-02-17 13:16:43,779 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:17:28,040 INFO: New Session Started
-2021-02-17 13:17:28,043 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:17:30,467 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:17:30,470 WARNING: Message recevied at 8080 missing '|'
-2021-02-17 13:17:30,471 WARNING: Error decoding received message at port 8080: the JSON object must be str, bytes or bytearray, not NoneType
-2021-02-17 13:19:13,794 INFO: New Session Started
-2021-02-17 13:19:13,798 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:19:16,565 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:19:16,569 WARNING: Message recevied at 8080 missing '|'
-2021-02-17 13:19:16,570 WARNING: Error decoding received message at port 8080: the JSON object must be str, bytes or bytearray, not NoneType
-2021-02-17 13:22:10,347 INFO: New Session Started
-2021-02-17 13:22:10,350 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:22:12,786 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:26:52,682 INFO: New Session Started
-2021-02-17 13:26:52,685 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:26:54,836 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:26:54,840 WARNING: message received at port 8080 doesn't have 2 sections
-2021-02-17 13:37:06,030 INFO: New Session Started
-2021-02-17 13:37:06,034 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:37:08,549 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:37:34,705 INFO: New Session Started
-2021-02-17 13:37:34,708 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:37:36,406 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:55:24,134 INFO: New Session Started
-2021-02-17 13:55:24,138 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:55:26,343 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
-2021-02-17 13:55:58,331 INFO: New Session Started
-2021-02-17 13:55:58,334 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
-2021-02-17 13:56:00,335 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-17 14:43:14,651 INFO: New Session Started
+2021-02-17 14:43:14,655 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-17 14:43:16,555 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-17 14:45:15,434 INFO: New Session Started
+2021-02-17 14:45:15,438 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-17 14:45:17,389 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-17 15:04:14,443 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-17 15:04:16,850 INFO: New Session Started
+2021-02-17 15:04:16,854 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3

@@ -32,11 +32,13 @@ def main():
 
     # create encryption keys for this node (if needed)
     g.my_pr_key = ke.create_key(g.my_port)
+    # print(f"my_pr_key at initialization = {g.my_pr_key}")
 
-    print(f"my_pr_key at initialization = {g.my_pr_key}")
     # create genesis block for this node
     g.blockchain.append(bf.create_genesis_block())
+    print("This node's Genesis block hash: ", g.blockchain[0].hash)
 
+    # Log node startup
     logging.info(f"Node started at port {g.my_port} with hash {g.my_hash}")
     print(f"Node started at port {g.my_port}")
 

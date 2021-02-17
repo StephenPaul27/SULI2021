@@ -33,6 +33,8 @@ class Block:
 def get_blocks():
     """
     This function returns a json-string of blocks in this node's blockchain
+
+    :returns: returns local blockchain in dictionary form
     """
     # chain_to_send = blockchain
     chain_to_send = []
@@ -61,6 +63,8 @@ def create_genesis_block():
     This function creates the genesis block upon this node's instantiation.
     This is only relevant if it is the first node in the system, as all other nodes will
     seek consensus and throw away their genesis block
+
+    :return: returns a genesis block
     """
     # Manually construct a block with
     # index zero and arbitrary previous hash
@@ -113,6 +117,8 @@ def consensus():
 def validate(chain, lasthash):
     """
     This function validates a chain against itself and its claimed hash
+
+    :returns: boolean value representing validity of the provided chain and hash
     """
     print("Validating:", lasthash)
     # initialize the hash

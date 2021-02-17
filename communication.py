@@ -22,9 +22,6 @@ class Receiver(threading.Thread):
         This function is the listener for incoming messages
         """
 
-        print(f"testing my hash: {g.my_hash}")
-        print(f"my_pr_key in communication.py = {g.my_pr_key}")
-
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
@@ -44,18 +41,22 @@ class Receiver(threading.Thread):
                 # while loop to read in data from incoming message
                 while True:
 
-                    data = connection.recv(1024)
+                    # Receive 2048 bytes at a time
+                    data = connection.recv(2048)
+
+                    # accumulate the bytes into the message
                     full_message = full_message + data
-                    print("data:"+str(data))
+                    # print("data:"+str(data))
 
                     # once data has stopped coming in, decode the message
                     if not data:
 
-                        print("\nreceived encrypted message:",full_message)
+                        # print("\nreceived encrypted message:",full_message)
+
                         # decrypt received message using known key:
                         full_message = crypt.decrypt(full_message)
 
-                        print("\ndecrypted message:", full_message)
+                        # print("\ndecrypted message:", full_message)
 
                         try:
                             # load the message structure
@@ -64,12 +65,14 @@ class Receiver(threading.Thread):
                             # load the data structure that the message is carrying
                             msgData = json.loads(msgJson['data'])
                             # print("msgJson", msgJson)
+
                         # Exception catch from message conversion to json
                         except Exception as e:
                             print(f"Error decoding received message: {e}")
-                            logging.warning(f"Error decoding received message at port {self.port}: {e}")
+                            logging.error(f"Error decoding received message at port {self.port}: {e}")
                             break
-                        # action upon handshake
+
+                        # action upon receiving an introduction or introduction response
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
 
                             # map sender's hash to its local port
@@ -81,30 +84,36 @@ class Receiver(threading.Thread):
                         # Response algorithm
                         if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
                                 and msgJson['to'] == self.port:
-                            # print(f"current blockchain: {g.blockchain}")
+
                             # respond with port and blockchain for consensus
                             try:
-                                print(f"testing myhash again: {g.my_hash}")
                                 message = {
                                     "type": "response",
                                     "from": g.my_hash,
                                     "to": msgJson['from'],
                                     "time": time.time()
                                 }
+
+                                # if responding to introduction, include port with blockchain
                                 if msgJson['type'] == "intro":
                                     message['data'] = json.dumps({"fromport": self.port,
                                           "lasthash": g.blockchain[-1].hash, "chain": bf.get_blocks()})
-                                    # append new node to list of nodes
+
+                                    # append new node to list of seen nodes
                                     if msgJson['from'] not in g.node_list:
                                         g.node_list.append(msgData['fromport'])
                                         # print(f"node list: {node_list}")
+
+                                # if responding to a request, just use the blockchain
                                 else:
                                     message['data'] = json.dumps({"lasthash": g.blockchain[-1].hash,
                                                                   "chain": bf.get_blocks()})
+                                # finally send the message
                                 sendMessage(json.dumps(message), int(msgData['fromport']))
+
                             except Exception as e:
                                 print("could not respond to introduction because", e)
-                                logging.warning(f"port {self.port} could not respond to introduction because {e}")
+                                logging.error(f"port {self.port} could not respond to introduction because {e}")
                                 # breakpoint()
 
                             # reaction to response
@@ -114,7 +123,8 @@ class Receiver(threading.Thread):
                             # recognize consensus only on NEW blocks
                             if loaded_chain[-1]['index'] > g.consensus_index:
 
-                                g.consensus_count += 1    #increment number of consensus messages received
+                                # increment number of consensus messages received
+                                g.consensus_count += 1
 
                                 # Histogram the votes for the blockchain hash
                                 if msgData['lasthash'] in g.consensus_dict:
@@ -143,6 +153,7 @@ class Receiver(threading.Thread):
                                   f"data: {msgJson['data']}\n"
                                   f"time: {msgJson['time']}\n")
 
+                        # break to accept new messages
                         break
             finally:
                 #connection.shutdown(2)
@@ -158,8 +169,6 @@ class Sender(threading.Thread):
     """
     def __init__(self, my_host, my_port):
         threading.Thread.__init__(self, name="messenger_sender")
-        # self.host = my_friends_host
-        # self.port = my_friends_port
         self.my_host = my_host
         self.my_port = my_port
 
@@ -187,7 +196,8 @@ class Sender(threading.Thread):
                     do_nothing = True
 
         while True:
-            time.sleep(g.MSG_PERIOD)      # broadcast every MSG_PERIOD seconds
+            # broadcast every MSG_PERIOD seconds
+            time.sleep(g.MSG_PERIOD)
             # breakpoint()
             # print(f"node list: {node_list}")
             for j in g.node_list:     # broadcast to all seen nodes
@@ -208,20 +218,26 @@ class Sender(threading.Thread):
                         except Exception as e:
                             logging.warning(f"Unable to send power reference from port {self.my_port} to port {j}")
 
-"""
-This function sends a given message to a given port
-"""
+
 def sendMessage(message, destPort):
+    """
+    This function sends a given message to a given port
+
+    :param message: The string message to send
+    :param destPort: The port of the destination node
+    """
     # establish connection to port
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((g.BASE_HOST, destPort))
 
-    print(f"before encryption: {message}")
+    # print(f"before encryption: {message}")
 
+    # encrypt the message
     message = crypt.encrypt(message, destPort)
 
-    print(f"after encryption: {message}")
+    # print(f"after encryption: {message}")
 
+    # send all bytes of the message
     s.sendall(message)
 
     # close connection

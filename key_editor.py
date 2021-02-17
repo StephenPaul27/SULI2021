@@ -84,6 +84,9 @@ def create_key(port):
 def get_pub_key(port):
     """
     This function will read the public key of a port
+
+    :param port: The port of which to retrieve the public key
+    :return: returns the public key object read from the json file
     """
 
     # Read json from storage

@@ -4,9 +4,17 @@ This file will contain functions for encrypting and decrypting messages
 
 from all_imports import *
 
+
 def decrypt(message):
-    # load the json received
+    """
+    This function will decrypt the provided bytes into a usable form
+
+    :param message: message bytes to decrypt
+    :return: decrypted message string
+    """
+
     try:
+        # load the incoming json
         inJson = json.loads(message.decode(g.ENCODING))
         fkey = bytes(base64.b64decode(inJson['key']))
         message = bytes(base64.b64decode(inJson['msg']))
@@ -32,7 +40,15 @@ def decrypt(message):
         logging.error(f"Message received at {g.my_port} was not formatted in a Json for decryption")
         return "ERROR"
 
+
 def encrypt(message, destPort):
+    """
+    This function will encrypt a given string using hybrid encryption
+
+    :param message: The string to encrypt
+    :param destPort: The port of the destination node
+    :return: encoded Json of the encrypted message and key
+    """
 
     # generate a random symmetric key
     fkey = Fernet.generate_key()
@@ -63,6 +79,7 @@ def encrypt(message, destPort):
 
     # put encrypted data into a json to send
     outJson = json.dumps({
+        # data is encoded in base64 to work with Json
         "key": base64.b64encode(bytearray(fkey)).decode(g.ENCODING),
         "msg": base64.b64encode(bytearray(f.encrypt(message.encode(g.ENCODING)))).decode(g.ENCODING)
     })
