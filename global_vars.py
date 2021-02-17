@@ -35,6 +35,8 @@ my_port = int(sys.argv[1])
 
 my_hash = 0         # filler for global hash variable
 
+my_pr_key = 0      # filler for global private key variable
+
 # List of node hashes seen by this node (i.e. exclusive of itself)
 node_list = []      # list of node hashes
 

@@ -34,13 +34,12 @@ def get_blocks():
     """
     This function returns a json-string of blocks in this node's blockchain
     """
-    global blockchain
     # chain_to_send = blockchain
     chain_to_send = []
     # Convert our blocks into dictionaries
     # so we can send them as json objects later
-    for i in range(len(blockchain)):
-        block = blockchain[i]
+    for i in range(len(g.blockchain)):
+        block = g.blockchain[i]
         block_index = block.index
         block_timestamp = str(block.timestamp)
         block_data = str(block.data)
@@ -77,45 +76,38 @@ def consensus():
     Once all "votes" have been received or the time window has expired, the most popular
     "vote" is copied to our blockchain if it is agreed upon by >50% of the nodes
     """
-    global consensus_index
-    global consensus_count
-    global consensus_dict
-    global consensus_time
-    global chain_dict
-    global blockchain
-    global node_list
 
     # sort consensus dict by quantity of nodes agreeing on a hash
-    sorted_consensus = sorted(consensus_dict, key=lambda k: len(consensus_dict[k]), reverse=True)
+    sorted_consensus = sorted(g.consensus_dict, key=lambda k: len(g.consensus_dict[k]), reverse=True)
 
     # debugging
     # print(f"before consensus performed, chain: {blockchain[-1].hash}")
-    # print(f"consensus_time: {consensus_time}")
-    # print(f"consensus_dict: {consensus_dict}")
+    # print(f"g.consensus_time: {g.consensus_time}")
+    # print(f"g.consensus_dict: {g.consensus_dict}")
     # print(f"sorted_consensus: {sorted_consensus}")
 
     # If most popular choice has > than half of all nodes agreeing, go with that choice
-    if len(consensus_dict[sorted_consensus[0]]) > (len(node_list))/2:
+    if len(g.consensus_dict[sorted_consensus[0]]) > (len(g.node_list))/2:
 
         # erase any blocks in our chain that have not been agreed on
-        while len(blockchain) and blockchain[-1].index > consensus_index:
-            blockchain.pop(len(blockchain)-1)
+        while len(g.blockchain) and g.blockchain[-1].index > g.consensus_index:
+            g.blockchain.pop(len(g.blockchain)-1)
 
         # add each block to our blockchain that is past what we've already agreed on
-        for i in chain_dict[sorted_consensus[0]]:
-            if i['index'] > consensus_index:
-                blockchain.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
-                consensus_index = i['index']
+        for i in g.chain_dict[sorted_consensus[0]]:
+            if i['index'] > g.consensus_index:
+                g.blockchain.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
+                g.consensus_index = i['index']
     else:
         logging.warning(f"consensus error: popular choice <= half of all nodes, at port {my_port}")
 
     # Reset consensus variables
-    consensus_count = 0
-    consensus_dict = {}
-    consensus_time = 0
-    chain_dict = {}
+    g.consensus_count = 0
+    g.consensus_dict = {}
+    g.consensus_time = 0
+    g.chain_dict = {}
 
-    print(f"Consensus performed, resulting chain: {blockchain[-1].hash}")
+    print(f"Consensus performed, resulting chain: {g.blockchain[-1].hash}")
 
 
 def validate(chain, lasthash):
@@ -127,7 +119,7 @@ def validate(chain, lasthash):
     sha = hasher.sha256()
     sha.update((str(chain[0]['index']) + str(chain[0]['timestamp']) + str(chain[0]['data']) + str(chain[0]['previous_hash'])).encode())
 
-    # check validity of provided blockchain (for every block after the first)
+    # check validity of provided g.blockchain (for every block after the first)
     if len(chain) > 1:
         for i in range(0, len(chain)-1):
             # reproduce the hash from the data in each block
@@ -141,7 +133,7 @@ def validate(chain, lasthash):
 
     # check final hash against provided hash
     # also check that the provided blockchain is longer than what we've agreed on already
-    if lasthash != sha.hexdigest() or (consensus_index >= chain[-1]['index']):
+    if lasthash != sha.hexdigest() or (g.consensus_index >= chain[-1]['index']):
         print("Failed: bad hash/index")
         logging.warning(f"{lasthash} did not match it chain or was not long enough")
         return False

@@ -22,14 +22,13 @@ class Receiver(threading.Thread):
         This function is the listener for incoming messages
         """
 
-        global blockchain
-        global NUM_NODES
-        global ENCODING
+        print(f"testing my hash: {g.my_hash}")
+        print(f"my_pr_key in communication.py = {g.my_pr_key}")
 
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
-        sock.listen(NUM_NODES)
+        sock.listen(g.NUM_NODES)
         # print("server started")
 
         # while loop to accept incoming connections/messages
@@ -40,24 +39,23 @@ class Receiver(threading.Thread):
             # print(connection)
 
             try:
-                full_message = ""
+                full_message = b''
 
                 # while loop to read in data from incoming message
                 while True:
 
                     data = connection.recv(1024)
-                    full_message = full_message + data.decode(ENCODING)
-                    # print(data.decode(ENCODING))
+                    full_message = full_message + data
+                    print("data:"+str(data))
 
                     # once data has stopped coming in, decode the message
                     if not data:
 
-                        print("received encrypted message:",full_message)
-
+                        print("\nreceived encrypted message:",full_message)
                         # decrypt received message using known key:
-                        full_message = Fkey.decrypt(full_message.encode(ENCODING)).decode(ENCODING)
+                        full_message = crypt.decrypt(full_message)
 
-                        print("decrypted message:", full_message)
+                        print("\ndecrypted message:", full_message)
 
                         try:
                             # load the message structure
@@ -75,32 +73,33 @@ class Receiver(threading.Thread):
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
 
                             # map sender's hash to its local port
-                            port_to_hash[msgData['fromport']] = msgJson['from']
-                            hash_to_port[msgJson['from']] = msgData['fromport']
+                            g.port_to_hash[msgData['fromport']] = msgJson['from']
+                            g.hash_to_port[msgJson['from']] = msgData['fromport']
 
                             # print(f"received handshake from {msgJson['data']}")
 
                         # Response algorithm
                         if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
                                 and msgJson['to'] == self.port:
-                            # print(f"current blockchain: {blockchain}")
+                            # print(f"current blockchain: {g.blockchain}")
                             # respond with port and blockchain for consensus
                             try:
+                                print(f"testing myhash again: {g.my_hash}")
                                 message = {
                                     "type": "response",
-                                    "from": my_hash,
+                                    "from": g.my_hash,
                                     "to": msgJson['from'],
                                     "time": time.time()
                                 }
                                 if msgJson['type'] == "intro":
                                     message['data'] = json.dumps({"fromport": self.port,
-                                          "lasthash": blockchain[-1].hash, "chain": bf.get_blocks()})
+                                          "lasthash": g.blockchain[-1].hash, "chain": bf.get_blocks()})
                                     # append new node to list of nodes
-                                    if msgJson['from'] not in node_list:
-                                        node_list.append(msgData['fromport'])
+                                    if msgJson['from'] not in g.node_list:
+                                        g.node_list.append(msgData['fromport'])
                                         # print(f"node list: {node_list}")
                                 else:
-                                    message['data'] = json.dumps({"lasthash": blockchain[-1].hash,
+                                    message['data'] = json.dumps({"lasthash": g.blockchain[-1].hash,
                                                                   "chain": bf.get_blocks()})
                                 sendMessage(json.dumps(message), int(msgData['fromport']))
                             except Exception as e:
@@ -110,35 +109,31 @@ class Receiver(threading.Thread):
 
                             # reaction to response
                         elif msgJson['type'] == "response":
-                            global consensus_dict
-                            global consensus_time
-                            global consensus_count
-                            global chain_dict
                             loaded_chain = json.loads(msgData['chain'])
 
                             # recognize consensus only on NEW blocks
-                            if loaded_chain[-1]['index'] > consensus_index:
+                            if loaded_chain[-1]['index'] > g.consensus_index:
 
-                                consensus_count += 1    #increment number of consensus messages received
+                                g.consensus_count += 1    #increment number of consensus messages received
 
                                 # Histogram the votes for the blockchain hash
-                                if msgData['lasthash'] in consensus_dict:
-                                    consensus_dict[msgData['lasthash']].append(msgJson['from'])
+                                if msgData['lasthash'] in g.consensus_dict:
+                                    g.consensus_dict[msgData['lasthash']].append(msgJson['from'])
                                 # if not in the histogram yet, add them after validating the chain
                                 elif bf.validate(loaded_chain, msgData['lasthash']):
                                     # store the chain itself
-                                    chain_dict[msgData['lasthash']] = loaded_chain
+                                    g.chain_dict[msgData['lasthash']] = loaded_chain
                                     # add to histogram
-                                    consensus_dict[msgData['lasthash']] = [msgJson['from']]
+                                    g.consensus_dict[msgData['lasthash']] = [msgJson['from']]
 
                                 # if consensus has timed out or received messages from all nodes
-                                if (consensus_time and (time.time() - consensus_time > CONSENSUS_TIMEOUT))\
-                                        or consensus_count == len(node_list):
+                                if (g.consensus_time and (time.time() - g.consensus_time > g.g.consensus_timeOUT))\
+                                        or g.consensus_count == len(g.node_list):
                                     bf.consensus()
-                                elif not consensus_time:
+                                elif not g.consensus_time:
                                     #print("STARTING CONSENSUS TIMER")
                                     # Start recording time since consensus began
-                                    consensus_time = time.time()
+                                    g.consensus_time = time.time()
 
                         # reaction to power ref transmission
                         elif msgJson['type'] == "powerref":
@@ -171,44 +166,47 @@ class Sender(threading.Thread):
     def run(self):
 
         # Introduce yourself on the first run
-        for i in range(0, NUM_NODES):  # broadcast to connected clients from 8080 to 80XX
-            if BASE_PORT + i != self.my_port:   # don't send to yourself
+        for i in range(0, g.NUM_NODES):  # broadcast to connected clients from 8080 to 80XX
+            if g.BASE_PORT + i != self.my_port:   # don't send to yourself
                 try:
                     # send my hash to all existing nodes
                     message = json.dumps({
                         "type": "intro",
-                        "from": my_hash,
-                        "to": BASE_PORT + i,
+                        "from": g.my_hash,
+                        "to": g.BASE_PORT+i,
                         "data": json.dumps({"fromport": self.my_port}),
                         "time": time.time()
                     })
-                    sendMessage(message, BASE_PORT + i)
+                    sendMessage(message, g.BASE_PORT + i)
 
                     # track active ports/nodes that successfully connected
-                    node_list.append(BASE_PORT+i)
+                    g.node_list.append(g.BASE_PORT+i)
 
                 except Exception as e:
-                    #print(f"no connection detected at {BASE_PORT+i}")
+                    print(f"no connection detected at {g.BASE_PORT+i} because {e}")
                     do_nothing = True
 
         while True:
-            time.sleep(MSG_PERIOD)      # broadcast every MSG_PERIOD seconds
+            time.sleep(g.MSG_PERIOD)      # broadcast every MSG_PERIOD seconds
             # breakpoint()
             # print(f"node list: {node_list}")
-            for i in node_conn[self.my_port]["downstream"]:   # broadcast power reference to downstream nodes
-                # failsafe: dont broadcast to yourself
-                if(i != self.my_port):
-                    try:
-                        message = json.dumps({
-                            "type": "powerref",
-                            "from": my_hash,
-                            "to": port_to_hash[i],
-                            "data": {"kW": 32.56},
-                            "time": time.time()
-                        })
-                        sendMessage(message, i)
-                    except Exception as e:
-                        logging.warning(f"Unable to send power reference from port {self.my_port} to port {i}")
+            for j in g.node_list:     # broadcast to all seen nodes
+                for i in g.node_conn[str(self.my_port)]["downstream"]:   # send power reference to downstream nodes
+                    # failsafe: dont broadcast to yourself
+                    if(i != self.my_port):
+                        try:
+                            message = json.dumps({
+                                "type": "powerref",
+                                "from": g.my_hash,
+                                "to": g.port_to_hash[i],
+                                "data": json.dumps({"kW": 32.56}),
+                                "time": time.time()
+                            })
+                            logging.debug(f"Message({self.my_port} - {j}): power ref from {self.my_port} to {i}")
+                            # broad cast that you're sending power reference to i
+                            sendMessage(message, j)
+                        except Exception as e:
+                            logging.warning(f"Unable to send power reference from port {self.my_port} to port {j}")
 
 """
 This function sends a given message to a given port
@@ -216,10 +214,14 @@ This function sends a given message to a given port
 def sendMessage(message, destPort):
     # establish connection to port
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((BASE_HOST, destPort))
+    s.connect((g.BASE_HOST, destPort))
 
-    # encrypt message before sending
-    message = Fkey.encrypt(message.encode(ENCODING))
+    print(f"before encryption: {message}")
+
+    message = crypt.encrypt(message, destPort)
+
+    print(f"after encryption: {message}")
+
     s.sendall(message)
 
     # close connection

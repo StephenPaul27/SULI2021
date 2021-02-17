@@ -16,7 +16,7 @@ def add_node():
 
     # Create Json object for this new node
     node_file[str(len(node_file))] = {
-        "port": BASE_PORT+len(node_file),
+        "port": g.BASE_PORT+len(node_file),
         "hash": sha.hexdigest()
     }
 

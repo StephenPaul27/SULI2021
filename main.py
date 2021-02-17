@@ -18,33 +18,35 @@ def main():
     This is the main function, it executes the rest of the code
     """
 
-    global my_hash
-
     # format the log
     logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 
     # Identify start of new log
-    if my_port == BASE_PORT:
+    if g.my_port == g.BASE_PORT:
         logging.info("New Session Started")
 
     # create random hash to represent this node (if needed)
-    my_hash = ne.new_node(my_port)
+    g.my_hash = ne.new_node(g.my_port)
 
+    # create encryption keys for this node (if needed)
+    g.my_pr_key = ke.create_key(g.my_port)
+
+    print(f"my_pr_key at initialization = {g.my_pr_key}")
     # create genesis block for this node
-    blockchain.append(bf.create_genesis_block())
+    g.blockchain.append(bf.create_genesis_block())
 
-    logging.info(f"Node started at port {my_port} with hash {my_hash}")
-    print(f"Node started at port {my_port}")
+    logging.info(f"Node started at port {g.my_port} with hash {g.my_hash}")
+    print(f"Node started at port {g.my_port}")
 
     # add port and hash into the map
-    port_to_hash[my_port] = my_hash
-    hash_to_port[my_hash] = my_port
+    g.port_to_hash[g.my_port] = g.my_hash
+    g.hash_to_port[g.my_hash] = g.my_port
 
     # set up server and client objects
-    receiver = comm.Receiver(BASE_HOST, my_port)
-    sender = comm.Sender(BASE_HOST, my_port)
+    receiver = comm.Receiver(g.BASE_HOST, g.my_port)
+    sender = comm.Sender(g.BASE_HOST, g.my_port)
 
     threads = [receiver.start(), sender.start()]
 
