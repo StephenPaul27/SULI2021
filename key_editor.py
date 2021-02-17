@@ -37,10 +37,10 @@ def create_key(port):
         with open("Storage/public_keys.json", "r") as f:
             pub_key_file = json.load(f)
 
-        # generate the keys for this node
+        # generate the private and public keys for this node
         pr_key = rsa.generate_private_key(
                 public_exponent=65537,
-                key_size=2048,
+                key_size=2048,      # reduce key size for faster runtime
                 backend=default_backend()
             )
         pu_key = pr_key.public_key()

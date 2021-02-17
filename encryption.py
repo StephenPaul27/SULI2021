@@ -5,14 +5,11 @@ This file will contain functions for encrypting and decrypting messages
 from all_imports import *
 
 def decrypt(message):
-    if b'gAAAAA' in message:
-        msg_array = message.split(b'gAAAAA')
-        if len(msg_array) != 2:
-            logging.warning(f"message received at port {g.my_port} doesn't have 2 sections")
-
-        msg_array[1] = b'gAAAAA' + msg_array[1]
-        fkey = msg_array[0]
-        message = msg_array[1]
+    # load the json received
+    try:
+        inJson = json.loads(message.decode(g.ENCODING))
+        fkey = bytes(base64.b64decode(inJson['key']))
+        message = bytes(base64.b64decode(inJson['msg']))
 
         # use this node's private key to decrypt the symmetric key
         if g.my_pr_key:
@@ -30,9 +27,10 @@ def decrypt(message):
         # use the symmetric key to decrypt and return the message
         f = Fernet(fkey)
         return f.decrypt(message).decode(g.ENCODING)
-    else:
-        print("Message missing '|'")
-        logging.warning(f"Message recevied at {g.my_port} missing '|'")
+    except:
+        print(f"Message received at {g.my_port} was not formatted in a Json for decryption")
+        logging.error(f"Message received at {g.my_port} was not formatted in a Json for decryption")
+        return "ERROR"
 
 def encrypt(message, destPort):
 
@@ -63,5 +61,11 @@ def encrypt(message, destPort):
 
     # print(f"final message during encryption: {fkey + b'|' + f.encrypt(message.encode(g.ENCODING))}")
 
+    # put encrypted data into a json to send
+    outJson = json.dumps({
+        "key": base64.b64encode(bytearray(fkey)).decode(g.ENCODING),
+        "msg": base64.b64encode(bytearray(f.encrypt(message.encode(g.ENCODING)))).decode(g.ENCODING)
+    })
+
     # return publicly encrypted fkey with symmetrically encrypted message
-    return fkey + f.encrypt(message.encode(g.ENCODING))
+    return outJson.encode(g.ENCODING)
