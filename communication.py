@@ -137,7 +137,7 @@ class Receiver(threading.Thread):
                                     g.consensus_dict[msgData['lasthash']] = [msgJson['from']]
 
                                 # if consensus has timed out or received messages from all nodes
-                                if (g.consensus_time and (time.time() - g.consensus_time > g.g.consensus_timeOUT))\
+                                if (g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT))\
                                         or g.consensus_count == len(g.node_list):
                                     bf.consensus()
                                 elif not g.consensus_time:
