@@ -147,11 +147,25 @@ class Receiver(threading.Thread):
 
                         # reaction to power ref transmission
                         elif msgJson['type'] == "powerref":
-                            print(f"type: {msgJson['type']}\n"
-                                  f"from: {msgJson['from']}\n"
-                                  f"to: {msgJson['to']}\n"
-                                  f"data: {msgJson['data']}\n"
-                                  f"time: {msgJson['time']}\n")
+                            for j in g.node_list:  # broadcast to all seen nodes
+                                # for i in g.node_conn[str(self.my_port)]["upstream"]:  # send power reference to downstream nodes
+                                    # failsafe: dont broadcast to yourself
+                                    if (i != self.my_port):
+                                        try:
+                                            message = json.dumps({
+                                                "type": "powerref",
+                                                "from": g.my_hash,
+                                                "to": msgJson['from'],
+                                                "data": json.dumps({"kW": 32.56}),
+                                                "time": time.time()
+                                            })
+                                            logging.debug(
+                                                f"Message({self.my_port} - {j}): power ref from {self.my_port} to {i}")
+                                            # broad cast that you're sending power reference to i
+                                            sendMessage(message, j)
+                                        except Exception as e:
+                                            logging.warning(
+                                                f"Unable to send power reference from port {self.my_port} to port {j}")
 
                         # break to accept new messages
                         break

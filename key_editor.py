@@ -53,7 +53,7 @@ def create_key(port):
                     encryption_algorithm=serialization.NoEncryption()
                     )
                 )
-            ).decode(ENCODING)
+            ).decode(g.ENCODING)
         pu_write = base64.b64encode(
             bytearray(
                 pu_key.public_bytes(
@@ -61,7 +61,7 @@ def create_key(port):
                     format=serialization.PublicFormat.SubjectPublicKeyInfo
                     )
                 )
-            ).decode(ENCODING)
+            ).decode(g.ENCODING)
 
         # write both keys into the local key storage (this would normally be local to each node)
         pri_key_file[str(port)] = {

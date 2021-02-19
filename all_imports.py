@@ -16,8 +16,8 @@ import logging
 
 
 import global_vars as g
+import node_editor as ne
 import blockchain_funcs as bf
 import key_editor as ke
 import encryption as crypt
 import communication as comm
-import node_editor as ne

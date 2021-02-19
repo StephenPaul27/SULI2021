@@ -7,3 +7,85 @@
 2021-02-17 15:04:14,443 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
 2021-02-17 15:04:16,850 INFO: New Session Started
 2021-02-17 15:04:16,854 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-19 09:35:15,897 INFO: New Session Started
+2021-02-19 09:35:15,920 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-19 09:35:15,921 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-19 09:36:01,572 INFO: New Session Started
+2021-02-19 09:36:01,575 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-19 09:36:01,674 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-19 09:36:01,938 INFO: Node started at port 8083 with hash 71bf0f293a6aa3277f9798c45d644389e73c324e860ae5bcfe87bb7f5f5ed4e7
+2021-02-19 09:36:01,971 INFO: Node started at port 8082 with hash c948d92047172488035ab13b28a319bd354d79338033aec9176b6d472654b108
+2021-02-19 09:36:01,978 ERROR: No public key detected at port 8083
+2021-02-19 09:36:01,979 ERROR: Message received at 8083 was not formatted in a Json for decryption
+2021-02-19 09:36:01,979 ERROR: Error decoding received message at port 8083: Expecting value: line 1 column 1 (char 0)
+2021-02-19 09:36:02,039 INFO: Node started at port 8084 with hash 0488d6e31fd03e256af022de52f6e786814b7a8fc6a49c2a5faefe65a0e1fcf0
+2021-02-19 09:36:02,047 ERROR: No public key detected at port 8083
+2021-02-19 09:36:02,047 ERROR: Message received at 8083 was not formatted in a Json for decryption
+2021-02-19 09:36:02,047 ERROR: Error decoding received message at port 8083: Expecting value: line 1 column 1 (char 0)
+2021-02-19 09:38:14,997 INFO: New Session Started
+2021-02-19 09:38:15,001 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-19 09:38:15,206 INFO: Node started at port 8081 with hash 4f3a3ae08e2f561237d36a6ab2b363184129c9168598444db63b5841dfbe11e7
+2021-02-19 09:38:15,412 INFO: Node started at port 8082 with hash c948d92047172488035ab13b28a319bd354d79338033aec9176b6d472654b108
+2021-02-19 09:38:15,759 INFO: Node started at port 8083 with hash 71bf0f293a6aa3277f9798c45d644389e73c324e860ae5bcfe87bb7f5f5ed4e7
+2021-02-19 09:38:15,825 INFO: Node started at port 8084 with hash 0488d6e31fd03e256af022de52f6e786814b7a8fc6a49c2a5faefe65a0e1fcf0
+2021-02-19 11:43:05,027 INFO: Node started at port 8085 with hash 75fe5779655bc5cd6267010a72c31a2b2188691ed0a1b90bea88081e54576b70
+2021-02-19 12:26:12,491 INFO: New Session Started
+2021-02-19 12:26:12,494 INFO: Node started at port 8080 with hash a150d5e6f296256c80d9bf6b38613062bece51ae1edd8b70dfc3be12d9a69fc3
+2021-02-19 12:31:06,576 INFO: New Session Started
+2021-02-19 12:31:52,761 INFO: New Session Started
+2021-02-19 12:31:52,765 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 12:35:09,880 INFO: New Session Started
+2021-02-19 12:35:36,727 INFO: New Session Started
+2021-02-19 12:41:40,133 INFO: New Session Started
+2021-02-19 12:42:35,652 INFO: New Session Started
+2021-02-19 12:45:42,857 INFO: New Session Started
+2021-02-19 12:46:43,969 INFO: New Session Started
+2021-02-19 12:47:26,745 INFO: New Session Started
+2021-02-19 12:48:40,478 INFO: New Session Started
+2021-02-19 12:50:38,214 INFO: New Session Started
+2021-02-19 12:51:04,833 INFO: New Session Started
+2021-02-19 12:51:04,837 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 12:51:08,892 INFO: New Session Started
+2021-02-19 12:51:08,896 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:05:21,746 INFO: New Session Started
+2021-02-19 13:05:21,750 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:07:43,256 INFO: New Session Started
+2021-02-19 13:07:43,260 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:10:05,450 INFO: New Session Started
+2021-02-19 13:10:05,454 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:11:34,438 INFO: New Session Started
+2021-02-19 13:11:34,442 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:11:36,002 INFO: Node started at port 8081 with hash 64290e1d627ddc793795d7e52e243fca9446ce978dbf9fabeb881043d9f5c27e
+2021-02-19 13:12:04,728 INFO: New Session Started
+2021-02-19 13:12:04,732 INFO: Node started at port 8080 with hash 272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732
+2021-02-19 13:12:04,934 INFO: Node started at port 8081 with hash 64290e1d627ddc793795d7e52e243fca9446ce978dbf9fabeb881043d9f5c27e
+2021-02-19 13:12:05,149 INFO: Node started at port 8082 with hash eceb889cc7fc020f20ca0fe1e4c2ea850a2d0081d338d997f5492ddb3201aa2c
+2021-02-19 13:12:05,356 INFO: Node started at port 8083 with hash 07db901da3d8cbbf5a793ea53bb3a191405bb4f53e13f4785b3a0b81f5446e98
+2021-02-19 13:12:05,564 INFO: Node started at port 8084 with hash d808835920b0a7e56eed78308b5b17f3481d9cacc0a599e3984f640c8b696d90
+2021-02-19 13:12:34,740 DEBUG: Message(8080 - 8081): power ref from 8080 to 8081
+2021-02-19 13:12:34,742 DEBUG: Message(8080 - 8082): power ref from 8080 to 8081
+2021-02-19 13:12:34,744 DEBUG: Message(8080 - 8083): power ref from 8080 to 8081
+2021-02-19 13:12:34,746 DEBUG: Message(8080 - 8084): power ref from 8080 to 8081
+2021-02-19 13:12:34,942 DEBUG: Message(8081 - 8080): power ref from 8081 to 8082
+2021-02-19 13:12:34,944 DEBUG: Message(8081 - 8082): power ref from 8081 to 8082
+2021-02-19 13:12:34,945 WARNING: Unable to send power reference from port 8081 to port 8082
+2021-02-19 13:12:34,946 DEBUG: Message(8081 - 8083): power ref from 8081 to 8082
+2021-02-19 13:12:34,946 WARNING: Unable to send power reference from port 8081 to port 8083
+2021-02-19 13:12:34,946 DEBUG: Message(8081 - 8084): power ref from 8081 to 8082
+2021-02-19 13:12:34,947 WARNING: Unable to send power reference from port 8081 to port 8084
+2021-02-19 13:12:35,158 DEBUG: Message(8082 - 8080): power ref from 8082 to 8083
+2021-02-19 13:12:35,159 WARNING: Unable to send power reference from port 8082 to port 8080
+2021-02-19 13:12:35,159 DEBUG: Message(8082 - 8081): power ref from 8082 to 8083
+2021-02-19 13:12:35,160 WARNING: Unable to send power reference from port 8082 to port 8081
+2021-02-19 13:12:35,160 DEBUG: Message(8082 - 8083): power ref from 8082 to 8083
+2021-02-19 13:12:35,161 WARNING: Unable to send power reference from port 8082 to port 8083
+2021-02-19 13:12:35,161 DEBUG: Message(8082 - 8084): power ref from 8082 to 8083
+2021-02-19 13:12:35,162 WARNING: Unable to send power reference from port 8082 to port 8084
+2021-02-19 13:12:35,362 DEBUG: Message(8083 - 8080): power ref from 8083 to 8084
+2021-02-19 13:12:35,362 WARNING: Unable to send power reference from port 8083 to port 8080
+2021-02-19 13:12:35,363 DEBUG: Message(8083 - 8081): power ref from 8083 to 8084
+2021-02-19 13:12:35,363 WARNING: Unable to send power reference from port 8083 to port 8081
+2021-02-19 13:12:35,363 DEBUG: Message(8083 - 8082): power ref from 8083 to 8084
+2021-02-19 13:12:35,363 WARNING: Unable to send power reference from port 8083 to port 8082
+2021-02-19 13:12:35,363 DEBUG: Message(8083 - 8084): power ref from 8083 to 8084
+2021-02-19 13:12:35,364 WARNING: Unable to send power reference from port 8083 to port 8084

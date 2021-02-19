@@ -14,7 +14,7 @@ echo Starting Nodes...
 for ((i=0; i<$NUM_NODES; i++))
 do
   python main.py $((BASE_PORT+i)) &
-  sleep .1
+  sleep .2
 done
 
 echo Nodes Started

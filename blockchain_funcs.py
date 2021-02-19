@@ -1,6 +1,7 @@
 """
 This file contains functions and classes related to the blockchain
 This includes the general structure, consensus, validation
+
 """
 
 # imports
@@ -57,6 +58,34 @@ def get_blocks():
     chain_to_send = json.dumps(chain_to_send)
     return chain_to_send
 
+def restore_chain():
+    """
+    This function will restore the blockchain from local storage
+
+    :param port: port of the node to search for the chain
+    :return: returns boolean, if false, generate genesis block
+    """
+    # Read json from storage
+    with open("Storage/nodes.json", "r") as f:
+        node_file = json.load(f)
+
+    chain_file = None
+
+    # return if node exists in file
+    for i in list(node_file):
+        if node_file[str(i)]["port"] == g.my_port:
+            if node_file[str(i)]["chain"]:
+                chain_file = json.loads(node_file[str(i)]["chain"])
+            else:
+                return False
+
+    if chain_file:
+        for i in list(chain_file):
+            g.blockchain.append(Block(i["index"], i["timestamp"], i["data"], i["previous_hash"]))
+        return True
+    else:
+        return False
+
 
 def create_genesis_block():
     """
@@ -64,8 +93,9 @@ def create_genesis_block():
     This is only relevant if it is the first node in the system, as all other nodes will
     seek consensus and throw away their genesis block
 
-    :return: returns a genesis block
+    :return: returns the object of a genesis block
     """
+
     # Manually construct a block with
     # index zero and arbitrary previous hash
     return Block(0, date.datetime.now(), {
@@ -112,6 +142,7 @@ def consensus():
     g.chain_dict = {}
 
     print(f"Consensus performed, resulting chain: {g.blockchain[-1].hash}")
+    ne.update_chain()
 
 
 def validate(chain, lasthash):
