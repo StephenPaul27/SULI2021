@@ -30,6 +30,50 @@ class Block:
         sha.update((str(self.index) + str(self.timestamp) + str(self.data) + str(self.previous_hash)).encode())
         return sha.hexdigest()
 
+class Transaction:
+    def __init__(self, timestamp, Pnode, Snode, power, sense):
+        """
+        This class is used to organize the transactions
+
+        :param timestamp: Timestamp of transaction confirmation
+        :param Pnode: hash of node sending power reference
+        :param Snode: hash of node sending sensitivity
+        :param power: power reference
+        :param sense: sensitivity
+        """
+
+        self.timestamp = timestamp
+        self.Pnode = Pnode
+        self.Snode = Snode
+        self.power = power
+        self.sense = sense
+        self.hash = self.hash_transaction()
+
+    def __lt__(self, other):
+        """
+        This function defines the ordering of transactions based on timestamp
+
+        :return: boolean of timestamp ordering (least to greatest time)
+        """
+        return self.timestamp < other.timestamp
+
+    def hash_transaction(self):
+        """
+        This function returns the hash of the transaction
+        """
+        sha = hasher.sha256()
+        sha.update((str(self.timestamp) + str(self.Pnode) + str(self.Snode) + str(self.power) + str(self.sense)).encode())
+        return sha.hexdigest()
+
+    def to_string(self):
+        return f"Time:{self.timestamp}\n" \
+               f"Pnode:{self.Pnode}\n" \
+               f"Snode:{self.Snode}\n" \
+               f"Power:{self.power}\n" \
+               f"Sensitivity:{self.sense}\n" \
+               f"Hash:{self.hash}\n"
+
+
 
 def get_blocks():
     """
@@ -85,6 +129,31 @@ def restore_chain():
         return True
     else:
         return False
+
+def add_transaction(timestamp, Pnode, Snode, power, sense):
+    """
+    This function will 'insort' a transaction into this nodes transaction list based on the confirmation timestamp
+
+    :param timestamp: Timestamp of transaction confirmation
+    :param Pnode: hash of node sending power reference
+    :param Snode: hash of node sending sensitivity
+    :param power: power reference
+    :param sense: sensitivity
+    :return: None
+    """
+
+    # create the transaction object
+    transaction_to_add = Transaction(timestamp, Pnode, Snode, power, sense)
+
+    # insort the transaction based on its timestamp
+    bisect.insort_left(g.this_nodes_transactions, transaction_to_add)
+
+    # update the transaction list hash
+    sha = hasher.sha256()
+    sha.update((str(g.transaction_list_hash)+str(transaction_to_add)).encode())
+    g.transaction_list_hash = sha.hexdigest()
+
+    logging.debug(f"Logging complete transaction: {transaction_to_add.to_string()}")
 
 
 def create_genesis_block():

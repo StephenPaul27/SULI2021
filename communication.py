@@ -75,9 +75,16 @@ class Receiver(threading.Thread):
                         # action upon receiving an introduction or introduction response
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
 
-                            # map sender's hash to its local port
-                            g.port_to_hash[msgData['fromport']] = msgJson['from']
-                            g.hash_to_port[msgJson['from']] = msgData['fromport']
+                            # map sender's hash to its local port and give it a unique identifier
+                            if msgData['fromport'] not in g.port_to_hash:
+                                sha = hasher.sha256()
+                                sha.update(str(time.time()).encode(g.ENCODING))
+                                # map sender's hash to its local port
+                                g.port_to_hash[msgData['fromport']] = msgJson['from']
+                                g.hash_to_port[msgJson['from']] = msgData['fromport']
+                                # give it a unique identifier for securing later messages
+                                g.identifier_dict[msgJson['from']] = sha.hexdigest()
+
 
                             # print(f"received handshake from {msgJson['data']}")
 
@@ -89,6 +96,7 @@ class Receiver(threading.Thread):
                             try:
                                 message = {
                                     "type": "response",
+                                    "identifier": msgJson['identifier'],
                                     "from": g.my_hash,
                                     "to": msgJson['from'],
                                     "time": time.time()
@@ -147,26 +155,93 @@ class Receiver(threading.Thread):
 
                         # reaction to power ref transmission
                         elif msgJson['type'] == "powerref":
+                            # for i in g.node_conn[str(self.my_port)]["upstream"]:  # send power reference to downstream nodes
+
+                            # clear tracked message
+                            g.transaction_tracking[msgData['id']] = []
+
+                            # clear timeout'd messages
+                            clearTimeouts()
+
+                            # store new tracked message
+                            g.transaction_tracking[msgData['id']].append({
+                                "type": msgJson['type'],
+                                "identifier": msgJson['identifier'],
+                                "from": msgJson['from'],
+                                "to": msgJson['to'],
+                                "value": msgData['power'],
+                                "time": msgJson['time']
+                            })
+
+                            logging.debug(
+                                f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): Received power ref from {g.hash_to_port[msgJson['from']]} to {self.port}")
+
+                            logging.debug(f"updated transaction at index {msgData['id']}: {g.transaction_tracking[msgData['id']]}")
+
                             for j in g.node_list:  # broadcast to all seen nodes
-                                # for i in g.node_conn[str(self.my_port)]["upstream"]:  # send power reference to downstream nodes
-                                    # failsafe: dont broadcast to yourself
-                                    if (i != self.my_port):
+                                try:
+                                    # write sensitivity message
+                                    # this is where sensitivity would be calculated
+                                    message = json.dumps({
+                                        "type": "sensitivity",
+                                        "identifier": msgJson['identifier'],
+                                        "from": g.my_hash,
+                                        "to": msgJson['from'],
+                                        "data": json.dumps({"id":msgData['id'], "power": msgData['power'],
+                                                            "sensitivity": 1, "time":msgData['time']}),
+                                        "time": time.time()
+                                    })
+                                    logging.debug(
+                                        f"Message({self.port} - {j}): Sending sensitivity from {self.port} to {g.hash_to_port[msgJson['from']]}")
+
+                                    # broad cast that you're sending power reference to i
+                                    sendMessage(message, j)
+                                except Exception as e:
+                                    print(f"Couldn't send power ref because {e}")
+                                    logging.warning(f"Unable to respond to power reference from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
+                        elif msgJson['type'] == "sensitivity" and msgJson['identifier'] == g.identifier_dict[msgJson['from']]:
+
+                            logging.debug(
+                                f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): Received sensitivity from {g.hash_to_port[msgJson['from']]} to {self.port}")
+
+                            # clear timeout'd messages
+                            clearTimeouts()
+
+                            # store new tracked message
+                            if str(msgData['id']) in g.transaction_tracking:
+                                # check that the response power matches the recorded power
+                                if g.transaction_tracking[msgData['id']][0]['value'] == msgData['power']:
+                                    g.transaction_tracking[msgData['id']].append({
+                                        "type": msgJson['type'],
+                                        "identifier": msgJson['identifier'],
+                                        "from": msgJson['from'],
+                                        "to": msgJson['to'],
+                                        "value": msgData['sensitivity'],
+                                        "time": msgJson['time']
+                                    })
+                                    # store transactions
+                                    bf.add_transaction(msgData['time'], msgJson['to'], msgJson['from'],
+                                                       msgData['power'], msgData['sensitivity'])
+                                    for j in g.node_list:  # broadcast to all seen nodes
                                         try:
+                                            # write confirmation message
                                             message = json.dumps({
-                                                "type": "powerref",
+                                                "type": "confirm",
+                                                "identifier": msgJson['identifier'],
                                                 "from": g.my_hash,
                                                 "to": msgJson['from'],
-                                                "data": json.dumps({"kW": 32.56}),
+                                                "data": json.dumps({"id": msgData['id'], "power": msgData['power'],
+                                                                    "sensitivity": msgData['sensitivity'], "time":msgData['time']}),
                                                 "time": time.time()
                                             })
-                                            logging.debug(
-                                                f"Message({self.my_port} - {j}): power ref from {self.my_port} to {i}")
-                                            # broad cast that you're sending power reference to i
+                                            # broadcast that you're sending confirmation to i
                                             sendMessage(message, j)
                                         except Exception as e:
-                                            logging.warning(
-                                                f"Unable to send power reference from port {self.my_port} to port {j}")
-
+                                            logging.warning(f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
+                                else:
+                                    logging.warning(f"Power mismatch at port {g.my_port}")
+                            else:
+                                logging.warning(f"{msgData['id']} not found in transaction tracking at port {g.my_port}")
                         # break to accept new messages
                         break
             finally:
@@ -195,6 +270,7 @@ class Sender(threading.Thread):
                     # send my hash to all existing nodes
                     message = json.dumps({
                         "type": "intro",
+                        "identifier": None,
                         "from": g.my_hash,
                         "to": g.BASE_PORT+i,
                         "data": json.dumps({"fromport": self.my_port}),
@@ -219,18 +295,55 @@ class Sender(threading.Thread):
                     # failsafe: dont broadcast to yourself
                     if(i != self.my_port):
                         try:
-                            message = json.dumps({
+
+                            # specify default power reference (using 1 for normalization)
+                            message_power = 1
+
+                            # Create random hash to use as message index
+                            sha = hasher.sha256()
+                            sha.update(str(time.time()).encode())
+
+                            # create skeleton of message
+                            message_variables = {
                                 "type": "powerref",
+                                "identifier": g.identifier_dict[g.port_to_hash[i]],
                                 "from": g.my_hash,
                                 "to": g.port_to_hash[i],
-                                "data": json.dumps({"kW": 32.56}),
                                 "time": time.time()
-                            })
+                            }
+
+                            # copy the skeleton to track with different carried data
+                            tracked_message = message_variables
+
+                            # set the tracked simplified message value
+                            tracked_message['value'] = message_power
+
+                            # set the tracking id
+                            tracking_id = sha.hexdigest()
+
+                            # set the data for the actual message
+                            message_variables['data'] = json.dumps({
+                                "id": tracking_id,
+                                "power": message_power,
+                                "time": time.time()})
+
+                            # prepare to track message
+                            g.transaction_tracking[tracking_id] = []
+
+                            # clear timeout'd messages (if any)
+                            clearTimeouts()
+
+                            # store new tracked message
+                            g.transaction_tracking[tracking_id].append(tracked_message)
+
+                            # Create secure message
+                            message = json.dumps(message_variables)
                             logging.debug(f"Message({self.my_port} - {j}): power ref from {self.my_port} to {i}")
+
                             # broad cast that you're sending power reference to i
                             sendMessage(message, j)
                         except Exception as e:
-                            logging.warning(f"Unable to send power reference from port {self.my_port} to port {j}")
+                            logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
 
 
 def sendMessage(message, destPort):
@@ -256,3 +369,16 @@ def sendMessage(message, destPort):
 
     # close connection
     s.close()
+
+def clearTimeouts():
+    """
+    This function will clear message entries in the transaction tracking record if they have exceeded the timeout
+
+    :return: None
+    """
+
+    timeNow = time.time()
+    # pop any message records that have an age exceeding the timeout
+    for i in list(g.transaction_tracking):
+        if len(g.transaction_tracking[i]) and timeNow-g.transaction_tracking[i][0]['time'] > g.MSG_TIMEOUT:
+            g.transaction_tracking.pop(i)
