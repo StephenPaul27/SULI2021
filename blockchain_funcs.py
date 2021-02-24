@@ -30,6 +30,15 @@ class Block:
         sha.update((str(self.index) + str(self.timestamp) + str(self.data) + str(self.previous_hash)).encode())
         return sha.hexdigest()
 
+    def to_dict(self):
+        return {
+            "index": self.index,
+            "timestamp": str(self.timestamp),
+            "data": str(self.data),
+            "previous_hash": self.previous_hash,
+            "hash": self.hash
+        }
+
 class Transaction:
     def __init__(self, timestamp, Pnode, Snode, power, sense):
         """
@@ -83,30 +92,20 @@ def get_blocks():
     """
     # chain_to_send = blockchain
     chain_to_send = []
-    # Convert our blocks into dictionaries
-    # so we can send them as json objects later
+
+    # create list of block dicts to convert to json
     for i in range(len(g.blockchain)):
-        block = g.blockchain[i]
-        block_index = block.index
-        block_timestamp = str(block.timestamp)
-        block_data = str(block.data)
-        block_hash = block.hash
-        block_prevhash = block.previous_hash
-        chain_to_send.append({
-            "index": block_index,
-            "timestamp": block_timestamp,
-            "data": block_data,
-            "previous_hash": block_prevhash,
-            "hash": block_hash
-        })
+        chain_to_send.append(g.blockchain[i].to_dict())
+
+    # convert to json
     chain_to_send = json.dumps(chain_to_send)
+
     return chain_to_send
 
 def restore_chain():
     """
     This function will restore the blockchain from local storage
 
-    :param port: port of the node to search for the chain
     :return: returns boolean, if false, generate genesis block
     """
     # Read json from storage
@@ -148,13 +147,25 @@ def add_transaction(timestamp, Pnode, Snode, power, sense):
     # insort the transaction based on its timestamp
     bisect.insort_left(g.this_nodes_transactions, transaction_to_add)
 
-    # update the transaction list hash
-    sha = hasher.sha256()
-    sha.update((str(g.transaction_list_hash)+str(transaction_to_add)).encode())
-    g.transaction_list_hash = sha.hexdigest()
-
     logging.debug(f"Logging complete transaction: {transaction_to_add.to_string()}")
 
+def get_transaction_list_hash(this_list = g.this_nodes_transactions):
+    """
+    This function will hash together the list of transactions
+
+    :param this_list: can specify a different list to hash
+    :return: the resulting hash
+    """
+
+    sha = hasher.sha256()
+    # set arbitrary beginning hash
+    starting_hash = 100
+    sha.update(str(starting_hash))
+    for i in this_list:
+        # hash one transaction with previous transaction
+        starting_hash = sha.update(str(i.hash)+str(sha.hexdigest()))
+
+    return starting_hash
 
 def create_genesis_block():
     """
@@ -168,7 +179,6 @@ def create_genesis_block():
     # Manually construct a block with
     # index zero and arbitrary previous hash
     return Block(0, date.datetime.now(), {
-        "proof-of-work": 100,
         "transactions": None
     }, "0")
 
@@ -202,7 +212,7 @@ def consensus():
                 g.blockchain.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
                 g.consensus_index = i['index']
     else:
-        logging.warning(f"consensus error: popular choice <= half of all nodes, at port {my_port}")
+        logging.warning(f"consensus error: popular choice <= half of all nodes, at port {g.my_port}")
 
     # Reset consensus variables
     g.consensus_count = 0

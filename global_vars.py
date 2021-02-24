@@ -16,6 +16,7 @@ NUM_NODES = 5               # maximum number of nodes in system
 MSG_PERIOD = 30             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 10            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
+BLOCK_SIZE = 10             # size of each block of transactions to be added
 
 # Read encryption key from storage
 with open("Storage/CryptoKey.txt", "r") as f:
@@ -61,7 +62,6 @@ blockchain = []
 # Store the transactions that
 # this node sees in a list
 this_nodes_transactions = []
-transaction_list_hash = 100 # arbitrary number for transaction list hash
 
 # dictionary to track transmission of messages
 # indexed by a random message hash id
