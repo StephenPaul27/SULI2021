@@ -10,7 +10,7 @@ import json
 
 # Constants
 ENCODING = 'utf-8'
-BASE_PORT = 8080            # Base port for searching for nodes
+BASE_PORT = 8100            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
 NUM_NODES = 5               # maximum number of nodes in system
 MSG_PERIOD = 30             # seconds between broadcast of powerref downstream
@@ -33,7 +33,10 @@ Fkey = Fernet(cryptoKey)
 network_map = {}
 
 # read port from system arguments
-my_port = int(sys.argv[1])
+if(sys.argv[1]):
+    my_port = int(sys.argv[1])
+else:
+    my_port = BASE_PORT
 
 my_hash = 0         # filler for global hash variable
 

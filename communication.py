@@ -103,6 +103,8 @@ class Receiver(threading.Thread):
                         # reaction to sensitivity transmission
                         elif msgJson['type'] == "sensitivity" and msgJson['identifier'] == g.identifier_dict[msgJson['from']]:
                             self.respond_sensitivity(msgJson, msgData)
+                        elif msgJson['type'] == "addblock":
+                            self.respond_addblock(msgJson, msgData)
                         # break to accept new messages
                         break
             finally:
@@ -272,8 +274,10 @@ class Receiver(threading.Thread):
                     "time": msgJson['time']
                 })
                 # store transactions
-                bf.add_transaction(msgData['time'], msgJson['to'], msgJson['from'],
-                                   msgData['power'], msgData['sensitivity'])
+                bf.add_transaction(msgData['time'], "power", msgJson['from'], msgJson['to'],
+                                   msgData['power'])
+                bf.add_transaction(msgData['time'], "sense", msgJson['to'], msgJson['from'],
+                                   msgData['sensitivity'])
 
                 for j in g.node_list:  # broadcast to all seen nodes
                     try:
@@ -321,6 +325,15 @@ class Receiver(threading.Thread):
             logging.warning(f"{msgData['id']} not found in transaction tracking at port {g.my_port}")
 
 
+    def respond_addblock(self, msgJson, msgData):
+        """
+        This function is responsible for responding to addblock messages
+
+        :param msgJson:
+        :param msgData:
+        :return:
+        """
+
     def run(self):
         self.listen()
 
@@ -337,7 +350,7 @@ class Sender(threading.Thread):
     def run(self):
 
         # Introduce yourself on the first run
-        for i in range(0, g.NUM_NODES):  # broadcast to connected clients from 8080 to 80XX
+        for i in range(1, g.NUM_NODES+1):  # broadcast to connected clients from BASE_PORT+1 to BASE_PORT+NUM_NODES
             if g.BASE_PORT + i != self.my_port:   # don't send to yourself
                 try:
                     # send my hash to all existing nodes

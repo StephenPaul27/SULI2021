@@ -27,7 +27,7 @@ def create_key(port):
             backend=default_backend()
         )
 
-        print("found private key: ", key_decode)
+        #print("found private key: ", key_decode)
 
         # return private key object
         return key_decode

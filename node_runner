@@ -5,13 +5,13 @@
 
 # Variables
 NUM_NODES=${1:-5}       # Number of nodes to create
-BASE_PORT=${2:-8080}    # Base port to start creating nodes
+BASE_PORT=${2:-8100}    # Base port to start creating nodes
 TEST_DURATION=${3:-10}  # Seconds
 
 echo Starting Nodes...
 
 # start python script for each node
-for ((i=0; i<$NUM_NODES; i++))
+for ((i=1; i<=$NUM_NODES; i++))
 do
   python main.py $((BASE_PORT+i)) &
   sleep .2

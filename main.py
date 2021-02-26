@@ -12,7 +12,6 @@ The goal is to attain stability when <=1/3rd of nodes provide faulty information
 #imports
 from all_imports import *
 
-
 def main():
     """
     This is the main function, it executes the rest of the code
@@ -26,6 +25,17 @@ def main():
     # Identify start of new log
     if g.my_port == g.BASE_PORT:
         logging.info("New Session Started")
+
+    # # start consensus smart contract server if not started
+    # try:
+    #     # see if server is up already (will throw exception if connection refused)
+    #     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #     s.connect((g.BASE_HOST, g.BASE_PORT))
+    #     s.close()
+    # except:
+    #     # start consensus server
+    #     cons.Server(g.BASE_HOST, g.BASE_PORT)
+
 
     # create random hash to represent this node (if needed)
     g.my_hash = ne.new_node(g.my_port)

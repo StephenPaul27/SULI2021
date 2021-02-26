@@ -40,7 +40,7 @@ class Block:
         }
 
 class Transaction:
-    def __init__(self, timestamp, Pnode, Snode, power, sense):
+    def __init__(self, timestamp, type, sender, recipient, value,):
         """
         This class is used to organize the transactions
 
@@ -52,10 +52,10 @@ class Transaction:
         """
 
         self.timestamp = timestamp
-        self.Pnode = Pnode
-        self.Snode = Snode
-        self.power = power
-        self.sense = sense
+        self.type = type
+        self.sender = sender
+        self.recipient = recipient
+        self.value = value
         self.hash = self.hash_transaction()
 
     def __lt__(self, other):
@@ -71,15 +71,15 @@ class Transaction:
         This function returns the hash of the transaction
         """
         sha = hasher.sha256()
-        sha.update((str(self.timestamp) + str(self.Pnode) + str(self.Snode) + str(self.power) + str(self.sense)).encode())
+        sha.update((str(self.timestamp) + str(self.type) + str(self.sender) + str(self.recipient) + str(self.value)).encode())
         return sha.hexdigest()
 
     def to_string(self):
         return f"Time:{self.timestamp}\n" \
-               f"Pnode:{self.Pnode}\n" \
-               f"Snode:{self.Snode}\n" \
-               f"Power:{self.power}\n" \
-               f"Sensitivity:{self.sense}\n" \
+               f"Type:{self.type}\n" \
+               f"Sender:{self.sender}\n" \
+               f"Recipient:{self.recipient}\n" \
+               f"Value:{self.value}\n" \
                f"Hash:{self.hash}\n"
 
 
@@ -129,7 +129,7 @@ def restore_chain():
     else:
         return False
 
-def add_transaction(timestamp, Pnode, Snode, power, sense):
+def add_transaction(timestamp, type, sender, recip, value):
     """
     This function will 'insort' a transaction into this nodes transaction list based on the confirmation timestamp
 
@@ -142,12 +142,15 @@ def add_transaction(timestamp, Pnode, Snode, power, sense):
     """
 
     # create the transaction object
-    transaction_to_add = Transaction(timestamp, Pnode, Snode, power, sense)
+    transaction_to_add = Transaction(timestamp, type, sender, recip, value)
 
     # insort the transaction based on its timestamp
     bisect.insort_left(g.this_nodes_transactions, transaction_to_add)
 
-    logging.debug(f"Logging complete transaction: {transaction_to_add.to_string()}")
+    # write to local storage
+    ne.update_transactions()
+
+    logging.debug(f"Recording complete transaction: {transaction_to_add.to_string()}")
 
 def get_transaction_list_hash(this_list = g.this_nodes_transactions):
     """
@@ -157,10 +160,11 @@ def get_transaction_list_hash(this_list = g.this_nodes_transactions):
     :return: the resulting hash
     """
 
-    sha = hasher.sha256()
     # set arbitrary beginning hash
+    sha = hasher.sha256()
     starting_hash = 100
     sha.update(str(starting_hash))
+
     for i in this_list:
         # hash one transaction with previous transaction
         starting_hash = sha.update(str(i.hash)+str(sha.hexdigest()))

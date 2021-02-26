@@ -1,32 +1,20 @@
 {
-    "0": {
-        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-19 12:31:52.764655\", \"data\": \"{'proof-of-work': 100, 'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"b11968482a075ad0f66474fd32dcbdab3ceef79c8f002d7d2801cb1d9c851474\"}]",
-        "hash": "272b8277ee0ccd79e5e9115394ee829ee4f64dc53936c8ece471af9741c12732",
-        "port": 8080,
-        "transactions": null
-    },
     "1": {
-        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-19 12:31:52.764655\", \"data\": \"{'proof-of-work': 100, 'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"b11968482a075ad0f66474fd32dcbdab3ceef79c8f002d7d2801cb1d9c851474\"}]",
-        "hash": "64290e1d627ddc793795d7e52e243fca9446ce978dbf9fabeb881043d9f5c27e",
-        "port": 8081,
+        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-26 18:21:53.278226\", \"data\": \"{'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"bad9833dedac52d765ec3f746b4f33b81b40ab8ab6f530f5d2eb5a5608664ac9\"}]",
+        "hash": "942a7b2af5ee29b13762fcb90e97f25a87dfb5ddcd1f783aec0f0b851b2b3cb4",
+        "port": 8101,
         "transactions": null
     },
     "2": {
-        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-19 12:31:52.764655\", \"data\": \"{'proof-of-work': 100, 'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"b11968482a075ad0f66474fd32dcbdab3ceef79c8f002d7d2801cb1d9c851474\"}]",
-        "hash": "eceb889cc7fc020f20ca0fe1e4c2ea850a2d0081d338d997f5492ddb3201aa2c",
-        "port": 8082,
+        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-26 18:21:53.278226\", \"data\": \"{'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"bad9833dedac52d765ec3f746b4f33b81b40ab8ab6f530f5d2eb5a5608664ac9\"}]",
+        "hash": "3d9c8a94f78b9562fcd0dd78435e3ce885e0accfc75579fa085b657646fef426",
+        "port": 8102,
         "transactions": null
     },
     "3": {
-        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-19 12:31:52.764655\", \"data\": \"{'proof-of-work': 100, 'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"b11968482a075ad0f66474fd32dcbdab3ceef79c8f002d7d2801cb1d9c851474\"}]",
-        "hash": "07db901da3d8cbbf5a793ea53bb3a191405bb4f53e13f4785b3a0b81f5446e98",
-        "port": 8083,
-        "transactions": null
-    },
-    "4": {
-        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-19 12:31:52.764655\", \"data\": \"{'proof-of-work': 100, 'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"b11968482a075ad0f66474fd32dcbdab3ceef79c8f002d7d2801cb1d9c851474\"}]",
-        "hash": "d808835920b0a7e56eed78308b5b17f3481d9cacc0a599e3984f640c8b696d90",
-        "port": 8084,
+        "chain": "[{\"index\": 0, \"timestamp\": \"2021-02-26 18:21:53.278226\", \"data\": \"{'transactions': None}\", \"previous_hash\": \"0\", \"hash\": \"bad9833dedac52d765ec3f746b4f33b81b40ab8ab6f530f5d2eb5a5608664ac9\"}]",
+        "hash": "b694ec0b321096a6146b0084eb42615f4b2915cf79194e3eb2f5b1605d153f04",
+        "port": 8103,
         "transactions": null
     }
 }

@@ -18,7 +18,7 @@ def new_node(port):
         node_file = json.load(f)
 
     # return if node already exists in file
-    for i in range(0, len(node_file)):
+    for i in list(node_file):
         if node_file[str(i)]["port"] == port:
             return node_file[str(i)]["hash"]
 
@@ -62,31 +62,10 @@ def del_node(id_number):
     with open("Storage/nodes.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
 
-# def read_chain():
-#     """
-#     This function will read a blockchain from local storage
-#
-#     :param port: port of the node to read
-#     :return: chain read
-#     """
-#
-#     # Read json from storage
-#     with open("Storage/nodes.json", "r") as f:
-#         node_file = json.load(f)
-#
-#     # return if node exists in file
-#     for i in list(node_file):
-#         if node_file[str(i)]["port"] == g.my_port:
-#             return node_file[str(i)]["chain"]
-#
-#     return None
-
 def update_chain():
     """
     This function will write a blockchain into local storage
 
-    :param port: Port of the node to write the chain for
-    :param chain: The chain to write to the node
     :return: None
     """
 
@@ -98,9 +77,33 @@ def update_chain():
         node_file = json.load(f)
 
     # update the chain
-    for i in range(0, len(node_file)):
+    for i in list(node_file):
         if node_file[str(i)]["port"] == g.my_port:
             node_file[str(i)]["chain"] = bf.get_blocks()
+
+    # Write the updated json back to the file
+    with open("Storage/nodes.json", "w") as f:
+        json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
+
+
+def update_transactions(port=g.my_port, transactions=g.this_nodes_transactions):
+    """
+    This function will write the transactions into local storage
+
+    :return: None
+    """
+
+    # using local import here because of circular structure
+    import blockchain_funcs as bf
+
+    # Read json from storage
+    with open("Storage/nodes.json", "r") as f:
+        node_file = json.load(f)
+
+    # update the chain
+    for i in list(node_file):
+        if node_file[str(i)]["port"] == port:
+            node_file[str(i)]["transactions"] = transactions
 
     # Write the updated json back to the file
     with open("Storage/nodes.json", "w") as f:
