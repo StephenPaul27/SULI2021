@@ -62,12 +62,16 @@ def del_node(id_number):
     with open("Storage/nodes.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
 
-def update_chain():
+def update_chain(port=g.my_port,chainList=None):
     """
     This function will write a blockchain into local storage
 
     :return: None
     """
+
+    # assign the default value
+    if chainList is None:
+        chainList = g.blockchain
 
     # using local import here because of circular structure
     import blockchain_funcs as bf
@@ -78,12 +82,32 @@ def update_chain():
 
     # update the chain
     for i in list(node_file):
-        if node_file[str(i)]["port"] == g.my_port:
-            node_file[str(i)]["chain"] = bf.get_blocks()
+        if node_file[str(i)]["port"] == port:
+            node_file[str(i)]["chain"] = bf.get_blocks(chainList)
 
     # Write the updated json back to the file
     with open("Storage/nodes.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
+
+def get_transactions(port=g.my_port):
+    """
+    This function will return the transactions stored locally
+
+    :return: transaction list
+    """
+
+    # Read json from storage
+    with open("Storage/nodes.json", "r") as f:
+        node_file = json.load(f)
+
+    # update the chain
+    for i in list(node_file):
+        if node_file[str(i)]["port"] == port:
+            if node_file[str(i)]["transactions"]:
+                return node_file[str(i)]["transactions"]
+
+    # return empty list if nothing found
+    return []
 
 
 def update_transactions(port=g.my_port, transactions=g.this_nodes_transactions):
@@ -92,9 +116,6 @@ def update_transactions(port=g.my_port, transactions=g.this_nodes_transactions):
 
     :return: None
     """
-
-    # using local import here because of circular structure
-    import blockchain_funcs as bf
 
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:

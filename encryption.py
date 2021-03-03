@@ -5,13 +5,17 @@ This file will contain functions for encrypting and decrypting messages
 from all_imports import *
 
 
-def decrypt(package):
+def decrypt(package, port=g.my_port, pr_key=None):
     """
     This function will decrypt the provided bytes into a usable form
 
     :param message: message bytes to decrypt
     :return: decrypted message string
     """
+
+    # correct the default private key
+    if pr_key is None:
+        pr_key = g.my_pr_key
 
     try:
         # load the incoming json
@@ -22,19 +26,19 @@ def decrypt(package):
         message = bytes(base64.b64decode(inJson['msg']))
 
         # use this node's private key to decrypt the symmetric key
-        if g.my_pr_key:
-            fkey = g.my_pr_key.decrypt(
+        if pr_key:
+            fkey = pr_key.decrypt(
                 fkey,
                 padding.OAEP(
                     mgf=padding.MGF1(algorithm=hashes.SHA256()),
                     algorithm=hashes.SHA256(),
                     label=None
                 )
-            ).decode(g.ENCODING)
+            )
         else:
-            logging.warning(f"Node at port {g.my_port} doesn't have a private key to decrypt with")
+            logging.warning(f"Node at port {port} doesn't have a private key to decrypt with")
 
-        # use the symmetric key to decrypt and return the message
+        # get the symmetric key object
         f = Fernet(fkey)
 
         # decrypt the message
@@ -50,39 +54,44 @@ def decrypt(package):
             else:
                 pub_key = ke.get_pub_key(g.hash_to_port[msgJson['from']])
         except Exception as e:
-            logging.warning(f"Decrypted message at port {g.my_port} was not formatted as a json for the signature: {e}")
+            logging.warning(f"Decrypted message at port {port} was not formatted as a json for the signature: {e}")
 
         # verify signature using the decrypted message's 'from' field
         try:
             pub_key.verify(
                 signature,
-                message.encode(g.ENCODING),
+                fkey,
                 padding.PSS(
                     mgf=padding.MGF1(algorithm=hashes.SHA256()),
                     salt_length=padding.PSS.MAX_LENGTH
                 ),
                 hashes.SHA256()
             )
-        except:
-            print("Signature failed")
-            logging.warning(f"Message at port {g.my_port} did not match its signature")
+        except Exception as e:
+            print(f"Signature failed because {e}")
+            logging.warning(f"Message at port {port} did not match its signature: {e}")
             return None
 
         return message
     except Exception as e:
-        print(f"Message received at {g.my_port} was not formatted in a Json for decryption: {e}")
-        logging.error(f"Message received at {g.my_port} was not formatted in a Json for decryption")
+        print(f"Message received at {port} was not formatted in a Json for decryption: {e}")
+        logging.error(f"Message received at {port} was not formatted in a Json for decryption")
         return "ERROR"
 
 
-def encrypt(message, destPort):
+def encrypt(message, destPort, pr_key=None):
     """
     This function will encrypt a given string using hybrid encryption
 
+    :param pr_key: private key of the node trying to encrypt
     :param message: The string to encrypt
     :param destPort: The port of the destination node
     :return: encoded Json of the encrypted message and key
     """
+
+    # correct the default key
+    if pr_key is None:
+        pr_key = g.my_pr_key
 
     # generate a random symmetric key
     fkey = Fernet.generate_key()
@@ -93,9 +102,9 @@ def encrypt(message, destPort):
     # obtain public key for the destination port
     pubkey = ke.get_pub_key(destPort)
 
-    # sign un-encrypted message bytes
-    signature = g.my_pr_key.sign(
-        message.encode(g.ENCODING),
+    # sign un-encrypted symmetric key (instead of message to avoid data size issue)
+    signature = pr_key.sign(
+        fkey,
         padding.PSS(
             mgf=padding.MGF1(algorithm=hashes.SHA256()),
             salt_length=padding.PSS.MAX_LENGTH

@@ -75,15 +75,13 @@ class Receiver(threading.Thread):
                         # action upon receiving an introduction or introduction response
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
 
-                            # map sender's hash to its local port and give it a unique identifier
+                            # map sender's hash to its local port
                             if msgData['fromport'] not in g.port_to_hash:
                                 sha = hasher.sha256()
                                 sha.update(str(time.time()).encode(g.ENCODING))
                                 # map sender's hash to its local port
                                 g.port_to_hash[msgData['fromport']] = msgJson['from']
                                 g.hash_to_port[msgJson['from']] = msgData['fromport']
-                                # give it a unique identifier for securing later messages
-                                g.identifier_dict[msgJson['from']] = sha.hexdigest()
 
 
                             # print(f"received handshake from {msgJson['data']}")
@@ -101,7 +99,7 @@ class Receiver(threading.Thread):
                         elif msgJson['type'] == "powerref":
                             self.respond_powerref(msgJson, msgData)
                         # reaction to sensitivity transmission
-                        elif msgJson['type'] == "sensitivity" and msgJson['identifier'] == g.identifier_dict[msgJson['from']]:
+                        elif msgJson['type'] == "sensitivity":
                             self.respond_sensitivity(msgJson, msgData)
                         elif msgJson['type'] == "addblock":
                             self.respond_addblock(msgJson, msgData)
@@ -124,7 +122,6 @@ class Receiver(threading.Thread):
         try:
             message = {
                 "type": "response",
-                "identifier": msgJson['identifier'],
                 "from": g.my_hash,
                 "to": msgJson['from'],
                 "time": time.time()
@@ -162,10 +159,14 @@ class Receiver(threading.Thread):
         :return: None
         """
 
-        loaded_chain = json.loads(msgData['chain'])
+        try:
+            loaded_chain = json.loads(msgData['chain'])
+        except Exception as e:
+            logging.warning(f"Consensus response received at {g.my_port} was not formatted correctly")
+            return
 
         # recognize consensus only on NEW blocks
-        if loaded_chain[-1]['index'] > g.consensus_index:
+        if len(loaded_chain) and loaded_chain[-1]['index'] > g.consensus_index:
 
             # increment number of consensus messages received
             g.consensus_count += 1
@@ -210,7 +211,6 @@ class Receiver(threading.Thread):
         # store new tracked message
         g.transaction_tracking[msgData['id']].append({
             "type": msgJson['type'],
-            "identifier": msgJson['identifier'],
             "from": msgJson['from'],
             "to": msgJson['to'],
             "value": msgData['power'],
@@ -228,7 +228,6 @@ class Receiver(threading.Thread):
                 # this is where sensitivity would be calculated
                 message = json.dumps({
                     "type": "sensitivity",
-                    "identifier": msgJson['identifier'],
                     "from": g.my_hash,
                     "to": msgJson['from'],
                     "data": json.dumps({"id": msgData['id'], "power": msgData['power'],
@@ -267,24 +266,24 @@ class Receiver(threading.Thread):
             if g.transaction_tracking[msgData['id']][0]['value'] == msgData['power']:
                 g.transaction_tracking[msgData['id']].append({
                     "type": msgJson['type'],
-                    "identifier": msgJson['identifier'],
                     "from": msgJson['from'],
                     "to": msgJson['to'],
                     "value": msgData['sensitivity'],
                     "time": msgJson['time']
                 })
                 # store transactions
-                bf.add_transaction(msgData['time'], "power", msgJson['from'], msgJson['to'],
+                g.this_nodes_transactions = bf.add_transaction(msgData['time'], "power", msgJson['from'], msgJson['to'],
                                    msgData['power'])
-                bf.add_transaction(msgData['time'], "sense", msgJson['to'], msgJson['from'],
+                g.this_nodes_transactions = bf.add_transaction(msgData['time'], "sense", msgJson['to'], msgJson['from'],
                                    msgData['sensitivity'])
+                # write to local storage
+                ne.update_transactions()
 
                 for j in g.node_list:  # broadcast to all seen nodes
                     try:
                         # write confirmation message
                         message = json.dumps({
                             "type": "confirm",
-                            "identifier": msgJson['identifier'],
                             "from": g.my_hash,
                             "to": msgJson['from'],
                             "data": json.dumps({"id": msgData['id'], "power": msgData['power'],
@@ -356,7 +355,6 @@ class Sender(threading.Thread):
                     # send my hash to all existing nodes
                     message = json.dumps({
                         "type": "intro",
-                        "identifier": None,
                         "from": g.my_hash,
                         "to": g.BASE_PORT+i,
                         "data": json.dumps({"fromport": self.my_port}),
@@ -392,7 +390,6 @@ class Sender(threading.Thread):
                             # create skeleton of message
                             message_variables = {
                                 "type": "powerref",
-                                "identifier": g.identifier_dict[g.port_to_hash[i]],
                                 "from": g.my_hash,
                                 "to": g.port_to_hash[i],
                                 "time": time.time()
@@ -432,13 +429,15 @@ class Sender(threading.Thread):
                             logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
 
 
-def sendMessage(message, destPort):
+def sendMessage(message, destPort, pr_key=None):
     """
     This function sends a given message to a given port
 
+    :param pr_key: private key (None defaults to global variable)
     :param message: The string message to send
     :param destPort: The port of the destination node
     """
+
     # establish connection to port
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((g.BASE_HOST, destPort))
@@ -446,7 +445,7 @@ def sendMessage(message, destPort):
     # print(f"before encryption: {message}")
 
     # encrypt the message
-    message = crypt.encrypt(message, destPort)
+    message = crypt.encrypt(message, destPort, pr_key)
 
     # print(f"after encryption: {message}")
 

@@ -45,9 +45,12 @@ def main():
     # print(f"my_pr_key at initialization = {g.my_pr_key}")
 
     # create genesis block for this node
-    if not bf.restore_chain():
-        g.blockchain.append(bf.create_genesis_block())
-        ne.update_chain()
+    g.blockchain = bf.restore_chain()
+    ne.update_chain()
+
+    # read transactions from local storage
+    g.this_nodes_transactions = ne.get_transactions()
+
     print("This node's Genesis block hash: ", g.blockchain[0].hash)
 
     # Log node startup

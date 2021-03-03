@@ -83,26 +83,30 @@ class Transaction:
                f"Hash:{self.hash}\n"
 
 
-
-def get_blocks():
+def get_blocks(chainList=None):
     """
     This function returns a json-string of blocks in this node's blockchain
-
+    :param chainList: list to get blocks from, default None results in global variable used
     :returns: returns local blockchain in dictionary form
     """
+
+    if chainList is None:
+        chainList = g.blockchain
+
     # chain_to_send = blockchain
     chain_to_send = []
 
     # create list of block dicts to convert to json
-    for i in range(len(g.blockchain)):
-        chain_to_send.append(g.blockchain[i].to_dict())
+    for i in chainList:
+        chain_to_send.append(i.to_dict())
 
     # convert to json
     chain_to_send = json.dumps(chain_to_send)
 
     return chain_to_send
 
-def restore_chain():
+
+def restore_chain(port=g.my_port):
     """
     This function will restore the blockchain from local storage
 
@@ -113,23 +117,26 @@ def restore_chain():
         node_file = json.load(f)
 
     chain_file = None
+    chainToReturn = []
 
     # return if node exists in file
     for i in list(node_file):
-        if node_file[str(i)]["port"] == g.my_port:
+        if node_file[str(i)]["port"] == port:
             if node_file[str(i)]["chain"]:
                 chain_file = json.loads(node_file[str(i)]["chain"])
-            else:
-                return False
+                break
 
     if chain_file:
         for i in list(chain_file):
-            g.blockchain.append(Block(i["index"], i["timestamp"], i["data"], i["previous_hash"]))
-        return True
-    else:
-        return False
+            chainToReturn.append(Block(i["index"], i["timestamp"], i["data"], i["previous_hash"]))
 
-def add_transaction(timestamp, type, sender, recip, value):
+    if not len(chainToReturn):
+        chainToReturn.append(create_genesis_block())
+
+    return chainToReturn
+
+
+def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=g.this_nodes_transactions):
     """
     This function will 'insort' a transaction into this nodes transaction list based on the confirmation timestamp
 
@@ -138,19 +145,17 @@ def add_transaction(timestamp, type, sender, recip, value):
     :param Snode: hash of node sending sensitivity
     :param power: power reference
     :param sense: sensitivity
-    :return: None
+    :return: updated list of transactions
     """
 
     # create the transaction object
     transaction_to_add = Transaction(timestamp, type, sender, recip, value)
 
     # insort the transaction based on its timestamp
-    bisect.insort_left(g.this_nodes_transactions, transaction_to_add)
-
-    # write to local storage
-    ne.update_transactions()
+    bisect.insort_left(listOfTransactions, transaction_to_add)
 
     logging.debug(f"Recording complete transaction: {transaction_to_add.to_string()}")
+    return listOfTransactions
 
 def get_transaction_list_hash(this_list = g.this_nodes_transactions):
     """

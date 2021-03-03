@@ -17,6 +17,8 @@ MSG_PERIOD = 30             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 10            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 BLOCK_SIZE = 10             # size of each block of transactions to be added
+PENALTY = -10               # UtilityToken penalty for incorrect consensus
+INCENTIVE = 1               # UtilityToken incentive for correct consensus
 
 # Read encryption key from storage
 with open("Storage/CryptoKey.txt", "r") as f:
@@ -48,9 +50,6 @@ node_list = []      # list of node hashes
 # create dicts of node hashes mapped to their local ports
 port_to_hash = {}
 hash_to_port = {}
-
-# create map of hash to unique identifier
-identifier_dict = {}
 
 # create consensus variables used to come to consensus on blocks
 consensus_dict = {}     # dict/histogram of block hashes received
