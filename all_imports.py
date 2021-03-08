@@ -8,18 +8,20 @@ import hashlib as hasher
 import datetime as date
 import base64
 import random
+import statistics
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.exceptions import InvalidSignature
 import logging
 
 
 import global_vars as g
-import node_editor as ne
 import blockchain_funcs as bf
+import node_editor as ne
 import key_editor as ke
 import encryption as crypt
 import communication as comm

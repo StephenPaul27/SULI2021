@@ -29,10 +29,10 @@ def new_node(port):
     sha.update(str(time.time()).encode())
 
     # Create Json object for this new node
-    node_file[str(g.my_port-g.BASE_PORT)] = {
-        "port": g.my_port,
+    node_file[str(port-g.BASE_PORT)] = {
+        "port": port,
         "hash": sha.hexdigest(),
-        "transactions": None,
+        "transactions": [],
         "chain": None
     }
 
@@ -73,9 +73,6 @@ def update_chain(port=g.my_port,chainList=None):
     if chainList is None:
         chainList = g.blockchain
 
-    # using local import here because of circular structure
-    import blockchain_funcs as bf
-
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:
         node_file = json.load(f)
@@ -83,7 +80,7 @@ def update_chain(port=g.my_port,chainList=None):
     # update the chain
     for i in list(node_file):
         if node_file[str(i)]["port"] == port:
-            node_file[str(i)]["chain"] = bf.get_blocks(chainList)
+            node_file[str(i)]["chain"] = bf.get_dict_list(chainList)
 
     # Write the updated json back to the file
     with open("Storage/nodes.json", "w") as f:
@@ -100,22 +97,28 @@ def get_transactions(port=g.my_port):
     with open("Storage/nodes.json", "r") as f:
         node_file = json.load(f)
 
-    # update the chain
+    # read in the transactions from memory
     for i in list(node_file):
         if node_file[str(i)]["port"] == port:
             if node_file[str(i)]["transactions"]:
-                return node_file[str(i)]["transactions"]
+                return bf.get_trans_objs(node_file[str(i)]["transactions"])
+
+
 
     # return empty list if nothing found
     return []
 
 
-def update_transactions(port=g.my_port, transactions=g.this_nodes_transactions):
+def update_transactions(port=g.my_port, transactions=None):
     """
     This function will write the transactions into local storage
 
     :return: None
     """
+
+    # update default value
+    if transactions is None:
+        transactions = g.this_nodes_transactions
 
     # Read json from storage
     with open("Storage/nodes.json", "r") as f:
@@ -124,7 +127,7 @@ def update_transactions(port=g.my_port, transactions=g.this_nodes_transactions):
     # update the chain
     for i in list(node_file):
         if node_file[str(i)]["port"] == port:
-            node_file[str(i)]["transactions"] = transactions
+            node_file[str(i)]["transactions"] = bf.get_dict_list(transactions)
 
     # Write the updated json back to the file
     with open("Storage/nodes.json", "w") as f:

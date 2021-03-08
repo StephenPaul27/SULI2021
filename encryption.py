@@ -9,7 +9,9 @@ def decrypt(package, port=g.my_port, pr_key=None):
     """
     This function will decrypt the provided bytes into a usable form
 
-    :param message: message bytes to decrypt
+    :param pr_key: private key to decrypt with
+    :param port: port for debugging
+    :param package: message bytes to decrypt
     :return: decrypted message string
     """
 
@@ -21,62 +23,64 @@ def decrypt(package, port=g.my_port, pr_key=None):
         # load the incoming json
         # print("decrypting message: ", package)
         inJson = json.loads(package.decode(g.ENCODING))
-        signature = bytes(base64.b64decode(inJson['sign']))
-        fkey = bytes(base64.b64decode(inJson['key']))
-        message = bytes(base64.b64decode(inJson['msg']))
-
-        # use this node's private key to decrypt the symmetric key
-        if pr_key:
-            fkey = pr_key.decrypt(
-                fkey,
-                padding.OAEP(
-                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
-            )
-        else:
-            logging.warning(f"Node at port {port} doesn't have a private key to decrypt with")
-
-        # get the symmetric key object
-        f = Fernet(fkey)
-
-        # decrypt the message
-        message = f.decrypt(message).decode(g.ENCODING)
-
-        # Get the pub key from the port given
-        try:
-            # print("decoded message: ",message)
-            msgJson = json.loads(message)
-            if(msgJson['type']=='intro' or msgJson['type'] == 'response'):
-                msgData = json.loads(msgJson['data'])
-                pub_key = ke.get_pub_key(msgData['fromport'])
-            else:
-                pub_key = ke.get_pub_key(g.hash_to_port[msgJson['from']])
-        except Exception as e:
-            logging.warning(f"Decrypted message at port {port} was not formatted as a json for the signature: {e}")
-
-        # verify signature using the decrypted message's 'from' field
-        try:
-            pub_key.verify(
-                signature,
-                fkey,
-                padding.PSS(
-                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                    salt_length=padding.PSS.MAX_LENGTH
-                ),
-                hashes.SHA256()
-            )
-        except Exception as e:
-            print(f"Signature failed because {e}")
-            logging.warning(f"Message at port {port} did not match its signature: {e}")
-            return None
-
-        return message
-    except Exception as e:
+    except json.JSONDecodeError as e:
         print(f"Message received at {port} was not formatted in a Json for decryption: {e}")
         logging.error(f"Message received at {port} was not formatted in a Json for decryption")
         return "ERROR"
+
+    signature = bytes(base64.b64decode(inJson['sign']))
+    fkey = bytes(base64.b64decode(inJson['key']))
+    message = bytes(base64.b64decode(inJson['msg']))
+
+    # use this node's private key to decrypt the symmetric key
+    if pr_key:
+        fkey = pr_key.decrypt(
+            fkey,
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
+            )
+        )
+    else:
+        logging.warning(f"Node at port {port} doesn't have a private key to decrypt with")
+
+    # get the symmetric key object
+    f = Fernet(fkey)
+
+    # decrypt the message
+    message = f.decrypt(message).decode(g.ENCODING)
+
+    # Get the pub key from the port given
+    try:
+        # print("decrypted message: ",message)
+        msgJson = json.loads(message)
+        if msgJson['type'] == 'intro' or msgJson['type'] == 'response':
+            msgData = json.loads(msgJson['data'])
+            pub_key = ke.get_pub_key(msgData['fromport'])
+        else:
+            pub_key = ke.get_pub_key(g.hash_to_port[msgJson['from']])
+    except Exception as e:
+        logging.warning(f"Decrypted message at port {port} was not formatted as a json for the signature: {e}")
+        return "ERROR"
+
+    # verify signature using the decrypted message's 'from' field
+    try:
+        pub_key.verify(
+            signature,
+            fkey,
+            padding.PSS(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA256()
+        )
+    except Exception as e:
+        print(f"Signature failed at {port} from port {g.hash_to_port[msgJson['from']]} because \"{e}\"")
+        logging.warning(f"Message at port {port} did not match its signature: {e}")
+        return None
+
+    return message
 
 
 def encrypt(message, destPort, pr_key=None):
@@ -111,9 +115,10 @@ def encrypt(message, destPort, pr_key=None):
         ),
         hashes.SHA256()
     )
+    # print("message signed successfully")
 
     # ensure that a public key is available
-    if (pubkey):
+    if pubkey:
         # encrypt the symmetric key using the public key
         fkey = pubkey.encrypt(
             fkey,

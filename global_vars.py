@@ -13,12 +13,13 @@ ENCODING = 'utf-8'
 BASE_PORT = 8100            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
 NUM_NODES = 5               # maximum number of nodes in system
-MSG_PERIOD = 30             # seconds between broadcast of powerref downstream
-MSG_TIMEOUT = 10            # lifespan of messages before they're cleared
+MSG_PERIOD = 10             # seconds between broadcast of powerref downstream
+MSG_TIMEOUT = 5            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
-BLOCK_SIZE = 10             # size of each block of transactions to be added
+BLOCK_SIZE = 5             # size of each block of transactions to be added
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
+WRITE_TO_FILES = False      # debugging boolean permission for altering files
 
 # Read encryption key from storage
 with open("Storage/CryptoKey.txt", "r") as f:
@@ -31,8 +32,8 @@ with open("Storage/node_connections.json", 'r') as f:
 # integrate encryption key
 Fkey = Fernet(cryptoKey)
 
-# Building to building map (indexed by sender -> receiver of power reference)
-network_map = {}
+# # Building to building map (indexed by sender -> receiver of power reference)
+# network_map = {}
 
 # read port from system arguments
 if(sys.argv[1]):
@@ -54,9 +55,10 @@ hash_to_port = {}
 # create consensus variables used to come to consensus on blocks
 consensus_dict = {}     # dict/histogram of block hashes received
 chain_dict = {}         # dict to store diff types of chains received
+trans_dict = {}         # dict to store diff transactions received
+consensus_id_list = []  # list to store nodes that have already voted once
 consensus_time = 0      # time since first response received
 consensus_index = -1    # index of last block agreed upon
-consensus_count = 0     # count of consensus messages received
 
 # This node's blockchain copy
 blockchain = []
@@ -68,3 +70,5 @@ this_nodes_transactions = []
 # dictionary to track transmission of messages
 # indexed by a random message hash id
 transaction_tracking = {}
+
+validator_list = []

@@ -19,22 +19,21 @@ def main():
 
     # format the log
     logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
-                        format='%(asctime)s %(levelname)s: %(message)s',
+                        format='%(asctime)s %(module)s:%(lineno)d - %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 
-    # Identify start of new log
-    if g.my_port == g.BASE_PORT:
+    # start consensus smart contract server if not started
+    try:
+        # see if server is up already (will throw exception if connection refused)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((g.BASE_HOST, g.BASE_PORT))
+        s.close()
+    except ConnectionRefusedError as e:
+        # Identify start of new log
         logging.info("New Session Started")
-
-    # # start consensus smart contract server if not started
-    # try:
-    #     # see if server is up already (will throw exception if connection refused)
-    #     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #     s.connect((g.BASE_HOST, g.BASE_PORT))
-    #     s.close()
-    # except:
-    #     # start consensus server
-    #     cons.Server(g.BASE_HOST, g.BASE_PORT)
+        # start consensus server
+        consensus = cons.Server(g.BASE_HOST, g.BASE_PORT)
+        consensus.start()
 
 
     # create random hash to represent this node (if needed)
@@ -62,6 +61,7 @@ def main():
     g.hash_to_port[g.my_hash] = g.my_port
 
     # set up server and client objects
+
     receiver = comm.Receiver(g.BASE_HOST, g.my_port)
     sender = comm.Sender(g.BASE_HOST, g.my_port)
 
