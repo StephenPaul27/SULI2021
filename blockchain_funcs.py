@@ -344,12 +344,14 @@ def add_trans_to_block():
     ne.update_chain()
 
 
-def validate(chain, lasthash):
+def validate(chain, lasthash, index=None):
     """
     This function validates a chain against itself and its claimed hash
 
     :returns: boolean value representing validity of the provided chain and hash
     """
+    if index is None:
+        index = g.consensus_index
     print(f"Validating hash: {lasthash}")
     # initialize the hash
     if len(chain) == 1:
@@ -379,7 +381,7 @@ def validate(chain, lasthash):
         print("Failed: bad hash/index")
         logging.warning(f"Validation failed: hash did not match it's chain: {lasthash}!={calculated_hash}")
         return False
-    if g.consensus_index >= chain[-1]['index']:
+    if index >= chain[-1]['index']:
         logging.warning(f"Validation failed: chain did not exceed consensus index: {g.consensus_index} >= {chain[-1]['index']}")
         return False
 

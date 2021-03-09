@@ -197,7 +197,7 @@ class Receiver(threading.Thread):
                 "data": {
                             "lasthash": g.blockchain[-1].hash,
                             "chain": bf.get_dict_list(),
-                            "transactions": bf.get_dict_list(g.this_nodes_transactions)
+                            "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
                         },
                 "time": time.time()
             }
@@ -491,7 +491,8 @@ class Receiver(threading.Thread):
                         "to": g.port_to_hash[g.BASE_PORT],
                         "data": {
                                     "lasthash": g.blockchain[-1].hash,
-                                    "chain": bf.get_dict_list()
+                                    "chain": bf.get_dict_list(),
+                                    "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
                                 },
                         "time": time.time()
                     }

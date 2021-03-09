@@ -48,14 +48,15 @@ class Server(threading.Thread):
 
         # list of validators for the next block
         self.validator_list = []
-        self.votecount = 0
 
-        # dict for collecting consensus
+        # variables for collecting consensus
         self.votes = {}
         self.voted_validators = []
+        self.votecount = 0
 
         # array for storing consensus chains
-        self.chains = []
+        self.chains_dict = {}
+        self.trans_dict = {}
 
         # create transaction list to indicate when
         self.transactions = ne.get_transactions(self.port)
@@ -184,13 +185,18 @@ class Server(threading.Thread):
             return
 
         # store the sent chain
-        if bf.validate(msgData['chain'], msgData['lasthash']):
 
-            if msgData['lasthash'] in self.votes:
-                self.votes[msgData['lasthash']].append(self.validator_list[vIndex])
-            else:
-                self.votes[msgData['lasthash']] = [self.validator_list[vIndex]]
-                self.chains[msgData['lasthash']] = msgData['chain']
+        loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+        T_hash = bf.get_transaction_list_hash(loaded_transactions)
+        # create combination hash of transactions and blockchain
+        comboHash = bf.get_hash(str(msgData['lasthash']) + str(T_hash))
+
+        if msgData['lasthash'] in self.votes:
+            self.votes[comboHash].append(self.validator_list[vIndex])
+        elif bf.validate(msgData['chain'], msgData['lasthash'], index=self.lastIndex):
+            self.votes[comboHash] = [self.validator_list[vIndex]]
+            self.chains_dict[comboHash] = msgData['chain']
+            self.trans_dict[comboHash] = loaded_transactions
 
             # increment vote count
             self.votecount += 1
@@ -259,20 +265,37 @@ class Server(threading.Thread):
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
 
-        self.blockchain = self.chains[sorted_consensus[0]]
+        if len(sorted_consensus):
+            self.blockchain = bf.get_block_objs(self.chains_dict[sorted_consensus[0]])
+            self.transactions = self.trans_dict[sorted_consensus[0]]
+            ne.update_chain(self.port, self.blockchain)
+            ne.update_transactions(self.port, self.transactions)
 
-        # distribute payment/punishment
-        for count, i in enumerate(sorted_consensus):
-            for j in i:
-                # penalize everyone past index 0
-                if count:
-                    self.pay(j, g.PENALTY)
-                # pay the hashes in index 0 because its sorted by majority
-                else:
-                    self.pay(j, g.INCENTIVE)
+            self.reset_consensus()
 
-        # update validators
-        self.check_validators()
+            # distribute payment/punishment
+            for count, i in enumerate(sorted_consensus):
+                for j in i:
+                    # penalize everyone past index 0
+                    if count:
+                        self.pay(j, g.PENALTY)
+                    # pay the hashes in index 0 because its sorted by majority
+                    else:
+                        self.pay(j, g.INCENTIVE)
+
+            # update validators
+            self.check_validators()
+
+    def reset_consensus(self):
+        """
+        This function will clear consensus server variables
+        :return: None
+        """
+        self.chains_dict = {}
+        self.trans_dict = {}
+        self.votes = {}
+        self.voted_validators = []
+        self.votecount = 0
 
     def update_wallets(self):
         """
