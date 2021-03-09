@@ -1,151 +1,87 @@
-2021-03-08 13:33:00,326 main:33 - INFO: New Session Started
-2021-03-08 13:33:00,326 consensus:18 - DEBUG: Consensus server started at port 8100
-2021-03-08 13:33:00,337 main:56 - INFO: Node started at port 8101 with hash da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-2021-03-08 13:33:00,344 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 1
-2021-03-08 13:33:00,344 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228380.342977
+2021-03-09 15:51:45,400 main:74 - INFO: Node started at port 8102 with hash 097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
+2021-03-09 15:51:45,409 communication:90 - DEBUG: Validators updated from introduction
+2021-03-09 15:51:45,412 blockchain_funcs:203 - DEBUG: adding transaction at port 8102, new size: 2
+2021-03-09 15:51:45,412 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323105.4079318
 Type:payment
-Sender:664568d4e630532eca4c88e679daa3465bc429c5241dc824378c786bdea2ae87
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
+Sender:c0b6cad10284e80b81eadb8366a6ed758527efeea717273fe2cbe56909a52b2c
+Recipient:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
 Value:20
-Hash:49309ecb8b20767f0ab7054448d974758b60d499976e81f669b1e1cb167684d8
+Hash:64441db7f5ee5c31b3017e137c29e9d571f11e7879f77c9143abaa6c751c2a15
 
-2021-03-08 13:33:00,346 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 1
-2021-03-08 13:33:00,346 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228380.342977
-Type:payment
-Sender:664568d4e630532eca4c88e679daa3465bc429c5241dc824378c786bdea2ae87
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Value:20
-Hash:49309ecb8b20767f0ab7054448d974758b60d499976e81f669b1e1cb167684d8
-
-2021-03-08 13:33:01,387 main:56 - INFO: Node started at port 8102 with hash a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-2021-03-08 13:33:01,395 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 2
-2021-03-08 13:33:01,395 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228381.3926241
-Type:payment
-Sender:664568d4e630532eca4c88e679daa3465bc429c5241dc824378c786bdea2ae87
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Value:20
-Hash:0a13cc943ab39960d52ab832926c141960c0b0b2c21b87f977e4138f102bf308
-
-2021-03-08 13:33:01,395 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 2
-2021-03-08 13:33:01,395 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228381.3926241
-Type:payment
-Sender:664568d4e630532eca4c88e679daa3465bc429c5241dc824378c786bdea2ae87
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Value:20
-Hash:0a13cc943ab39960d52ab832926c141960c0b0b2c21b87f977e4138f102bf308
-
-2021-03-08 13:33:01,398 blockchain_funcs:213 - DEBUG: adding transaction at port 8102, new size: 2
-2021-03-08 13:33:01,398 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228381.3926241
-Type:payment
-Sender:664568d4e630532eca4c88e679daa3465bc429c5241dc824378c786bdea2ae87
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Value:20
-Hash:0a13cc943ab39960d52ab832926c141960c0b0b2c21b87f977e4138f102bf308
-
-2021-03-08 13:33:43,160 main:33 - INFO: New Session Started
-2021-03-08 13:33:43,160 consensus:18 - DEBUG: Consensus server started at port 8100
-2021-03-08 13:33:43,171 main:56 - INFO: Node started at port 8101 with hash da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-2021-03-08 13:33:44,301 main:56 - INFO: Node started at port 8102 with hash a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-2021-03-08 13:33:53,180 communication:611 - DEBUG: Message(8101 - 8100): Sending power ref from 8101 to 8102
-2021-03-08 13:33:53,184 communication:611 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
-2021-03-08 13:33:53,187 communication:286 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
-2021-03-08 13:33:53,187 communication:290 - DEBUG: updated transaction at index d14ed626b97a1f11401abb4d4f225d65731573e864f770ce00e27fc9e68aef1c: [{'type': 'powerref', 'from': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'to': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'value': 1, 'time': 1615228433.184022}]
-2021-03-08 13:33:53,187 communication:304 - DEBUG: Message(8102 - 8100): Sending sensitivity from 8102 to 8101
-2021-03-08 13:33:53,189 communication:304 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
-2021-03-08 13:33:53,192 communication:323 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
-2021-03-08 13:33:53,192 communication:342 - DEBUG: updated transaction at index d14ed626b97a1f11401abb4d4f225d65731573e864f770ce00e27fc9e68aef1c: [{'type': 'powerref', 'from': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'to': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'time': 1615228433.184022, 'value': 1, 'data': '{"id": "d14ed626b97a1f11401abb4d4f225d65731573e864f770ce00e27fc9e68aef1c", "power": 1, "time": 1615228433.184027}'}, {'type': 'sensitivity', 'from': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'to': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'value': 1, 'time': 1615228433.1894898}]
-2021-03-08 13:33:53,192 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 3
-2021-03-08 13:33:53,192 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228433.184027
+2021-03-09 15:51:53,851 communication:284 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-03-09 15:51:53,851 communication:288 - DEBUG: updated transaction at index 6d1900e6132bfdcb95f768d558bb5b03b48a2aae998d8f655043226007cfa2b1: [{'type': 'powerref', 'from': '4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08', 'to': '097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742', 'value': 1, 'time': 1615323113.847927}]
+2021-03-09 15:51:53,852 communication:306 - DEBUG: Message(8102 - 8100): Sending sensitivity from 8102 to 8101
+2021-03-09 15:51:53,853 communication:306 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-03-09 15:51:53,861 communication:432 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-03-09 15:51:53,861 blockchain_funcs:203 - DEBUG: adding transaction at port 8102, new size: 3
+2021-03-09 15:51:53,861 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323113.847931
 Type:power
-Sender:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
+Sender:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
+Recipient:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
 Value:1
-Hash:ea37b8f0b7ea721b6e35268768d51d9134e7b51ca848d4f9ee3d3491837160fa
+Hash:f1a4e333f52f3be0ba14384baece3fd57e37298b5f3fb0d325c9348b7a4e93b9
 
-2021-03-08 13:33:53,192 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 4
-2021-03-08 13:33:53,192 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228433.184027
+2021-03-09 15:51:53,861 blockchain_funcs:203 - DEBUG: adding transaction at port 8102, new size: 4
+2021-03-09 15:51:53,861 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323113.847931
 Type:sense
-Sender:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
+Sender:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
+Recipient:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
 Value:1
-Hash:7e32fe793a9d1360eb3370df2cca21b41908c064df9010525e2ca04a19566908
+Hash:fb76c742399b0c4b7b096d2cb6de6c28098331e77f123a8a65b4a414ca2852a2
 
-2021-03-08 13:33:53,193 communication:366 - DEBUG: Message(8101 - 8100): Sending Confirmation from 8101 to 8102
-2021-03-08 13:33:53,194 communication:366 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
-2021-03-08 13:33:53,197 communication:409 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
-2021-03-08 13:33:53,197 blockchain_funcs:213 - DEBUG: adding transaction at port 8102, new size: 3
-2021-03-08 13:33:53,197 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228433.184027
+2021-03-09 15:51:55,406 communication:630 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
+2021-03-09 15:51:55,406 communication:630 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
+2021-03-09 15:52:03,859 communication:284 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-03-09 15:52:03,859 communication:288 - DEBUG: updated transaction at index 74c40534f6b7f5871c697c7f618e13a6790a10024c0526f6cd920723a10a67dd: [{'type': 'powerref', 'from': '4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08', 'to': '097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742', 'value': 1, 'time': 1615323123.855731}]
+2021-03-09 15:52:03,859 communication:306 - DEBUG: Message(8102 - 8100): Sending sensitivity from 8102 to 8101
+2021-03-09 15:52:03,860 communication:306 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-03-09 15:52:03,868 communication:432 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-03-09 15:52:03,868 blockchain_funcs:203 - DEBUG: adding transaction at port 8102, new size: 5
+2021-03-09 15:52:03,868 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323123.855736
 Type:power
-Sender:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
+Sender:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
+Recipient:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
 Value:1
-Hash:ea37b8f0b7ea721b6e35268768d51d9134e7b51ca848d4f9ee3d3491837160fa
+Hash:283e94a135951ba4b48ac1a046bacac305e0b6881f345978606e2eae896e3a46
 
-2021-03-08 13:33:53,197 blockchain_funcs:213 - DEBUG: adding transaction at port 8102, new size: 4
-2021-03-08 13:33:53,197 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228433.184027
+2021-03-09 15:52:03,868 blockchain_funcs:203 - DEBUG: adding transaction at port 8102, new size: 6
+2021-03-09 15:52:03,868 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323123.855736
 Type:sense
-Sender:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
+Sender:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
+Recipient:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
 Value:1
-Hash:7e32fe793a9d1360eb3370df2cca21b41908c064df9010525e2ca04a19566908
+Hash:e51c31b23c786c6cf2fb60a796d28721c5033a7a206628d18094c7a755a97804
 
-2021-03-08 13:33:54,313 communication:616 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
-2021-03-08 13:33:54,313 communication:616 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
-2021-03-08 13:34:03,189 communication:611 - DEBUG: Message(8101 - 8100): Sending power ref from 8101 to 8102
-2021-03-08 13:34:03,192 communication:611 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
-2021-03-08 13:34:03,196 communication:286 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
-2021-03-08 13:34:03,196 communication:290 - DEBUG: updated transaction at index f02c54947d4775afaa17c9b9617cf267219c6254eb8344fff9ee1e24311e73c6: [{'type': 'powerref', 'from': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'to': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'value': 1, 'time': 1615228443.192717}]
-2021-03-08 13:34:03,196 communication:304 - DEBUG: Message(8102 - 8100): Sending sensitivity from 8102 to 8101
-2021-03-08 13:34:03,198 communication:304 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
-2021-03-08 13:34:03,200 communication:323 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
-2021-03-08 13:34:03,200 communication:342 - DEBUG: updated transaction at index f02c54947d4775afaa17c9b9617cf267219c6254eb8344fff9ee1e24311e73c6: [{'type': 'powerref', 'from': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'to': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'time': 1615228443.192717, 'value': 1, 'data': '{"id": "f02c54947d4775afaa17c9b9617cf267219c6254eb8344fff9ee1e24311e73c6", "power": 1, "time": 1615228443.1927218}'}, {'type': 'sensitivity', 'from': 'a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c', 'to': 'da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208', 'value': 1, 'time': 1615228443.1980748}]
-2021-03-08 13:34:03,200 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 5
-2021-03-08 13:34:03,200 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228443.1927218
+2021-03-09 15:52:03,874 blockchain_funcs:334 - DEBUG: Node at port 8102 is adding to its blockchain
+2021-03-09 15:52:05,407 communication:630 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
+2021-03-09 15:52:05,407 communication:630 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
+ion at index 74c40534f6b7f5871c697c7f618e13a6790a10024c0526f6cd920723a10a67dd: [{'type': 'powerref', 'from': '4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08', 'to': '097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742', 'time': 1615323123.855731, 'value': 1, 'data': {'id': '74c40534f6b7f5871c697c7f618e13a6790a10024c0526f6cd920723a10a67dd', 'power': 1, 'time': 1615323123.855736}}, {'type': 'sensitivity', 'from': '097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742', 'to': '4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08', 'value': 1, 'time': 1615323123.8609831}]
+2021-03-09 15:52:03,863 blockchain_funcs:203 - DEBUG: adding transaction at port 8101, new size: 5
+2021-03-09 15:52:03,863 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323123.855736
 Type:power
-Sender:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
+Sender:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
+Recipient:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
 Value:1
-Hash:570d3319f35d7b35c4a51638b4220c99f10c862bc6fafae8efe5e24a3f0d97a1
+Hash:283e94a135951ba4b48ac1a046bacac305e0b6881f345978606e2eae896e3a46
 
-2021-03-08 13:34:03,201 blockchain_funcs:213 - DEBUG: adding transaction at port 8101, new size: 6
-2021-03-08 13:34:03,201 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228443.1927218
+2021-03-09 15:52:03,863 blockchain_funcs:203 - DEBUG: adding transaction at port 8101, new size: 6
+2021-03-09 15:52:03,863 blockchain_funcs:205 - DEBUG: Recording complete transaction: 
+Time:1615323123.855736
 Type:sense
-Sender:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
+Sender:097358e2adf1392428960ee8f1835186a7663aa727f4aaab80becbc60f8f0742
+Recipient:4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08
 Value:1
-Hash:1082c6d89b434a15964776e086032f772b1b259b03b76322961015214ddd1770
+Hash:e51c31b23c786c6cf2fb60a796d28721c5033a7a206628d18094c7a755a97804
 
-2021-03-08 13:34:03,201 communication:366 - DEBUG: Message(8101 - 8100): Sending Confirmation from 8101 to 8102
-2021-03-08 13:34:03,203 communication:366 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
-2021-03-08 13:34:03,205 communication:409 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
-2021-03-08 13:34:03,205 blockchain_funcs:213 - DEBUG: adding transaction at port 8102, new size: 5
-2021-03-08 13:34:03,205 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228443.1927218
-Type:power
-Sender:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Recipient:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Value:1
-Hash:570d3319f35d7b35c4a51638b4220c99f10c862bc6fafae8efe5e24a3f0d97a1
-
-2021-03-08 13:34:03,205 blockchain_funcs:213 - DEBUG: adding transaction at port 8102, new size: 6
-2021-03-08 13:34:03,205 blockchain_funcs:215 - DEBUG: Recording complete transaction: 
-Time:1615228443.1927218
-Type:sense
-Sender:a7f900408b8402160f0fd174d5e6d1cc6cc96fe91c7315bac63d8c15fc3f4c9c
-Recipient:da4d34bfe110a9928100019232a1c08ec5d83b37163d4645389e3e176622c208
-Value:1
-Hash:1082c6d89b434a15964776e086032f772b1b259b03b76322961015214ddd1770
-
-2021-03-08 13:34:04,316 communication:616 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
-2021-03-08 13:34:04,316 communication:616 - WARNING: Unable to send power reference broadcast from port 8102 to port 8103 because 8103
+2021-03-09 15:52:03,864 communication:372 - DEBUG: Message(8101 - 8100): Sending Confirmation from 8101 to 8102
+2021-03-09 15:52:03,866 communication:372 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-03-09 15:52:03,867 communication:384 - DEBUG: Proposing new block at port 8101
+2021-03-09 15:52:03,867 blockchain_funcs:334 - DEBUG: Node at port 8101 is adding to its blockchain
+2021-03-09 15:52:03,885 blockchain_funcs:383 - WARNING: Validation failed: chain did not exceed consensus index: 1 >= 1
+2021-03-09 15:52:03,885 consensus:207 - WARNING: Consensus chain from 4d8269a3396b885ffa47b1c7047507e4f60d26d614f93a7550f87ab9597d8f08 was invalid

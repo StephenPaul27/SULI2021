@@ -18,6 +18,26 @@ class Server(threading.Thread):
         logging.debug(f"Consensus server started at port {my_port}")
         self.host = my_host
         self.port = my_port
+
+        # open new file if needed for the node data
+        with open(f"Storage/NodeData/node{self.port}.json", "w+") as f:
+            # if file is not formatted as json, format it as an empty json
+            try:
+                json.load(f)
+            except json.JSONDecodeError:
+                json.dump({}, f, ensure_ascii=False, indent=4, sort_keys=True)
+            else:
+                if g.REWRITE_FILES:
+                    json.dump({}, f, ensure_ascii=False, indent=4)
+
+        # erase validators if rewriting files
+        if g.REWRITE_FILES:
+            with open("SmartContracts/contractStorage.json", "w") as f:
+                json.dump({
+                    "index": -1,
+                    "validators": []
+                }, f, ensure_ascii=False, indent=4)
+
         self.hash = ne.new_node(my_port)
 
         # create encryption keys for this node (if needed)
@@ -32,6 +52,7 @@ class Server(threading.Thread):
 
         # dict for collecting consensus
         self.votes = {}
+        self.voted_validators = []
 
         # array for storing consensus chains
         self.chains = []
@@ -103,7 +124,7 @@ class Server(threading.Thread):
                             msgJson = json.loads(full_message)
 
                             # load the data structure that the message is carrying
-                            msgData = json.loads(msgJson['data'])
+                            msgData = msgJson['data']
                             # print("msgJson", msgJson)
 
                         # Exception catch from message conversion to json
@@ -157,26 +178,19 @@ class Server(threading.Thread):
             # case when sender is not a validator
             logging.warning(f"Consensus attempted by non-validator: {msgJson['from']}")
             return
-        if self.validator_list[vIndex].lasthash is not None:
+        if self.validator_list[vIndex] in self.voted_validators:
             # case when sender has already sent one chain
             logging.warning(f"Consensus attempted multiple times from {msgJson['from']}")
             return
 
-        try:
-            loaded_chain = json.loads(msgData['chain'])
-        except json.JSONDecodeError as e:
-            logging.warning(
-                f"Consensus response received from {msgJson['from']} was not formatted correctly")
-            return
-
         # store the sent chain
-        if bf.validate(loaded_chain, msgData['lasthash']):
+        if bf.validate(msgData['chain'], msgData['lasthash']):
 
             if msgData['lasthash'] in self.votes:
-                self.votes[msgData['lasthash']].append(self.validator_list[vIndex].id)
+                self.votes[msgData['lasthash']].append(self.validator_list[vIndex])
             else:
-                self.votes[msgData['lasthash']] = [self.validator_list[vIndex].id]
-                self.chains[msgData['lasthash']] = loaded_chain
+                self.votes[msgData['lasthash']] = [self.validator_list[vIndex]]
+                self.chains[msgData['lasthash']] = msgData['chain']
 
             # increment vote count
             self.votecount += 1
@@ -185,6 +199,7 @@ class Server(threading.Thread):
             if self.votecount == len(self.validator_list):
                 # reset the number of votes
                 self.votecount = 0
+                self.voted_validators = []
                 # begin consensus
                 self.validator_consensus()
         else:
@@ -206,11 +221,14 @@ class Server(threading.Thread):
                 "type": "response",
                 "from": self.hash,
                 "to": msgJson['from'],
-                "data": json.dumps({"fromport": self.port}),
+                "data": {
+                            "fromport": self.port,
+                            "validators": self.validator_list
+                        },
                 "time": time.time()
             }
             # send the message
-            comm.sendMessage(json.dumps(message), int(msgData['fromport']), self.my_pr_key)
+            comm.sendMessage(message, int(msgData['fromport']), self.my_pr_key)
 
         except Exception as e:
             print("could not respond to introduction because", e)
@@ -255,16 +273,6 @@ class Server(threading.Thread):
 
         # update validators
         self.check_validators()
-
-    def consensus_collected(self):
-        """
-        This function will tell when the list of validators has finished collecting chains
-        :return: Boolean for above case
-        """
-        for i in self.validator_list:
-            if i.lasthash is None:
-                return False
-        return True
 
     def update_wallets(self):
         """
@@ -320,15 +328,17 @@ class Server(threading.Thread):
             # broadcast payment to all nodes, including the correct chain for faulty
             # nodes to correct themselves with
             for i in self.port_to_hash:
-                message = json.dumps({
+                message = {
                     "type": "payment",
                     "from": self.hash,
                     "to": destHash,
-                    "data": json.dumps({"value": value,
-                                        "lasthash": self.blockchain[-1].hash,
-                                        "chain": bf.get_dict_list(self.blockchain)}),
+                    "data": {
+                                "value": value,
+                                "lasthash": self.blockchain[-1].hash,
+                                "chain": bf.get_dict_list(self.blockchain)
+                            },
                     "time": timeToSend
-                })
+                }
                 comm.sendMessage(message, i, self.my_pr_key)
 
             # record payment in own transactions list
@@ -346,35 +356,38 @@ class Server(threading.Thread):
         :return: None
         """
 
-        # turn balances into weights
-        weightList = list(self.walletList.values())
+        # make sure there are participants visible to the server
+        if len(self.walletList):
 
-        # make list of the hash ids
-        hashList = list(self.walletList.keys())
+            # turn balances into weights
+            weightList = list(self.walletList.values())
 
-        # clear the current validators
-        self.validator_list = []
-        self.lastIndex = self.blockchain[-1].index
+            # make list of the hash ids
+            hashList = list(self.walletList.keys())
 
-        # Pick a random number of validators for the next block
-        for i in range(random.randint(1,10)):
-            if len(hashList):
-                # make random weighted choice based on UtilityToken 'Balance'
-                choice = random.choices(range(0, len(hashList)), weights=weightList, k=1)[0]
+            # clear the current validators
+            self.validator_list = []
+            self.lastIndex = self.blockchain[-1].index
 
-                # add selection to list
-                self.validator_list.append(hashList[choice])
+            # Pick a random number of validators for the next block
+            for i in range(random.randint(1,10)):
+                if len(hashList):
+                    # make random weighted choice based on UtilityToken 'Balance'
+                    choice = random.choices(range(0, len(hashList)), weights=weightList, k=1)[0]
 
-                # pop for non-repeating
-                hashList.pop(choice)
-                weightList.pop(choice)
-            else:
-                break
+                    # add selection to list
+                    self.validator_list.append(hashList[choice])
 
-        self.broadcast_validators()
+                    # pop for non-repeating
+                    hashList.pop(choice)
+                    weightList.pop(choice)
+                else:
+                    break
 
-        # update validators in memory
-        self.write_validators()
+            self.broadcast_validators()
+
+            # update validators in memory
+            self.write_validators()
 
     def is_validator(self, hash):
         """
@@ -383,9 +396,10 @@ class Server(threading.Thread):
         :return: index of hash in the validator list
         """
 
-        for i in range(0, len(self.validator_list)):
-            if self.validator_list[i].hash == hash:
+        for i in range(len(self.validator_list)):
+            if hash == self.validator_list[i]:
                 return i
+
         return None
 
     def check_validators(self):
@@ -400,13 +414,15 @@ class Server(threading.Thread):
     def broadcast_validators(self):
         # broadcast current validators anyway
         for i in self.port_to_hash:
-            message = json.dumps({
+            message = {
                 "type": "validators",
                 "from": self.hash,
                 "to": self.port_to_hash[i],
-                "data": json.dumps({"validators": self.validator_list}),
+                "data": {
+                            "validators": self.validator_list
+                        },
                 "time": time.time()
-            })
+            }
 
             comm.sendMessage(message, i, self.my_pr_key)
 
@@ -455,7 +471,12 @@ class Server(threading.Thread):
 
 def main():
     # format the log
-    logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
+
+    if g.REWRITE_FILES:
+        logMode = 'w'
+    else:
+        logMode = 'a'
+    logging.basicConfig(filename='Storage/blockchain.log', filemode=logMode,
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 

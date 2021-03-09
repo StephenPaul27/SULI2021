@@ -107,7 +107,7 @@ def get_hash(hashString):
 
 def get_dict_list(chainList=None):
     """
-    This function returns a json-string of a specified list of objects
+    This function returns a dictionary list of a given list of objects
     :param chainList: list to get objects from, default None results in global blockchain used
     :returns: returns local blockchain in dictionary form
     """
@@ -122,9 +122,6 @@ def get_dict_list(chainList=None):
     for i in chainList:
         chain_to_send.append(i.to_dict())
 
-    # convert to json
-    chain_to_send = json.dumps(chain_to_send)
-
     return chain_to_send
 
 
@@ -136,7 +133,6 @@ def get_block_objs(chainDict):
     :param chainDict: the dict list to copy
     :return: list of block objects
     """
-    chainDict = json.loads(chainDict)
     listToReturn = []
     for i in chainDict:
         listToReturn.append(Block(i["index"], i["timestamp"], i["data"], i["previous_hash"]))
@@ -150,12 +146,9 @@ def get_trans_objs(chainDict):
     :param chainDict: the dict list to copy
     :return: list of block objects
     """
-    chainDict = json.loads(chainDict)
     listToReturn = []
     for i in chainDict:
         listToReturn.append(Transaction(i["timestamp"], i["type"], i["sender"], i["recipient"], i["value"]))
-
-    print(f"found {len(listToReturn)} transactions in file")
 
     return listToReturn
 
@@ -167,18 +160,15 @@ def restore_chain(port=g.my_port):
     :return: returns boolean, if false, generate genesis block
     """
     # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
+    with open(f"Storage/NodeData/node{port}.json", "r") as f:
         node_file = json.load(f)
 
     chain_file = None
     chainToReturn = []
 
     # return if node exists in file
-    for i in list(node_file):
-        if node_file[str(i)]["port"] == port:
-            if node_file[str(i)]["chain"]:
-                chain_file = node_file[str(i)]["chain"]
-                break
+    if len(node_file["chain"]):
+        chain_file = node_file["chain"]
 
     if chain_file:
         chainToReturn = get_block_objs(chain_file)
@@ -252,7 +242,7 @@ def create_genesis_block():
     # Manually construct a block with
     # index zero and arbitrary previous hash
     return Block(0, time.time(), {
-        "transactions": ""
+        "transactions": []
     }, "0")
 
 
@@ -298,7 +288,7 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
     # print(f"sorted_consensus: {sorted_consensus}")
 
     # If most popular choice has > than half of all nodes agreeing (excluding consensus server), go with that choice
-    if len(cons_dict[sorted_consensus[0]]) > (len(node_list)-1)/2:
+    if len(sorted_consensus) and len(cons_dict[sorted_consensus[0]]) > (len(node_list)-1)/2:
 
         # erase any blocks in our chain that have not been agreed on
         while len(chainList) and chainList[-1].index > cindex:
@@ -309,10 +299,13 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
             if i['index'] > cindex:
                 chainList.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
                 cindex = i['index']
+
+        print(f"Consensus performed, resulting chain: {chainList[-1].hash}")
     else:
         logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}")
+        print(f"Consensus failed: popular choice <= half of all nodes, at port {port}")
 
-    print(f"Consensus performed, resulting chain: {chainList[-1].hash}")
+
 
     ne.update_chain(chainList=chainList, port=port)
 
@@ -323,9 +316,32 @@ def reset_consensus(newIndex):
     # Reset consensus variables
     g.consensus_dict = {}
     g.consensus_time = 0
+    g.trans_dict = {}
     g.chain_dict = {}
     g.consensus_index = newIndex
     g.consensus_id_list = []
+
+
+def add_trans_to_block():
+    """
+    This function will add a block's transactions to their blockchain according to the blocksize
+    :return: None
+    """
+    # local import because bf is imported after node editor
+    import node_editor as ne
+
+    print("adding to my blockchain")
+    logging.debug(f"Node at port {g.my_port} is adding to its blockchain")
+    lastIndex = g.blockchain[-1].index
+    lastHash = g.blockchain[-1].hash
+    g.blockchain.append(Block(lastIndex + 1, time.time(), {
+        "transactions": get_dict_list(g.this_nodes_transactions[:g.BLOCK_SIZE])
+    }, lastHash))
+    # slice off the transactions added to the blockchain
+    g.this_nodes_transactions = g.this_nodes_transactions[g.BLOCK_SIZE:]
+    # save changes to local memory
+    ne.update_transactions()
+    ne.update_chain()
 
 
 def validate(chain, lasthash):
@@ -334,28 +350,37 @@ def validate(chain, lasthash):
 
     :returns: boolean value representing validity of the provided chain and hash
     """
-    print("Validating:", lasthash)
+    print(f"Validating hash: {lasthash}")
     # initialize the hash
-    sha = hasher.sha256()
-    sha.update((str(chain[0]['index']) + str(chain[0]['timestamp']) + str(chain[0]['data']) + str(chain[0]['previous_hash'])).encode())
+    if len(chain) == 1:
+        sha = hasher.sha256()
+        sha.update((str(chain[0]['index']) + str(chain[0]['timestamp']) + str(chain[0]['data']) + str(chain[0]['previous_hash'])).encode())
+        calculated_hash = sha.hexdigest()
+    else:
+        # check validity of provided g.blockchain (for every block after the first)
+        for i in range(0, len(chain)):
 
-    # check validity of provided g.blockchain (for every block after the first)
-    if len(chain) > 1:
-        for i in range(0, len(chain)-1):
             # reproduce the hash from the data in each block
+            sha = hasher.sha256()
             sha.update((str(chain[i]['index']) + str(chain[i]['timestamp']) + str(chain[i]['data']) + str(chain[i]['previous_hash'])).encode())
-            # if fail to reproduce the same hash as the current block,
-            # as well as the 'previous hash' of the next block, then blockchain is invalid
-            if sha.hexdigest() != chain[i + 1]['previous_hash'] or sha.hexdigest() != chain[i]['hash']:
+            calculated_hash = sha.hexdigest()
+
+            # if fail to reproduce the same hash as what's stored in the current block,
+            # or fail to reproduce 'previous hash' of the next block, then blockchain is invalid
+            if (i+1 < len(chain) and calculated_hash != chain[i + 1]['previous_hash'])\
+                    or calculated_hash != chain[i]['hash']:
                 print("Failed: bad chain")
-                logging.warning(f"chain of {lasthash} was invalid ")
+                logging.warning(f"Validation failed: chain of {lasthash} was invalid ")
                 return False
 
     # check final hash against provided hash
     # also check that the provided blockchain is longer than what we've agreed on already
-    if lasthash != sha.hexdigest() or (g.consensus_index >= chain[-1]['index']):
+    if lasthash != calculated_hash:
         print("Failed: bad hash/index")
-        logging.warning(f"{lasthash} did not match it chain or was not long enough")
+        logging.warning(f"Validation failed: hash did not match it's chain: {lasthash}!={calculated_hash}")
+        return False
+    if g.consensus_index >= chain[-1]['index']:
+        logging.warning(f"Validation failed: chain did not exceed consensus index: {g.consensus_index} >= {chain[-1]['index']}")
         return False
 
     # If nothing failed, then the chain is valid

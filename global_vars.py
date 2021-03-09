@@ -19,18 +19,11 @@ CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 BLOCK_SIZE = 5             # size of each block of transactions to be added
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
-WRITE_TO_FILES = False      # debugging boolean permission for altering files
-
-# Read encryption key from storage
-with open("Storage/CryptoKey.txt", "r") as f:
-    cryptoKey = f.read()
+REWRITE_FILES = True        # Development boolean for writing files from scratch each time
 
 # load node connections
 with open("Storage/node_connections.json", 'r') as f:
-    node_conn = json.loads(f.read())
-
-# integrate encryption key
-Fkey = Fernet(cryptoKey)
+    node_conn = json.load(f)
 
 # # Building to building map (indexed by sender -> receiver of power reference)
 # network_map = {}

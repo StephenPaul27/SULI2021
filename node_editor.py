@@ -14,13 +14,12 @@ def new_node(port):
     """
 
     # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
+    with open(f"Storage/NodeData/node{port}.json", "r") as f:
         node_file = json.load(f)
 
     # return if node already exists in file
-    for i in list(node_file):
-        if node_file[str(i)]["port"] == port:
-            return node_file[str(i)]["hash"]
+    if "hash" in node_file:
+        return node_file["hash"]
 
     # else
 
@@ -29,38 +28,19 @@ def new_node(port):
     sha.update(str(time.time()).encode())
 
     # Create Json object for this new node
-    node_file[str(port-g.BASE_PORT)] = {
+    node_file = {
         "port": port,
         "hash": sha.hexdigest(),
         "transactions": [],
-        "chain": None
+        "chain": []
     }
-
     # Write the updated json back to the file
-    with open("Storage/nodes.json", "w") as f:
-        json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
+    with open(f"Storage/NodeData/node{port}.json", "w") as f:
+        json.dump(node_file, f, ensure_ascii=False, indent=4)
 
     # return the hash created
     return sha.hexdigest()
 
-
-def del_node(id_number):
-    """
-    This function will delete a node from the local storage
-
-    :param id_number: ID of the node to update
-    :return: None
-    """
-    # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
-        node_file = json.load(f)
-
-    # pop the specified node from the json
-    node_file.pop(str(id_number), None)
-
-    # Write the updated json back to the file
-    with open("Storage/nodes.json", "w") as f:
-        json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
 
 def update_chain(port=g.my_port,chainList=None):
     """
@@ -74,17 +54,16 @@ def update_chain(port=g.my_port,chainList=None):
         chainList = g.blockchain
 
     # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
+    with open(f"Storage/NodeData/node{port}.json", "r") as f:
         node_file = json.load(f)
 
     # update the chain
-    for i in list(node_file):
-        if node_file[str(i)]["port"] == port:
-            node_file[str(i)]["chain"] = bf.get_dict_list(chainList)
+    node_file["chain"] = bf.get_dict_list(chainList)
 
     # Write the updated json back to the file
-    with open("Storage/nodes.json", "w") as f:
-        json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
+    with open(f"Storage/NodeData/node{port}.json", "w") as f:
+        json.dump(node_file, f, ensure_ascii=False, indent=4)
+
 
 def get_transactions(port=g.my_port):
     """
@@ -94,19 +73,11 @@ def get_transactions(port=g.my_port):
     """
 
     # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
+    with open(f"Storage/NodeData/node{port}.json", "r") as f:
         node_file = json.load(f)
 
     # read in the transactions from memory
-    for i in list(node_file):
-        if node_file[str(i)]["port"] == port:
-            if node_file[str(i)]["transactions"]:
-                return bf.get_trans_objs(node_file[str(i)]["transactions"])
-
-
-
-    # return empty list if nothing found
-    return []
+    return bf.get_trans_objs(node_file["transactions"])
 
 
 def update_transactions(port=g.my_port, transactions=None):
@@ -121,14 +92,12 @@ def update_transactions(port=g.my_port, transactions=None):
         transactions = g.this_nodes_transactions
 
     # Read json from storage
-    with open("Storage/nodes.json", "r") as f:
+    with open(f"Storage/NodeData/node{port}.json", "r") as f:
         node_file = json.load(f)
 
     # update the chain
-    for i in list(node_file):
-        if node_file[str(i)]["port"] == port:
-            node_file[str(i)]["transactions"] = bf.get_dict_list(transactions)
+    node_file["transactions"] = bf.get_dict_list(transactions)
 
     # Write the updated json back to the file
-    with open("Storage/nodes.json", "w") as f:
-        json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
+    with open(f"Storage/NodeData/node{port}.json", "w") as f:
+        json.dump(node_file, f, ensure_ascii=False, indent=4)

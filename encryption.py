@@ -56,7 +56,7 @@ def decrypt(package, port=g.my_port, pr_key=None):
         # print("decrypted message: ",message)
         msgJson = json.loads(message)
         if msgJson['type'] == 'intro' or msgJson['type'] == 'response':
-            msgData = json.loads(msgJson['data'])
+            msgData = msgJson['data']
             pub_key = ke.get_pub_key(msgData['fromport'])
         else:
             pub_key = ke.get_pub_key(g.hash_to_port[msgJson['from']])

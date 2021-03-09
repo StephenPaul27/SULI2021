@@ -59,18 +59,18 @@ class Receiver(threading.Thread):
                         # print("\ndecrypted message:", full_message)
 
                         try:
-                            # load the message structure
+                            # load the message structure as a json
                             msgJson = json.loads(full_message)
-
-                            # load the data structure that the message is carrying
-                            msgData = json.loads(msgJson['data'])
-                            # print("msgJson", msgJson)
 
                         # Exception catch from message conversion to json
                         except json.JSONDecodeError as e:
                             print(f"Error decoding received message at port {g.my_port}: {e}")
                             logging.error(f"Error decoding received message at port {self.port}: {e}")
                             break
+
+                        # load the data structure that the message is carrying
+                        msgData = msgJson['data']
+                        # print("msgJson", msgJson)
 
                         # action upon receiving an introduction or introduction response
                         if msgJson['type'] == "intro" or msgJson['type'] == "response":
@@ -82,6 +82,12 @@ class Receiver(threading.Thread):
                                 # map sender's hash to its local port
                                 g.port_to_hash[msgData['fromport']] = msgJson['from']
                                 g.hash_to_port[msgJson['from']] = msgData['fromport']
+
+                            # in response from smartcontract, the validators are included
+                            if msgJson['from'] == g.port_to_hash[g.BASE_PORT]\
+                                    and "validators" in msgData:
+                                g.validator_list = msgData['validators']
+                                logging.debug("Validators updated from introduction")
 
 
                             # print(f"received handshake from {msgJson['data']}")
@@ -103,12 +109,11 @@ class Receiver(threading.Thread):
                             self.respond_sensitivity(msgJson, msgData)
                         elif msgJson['type'] == "confirm":
                             self.respond_confirm(msgJson, msgData)
-                        elif msgJson['type'] == "request":
+                        elif msgJson['type'] == "request" and msgJson['from'] in g.validator_list:
                             self.respond_request(msgJson, msgData)
                         elif msgJson['type'] == "addblock":
                             self.respond_addblock(msgJson, msgData)
-                        elif msgJson['type'] == 'validators' \
-                                and msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+                        elif msgJson['type'] == 'validators':
                             self.respond_validators(msgJson, msgData)
                         elif msgJson['type'] == 'payment':
                             self.respond_pay(msgJson, msgData)
@@ -118,6 +123,7 @@ class Receiver(threading.Thread):
                 #connection.shutdown(2)
                 connection.close()
 
+
     def respond_validators(self, msgJson, msgData):
         """
         This function is responsible for recording validators from the smartcontract
@@ -126,9 +132,11 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
-        g.validator_list = []
-        for i in msgData['validators']:
-            g.validator_list.append(i)
+        if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+            g.validator_list = []
+            for i in msgData['validators']:
+                g.validator_list.append(i)
+
 
     def respond_intro(self, msgJson, msgData):
         """
@@ -145,12 +153,12 @@ class Receiver(threading.Thread):
                 "type": "response",
                 "from": g.my_hash,
                 "to": msgJson['from'],
-                "data": json.dumps({
-                                    "fromport": self.port,
-                                    "lasthash": g.blockchain[-1].hash,
-                                    "chain": bf.get_dict_list(),
-                                    "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
-                                    }),
+                "data": {
+                            "fromport": self.port,
+                            "lasthash": g.blockchain[-1].hash,
+                            "chain": bf.get_dict_list(),
+                            "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
+                        },
                 "time": time.time()
             }
 
@@ -159,7 +167,7 @@ class Receiver(threading.Thread):
                 g.node_list.append(msgData['fromport'])
                 # print(f"node list: {node_list}")
             # finally send the message
-            sendMessage(json.dumps(message), int(msgData['fromport']))
+            sendMessage(message, int(msgData['fromport']))
 
         except Exception as e:
             print("could not respond to introduction because", e)
@@ -176,17 +184,9 @@ class Receiver(threading.Thread):
         """
 
         # if ready to add a new block, go ahead and put it on your blockchain
-        if len(g.this_nodes_transactions) > g.BLOCK_SIZE:
-            print("adding to my blockchain")
-            logging.debug(f"Node at port {g.my_port} is adding to its blockchain")
-            g.blockchain.append(bf.Block(g.blockchain[-1].index+1, time.time(), {
-                "transactions": bf.get_dict_list(g.this_nodes_transactions)
-            }, g.blockchain[-1].hash))
-            # slice off the transactions added to the blockchain
-            g.this_nodes_transactions = g.this_nodes_transactions[g.BLOCK_SIZE:]
-            # save changes to local memory
-            ne.update_transactions()
-            ne.update_chain()
+        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE\
+                and g.blockchain[-1].index < msgData['index']:
+            bf.add_trans_to_block()
 
         # respond with port and blockchain for consensus
         try:
@@ -194,16 +194,20 @@ class Receiver(threading.Thread):
                 "type": "addblock",
                 "from": g.my_hash,
                 "to": msgJson['from'],
-                "data": json.dumps({"lasthash": g.blockchain[-1].hash, "chain": bf.get_dict_list()}),
+                "data": {
+                            "lasthash": g.blockchain[-1].hash,
+                            "chain": bf.get_dict_list(),
+                            "transactions": bf.get_dict_list(g.this_nodes_transactions)
+                        },
                 "time": time.time()
             }
 
             # finally send the message
-            sendMessage(json.dumps(message), int(msgData['fromport']))
+            sendMessage(message, g.hash_to_port[msgJson['from']])
 
         except Exception as e:
             print("could not respond to request because", e)
-            logging.error(f"port {self.port} could not respond to request because {e}")
+            logging.error(f"port {self.port} could not respond to request because {traceback.format_exc()}")
             # breakpoint()
 
     def respond_response(self, msgJson, msgData):
@@ -221,14 +225,8 @@ class Receiver(threading.Thread):
         else:
             return
 
-        try:
-            loaded_chain = json.loads(msgData['chain'])
-        except json.JSONDecodeError as e:
-            logging.warning(f"Consensus response received at {g.my_port} was not formatted correctly")
-            return
-
         # recognize consensus only on NEW blocks
-        if len(loaded_chain) and loaded_chain[-1]['index'] > g.consensus_index:
+        if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
             loaded_transactions = bf.get_trans_objs(msgData['transactions'])
             T_hash = bf.get_transaction_list_hash(loaded_transactions)
             # create combination hash of transactions and blockchain
@@ -238,9 +236,9 @@ class Receiver(threading.Thread):
             if comboHash in g.consensus_dict:
                 g.consensus_dict[comboHash].append(msgJson['from'])
             # if not in the histogram yet, add them after validating the chain
-            elif bf.validate(loaded_chain, msgData['lasthash']):
+            elif bf.validate(msgData['chain'], msgData['lasthash']):
                 # store the chain itself
-                g.chain_dict[comboHash] = loaded_chain
+                g.chain_dict[comboHash] = msgData['chain']
                 g.trans_dict[comboHash] = loaded_transactions
                 # add to histogram
                 g.consensus_dict[comboHash] = [msgJson['from']]
@@ -293,14 +291,18 @@ class Receiver(threading.Thread):
             try:
                 # write sensitivity message
                 # this is where sensitivity would be calculated
-                message = json.dumps({
+                message = {
                     "type": "sensitivity",
                     "from": g.my_hash,
                     "to": msgJson['from'],
-                    "data": json.dumps({"id": msgData['id'], "power": msgData['power'],
-                                        "sensitivity": 1, "time": msgData['time']}),
+                    "data": {
+                                "id": msgData['id'],
+                                "power": msgData['power'],
+                                "sensitivity": 1,
+                                "time": msgData['time']
+                            },
                     "time": time.time()
-                })
+                }
                 logging.debug(
                     f"Message({self.port} - {j}): Sending sensitivity from {self.port} to {g.hash_to_port[msgJson['from']]}")
 
@@ -354,14 +356,18 @@ class Receiver(threading.Thread):
                     for j in g.node_list:  # broadcast confirmation to all seen nodes
                         try:
                             # write confirmation message
-                            message = json.dumps({
+                            message = {
                                 "type": "confirm",
                                 "from": g.my_hash,
                                 "to": msgJson['from'],
-                                "data": json.dumps({"id": msgData['id'], "power": msgData['power'],
-                                                    "sensitivity": msgData['sensitivity'], "time": msgData['time']}),
+                                "data": {
+                                            "id": msgData['id'],
+                                            "power": msgData['power'],
+                                            "sensitivity": msgData['sensitivity'],
+                                            "time": msgData['time']
+                                        },
                                 "time": time.time()
-                            })
+                            }
 
                             logging.debug(f"Message({self.port} - {j}): "
                                           f"Sending Confirmation from {self.port} to {g.hash_to_port[msgJson['from']]}")
@@ -374,29 +380,44 @@ class Receiver(threading.Thread):
                     # if transactions exceed block size and this node is a validator, propose a new block
                     if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
                         logging.debug(f"Proposing new block at port {g.my_port}")
+                        self.propose_block(msgJson, msgData)
 
-                        for j in g.node_list:  # broadcast to all seen nodes
-                            try:
-                                # write proposal message including transactions and hash for consensus
-                                message = json.dumps({
-                                    "type": "request",
-                                    "from": g.my_hash,
-                                    "to": g.port_to_hash[j],
-                                    "data": json.dumps({"transactions": g.this_nodes_transactions,
-                                                        "hash": bf.get_transaction_list_hash()}),
-                                    "time": time.time()
-                                })
-                                # broadcast message
-                                sendMessage(message, j)
-                            except Exception as e:
-                                logging.warning(
-                                    f"Unable to propose block from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
 
 
             else:
                 logging.warning(f"Power mismatch at port {g.my_port}")
         else:
             logging.warning(f"{msgData['id']} not found in transaction tracking at port {g.my_port}")
+
+    def propose_block(self, msgJson, msgData):
+        """
+        This function will propose a block update to all of the other blocks
+        :return: None
+        """
+
+        # if ready to add a new block, go ahead and put it on your blockchain
+        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE:
+            bf.add_trans_to_block()
+
+        for j in g.node_list:  # broadcast to all seen nodes
+            try:
+                # write proposal message including transactions and hash for consensus
+                message = {
+                    "type": "request",
+                    "from": g.my_hash,
+                    "to": g.port_to_hash[j],
+                    "data": {
+                                "transactions": bf.get_dict_list(g.this_nodes_transactions),
+                                "hash": bf.get_transaction_list_hash(),
+                                "index": g.blockchain[-1].index
+                            },
+                    "time": time.time()
+                }
+                # broadcast message
+                sendMessage(message, j)
+            except Exception as e:
+                logging.warning(
+                    f"Unable to propose block from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
 
     def respond_confirm(self, msgJson, msgData):
         """
@@ -420,23 +441,7 @@ class Receiver(threading.Thread):
         # if transactions exceed block size and this node is a validator, propose a new block
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
             logging.debug(f"Proposing new block at port {g.my_port}")
-
-            for j in g.node_list:  # broadcast to all seen nodes
-                try:
-                    # write proposal message including transactions and hash for consensus
-                    message = json.dumps({
-                        "type": "request",
-                        "from": g.my_hash,
-                        "to": g.port_to_hash[j],
-                        "data": json.dumps({"transactions": g.this_nodes_transactions,
-                                            "hash": bf.get_transaction_list_hash()}),
-                        "time": time.time()
-                    })
-                    # broadcast message
-                    sendMessage(message, j)
-                except Exception as e:
-                    logging.warning(
-                        f"Unable to propose block from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
+            self.propose_block(msgJson, msgData)
 
     def respond_addblock(self, msgJson, msgData):
         """
@@ -454,24 +459,23 @@ class Receiver(threading.Thread):
         else:
             return
 
-        try:
-            loaded_chain = json.loads(msgData['chain'])
-        except json.JSONDecodeError as e:
-            logging.warning(f"Consensus addblock message received at {g.my_port} was not formatted correctly")
-            return
-
         # recognize consensus only on NEW blocks
-        if len(loaded_chain) and loaded_chain[-1]['index'] > g.consensus_index:
+        if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
+            loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+            T_hash = bf.get_transaction_list_hash(loaded_transactions)
+            # create combination hash of transactions and blockchain
+            comboHash = bf.get_hash(str(msgData['lasthash']) + str(T_hash))
 
             # Histogram the votes for the blockchain hash
-            if msgData['lasthash'] in g.consensus_dict:
-                g.consensus_dict[msgData['lasthash']].append(msgJson['from'])
+            if comboHash in g.consensus_dict:
+                g.consensus_dict[comboHash].append(msgJson['from'])
             # if not in the histogram yet, add them after validating the chain
-            elif bf.validate(loaded_chain, msgData['lasthash']):
+            elif bf.validate(msgData['chain'], msgData['lasthash']):
                 # store the chain itself
-                g.chain_dict[msgData['lasthash']] = loaded_chain
+                g.chain_dict[comboHash] = msgData['chain']
+                g.trans_dict[comboHash] = loaded_transactions
                 # add to histogram
-                g.consensus_dict[msgData['lasthash']] = [msgJson['from']]
+                g.consensus_dict[comboHash] = [msgJson['from']]
 
             # if consensus has timed out or received messages from all participating nodes
             if (g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT)) \
@@ -485,7 +489,10 @@ class Receiver(threading.Thread):
                         "type": "consensus",
                         "from": g.my_hash,
                         "to": g.port_to_hash[g.BASE_PORT],
-                        "data": json.dumps({"lasthash": g.blockchain[-1].hash, "chain": bf.get_dict_list()}),
+                        "data": {
+                                    "lasthash": g.blockchain[-1].hash,
+                                    "chain": bf.get_dict_list()
+                                },
                         "time": time.time()
                     }
                     sendMessage(message, g.BASE_PORT)
@@ -515,6 +522,11 @@ class Receiver(threading.Thread):
             if msgData['lasthash'] != g.blockchain[-1].hash:
                 g.blockchain = bf.get_block_objs(msgData['chain'])
             ne.update_transactions()
+
+            # if transactions exceed block size and this node is a validator, propose a new block
+            if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
+                logging.debug(f"Proposing new block at port {g.my_port}")
+                self.propose_block(msgJson, msgData)
         else:
             logging.warning(f"Attempted payment observed at {g.my_port} from {g.hash_to_port[msgJson['from']]}")
 
@@ -538,13 +550,13 @@ class Sender(threading.Thread):
             if g.BASE_PORT + i != self.my_port:   # don't send to yourself
                 try:
                     # send my hash to all existing nodes
-                    message = json.dumps({
+                    message = {
                         "type": "intro",
                         "from": g.my_hash,
                         "to": g.BASE_PORT+i,
-                        "data": json.dumps({"fromport": self.my_port}),
+                        "data": {"fromport": self.my_port},
                         "time": time.time()
-                    })
+                    }
                     sendMessage(message, g.BASE_PORT + i)
 
                     # track active ports/nodes that successfully connected
@@ -575,7 +587,7 @@ class Sender(threading.Thread):
                             sha.update(str(time.time()).encode())
 
                             # create skeleton of message
-                            message_variables = {
+                            message = {
                                 "type": "powerref",
                                 "from": g.my_hash,
                                 "to": g.port_to_hash[i],
@@ -583,7 +595,7 @@ class Sender(threading.Thread):
                             }
 
                             # copy the skeleton to track with different carried data
-                            tracked_message = message_variables
+                            tracked_message = message
 
                             # set the tracked simplified message value
                             tracked_message['value'] = message_power
@@ -592,10 +604,11 @@ class Sender(threading.Thread):
                             tracking_id = sha.hexdigest()
 
                             # set the data for the actual message
-                            message_variables['data'] = json.dumps({
+                            message['data'] = {
                                 "id": tracking_id,
                                 "power": message_power,
-                                "time": time.time()})
+                                "time": time.time()
+                            }
 
                             # prepare to track message
                             g.transaction_tracking[tracking_id] = []
@@ -606,8 +619,6 @@ class Sender(threading.Thread):
                             # store new tracked message
                             g.transaction_tracking[tracking_id].append(tracked_message)
 
-                            # Create secure message
-                            message = json.dumps(message_variables)
                             logging.debug(f"Message({self.my_port} - {j}): Sending power ref from {self.my_port} to {i}")
 
                             # broad cast that you're sending power reference to i
@@ -624,6 +635,12 @@ def sendMessage(message, destPort, pr_key=None):
     :param message: The string message to send
     :param destPort: The port of the destination node
     """
+
+    try:
+        message = json.dumps(message)
+    except json.JSONDecodeError:
+        print(f"Message failed to send to port {destPort} because it couldn't be json formatted")
+        logging.error(f"Message failed to send to port {destPort} because it couldn't be json formatted: {traceback.format_exc()}")
 
     # print(f"sending message to port{destPort}")
 

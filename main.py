@@ -17,8 +17,25 @@ def main():
     This is the main function, it executes the rest of the code
     """
 
+    # open new file if needed for the node data
+    with open(f"Storage/NodeData/node{g.my_port}.json", "w+") as f:
+        # if file is not formatted as json, format it as an empty json
+        try:
+            json.load(f)
+        except json.JSONDecodeError:
+            json.dump({}, f, ensure_ascii=False, indent=4)
+        else:
+            if g.REWRITE_FILES:
+                json.dump({}, f, ensure_ascii=False, indent=4)
+
+
+
     # format the log
-    logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
+    if g.REWRITE_FILES:
+        logMode = 'w'
+    else:
+        logMode = 'a'
+    logging.basicConfig(filename='Storage/blockchain.log', filemode=logMode,
                         format='%(asctime)s %(module)s:%(lineno)d - %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 
@@ -51,6 +68,7 @@ def main():
     g.this_nodes_transactions = ne.get_transactions()
 
     print("This node's Genesis block hash: ", g.blockchain[0].hash)
+    print("This node's ID hash:", g.my_hash)
 
     # Log node startup
     logging.info(f"Node started at port {g.my_port} with hash {g.my_hash}")
