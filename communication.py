@@ -81,6 +81,10 @@ class Receiver(threading.Thread):
                                 g.port_to_hash[msgData['fromport']] = msgJson['from']
                                 g.hash_to_port[msgJson['from']] = msgData['fromport']
 
+                                # update node connections just in case this node added one
+                                with open("Storage/node_connections.json", 'r') as f:
+                                    node_conn = json.load(f)
+
                             # in response from smartcontract, the validators are included
                             if msgJson['from'] == g.port_to_hash[g.BASE_PORT]\
                                     and "validators" in msgData:

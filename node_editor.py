@@ -38,6 +38,26 @@ def new_node(port):
     with open(f"Storage/NodeData/node{port}.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4)
 
+    # now add node connection if needed (not to consensus server though)
+    if port is not g.BASE_PORT:
+        # Read json from storage
+        with open(f"Storage/node_connections.json", "r") as f:
+            node_file = json.load(f)
+
+        if str(port) not in node_file:
+            if port not in node_file[list(node_file)[-1]]['downstream']:
+                node_file[list(node_file)[-1]]['downstream'].append(port)
+
+            node_file[str(port)] = {
+                "downstream": [],
+                "upstream": [int(list(node_file)[-1])]
+            }
+            g.node_conn = node_file
+            # Write the updated json back to the file
+            with open(f"Storage/node_connections.json", "w") as f:
+                json.dump(node_file, f, ensure_ascii=False, indent=4)
+
+
     # return the hash created
     return sha.hexdigest()
 
