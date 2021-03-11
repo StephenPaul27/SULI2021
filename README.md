@@ -12,8 +12,8 @@ To run a large number of nodes, I created the bash script "node_runner" that can
 <br><u><i>base-port</u></i> - port to start making connections from (i.e. 8100, then it would loop until 8100 + number-of-nodes)
 <br><u><i>test-duration</u></i> - number of seconds before node processes are killed
 
-Several of the storage files are kept as 
-such for convenience.  In reality public keys 
-would be provided by some sort of keyserver, 
-while node data, blockchains, and private keys 
-would all be stored local to each node.
+Blockchains and transactions for nodes are stored in their own local files in Storage/NodeData
+
+Errors and general debugging information is written to blockchain.log by the logging module
+
+Some global variables can be altered to change the testing environment, i.e. g.REWRITE_FILES will erase the log and node files prior to execution

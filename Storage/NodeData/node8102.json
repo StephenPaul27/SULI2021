@@ -1,75 +1,57 @@
 {
     "port": 8102,
-    "hash": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
+    "hash": "b03edd7df6596cb486849d5e856e29f897fc2914adf394dafe869261e4e4d498",
     "transactions": [
         {
-            "timestamp": 1615327994.2288508,
-            "type": "power",
-            "sender": "01988d2c1cf7082f182d8127d9f69ab339d328c2408aef4b4a36516996493db7",
-            "recipient": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
+            "timestamp": 1615474874.997702,
+            "type": "payment",
+            "sender": "941222a3f31db3846cbf115f73a2827bc4d6094e8c970fd9fc3753fcfc46d080",
+            "recipient": "52400fc987dac83bf9660bc0fc6a123fd09c224bd78a861e521ade5c0b62c6a0",
+            "value": 20,
+            "hash": "1180bc2fc1eb79992ce7c0176576d0872779e74c97bc72ca4ca224303b6250e4"
+        },
+        {
+            "timestamp": 1615474875.907378,
+            "type": "payment",
+            "sender": "941222a3f31db3846cbf115f73a2827bc4d6094e8c970fd9fc3753fcfc46d080",
+            "recipient": "b03edd7df6596cb486849d5e856e29f897fc2914adf394dafe869261e4e4d498",
+            "value": 20,
+            "hash": "7ef91a5a99171552afd91c4277d7a00ee68abe478c32a6534b7c098c3a28c73d"
+        },
+        {
+            "timestamp": 1615474877.035414,
+            "type": "payment",
+            "sender": "941222a3f31db3846cbf115f73a2827bc4d6094e8c970fd9fc3753fcfc46d080",
+            "recipient": "b4fe675426750e8761b68588233f4d3d2741ccbbc1f92e55210b9030e7b32b97",
+            "value": 20,
+            "hash": "d42d3dd6e540f38390be8f83fe52ead395ad5aca77ab8c6ffcb8a07bb5720897"
+        },
+        {
+            "timestamp": 1615474885.0011919,
+            "type": "powerref",
+            "sender": "52400fc987dac83bf9660bc0fc6a123fd09c224bd78a861e521ade5c0b62c6a0",
+            "recipient": "b03edd7df6596cb486849d5e856e29f897fc2914adf394dafe869261e4e4d498",
             "value": 1,
-            "hash": "b7b0b1717089d4ffe1893fcec25c23726e3f8200930d4e0b41eac05d4906580c"
+            "hash": "e0b36a623a7fcc93aa93a0eb80ea965e1fbc687beef3b3f05f224ef108e537f5"
+        },
+        {
+            "timestamp": 1615474885.008663,
+            "type": "sensitivity",
+            "sender": "b03edd7df6596cb486849d5e856e29f897fc2914adf394dafe869261e4e4d498",
+            "recipient": "52400fc987dac83bf9660bc0fc6a123fd09c224bd78a861e521ade5c0b62c6a0",
+            "value": 1,
+            "hash": "8b6b00769ec99aec77e9b6e905b0a1a91f7760921eb57ad917595f1b49143e89"
         }
     ],
     "chain": [
         {
             "index": 0,
-            "timestamp": 1615327974.204963,
+            "timestamp": 1615474874.9848378,
             "data": {
                 "transactions": []
             },
             "previous_hash": "0",
-            "hash": "f3b952f4830d2b9c354d146372334b055544a24becbbd62eede55a86367e0c80"
-        },
-        {
-            "index": 1,
-            "timestamp": 1615327994.24844,
-            "data": {
-                "transactions": [
-                    {
-                        "timestamp": 1615327974.21744,
-                        "type": "payment",
-                        "sender": "c8dc23b80649e7ae6ee3d519f41e8c448eff100e20a01f90b1c1898d67f96f6f",
-                        "recipient": "01988d2c1cf7082f182d8127d9f69ab339d328c2408aef4b4a36516996493db7",
-                        "value": 20,
-                        "hash": "2381ed7807115e258cba94f36e9575f9f1b10ccac9834e4391178a032f623828"
-                    },
-                    {
-                        "timestamp": 1615327975.0772538,
-                        "type": "payment",
-                        "sender": "c8dc23b80649e7ae6ee3d519f41e8c448eff100e20a01f90b1c1898d67f96f6f",
-                        "recipient": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
-                        "value": 20,
-                        "hash": "706aed2e57ac6d3205229324230561d78691b5c11a88d27ce046a39282e9bc5a"
-                    },
-                    {
-                        "timestamp": 1615327984.21882,
-                        "type": "sense",
-                        "sender": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
-                        "recipient": "01988d2c1cf7082f182d8127d9f69ab339d328c2408aef4b4a36516996493db7",
-                        "value": 1,
-                        "hash": "21d942815d894449260b6b533d2d245a5aae4cc6a43549a98eee6346659b9e98"
-                    },
-                    {
-                        "timestamp": 1615327984.21882,
-                        "type": "power",
-                        "sender": "01988d2c1cf7082f182d8127d9f69ab339d328c2408aef4b4a36516996493db7",
-                        "recipient": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
-                        "value": 1,
-                        "hash": "decafa7d81b5e9c6b29fd61c9ee05aba2e00c5fc5b128ef397a029d828af6b95"
-                    },
-                    {
-                        "timestamp": 1615327994.2288508,
-                        "type": "sense",
-                        "sender": "132a496c19fc9449bf3de4228029b3da0da390b6e38e922bd591931a4eb571c4",
-                        "recipient": "01988d2c1cf7082f182d8127d9f69ab339d328c2408aef4b4a36516996493db7",
-                        "value": 1,
-                        "hash": "cf5a26d36cf8a41c697026f929a3e56a05cf279d9c0f74055495a7ae9899022c"
-                    }
-                ]
-            },
-            "previous_hash": "f3b952f4830d2b9c354d146372334b055544a24becbbd62eede55a86367e0c80",
-            "hash": "8cc04a2b8a79cfb67bcaf8c345606b7cc64cf1c43c013fcf6563c8ea5f91f60b"
+            "hash": "50ec9885974e4a0fa43d570c7a87cffa8f1314276209631d904dde057fbc8c87"
         }
     ]
 }

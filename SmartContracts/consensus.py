@@ -10,12 +10,21 @@ from all_imports import *
 
 class Server(threading.Thread):
     """
-    This class is responsible for receiving and reacting to messages from nodes
+    This class is responsible for receiving and reacting to messages for the "smart contract" server
     """
 
-    def __init__(self, my_host, my_port):
+    def __init__(self, my_host=g.BASE_HOST, my_port=g.BASE_PORT):
+        """
+        This function initializes the server and its variables
+        :param my_host: host of the server (defaults to BASE)
+        :param my_port: port of the server (defaults to BASE)
+        """
+
+        # Start the thread for the server
         threading.Thread.__init__(self, name="consensus_server")
         logging.debug(f"Consensus server started at port {my_port}")
+
+        # set host and port of server
         self.host = my_host
         self.port = my_port
 
@@ -27,6 +36,7 @@ class Server(threading.Thread):
             except json.JSONDecodeError:
                 json.dump({}, f, ensure_ascii=False, indent=4, sort_keys=True)
             else:
+                # if rewriting files, erase the written file
                 if g.REWRITE_FILES:
                     json.dump({}, f, ensure_ascii=False, indent=4)
 
@@ -38,6 +48,9 @@ class Server(threading.Thread):
                     "validators": []
                 }, f, ensure_ascii=False, indent=4)
 
+        self.max_validators = 10
+
+        # create the hash for this node (if needed)
         self.hash = ne.new_node(my_port)
 
         # create encryption keys for this node (if needed)
@@ -49,37 +62,40 @@ class Server(threading.Thread):
         # list of validators for the next block
         self.validator_list = []
 
-        # variables for collecting consensus
+        # consensus dictionary
         self.votes = {}
-        self.voted_validators = []
-        self.votecount = 0
 
-        # array for storing consensus chains
+        # list of validators who have voted
+        self.voted_validators = []
+
+        # dicts for storing chains and transactions for consensus
         self.chains_dict = {}
         self.trans_dict = {}
 
-        # create transaction list to indicate when
+        # create transaction list
         self.transactions = ne.get_transactions(self.port)
 
         # Read in the blockchain of the smartcontract
         self.blockchain = bf.restore_chain(port=self.port)
         ne.update_chain(port=self.port, chainList=self.blockchain)
 
+        # store the last agreed index
         self.lastIndex = self.blockchain[-1].index
 
-        # update balances from stored chain
+        # update wallet balances from stored chain
         self.update_wallets()
 
-        # mimic global variables privately
+        # dictionaries to track other nodes online
         self.port_to_hash = {}
         self.hash_to_port = {}
 
-        # restore validators and index from memory
+        # restore validators and index from memory if they're up to date
         self.read_validators()
 
     def listen(self):
         """
-        This function is the listener for incoming messages
+        This function is the listener for the server, it accepts connections and messages
+        :return: None
         """
 
         # create server socket
@@ -112,7 +128,9 @@ class Server(threading.Thread):
                     if not data:
                         # break immediately if empty message
                         if full_message is None or full_message == b'':
+                            logging.debug(f"Received blank message at port {self.port}")
                             break
+
                         # print("\nreceived encrypted message:",full_message)
 
                         # decrypt received message using known key:
@@ -124,28 +142,27 @@ class Server(threading.Thread):
                             # load the message structure
                             msgJson = json.loads(full_message)
 
-                            # load the data structure that the message is carrying
+                            # Extract the data structure that the message is carrying
                             msgData = msgJson['data']
-                            # print("msgJson", msgJson)
 
                         # Exception catch from message conversion to json
                         except json.JSONDecodeError as e:
-                            print(f"Error decoding received message: {e}")
-                            logging.error(f"Error decoding received message at port {self.port}: {e}")
+                            print(f"Error loading json message: {e}")
+                            logging.error(f"Error loading json from message at port {self.port}: {e}")
                             break
 
+                        # in the initial handshake process, store ports and hashes
                         if msgJson['type'] == "intro" or msgJson['type'] == 'response':
-                            # map sender's hash to its local port and give it a unique identifier
+                            # if this port has not already been assigned
                             if msgData['fromport'] not in self.port_to_hash:
-                                sha = hasher.sha256()
-                                sha.update(str(time.time()).encode(g.ENCODING))
-                                # map sender's hash to its local port
+                                # map sender's hash to its local port and vice versa
                                 self.port_to_hash[msgData['fromport']] = msgJson['from']
                                 self.hash_to_port[msgJson['from']] = msgData['fromport']
 
                         # reaction to introduction
                         if msgJson['type'] == "intro" and msgJson['to'] == self.port:
                             self.introduction_response(msgJson, msgData)
+                        # reaction to consensus initiation
                         elif msgJson['type'] == "consensus":
                             self.consensus_response(msgJson, msgData)
 
@@ -157,22 +174,18 @@ class Server(threading.Thread):
                 # connection.shutdown(2)
                 connection.close()
 
-    def respond_response(self, msgJson, msgData):
-        """
-        This function will make sure that the consensus smartcontract has an updated blockchain
-        :param msgJson: Json structure of message
-        :param msgData: Json structure of message data
-        :return: None
-        """
-
     def consensus_response(self, msgJson, msgData):
         """
-        This function is responsible for reacting to consensus messages
+        This function reacts to consensus messages, collecting consensus results from the validators then
+        performing its own consensus using those blockchains
+
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         :return: None
         """
 
+        # obtain the index of the message sender hash in the validator list
+        # if it does not exist (i.e. the sender is not a validator) it will return None
         vIndex = self.is_validator(msgJson['from'])
 
         if vIndex is None:
@@ -184,30 +197,38 @@ class Server(threading.Thread):
             logging.warning(f"Consensus attempted multiple times from {msgJson['from']}")
             return
 
-        # store the sent chain
+        # mark the validator as already having voted once in this cycle
+        self.voted_validators.append(self.validator_list[vIndex])
 
+        # load the transactions from the message
         loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+
+        # get the hash of those transactions
         T_hash = bf.get_transaction_list_hash(loaded_transactions)
+
         # create combination hash of transactions and blockchain
         comboHash = bf.get_hash(str(msgData['lasthash']) + str(T_hash))
 
-        if msgData['lasthash'] in self.votes:
+        # if the hash is already in the votes
+        if comboHash in self.votes:
+            # append this validator's vote to it
             self.votes[comboHash].append(self.validator_list[vIndex])
+        # else, validate the chain and hash
         elif bf.validate(msgData['chain'], msgData['lasthash'], index=self.lastIndex):
+            # then create the first vote for this comboHash
             self.votes[comboHash] = [self.validator_list[vIndex]]
+            # store the chain being voted on
             self.chains_dict[comboHash] = msgData['chain']
+            # store the transactions being voted on
             self.trans_dict[comboHash] = loaded_transactions
 
-            # increment vote count
-            self.votecount += 1
+        # if all validators have voted
+        if len(self.voted_validators) == len(self.validator_list):
+            # perform consensus
+            self.validator_consensus()
+            # reset the consensus variables
+            self.reset_consensus()
 
-            # if all validators have voted
-            if self.votecount == len(self.validator_list):
-                # reset the number of votes
-                self.votecount = 0
-                self.voted_validators = []
-                # begin consensus
-                self.validator_consensus()
         else:
             # case when validation fails
             logging.warning(f"Consensus chain from {msgJson['from']} was invalid")
@@ -221,21 +242,22 @@ class Server(threading.Thread):
         :return: None
         """
 
-        # respond with port so other nodes know who we are
+        # respond with port in the data
+        # include list of validators as well so the new node knows whether to do consensus
+
+        message = {
+            "type": "response",
+            "from": self.hash,
+            "to": msgJson['from'],
+            "data": {
+                        "fromport": self.port,
+                        "validators": self.validator_list
+                    },
+            "time": time.time()
+        }
         try:
-            message = {
-                "type": "response",
-                "from": self.hash,
-                "to": msgJson['from'],
-                "data": {
-                            "fromport": self.port,
-                            "validators": self.validator_list
-                        },
-                "time": time.time()
-            }
             # send the message
             comm.sendMessage(message, int(msgData['fromport']), self.my_pr_key)
-
         except Exception as e:
             print("could not respond to introduction because", e)
             logging.error(f"port {self.port} could not respond to introduction because {e}")
@@ -264,18 +286,18 @@ class Server(threading.Thread):
 
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
-
+        print("performing consensus at the smart contract")
         if len(sorted_consensus):
             self.blockchain = bf.get_block_objs(self.chains_dict[sorted_consensus[0]])
             self.transactions = self.trans_dict[sorted_consensus[0]]
             ne.update_chain(self.port, self.blockchain)
             ne.update_transactions(self.port, self.transactions)
 
-            self.reset_consensus()
-
             # distribute payment/punishment
             for count, i in enumerate(sorted_consensus):
-                for j in i:
+                for j in self.votes[i]:
+                    print(f"paying {j}")
+                    logging.debug(f"Smart-Contract Paying {j}")
                     # penalize everyone past index 0
                     if count:
                         self.pay(j, g.PENALTY)
@@ -295,7 +317,6 @@ class Server(threading.Thread):
         self.trans_dict = {}
         self.votes = {}
         self.voted_validators = []
-        self.votecount = 0
 
     def update_wallets(self):
         """
@@ -362,7 +383,10 @@ class Server(threading.Thread):
                             },
                     "time": timeToSend
                 }
-                comm.sendMessage(message, i, self.my_pr_key)
+                try:
+                    comm.sendMessage(message, i, self.my_pr_key)
+                except Exception as e:
+                    logging.error(f"port {self.port} could not send payment receipt to port {i} because: {e}")
 
             # record payment in own transactions list
             self.transactions = bf.add_transaction(timeToSend, "payment", self.hash, destHash,
@@ -392,8 +416,14 @@ class Server(threading.Thread):
             self.validator_list = []
             self.lastIndex = self.blockchain[-1].index
 
-            # Pick a random number of validators for the next block
-            for i in range(random.randint(1,10)):
+            # pick random number of validators up to the max set value
+            if len(hashList) > self.max_validators:
+                numValidators = random.randint(1, len(self.max_validators))
+            else:
+                numValidators = random.randint(1, len(hashList))
+
+            # pick out the validators
+            for i in range(numValidators):
                 if len(hashList):
                     # make random weighted choice based on UtilityToken 'Balance'
                     choice = random.choices(range(0, len(hashList)), weights=weightList, k=1)[0]
@@ -407,6 +437,9 @@ class Server(threading.Thread):
                 else:
                     break
 
+            print(f"selected new validators:{self.validator_list}")
+
+            # broadcast newly selected validators to all of the nodes
             self.broadcast_validators()
 
             # update validators in memory
@@ -446,8 +479,10 @@ class Server(threading.Thread):
                         },
                 "time": time.time()
             }
-
-            comm.sendMessage(message, i, self.my_pr_key)
+            try:
+                comm.sendMessage(message, i, self.my_pr_key)
+            except Exception as e:
+                logging.error(f"Couldn't broadcast validators to port {i} because: {e}")
 
     def read_validators(self):
         """

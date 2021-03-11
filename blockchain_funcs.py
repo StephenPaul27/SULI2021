@@ -308,6 +308,7 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
 
 
     ne.update_chain(chainList=chainList, port=port)
+    ne.update_transactions(port=port,transactions=trans_dict[sorted_consensus[0]])
 
     return chainList, trans_dict[sorted_consensus[0]]
 
@@ -330,15 +331,18 @@ def add_trans_to_block():
     # local import because bf is imported after node editor
     import node_editor as ne
 
-    print("adding to my blockchain")
     logging.debug(f"Node at port {g.my_port} is adding to its blockchain")
     lastIndex = g.blockchain[-1].index
     lastHash = g.blockchain[-1].hash
-    g.blockchain.append(Block(lastIndex + 1, time.time(), {
-        "transactions": get_dict_list(g.this_nodes_transactions[:g.BLOCK_SIZE])
+    transactions_to_add = get_dict_list(g.this_nodes_transactions[:g.BLOCK_SIZE])
+    # just use the timestamp of the last transaction received for consistency
+    blocktime = transactions_to_add[-1]['timestamp']
+    g.blockchain.append(Block(lastIndex + 1, blocktime, {
+        "transactions": transactions_to_add
     }, lastHash))
     # slice off the transactions added to the blockchain
     g.this_nodes_transactions = g.this_nodes_transactions[g.BLOCK_SIZE:]
+    print(f"adding to my blockchain, new lasthash: {g.blockchain[-1].hash}")
     # save changes to local memory
     ne.update_transactions()
     ne.update_chain()
@@ -350,8 +354,11 @@ def validate(chain, lasthash, index=None):
 
     :returns: boolean value representing validity of the provided chain and hash
     """
+
+    # update the default variable
     if index is None:
         index = g.consensus_index
+
     print(f"Validating hash: {lasthash}")
     # initialize the hash
     if len(chain) == 1:
@@ -372,7 +379,7 @@ def validate(chain, lasthash, index=None):
             if (i+1 < len(chain) and calculated_hash != chain[i + 1]['previous_hash'])\
                     or calculated_hash != chain[i]['hash']:
                 print("Failed: bad chain")
-                logging.warning(f"Validation failed: chain of {lasthash} was invalid ")
+                logging.warning(f"Validation failed: chain of {lasthash} was invalid, calculated hash: {calculated_hash}")
                 return False
 
     # check final hash against provided hash
