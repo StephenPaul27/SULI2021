@@ -305,6 +305,8 @@ class Server(threading.Thread):
                     else:
                         self.pay(j, g.INCENTIVE)
 
+            print(f"Updated Wallet values: {list(self.walletList.values())}")
+
             # update validators
             self.check_validators()
 

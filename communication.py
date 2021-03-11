@@ -264,7 +264,7 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
-
+        print(f"received power for {msgData['id']}")
         # for i in g.node_conn[str(self.my_port)]["upstream"]:  # send power reference to downstream nodes
 
         # clear tracked message
@@ -337,6 +337,7 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
+        print(f"received sense for {msgData['id']}")
 
         logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
                       f"Received sensitivity from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['from']]}")
@@ -453,6 +454,7 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
+        print(f"received confirm for {msgData['id']}")
 
         logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
                       f"Received confirmation from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['to']]}")
@@ -611,14 +613,13 @@ class Sender(threading.Thread):
                 # record time for the broadcast
                 message_time = time.time()
 
+                # set the tracking id
+                tracking_id = bf.get_hash(str(time.time()))
+
                 for j in g.node_list:  # broadcast to all seen nodes
                     # failsafe: dont broadcast to yourself
                     if(i != self.my_port and j != self.my_port):
                         try:
-
-                            # Create random hash to use as message index
-                            sha = hasher.sha256()
-                            sha.update(str(time.time()).encode())
 
                             # create skeleton of message
                             message = {
@@ -634,8 +635,6 @@ class Sender(threading.Thread):
                             # set the tracked simplified message value
                             tracked_message['value'] = message_power
 
-                            # set the tracking id
-                            tracking_id = sha.hexdigest()
 
                             # set the data for the actual message
                             message['data'] = {
