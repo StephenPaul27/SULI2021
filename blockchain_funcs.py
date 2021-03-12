@@ -1,7 +1,5 @@
-"""
-This file contains functions and classes related to the blockchain
+"""This file contains functions and classes related to the blockchain
 This includes the general structure, consensus, validation
-
 """
 
 # imports

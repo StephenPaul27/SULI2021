@@ -13,7 +13,7 @@ ENCODING = 'utf-8'
 BASE_PORT = 8100            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
 NUM_NODES = 5               # maximum number of nodes in system
-MSG_PERIOD = 10             # seconds between broadcast of powerref downstream
+MSG_PERIOD = 5             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 5            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
 BLOCK_SIZE = 10             # size of each block of transactions to be added
@@ -22,14 +22,17 @@ INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
 
 # load node connections
-with open("Storage/node_connections.json", 'r') as f:
-    node_conn = json.load(f)
+try:
+    with open("Storage/node_connections.json", 'r') as f:
+        node_conn = json.load(f)
+except:
+    do_nothing = True
 
 # # Building to building map (indexed by sender -> receiver of power reference)
 # network_map = {}
 
 # read port from system arguments
-if(sys.argv[1]):
+if str.isdigit(sys.argv[1]):
     my_port = int(sys.argv[1])
 else:
     my_port = BASE_PORT
