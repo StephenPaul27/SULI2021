@@ -214,11 +214,11 @@ class Server(threading.Thread):
             # append this validator's vote to it
             self.votes[comboHash].append(self.validator_list[vIndex])
         # else, validate the chain and hash
-        elif bf.validate(msgData['chain'], msgData['lasthash'], index=self.lastIndex):
+        elif msgData['newblock']['previous_hash'] == self.blockchain[-1].hash:
             # then create the first vote for this comboHash
             self.votes[comboHash] = [self.validator_list[vIndex]]
             # store the chain being voted on
-            self.chains_dict[comboHash] = msgData['chain']
+            self.chains_dict[comboHash] = [msgData['newblock']]
             # store the transactions being voted on
             self.trans_dict[comboHash] = loaded_transactions
 
@@ -288,7 +288,7 @@ class Server(threading.Thread):
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
         print("performing consensus at the smart contract")
         if len(sorted_consensus):
-            self.blockchain = bf.get_block_objs(self.chains_dict[sorted_consensus[0]])
+            self.blockchain.append(bf.get_block_objs(self.chains_dict[sorted_consensus[0]])[0])
             self.transactions = self.trans_dict[sorted_consensus[0]]
             ne.update_chain(self.port, self.blockchain)
             ne.update_transactions(self.port, self.transactions)
@@ -381,7 +381,7 @@ class Server(threading.Thread):
                     "data": {
                                 "value": value,
                                 "lasthash": self.blockchain[-1].hash,
-                                "chain": bf.get_dict_list(self.blockchain)
+                                "newblock": self.blockchain[-1].to_dict()
                             },
                     "time": timeToSend
                 }

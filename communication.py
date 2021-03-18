@@ -200,7 +200,7 @@ class Receiver(threading.Thread):
                 "to": msgJson['from'],
                 "data": {
                             "lasthash": g.blockchain[-1].hash,
-                            "chain": bf.get_dict_list(),
+                            "newblock": g.blockchain[-1].to_dict(),
                             "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
                         },
                 "time": time.time()
@@ -491,7 +491,7 @@ class Receiver(threading.Thread):
             return
 
         # recognize consensus only on NEW blocks
-        if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
+        if msgData['newblock']['index'] > g.consensus_index:
             loaded_transactions = bf.get_trans_objs(msgData['transactions'])
             T_hash = bf.get_transaction_list_hash(loaded_transactions)
             # create combination hash of transactions and blockchain
@@ -502,9 +502,9 @@ class Receiver(threading.Thread):
                 g.consensus_dict[comboHash].append(msgJson['from'])
                 print("received pre-validated vote")
             # if not in the histogram yet, add them after validating the chain
-            elif bf.validate(msgData['chain'], msgData['lasthash']):
-                # store the chain itself
-                g.chain_dict[comboHash] = msgData['chain']
+            elif msgData['newblock']['previous_hash'] == g.blockchain[g.consensus_index].hash:
+                # store the block itself
+                g.chain_dict[comboHash] = [msgData['newblock']]
                 g.trans_dict[comboHash] = loaded_transactions
                 # add to histogram
                 g.consensus_dict[comboHash] = [msgJson['from']]
@@ -523,7 +523,7 @@ class Receiver(threading.Thread):
                         "to": g.port_to_hash[g.BASE_PORT],
                         "data": {
                                     "lasthash": g.blockchain[-1].hash,
-                                    "chain": bf.get_dict_list(),
+                                    "newblock": g.blockchain[-1].to_dict(),
                                     "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
                                 },
                         "time": time.time()
@@ -556,8 +556,9 @@ class Receiver(threading.Thread):
 
             # correct our blockchain if it doesnt match the agreed one
             if msgData['lasthash'] != g.blockchain[-1].hash:
-                print(f"correcting chain to {msgData['chain'][-1]['hash']}")
-                g.blockchain = bf.get_block_objs(msgData['chain'])
+                print(f"correcting chain to {msgData['newblock']['hash']}")
+                g.blockchain[-1] = bf.get_block_objs([msgData['newblock']])[0]
+                g.consensus_index = g.blockchain[-1].index
                 ne.update_chain()
 
             # if transactions exceed block size and this node is a validator, propose a new block
