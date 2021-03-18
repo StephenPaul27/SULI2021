@@ -9,7 +9,6 @@ def clear_balances():
 
 
 def write_balances(walletList,index):
-    print("writing balances")
     balance_dict = {'index':[]}
     size_tracker = 0
 

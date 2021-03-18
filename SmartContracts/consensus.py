@@ -425,7 +425,6 @@ class Server(threading.Thread):
 
             # clear the current validators
             self.validator_list = []
-            print('setting index to ', self.blockchain[-1].index)
             self.lastIndex = self.blockchain[-1].index
 
             # pick random number of validators up to the max set value
