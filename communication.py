@@ -611,6 +611,11 @@ class Sender(threading.Thread):
 
             for i in g.node_conn[str(self.my_port)]["downstream"]:   # send power reference to downstream nodes
 
+                # do not send to offline nodes
+                if i not in g.node_list:
+                    logging.warning(f"Couldn't send power to node {i} because it's offline")
+                    break
+
                 # specify default power reference (using 1 for normalization)
                 message_power = 1
 

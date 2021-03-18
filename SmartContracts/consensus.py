@@ -42,6 +42,9 @@ class Server(threading.Thread):
 
         # erase validators if rewriting files
         if g.REWRITE_FILES:
+            with open("Storage/balances.csv", 'r+') as f:
+                f.truncate(0)
+
             with open("SmartContracts/contractStorage.json", "w") as f:
                 json.dump({
                     "index": -1,
@@ -274,6 +277,9 @@ class Server(threading.Thread):
             # pay automatically updates or creates the local wallet
             self.pay(destHash=msgJson['from'], value=amount)
 
+            # save wallet values to csv
+            dr.write_balances(self.walletList, self.lastIndex)
+
         # if no validators were selected before this node, select this node
         if not len(self.validator_list):
             self.validator_select()
@@ -309,6 +315,9 @@ class Server(threading.Thread):
 
             # update validators
             self.check_validators()
+
+            # save wallet values to csv
+            dr.write_balances(self.walletList, self.lastIndex)
 
     def reset_consensus(self):
         """
