@@ -29,16 +29,6 @@ def main():
                 json.dump({}, f, ensure_ascii=False, indent=4)
 
 
-
-    # format the log
-    if g.REWRITE_FILES:
-        logMode = 'w'
-    else:
-        logMode = 'a'
-    logging.basicConfig(filename='Storage/blockchain.log', filemode=logMode,
-                        format='%(asctime)s %(module)s:%(lineno)d - %(levelname)s: %(message)s',
-                        level=logging.DEBUG)
-
     # start consensus smart contract server if not started
     try:
         # see if server is up already (will throw exception if connection refused)
@@ -46,11 +36,28 @@ def main():
         s.connect((g.BASE_HOST, g.BASE_PORT))
         s.close()
     except ConnectionRefusedError as e:
+        g.first_node = True
+
+        # format the log
+        logMode = 'a'
+        if g.REWRITE_FILES and g.first_node:
+            logMode = 'w'
+        logging.basicConfig(filename='Storage/blockchain.log', filemode=logMode,
+                            format='%(asctime)s %(module)s:%(lineno)d - %(levelname)s: %(message)s',
+                            level=logging.DEBUG)
+
         # Identify start of new log
         logging.info("New Session Started")
         # start consensus server
         consensus = cons.Server(g.BASE_HOST, g.BASE_PORT)
         consensus.start()
+
+    if not g.first_node:
+        logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
+                            format='%(asctime)s %(module)s:%(lineno)d - %(levelname)s: %(message)s',
+                            level=logging.DEBUG)
+
+
 
 
     # create random hash to represent this node (if needed)
