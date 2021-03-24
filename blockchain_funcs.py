@@ -177,7 +177,7 @@ def restore_chain(port=g.my_port):
     return chainToReturn
 
 
-def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=None, port=g.my_port):
+def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=None, port=g.my_port, my_chain=None):
     """
     This function will 'insort' a transaction into this nodes transaction list based on the confirmation timestamp
 
@@ -190,17 +190,21 @@ def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=No
     """
     if listOfTransactions is None:
         listOfTransactions = g.this_nodes_transactions
-
+    if my_chain is None:
+        my_chain = g.blockchain
     # create the transaction object
     transaction_to_add = Transaction(timestamp, type, sender, recip, value)
 
-    # insort the transaction based on its timestamp
-    bisect.insort_left(listOfTransactions, transaction_to_add)
+    # check if transaction is new
+    if not in_transactions(transaction_to_add.hash, listOfTransactions) \
+            and timestamp > my_chain[-1].timestamp:
 
-    print(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
-    logging.debug(f"adding transaction at port {g.my_port}, new size: {len(listOfTransactions)}")
+        # insort the transaction based on its timestamp
+        bisect.insort_left(listOfTransactions, transaction_to_add)
 
-    logging.debug(f"Recording complete transaction: \n{transaction_to_add.to_string()}")
+        print(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
+        logging.debug(f"adding transaction at port {g.my_port}, new size: {len(listOfTransactions)}")
+
     return listOfTransactions
 
 
@@ -286,7 +290,7 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
     # print(f"sorted_consensus: {sorted_consensus}")
 
     # If most popular choice has > than half of all nodes agreeing (excluding consensus server), go with that choice
-    if len(sorted_consensus) and len(cons_dict[sorted_consensus[0]]) > (len(node_list)-1)/2:
+    if len(sorted_consensus) and len(cons_dict[sorted_consensus[0]]) > (len(node_list))/2:
 
         # erase any blocks in our chain that have not been agreed on
         while len(chainList) and chainList[-1].index > cindex:
@@ -299,16 +303,31 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
                 cindex = i['index']
 
         print(f"Consensus performed, resulting chain: {chainList[-1].hash}")
+
+        ne.update_chain(chainList=chainList, port=port)
+        ne.update_transactions(port=port, transactions=trans_dict[sorted_consensus[0]])
     else:
         logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}")
         print(f"Consensus failed: popular choice <= half of all nodes, at port {port}")
+        return chainList, g.this_nodes_transactions
 
 
-
-    ne.update_chain(chainList=chainList, port=port)
-    ne.update_transactions(port=port,transactions=trans_dict[sorted_consensus[0]])
 
     return chainList, trans_dict[sorted_consensus[0]]
+
+
+def in_transactions(t_hash,t_list=None):
+    """
+    This function will tell if a transaction has already been recorded
+    :param t_hash: hash of transaction to search for
+    :param t_list: list of transactions
+    :return: Boolean representing whether the transaction was found
+    """
+
+    for i in t_list:
+        if i.hash == t_hash:
+            return True
+    return False
 
 
 def reset_consensus(newIndex):

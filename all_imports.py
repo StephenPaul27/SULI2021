@@ -20,7 +20,7 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.exceptions import InvalidSignature
 import logging
 
-
+import Data_Recorder as dr
 import global_vars as g
 import blockchain_funcs as bf
 import node_editor as ne

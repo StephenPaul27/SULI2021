@@ -25,7 +25,7 @@ class Receiver(threading.Thread):
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
-        sock.listen(g.NUM_NODES)
+        sock.listen(g.SOCKET_CONNECTIONS)
         # print("server started")
 
         # while loop to accept incoming connections/messages
@@ -50,6 +50,11 @@ class Receiver(threading.Thread):
 
                     # once data has stopped coming in, decode the message
                     if not data:
+
+                        # go ahead and close the connection
+                        if connection.fileno() != -1:
+                            connection.close()
+
                         # print(f"received a message {time.time()}")
                         # print("\nreceived encrypted message:",full_message)
 
@@ -89,7 +94,7 @@ class Receiver(threading.Thread):
                             if msgJson['from'] == g.port_to_hash[g.BASE_PORT]\
                                     and "validators" in msgData:
                                 g.validator_list = msgData['validators']
-                                logging.debug("Validators updated from introduction")
+                                logging.debug(f"Validators updated at node {g.my_port} from introduction")
 
 
                             # print(f"received handshake from {msgJson['data']}")
@@ -123,7 +128,8 @@ class Receiver(threading.Thread):
                         break
             finally:
                 #connection.shutdown(2)
-                connection.close()
+                if connection.fileno() != -1:
+                    connection.close()
 
 
     def respond_validators(self, msgJson, msgData):
@@ -134,10 +140,9 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
+        logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
-            g.validator_list = []
-            for i in msgData['validators']:
-                g.validator_list.append(i)
+            g.validator_list = msgData['validators']
 
 
     def respond_intro(self, msgJson, msgData):
@@ -165,7 +170,7 @@ class Receiver(threading.Thread):
             }
 
             # append new node to list of seen nodes
-            if msgJson['from'] not in g.node_list:
+            if msgJson['from'] not in g.node_list and msgData['fromport'] != g.BASE_PORT:
                 g.node_list.append(msgData['fromport'])
                 # print(f"node list: {node_list}")
             # finally send the message
@@ -187,10 +192,10 @@ class Receiver(threading.Thread):
 
         # if ready to add a new block, go ahead and put it on your blockchain
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE\
-                and g.blockchain[-1].index < msgData['index']:
+                and g.blockchain[-1].index == msgData['index']-1:
             bf.add_trans_to_block()
-        else:
-            print(f"Didn't add transactions to block:{g.blockchain[-1].index}<{msgData['index']} or {len(g.this_nodes_transactions)}")
+        # else:
+        #     print(f"Didn't add transactions to block:{g.blockchain[-1].index}<{msgData['index']} or {len(g.this_nodes_transactions)}")
 
         # respond with port and blockchain for consensus
         try:
@@ -211,7 +216,7 @@ class Receiver(threading.Thread):
 
         except Exception as e:
             print("could not respond to request because", e)
-            logging.error(f"port {self.port} could not respond to request because {traceback.format_exc()}")
+            logging.error(f"port {self.port} could not respond to request from port {g.hash_to_port[msgJson['from']]} because {traceback.format_exc()}")
             # breakpoint()
 
     def respond_response(self, msgJson, msgData):
@@ -238,7 +243,6 @@ class Receiver(threading.Thread):
 
             # Histogram the votes for the blockchain hash
             if comboHash in g.consensus_dict:
-                print("received pre-validated vote")
                 g.consensus_dict[comboHash].append(msgJson['from'])
             # if not in the histogram yet, add them after validating the chain
             elif bf.validate(msgData['chain'], msgData['lasthash']):
@@ -250,7 +254,8 @@ class Receiver(threading.Thread):
 
             # if consensus has timed out or received messages from all participating nodes
             if (g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT)) \
-                    or len(g.consensus_id_list) >= len(g.node_list)-1:
+                    or len(g.consensus_id_list) >= len(g.node_list):
+                print(f"performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} votes")
                 # perform consensus
                 g.blockchain, g.this_nodes_transactions = bf.consensus()
                 # reset the consensus variables and set the updated consensus-agreed index
@@ -268,70 +273,65 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
-        print(f"received power for {msgData['id']}")
-        # for i in g.node_conn[str(self.my_port)]["upstream"]:  # send power reference to downstream nodes
+        # print(f"received power for {msgData['id']}")
 
-        # clear tracked message
-        g.transaction_tracking[msgData['id']] = []
+        try:
+            logging.debug(
+                f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): Received power ref from "
+                f"{g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['to']]}")
+        except:
+            do_nothing = True
 
-        # clear timeout'd messages
-        clearTimeouts()
-
-        # store new tracked message
-        g.transaction_tracking[msgData['id']].append({
-            "type": msgJson['type'],
-            "from": msgJson['from'],
-            "to": msgJson['to'],
-            "value": msgData['power'],
-            "time": msgJson['time']
-        })
-
-        logging.debug(
-            f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): Received power ref from "
-            f"{g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['to']]}")
-
-        logging.debug(f"updated tracked transaction at index {msgData['id']}: {g.transaction_tracking[msgData['id']]}")
+        sign_str = bf.get_hash(str(msgJson['from']) + str(msgJson['to']) + str(msgData['power']) + str(msgJson['time']))
+        signature = bytes(base64.b64decode(msgData['signature']))
 
         # if sending node is upstream of this node, send the sensitivity broadcast and record it
-        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["upstream"]:
+        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["upstream"]\
+                and msgJson['to'] == g.my_hash\
+                and crypt.check_signature(signature, sign_str.encode(g.ENCODING), g.hash_to_port[msgJson['from']]):
             # set variables for recording senstivity and sending it to other nodes
             message_time = time.time()
             message_sensitivity = 1
 
-            # store new tracked message
-            g.transaction_tracking[msgData['id']].append({
-                "type": "sensitivity",
-                "from": g.my_hash,
-                "to": msgJson['from'],
-                "value": message_sensitivity,
-                "time": message_time
-            })
+            # hash of the from, to, sensitivity, and time fields and power signature to sign in the message
+            sign_str = bf.get_hash(str(g.my_hash) + str(msgJson['from']) + str(message_sensitivity) + str(message_time)
+                                   + str(msgData['signature']))
+            # generate signature of the hash
+            sign_bytes = crypt.gen_signature(sign_str.encode(g.ENCODING), g.my_pr_key)
+            # convert signature to json-able format
+            json_signature = base64.b64encode(bytearray(sign_bytes)).decode(g.ENCODING)
 
-            for j in g.node_list:  # broadcast to all seen nodes
-                try:
-                    # write sensitivity message
-                    # this is where sensitivity would be calculated
-                    message = {
-                        "type": "sensitivity",
-                        "from": g.my_hash,
-                        "to": msgJson['from'],
-                        "data": {
-                                    "id": msgData['id'],
-                                    "power": msgData['power'],
-                                    "sensitivity": message_sensitivity,
-                                    "time": message_time
-                                },
-                        "time": message_time
-                    }
-                    logging.debug(
-                        f"Message({self.port} - {j}): Sending sensitivity from {self.port} to {g.hash_to_port[msgJson['from']]}")
+            try:
+                # write sensitivity message
+                # this is where sensitivity would be calculated
+                message = {
+                    "type": "sensitivity",
+                    "from": g.my_hash,
+                    "to": msgJson['from'],
+                    "data": {
+                                "sense": message_sensitivity,
+                                "powerdata": {
+                                        "from": msgJson['from'],
+                                        "to": msgJson['to'],
+                                        "time": msgJson['time'],
+                                        "power": msgData['power'],
+                                        "signature": msgData['signature']
+                                    },
+                                "signature": json_signature
+                            },
+                    "time": message_time
+                }
+                logging.debug(
+                    f"Message({self.port} - {g.hash_to_port[msgJson['from']]}): Sending sensitivity from {self.port} to {g.hash_to_port[msgJson['from']]}")
 
-                    # broad cast that you're sending power reference to i
-                    sendMessage(message, j)
-                except Exception as e:
-                    print(f"Couldn't send power ref because {e}")
-                    logging.warning(
-                        f"Unable to respond to power reference from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
+                # send the sensitivity back to the power sender
+                sendMessage(message, g.hash_to_port[msgJson['from']])
+            except Exception as e:
+                print(f"Couldn't send power ref because {e}")
+                logging.warning(
+                    f"Unable to respond to power reference from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
+        else:
+            logging.warning(f"Invalid power reference message received at port {self.port} from port {g.hash_to_port[msgJson['from']]}")
 
     def respond_sensitivity(self, msgJson, msgData):
         """
@@ -341,72 +341,83 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
-        print(f"received sense for {msgData['id']}")
+        # print(f"received sense for {msgData['id']}")
 
         logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
                       f"Received sensitivity from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['from']]}")
 
-        # clear timeout'd messages
-        clearTimeouts()
+        power_sign_str = bf.get_hash(str(msgData['powerdata']['from']) + str(msgData['powerdata']['to']) +
+                                     str(msgData['powerdata']['power']) + str(msgData['powerdata']['time']))
+        power_signature = bytes(base64.b64decode(msgData['powerdata']['signature']))
 
-        # store new tracked message
-        if str(msgData['id']) in g.transaction_tracking:
-            # check that the response power matches the tracked power variables
-            if g.transaction_tracking[msgData['id']][0]['value'] == msgData['power']\
-                    and g.transaction_tracking[msgData['id']][0]['from'] == msgJson['to']:
-                g.transaction_tracking[msgData['id']].append({
-                    "type": msgJson['type'],
-                    "from": msgJson['from'],
-                    "to": msgJson['to'],
-                    "value": msgData['sensitivity'],
-                    "time": msgJson['time']
-                })
+        sense_sign_str = bf.get_hash(str(msgJson['from']) + str(msgJson['to']) +
+                                     str(msgData['sense']) +str(msgJson['time']) + str(msgData['powerdata']['signature']))
+        sense_signature = bytes(base64.b64decode(msgData['signature']))
 
-                logging.debug(f"updated transaction at index {msgData['id']}: {g.transaction_tracking[msgData['id']]}")
+        # check that sender is downstream from us,
+        # and that the message is for us
+        # and that this node signed the original power message
+        # and that the sending node signed the sensitivity message
+        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["downstream"]\
+                and msgJson['to'] == g.my_hash\
+                and crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.my_port)\
+                and crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgJson['from']]):
 
-                # if receiving the sensitivity consider it confirmed
-                if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["downstream"]:
-                    # store transactions
-                    for i in g.transaction_tracking[msgData['id']]:
-                        g.this_nodes_transactions = bf.add_transaction(i['time'], i['type'], i['from'], i['to'], i['value'])
+            # send same time value to all nodes
+            message_time = time.time()
 
-                    # write to local storage
-                    ne.update_transactions()
+            # store transactions (consider confirmed if we are the recipient)
+            g.this_nodes_transactions = bf.add_transaction(msgData['powerdata']['time'], "power",
+                    msgData['powerdata']['from'], msgData['powerdata']['to'],msgData['powerdata']['power'])
+            g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "sense",
+                                                           msgJson['from'], msgJson['to'],
+                                                           msgData['sense'])
+            # write to local storage
+            ne.update_transactions()
 
-                    for j in g.node_list:  # broadcast confirmation to all seen nodes
-                        try:
-                            # write confirmation message
-                            message = {
-                                "type": "confirm",
-                                "from": g.my_hash,
-                                "to": msgJson['from'],
-                                "data": {
-                                            "id": msgData['id'],
-                                            "power": msgData['power'],
-                                            "sensitivity": msgData['sensitivity'],
-                                            "time": msgData['time']
-                                        },
-                                "time": time.time()
-                            }
+            for j in g.node_list:  # broadcast confirmation to all seen nodes
+                try:
+                    # write confirmation message
+                    message = {
+                        "type": "confirm",
+                        "from": g.my_hash,
+                        "to": g.port_to_hash[j],
+                        "data": {
+                                    "powerdata": {
+                                        "from": msgData["powerdata"]['from'],
+                                        "to": msgData["powerdata"]['to'],
+                                        "time": msgData["powerdata"]['time'],
+                                        "power": msgData["powerdata"]['power'],
+                                        "signature": msgData["powerdata"]['signature']
+                                    },
+                                    "sensedata": {
+                                        "from": msgJson['from'],
+                                        "to": msgJson['to'],
+                                        "time": msgJson['time'],
+                                        "sense": msgData['sense'],
+                                        "signature": msgData['signature']
+                                    }
+                                },
+                        "time": message_time
+                    }
 
-                            logging.debug(f"Message({self.port} - {j}): "
-                                          f"Sending Confirmation from {self.port} to {g.hash_to_port[msgJson['from']]}")
-                            # broadcast that you're sending confirmation to i
-                            sendMessage(message, j)
-                        except Exception as e:
-                            logging.warning(
-                                f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
+                    logging.debug(f"Message({self.port} - {j}): "
+                                  f"Sending Confirmation from {self.port} to {g.hash_to_port[msgJson['from']]}")
+                    # broadcast that you're sending confirmation to i
+                    sendMessage(message, j)
+                except Exception as e:
+                    logging.warning(
+                        f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
 
-                    # if transactions exceed block size and this node is a validator, propose a new block
-                    if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
-                        logging.debug(f"Proposing new block at port {g.my_port}")
-                        self.propose_block(msgJson, msgData)
-
-            else:
-                logging.warning(f"Sensitivity message received at port {g.my_port} did not match records")
-                print("Sensitivity Mismatch")
+            # if transactions exceed block size and this node is a validator, propose a new block
+            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+                logging.debug(f"Proposing new block at port {g.my_port} from sensitivity")
+                self.propose_block(msgJson, msgData)
         else:
-            logging.warning(f"{msgData['id']} not found in transaction tracking at port {g.my_port}")
+            logging.warning(f"Invalid sensitivity message received at port {self.port} from port {g.hash_to_port[msgJson['from']]}")
+            logging.warning(
+                f"pcheck: {crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.my_port)}, "
+                f"scheck: {crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgJson['from']])}")
 
     def propose_block(self, msgJson, msgData):
         """
@@ -420,12 +431,12 @@ class Receiver(threading.Thread):
         T_hash = bf.get_transaction_list_hash(g.this_nodes_transactions)
         # create combination hash of transactions and blockchain
         comboHash = bf.get_hash(str(g.blockchain[-1].hash) + str(T_hash))
-        loaded_chain = bf.get_dict_list(g.blockchain)
+        loaded_block = g.blockchain[-1].to_dict()
 
         # Histogram the votes for the blockchain hash
-        if bf.validate(loaded_chain, g.blockchain[-1].hash):
+        if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash:
             # store the chain itself
-            g.chain_dict[comboHash] = loaded_chain
+            g.chain_dict[comboHash] = [loaded_block]
             g.trans_dict[comboHash] = g.this_nodes_transactions
             # add to histogram
             g.consensus_dict[comboHash] = [g.my_hash]
@@ -458,21 +469,51 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         :return: None
         """
-        print(f"received confirm for {msgData['id']}")
+        # print(f"received confirm for {msgData['id']}")
 
-        logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
-                      f"Received confirmation from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['to']]}")
+        try:
+            logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
+                          f"Received confirmation from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['to']]}")
+        except:
+            do_nothing = True
 
-        # store transactions
-        for i in g.transaction_tracking[msgData['id']]:
-            g.this_nodes_transactions = bf.add_transaction(i['time'], i['type'], i['from'], i['to'], i['value'])
-        # write to local storage
-        ne.update_transactions()
+        power_sign_str = bf.get_hash(str(msgData['powerdata']['from']) + str(msgData['powerdata']['to']) +
+                                     str(msgData['powerdata']['power']) + str(msgData['powerdata']['time']))
+        power_signature = bytes(base64.b64decode(msgData['powerdata']['signature']))
 
-        # if transactions exceed block size and this node is a validator, propose a new block
-        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
-            logging.debug(f"Proposing new block at port {g.my_port}")
-            self.propose_block(msgJson, msgData)
+        sense_sign_str = bf.get_hash(str(msgData['sensedata']['from']) + str(msgData['sensedata']['to']) +
+                                     str(msgData['sensedata']['sense']) + str(msgData['sensedata']['time']) + str(msgData['powerdata']['signature']))
+        sense_signature = bytes(base64.b64decode(msgData['sensedata']['signature']))
+
+        # check signatures of both power
+        # and sense messages
+        # and that the sender of the confirm is the signer of the power message
+        # verify that this node is the recipient of the broadcast
+        if crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['powerdata']['from']])\
+                and crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['sensedata']['from']])\
+                and msgJson['from'] == msgData['powerdata']['from']\
+                and msgJson['to'] == g.my_hash:
+            # store transactions
+            g.this_nodes_transactions = bf.add_transaction(msgData['powerdata']['time'], "power",
+                    msgData['powerdata']['from'], msgData['powerdata']['to'], msgData['powerdata']['power'])
+            g.this_nodes_transactions = bf.add_transaction(msgData['sensedata']['time'], "sense",
+                                                           msgData['sensedata']['from'], msgData['sensedata']['to'],
+                                                           msgData['sensedata']['sense'])
+            # write to local storage
+            ne.update_transactions()
+
+            # if transactions exceed block size and this node is a validator, propose a new block
+            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+                logging.debug(f"Proposing new block at port {g.my_port} from confirm")
+                self.propose_block(msgJson, msgData)
+        else:
+            logging.warning(
+                f"Invalid confirm message received at port {self.port} from port {g.hash_to_port[msgJson['from']]}")
+            logging.warning(
+                f"pcheck: {crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['powerdata']['from']])}, "
+                f"scheck: {crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['sensedata']['from']])},"
+                f"fromcheck:{msgJson['from'] == msgData['powerdata']['from']},"
+                f"tocheck: {msgJson['to'] == g.my_hash}")
 
     def respond_addblock(self, msgJson, msgData):
         """
@@ -491,7 +532,10 @@ class Receiver(threading.Thread):
             return
 
         # recognize consensus only on NEW blocks
+        logging.debug(
+            f"node {g.my_port} received addblock from {g.hash_to_port[msgJson['from']]} with index {msgData['newblock']['index']}>{g.consensus_index}")
         if msgData['newblock']['index'] > g.consensus_index:
+
             loaded_transactions = bf.get_trans_objs(msgData['transactions'])
             T_hash = bf.get_transaction_list_hash(loaded_transactions)
             # create combination hash of transactions and blockchain
@@ -500,7 +544,7 @@ class Receiver(threading.Thread):
             # Histogram the votes for the blockchain hash
             if comboHash in g.consensus_dict:
                 g.consensus_dict[comboHash].append(msgJson['from'])
-                print("received pre-validated vote")
+                # print("received pre-validated vote")
             # if not in the histogram yet, add them after validating the chain
             elif msgData['newblock']['previous_hash'] == g.blockchain[g.consensus_index].hash:
                 # store the block itself
@@ -509,12 +553,14 @@ class Receiver(threading.Thread):
                 # add to histogram
                 g.consensus_dict[comboHash] = [msgJson['from']]
 
+
             # if consensus has timed out or received messages from all participating nodes
             if (g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT)) \
-                    or len(g.consensus_id_list) >= len(g.node_list):
+                    or len(g.consensus_id_list) > len(g.node_list):
                 # perform consensus
                 g.blockchain, g.this_nodes_transactions = bf.consensus()
 
+                logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract with {len(g.consensus_id_list)} votes out of {len(g.node_list)}")
                 # send consensus result to the smart contract
                 try:
                     message = {
@@ -548,7 +594,12 @@ class Receiver(threading.Thread):
         :return: None
         """
 
+
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+
+            # update the index no matter what, consensus is consensus
+            g.consensus_index = g.blockchain[-1].index
+
             g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "payment", msgJson['from'], msgJson['to'],
                                                            msgData['value'])
             # update transactions in local storage
@@ -558,12 +609,11 @@ class Receiver(threading.Thread):
             if msgData['lasthash'] != g.blockchain[-1].hash:
                 print(f"correcting chain to {msgData['newblock']['hash']}")
                 g.blockchain[-1] = bf.get_block_objs([msgData['newblock']])[0]
-                g.consensus_index = g.blockchain[-1].index
                 ne.update_chain()
 
             # if transactions exceed block size and this node is a validator, propose a new block
-            if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.my_hash in g.validator_list:
-                logging.debug(f"Proposing new block at port {g.my_port}")
+            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+                logging.debug(f"Proposing new block at port {g.my_port} from pay")
                 self.propose_block(msgJson, msgData)
         else:
             logging.warning(f"Attempted payment observed at {g.my_port} from {g.hash_to_port[msgJson['from']]}")
@@ -598,12 +648,15 @@ class Sender(threading.Thread):
                     sendMessage(message, g.BASE_PORT + i)
 
                     # track active ports/nodes that successfully connected
-                    g.node_list.append(g.BASE_PORT+i)
+                    if i:
+                        g.node_list.append(g.BASE_PORT+i)
 
                 except Exception as e:
                     print(f"no connection detected at {g.BASE_PORT+i} because {e}")
                     do_nothing = True
-
+        if not len(g.node_list):
+            logging.debug("first node is securing its consensus index")
+            g.consensus_index = g.blockchain[-1].index
         while True:
             # broadcast every MSG_PERIOD seconds
             time.sleep(g.MSG_PERIOD)
@@ -612,60 +665,47 @@ class Sender(threading.Thread):
 
             for i in g.node_conn[str(self.my_port)]["downstream"]:   # send power reference to downstream nodes
 
-                # specify default power reference (using 1 for normalization)
-                message_power = 1
+                # break if node is offline
+                if i not in g.node_list:
+                    break
 
-                # record time for the broadcast
-                message_time = time.time()
+                # failsafe: dont send to yourself
+                if(i != self.my_port):
 
-                # set the tracking id
-                tracking_id = bf.get_hash(str(time.time()))
+                    # specify default power reference (using 1 for normalization)
+                    message_power = 1
+                    # record time for the broadcast
+                    message_time = time.time()
 
-                for j in g.node_list:  # broadcast to all seen nodes
-                    # failsafe: dont broadcast to yourself
-                    if(i != self.my_port and j != self.my_port):
-                        try:
+                    # hash of the from, to, power, and time fields to sign in the message
+                    sign_str = bf.get_hash(str(g.my_hash) + str(g.port_to_hash[i]) + str(message_power) + str(message_time))
+                    # generate signature of the hash
+                    sign_bytes = crypt.gen_signature(sign_str.encode(g.ENCODING), g.my_pr_key)
+                    # convert signature to json-able format
+                    json_signature = base64.b64encode(bytearray(sign_bytes)).decode(g.ENCODING)
 
-                            # create skeleton of message
-                            message = {
-                                "type": "powerref",
-                                "from": g.my_hash,
-                                "to": g.port_to_hash[i],
-                                "time": message_time
-                            }
+                    try:
 
-                            # copy the skeleton to track with different carried data
-                            tracked_message = message
+                        # create skeleton of message
+                        message = {
+                            "type": "powerref",
+                            "from": g.my_hash,
+                            "to": g.port_to_hash[i],
+                            "data": {
+                                        "power": message_power,
+                                        "signature": json_signature
+                                    },
+                            "time": message_time
+                        }
+                        logging.debug(f"Message({self.my_port} - {i}): Sending power ref from {self.my_port} to {i}")
 
-                            # set the tracked simplified message value
-                            tracked_message['value'] = message_power
-
-
-                            # set the data for the actual message
-                            message['data'] = {
-                                "id": tracking_id,
-                                "power": message_power,
-                                "time": message_time
-                            }
-
-                            # prepare to track message
-                            g.transaction_tracking[tracking_id] = []
-
-                            # clear timeout'd messages (if any)
-                            clearTimeouts()
-
-                            # store new tracked message
-                            g.transaction_tracking[tracking_id].append(tracked_message)
-
-                            logging.debug(f"Message({self.my_port} - {j}): Sending power ref from {self.my_port} to {i}")
-
-                            # broad cast that you're sending power reference to i
-                            sendMessage(message, j)
-                        except Exception as e:
-                            logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
+                        # broad cast that you're sending power reference to i
+                        sendMessage(message, i)
+                    except Exception as e:
+                        logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
 
 
-def sendMessage(message, destPort, pr_key=None):
+def sendMessage(message, destPort, pr_key=None, myport=g.my_port):
     """
     This function sends a given message to a given port
 
@@ -677,8 +717,8 @@ def sendMessage(message, destPort, pr_key=None):
     try:
         message = json.dumps(message)
     except json.JSONDecodeError:
-        print(f"Message failed to send to port {destPort} because it couldn't be json formatted")
-        logging.error(f"Message failed to send to port {destPort} because it couldn't be json formatted: {traceback.format_exc()}")
+        print(f"Message failed to send from port {myport} to port {destPort} because it couldn't be json formatted")
+        logging.error(f"Message failed to send from port {myport} to port {destPort} because it couldn't be json formatted: {traceback.format_exc()}")
 
     # print(f"sending message to port{destPort}")
 
@@ -697,17 +737,5 @@ def sendMessage(message, destPort, pr_key=None):
     s.sendall(message)
 
     # close connection
+    s.shutdown(socket.SHUT_RDWR)
     s.close()
-
-def clearTimeouts():
-    """
-    This function will clear message entries in the transaction tracking record if they have exceeded the timeout
-
-    :return: None
-    """
-
-    timeNow = time.time()
-    # pop any message records that have an age exceeding the timeout
-    for i in list(g.transaction_tracking):
-        if len(g.transaction_tracking[i]) and timeNow-g.transaction_tracking[i][0]['time'] > g.MSG_TIMEOUT:
-            g.transaction_tracking.pop(i)

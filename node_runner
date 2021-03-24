@@ -13,7 +13,7 @@ echo Starting Nodes...
 # start python script for each node
 for ((i=1; i<=$NUM_NODES; i++))
 do
-  python main.py $((BASE_PORT+i)) &
+  python main.py $((BASE_PORT+i)) $((i)) &
   sleep .2
 done
 

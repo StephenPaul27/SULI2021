@@ -12,11 +12,14 @@ import json
 ENCODING = 'utf-8'
 BASE_PORT = 8100            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
-NUM_NODES = 5               # maximum number of nodes in system
+NUM_NODES = 10               # maximum number of nodes in system
 MSG_PERIOD = 5             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 5            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
-BLOCK_SIZE = 10             # size of each block of transactions to be added
+BLOCK_SIZE = 20             # size of each block of transactions to be added
+SOCKET_CONNECTIONS = 50     # number of simultaneous socket connections that can be made
+BLOCK_BUFFER = BLOCK_SIZE/2 # buffer to make sure transactions are ordered correctly
+PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
@@ -36,6 +39,8 @@ if str.isdigit(sys.argv[1]):
     my_port = int(sys.argv[1])
 else:
     my_port = BASE_PORT
+
+first_node = False
 
 my_hash = 0         # filler for global hash variable
 
@@ -62,9 +67,5 @@ blockchain = []
 # Store the transactions that
 # this node sees in a list
 this_nodes_transactions = []
-
-# dictionary to track transmission of messages
-# indexed by a random message hash id
-transaction_tracking = {}
 
 validator_list = []

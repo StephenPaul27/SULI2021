@@ -41,7 +41,10 @@ class Server(threading.Thread):
                     json.dump({}, f, ensure_ascii=False, indent=4)
 
         # erase validators if rewriting files
-        if g.REWRITE_FILES:
+        if g.REWRITE_FILES and g.first_node:
+            with open("Storage/balances.csv", 'r+') as f:
+                f.truncate(0)
+
             with open("SmartContracts/contractStorage.json", "w") as f:
                 json.dump({
                     "index": -1,
@@ -101,7 +104,7 @@ class Server(threading.Thread):
         # create server socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((self.host, self.port))
-        sock.listen(g.NUM_NODES)
+        sock.listen(g.SOCKET_CONNECTIONS)
         # print("server started")
 
         # while loop to accept incoming connections/messages
@@ -171,7 +174,6 @@ class Server(threading.Thread):
 
             finally:
                 # logging.debug("\nconnection closed at consensus server\n")
-                # connection.shutdown(2)
                 connection.close()
 
     def consensus_response(self, msgJson, msgData):
@@ -221,17 +223,17 @@ class Server(threading.Thread):
             self.chains_dict[comboHash] = [msgData['newblock']]
             # store the transactions being voted on
             self.trans_dict[comboHash] = loaded_transactions
+        else:
+            # case when validation fails
+            logging.warning(f"Consensus chain from {msgJson['from']} was invalid")
 
+        logging.info(f"checking num votes to validators at smartcontract:{len(self.voted_validators)}=={len(self.validator_list)}")
         # if all validators have voted
         if len(self.voted_validators) == len(self.validator_list):
             # perform consensus
             self.validator_consensus()
             # reset the consensus variables
             self.reset_consensus()
-
-        else:
-            # case when validation fails
-            logging.warning(f"Consensus chain from {msgJson['from']} was invalid")
 
     def introduction_response(self, msgJson, msgData):
         """
@@ -257,7 +259,7 @@ class Server(threading.Thread):
         }
         try:
             # send the message
-            comm.sendMessage(message, int(msgData['fromport']), self.my_pr_key)
+            comm.sendMessage(message, int(msgData['fromport']), self.my_pr_key,self.port)
         except Exception as e:
             print("could not respond to introduction because", e)
             logging.error(f"port {self.port} could not respond to introduction because {e}")
@@ -268,11 +270,14 @@ class Server(threading.Thread):
             # start nodes with 20 utility tokens or the median value of current wallets, whichever is higher
             amount = 20
             if len(self.walletList):
-                med = statistics.median(list(self.walletList.values()))
+                med = round(statistics.median(list(self.walletList.values())))
                 if med > amount:
                     amount = med
             # pay automatically updates or creates the local wallet
             self.pay(destHash=msgJson['from'], value=amount)
+
+            # write balances to csv
+            dr.write_balances(self.walletList, self.lastIndex)
 
         # if no validators were selected before this node, select this node
         if not len(self.validator_list):
@@ -286,8 +291,9 @@ class Server(threading.Thread):
 
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
-        print("performing consensus at the smart contract")
         if len(sorted_consensus):
+            print(f"adding block at smartcontract: {self.blockchain[-1].hash}")
+            logging.debug(f"adding block at smartcontract: {self.blockchain[-1].hash}")
             self.blockchain.append(bf.get_block_objs(self.chains_dict[sorted_consensus[0]])[0])
             self.transactions = self.trans_dict[sorted_consensus[0]]
             ne.update_chain(self.port, self.blockchain)
@@ -310,11 +316,15 @@ class Server(threading.Thread):
             # update validators
             self.check_validators()
 
+            # write balances to csv
+            dr.write_balances(self.walletList, self.lastIndex)
+
     def reset_consensus(self):
         """
         This function will clear consensus server variables
         :return: None
         """
+        logging.debug("CONSENSUS RESET")
         self.chains_dict = {}
         self.trans_dict = {}
         self.votes = {}
@@ -386,13 +396,14 @@ class Server(threading.Thread):
                     "time": timeToSend
                 }
                 try:
-                    comm.sendMessage(message, i, self.my_pr_key)
+                    comm.sendMessage(message, i, self.my_pr_key,self.port)
                 except Exception as e:
                     logging.error(f"port {self.port} could not send payment receipt to port {i} because: {e}")
 
             # record payment in own transactions list
             self.transactions = bf.add_transaction(timeToSend, "payment", self.hash, destHash,
-                                                   value, listOfTransactions=self.transactions, port=self.port)
+                                                   value, listOfTransactions=self.transactions, port=self.port,
+                                                   my_chain=self.blockchain)
             ne.update_transactions(port=self.port, transactions=self.transactions)
 
             # update/create affected wallet
@@ -440,6 +451,7 @@ class Server(threading.Thread):
                     break
 
             print(f"selected new validators:{self.validator_list}")
+            logging.debug(f"selected new validators:{self.validator_list}")
 
             # broadcast newly selected validators to all of the nodes
             self.broadcast_validators()
@@ -470,6 +482,7 @@ class Server(threading.Thread):
             self.validator_select()
 
     def broadcast_validators(self):
+        logging.debug(f"Broadcasting validators from smart contract")
         # broadcast current validators anyway
         for i in self.port_to_hash:
             message = {
@@ -482,7 +495,7 @@ class Server(threading.Thread):
                 "time": time.time()
             }
             try:
-                comm.sendMessage(message, i, self.my_pr_key)
+                comm.sendMessage(message, i, self.my_pr_key,self.port)
             except Exception as e:
                 logging.error(f"Couldn't broadcast validators to port {i} because: {e}")
 
@@ -533,10 +546,9 @@ def main():
     # format the log
 
     if g.REWRITE_FILES:
-        logMode = 'w'
-    else:
-        logMode = 'a'
-    logging.basicConfig(filename='Storage/blockchain.log', filemode=logMode,
+        with open("Storage/blockchain.log", "r+") as f:
+            f.truncate(0)
+    logging.basicConfig(filename='Storage/blockchain.log', filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         level=logging.DEBUG)
 

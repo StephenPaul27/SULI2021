@@ -57,25 +57,15 @@ def decrypt(package, port=g.my_port, pr_key=None):
         msgJson = json.loads(message)
         if msgJson['type'] == 'intro' or msgJson['type'] == 'response':
             msgData = msgJson['data']
-            pub_key = ke.get_pub_key(msgData['fromport'])
+            pub_port = msgData['fromport']
         else:
-            pub_key = ke.get_pub_key(g.hash_to_port[msgJson['from']])
+            pub_port = g.hash_to_port[msgJson['from']]
     except Exception as e:
         logging.warning(f"Decrypted message at port {port} was not formatted as a json for the signature: {e}")
         return "ERROR"
 
     # verify signature using the decrypted message's 'from' field
-    try:
-        pub_key.verify(
-            signature,
-            fkey,
-            padding.PSS(
-                mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256()
-        )
-    except Exception as e:
+    if not check_signature(signature, fkey, pub_port):
         print(f"Signature failed at {port} from port {g.hash_to_port[msgJson['from']]} because \"{e}\"")
         logging.warning(f"Message at port {port} did not match its signature: {e}")
         return None
@@ -107,14 +97,7 @@ def encrypt(message, destPort, pr_key=None):
     pubkey = ke.get_pub_key(destPort)
 
     # sign un-encrypted symmetric key (instead of message to avoid data size issue)
-    signature = pr_key.sign(
-        fkey,
-        padding.PSS(
-            mgf=padding.MGF1(algorithm=hashes.SHA256()),
-            salt_length=padding.PSS.MAX_LENGTH
-        ),
-        hashes.SHA256()
-    )
+    signature = gen_signature(fkey, pr_key);
     # print("message signed successfully")
 
     # ensure that a public key is available
@@ -147,3 +130,47 @@ def encrypt(message, destPort, pr_key=None):
 
     # return publicly encrypted fkey with symmetrically encrypted message
     return outJson.encode(g.ENCODING)
+
+
+def gen_signature(message, pr_key):
+    """
+    This function will generate a signature for a given message
+    :param message: message to be signed
+    :param pr_key: sending node's private key
+    :return: signature
+    """
+
+    return pr_key.sign(
+        message,
+        padding.PSS(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            salt_length=padding.PSS.MAX_LENGTH
+        ),
+        hashes.SHA256()
+    )
+
+
+def check_signature(signature, message, pub_port):
+    """
+    This function will check whether the signature of a message maches a given public key
+    :param signature: provided signature
+    :param message: message claimed to be signed with signature
+    :param pub_key: public key of sender
+    :return: boolean value representing validity
+    """
+    # get the public key of the port
+    pub_key = ke.get_pub_key(pub_port)
+    # verify the signature with the message
+    try:
+        pub_key.verify(
+            signature,
+            message,
+            padding.PSS(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA256()
+        )
+        return True
+    except:
+        return False
