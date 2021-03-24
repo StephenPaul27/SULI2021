@@ -348,24 +348,25 @@ def add_trans_to_block():
     # local import because bf is imported after node editor
     import node_editor as ne
 
-    logging.debug(f"Node at port {g.my_port} is adding to its blockchain")
-    lastIndex = g.blockchain[-1].index
-    lastHash = g.blockchain[-1].hash
+    logging.debug(f"Node at port {g.my_port} is adding index {g.blockchain[-1].index+1} to its blockchain")
+    prevIndex = g.blockchain[-1].index
+    prevHash = g.blockchain[-1].hash
     transactions_to_add = get_dict_list(g.this_nodes_transactions[:g.BLOCK_SIZE])
     # just use the timestamp of the last transaction received for consistency
     blocktime = transactions_to_add[-1]['timestamp']
-    g.blockchain.append(Block(lastIndex + 1, blocktime, {
+    g.blockchain.append(Block(prevIndex + 1, blocktime, {
         "transactions": transactions_to_add
-    }, lastHash))
+    }, prevHash))
     # slice off the transactions added to the blockchain
     g.this_nodes_transactions = g.this_nodes_transactions[g.BLOCK_SIZE:]
     print(f"adding to my blockchain, new lasthash: {g.blockchain[-1].hash}")
+    g.last_transactions_hash = get_transaction_list_hash(g.this_nodes_transactions)
     # save changes to local memory
     ne.update_transactions()
     ne.update_chain()
 
 
-def validate(chain, lasthash, index=None):
+def validate(chain, lasthash, index=None,fromport=None):
     """
     This function validates a chain against itself and its claimed hash
 
@@ -396,7 +397,7 @@ def validate(chain, lasthash, index=None):
             if (i+1 < len(chain) and calculated_hash != chain[i + 1]['previous_hash'])\
                     or calculated_hash != chain[i]['hash']:
                 print("Failed: bad chain")
-                logging.warning(f"Validation failed: chain of {lasthash} was invalid, calculated hash: {calculated_hash}")
+                logging.warning(f"Validation failed at port {g.my_port} from port {fromport}: chain of {lasthash} was invalid, calculated hash: {calculated_hash}")
                 return False
 
     # check final hash against provided hash

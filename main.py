@@ -43,7 +43,6 @@ def main():
         g.first_node = True
         # format the log
         if g.REWRITE_FILES and g.first_node:
-            print("truncating log")
             with open("Storage/blockchain.log","r+") as f:
                 f.truncate(0)
 

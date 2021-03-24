@@ -196,11 +196,12 @@ class Server(threading.Thread):
             return
         if self.validator_list[vIndex] in self.voted_validators:
             # case when sender has already sent one chain
-            logging.warning(f"Consensus attempted multiple times from {msgJson['from']}")
+            logging.warning(f"Consensus attempted multiple times from {msgJson['from']}, with {len(self.voted_validators)}/{len(self.validator_list)} votes")
             return
 
         # mark the validator as already having voted once in this cycle
         self.voted_validators.append(self.validator_list[vIndex])
+        logging.debug(f"received vote at smart contract from {self.validator_list[vIndex]}")
 
         # load the transactions from the message
         loaded_transactions = bf.get_trans_objs(msgData['transactions'])
@@ -304,9 +305,17 @@ class Server(threading.Thread):
                 for j in self.votes[i]:
                     print(f"paying {j}")
                     logging.debug(f"Smart-Contract Paying {j}")
-                    # penalize everyone past index 0
-                    if count:
+                    # penalize everyone past index 0 with a mismatched chain hash
+                    # but omit nodes that match the chain but not transactions
+                    # they will correct on the next block if needed
+                    if count and self.chains_dict[i][-1]['hash'] != self.chains_dict[sorted_consensus[0]][-1]['hash']:
                         self.pay(j, g.PENALTY)
+                        logging.debug(f"Penalizing node {self.hash_to_port[j]},"
+                                      f"\nchain hash:{self.chains_dict[i][-1]['hash']},"
+                                      f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[i])},"
+                                      f"\ncompared to agreed answers:"
+                                      f"\nchain hash: {self.chains_dict[sorted_consensus[0]][-1]['hash']}"
+                                      f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[sorted_consensus[0]])}")
                     # pay the hashes in index 0 because its sorted by majority
                     else:
                         self.pay(j, g.INCENTIVE)
@@ -318,6 +327,8 @@ class Server(threading.Thread):
 
             # write balances to csv
             dr.write_balances(self.walletList, self.lastIndex)
+        else:
+            logging.error("consensus at smart contract couldn't pick an option")
 
     def reset_consensus(self):
         """
@@ -391,7 +402,9 @@ class Server(threading.Thread):
                     "data": {
                                 "value": value,
                                 "lasthash": self.blockchain[-1].hash,
-                                "newblock": self.blockchain[-1].to_dict()
+                                "newblock": self.blockchain[-1].to_dict(),
+                                "T_hash": bf.get_transaction_list_hash(self.transactions),
+                                "transactions": bf.get_dict_list(self.transactions)
                             },
                     "time": timeToSend
                 }

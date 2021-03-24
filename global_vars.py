@@ -12,13 +12,16 @@ import json
 ENCODING = 'utf-8'
 BASE_PORT = 8100            # Base port for searching for nodes
 BASE_HOST = "localhost"     # local host (must change code if using an IP instead)
-NUM_NODES = 10               # maximum number of nodes in system
+if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
+    NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
+else:
+    NUM_NODES = 10
 MSG_PERIOD = 5             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 5            # lifespan of messages before they're cleared
-CONSENSUS_TIMEOUT = 5       # seconds until consensus times out
-BLOCK_SIZE = 20             # size of each block of transactions to be added
+CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
+BLOCK_SIZE = 30             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 50     # number of simultaneous socket connections that can be made
-BLOCK_BUFFER = BLOCK_SIZE/2 # buffer to make sure transactions are ordered correctly
+BLOCK_BUFFER = BLOCK_SIZE  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
@@ -35,7 +38,7 @@ except:
 # network_map = {}
 
 # read port from system arguments
-if str.isdigit(sys.argv[1]):
+if len(sys.argv)>1 and str.isdigit(sys.argv[1]):
     my_port = int(sys.argv[1])
 else:
     my_port = BASE_PORT
@@ -69,3 +72,5 @@ blockchain = []
 this_nodes_transactions = []
 
 validator_list = []
+
+last_proposed = -1      # make sure duplicate requests aren't made

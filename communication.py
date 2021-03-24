@@ -245,7 +245,7 @@ class Receiver(threading.Thread):
             if comboHash in g.consensus_dict:
                 g.consensus_dict[comboHash].append(msgJson['from'])
             # if not in the histogram yet, add them after validating the chain
-            elif bf.validate(msgData['chain'], msgData['lasthash']):
+            elif bf.validate(msgData['chain'], msgData['lasthash'], fromport=g.hash_to_port[msgJson['from']]):
                 # store the chain itself
                 g.chain_dict[comboHash] = msgData['chain']
                 g.trans_dict[comboHash] = loaded_transactions
@@ -410,7 +410,9 @@ class Receiver(threading.Thread):
                         f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
 
             # if transactions exceed block size and this node is a validator, propose a new block
-            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+            if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
+                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
+                    and g.my_hash in g.validator_list:
                 logging.debug(f"Proposing new block at port {g.my_port} from sensitivity")
                 self.propose_block(msgJson, msgData)
         else:
@@ -424,9 +426,13 @@ class Receiver(threading.Thread):
         This function will propose a block update to all of the other blocks
         :return: None
         """
+
         # if ready to add a new block, go ahead and put it on your blockchain
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE:
             bf.add_trans_to_block()
+
+        # record request index to prevent duplication later
+        g.last_proposed = g.blockchain[-1].index
 
         T_hash = bf.get_transaction_list_hash(g.this_nodes_transactions)
         # create combination hash of transactions and blockchain
@@ -434,7 +440,8 @@ class Receiver(threading.Thread):
         loaded_block = g.blockchain[-1].to_dict()
 
         # Histogram the votes for the blockchain hash
-        if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash:
+        if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash\
+                and g.my_hash not in g.consensus_id_list:
             # store the chain itself
             g.chain_dict[comboHash] = [loaded_block]
             g.trans_dict[comboHash] = g.this_nodes_transactions
@@ -444,6 +451,7 @@ class Receiver(threading.Thread):
 
         for j in g.node_list:  # broadcast to all seen nodes
             try:
+                logging.debug(f"Node {g.my_port} is requesting index:{g.blockchain[-1].index} from {j}")
                 # write proposal message including transactions and hash for consensus
                 message = {
                     "type": "request",
@@ -503,7 +511,9 @@ class Receiver(threading.Thread):
             ne.update_transactions()
 
             # if transactions exceed block size and this node is a validator, propose a new block
-            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+            if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
+                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
+                    and g.my_hash in g.validator_list:
                 logging.debug(f"Proposing new block at port {g.my_port} from confirm")
                 self.propose_block(msgJson, msgData)
         else:
@@ -526,14 +536,17 @@ class Receiver(threading.Thread):
         """
 
         # only accept one vote per consensus
-        if msgJson['from'] not in g.consensus_id_list:
+        # also double check that you're a validator
+        if msgJson['from'] not in g.consensus_id_list\
+                and g.my_hash in g.validator_list:
             g.consensus_id_list.append(msgJson['from'])
         else:
             return
 
         # recognize consensus only on NEW blocks
         logging.debug(
-            f"node {g.my_port} received addblock from {g.hash_to_port[msgJson['from']]} with index {msgData['newblock']['index']}>{g.consensus_index}")
+            f"node {g.my_port} received addblock from {g.hash_to_port[msgJson['from']]} with index {msgData['newblock']['index']}>{g.consensus_index},"
+            f"and votes: {len(g.consensus_id_list)}/{len(g.node_list)+1}")
         if msgData['newblock']['index'] > g.consensus_index:
 
             loaded_transactions = bf.get_trans_objs(msgData['transactions'])
@@ -560,7 +573,7 @@ class Receiver(threading.Thread):
                 # perform consensus
                 g.blockchain, g.this_nodes_transactions = bf.consensus()
 
-                logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract with {len(g.consensus_id_list)} votes out of {len(g.node_list)}")
+                logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
                 # send consensus result to the smart contract
                 try:
                     message = {
@@ -597,8 +610,8 @@ class Receiver(threading.Thread):
 
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
 
-            # update the index no matter what, consensus is consensus
-            g.consensus_index = g.blockchain[-1].index
+            # update the index no matter what
+            g.consensus_index = msgData['newblock']['index']
 
             g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "payment", msgJson['from'], msgJson['to'],
                                                            msgData['value'])
@@ -607,12 +620,25 @@ class Receiver(threading.Thread):
 
             # correct our blockchain if it doesnt match the agreed one
             if msgData['lasthash'] != g.blockchain[-1].hash:
-                print(f"correcting chain to {msgData['newblock']['hash']}")
+                logging.debug(f"Node {g.my_port} is correcting its blockchain")
                 g.blockchain[-1] = bf.get_block_objs([msgData['newblock']])[0]
                 ne.update_chain()
 
+                if msgData['T_hash'] != bf.get_transaction_list_hash():
+                    print(f"correcting transactions to {msgData['T_hash']}")
+                    loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+                    # correct our transactions
+                    for i in g.this_nodes_transactions:
+                        if i.timestamp > g.blockchain[-1].timestamp\
+                                and i not in loaded_transactions:
+                            bisect.insort_left(loaded_transactions, i)
+                    logging.debug(f"Node {g.my_port} is correcting its transactions to size {len(loaded_transactions)}")
+                    g.this_nodes_transactions = loaded_transactions
+
             # if transactions exceed block size and this node is a validator, propose a new block
-            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER and g.my_hash in g.validator_list:
+            if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
+                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
+                    and g.my_hash in g.validator_list:
                 logging.debug(f"Proposing new block at port {g.my_port} from pay")
                 self.propose_block(msgJson, msgData)
         else:
