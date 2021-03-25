@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/blockchain_funcs.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/global_vars.py">
           <value>
             <Attribute>

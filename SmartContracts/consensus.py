@@ -227,8 +227,16 @@ class Server(threading.Thread):
         else:
             # case when validation fails
             logging.warning(f"Consensus chain from {msgJson['from']} was invalid")
+            logging.info(f"proposed blockhash:{msgData['lasthash']}")
+            logging.info(f"proposed prevhash:{msgData['newblock']['previous_hash']}=={self.blockchain[-1].hash}")
 
         logging.info(f"checking num votes to validators at smartcontract:{len(self.voted_validators)}=={len(self.validator_list)}")
+        if len(self.voted_validators) < len(self.validator_list):
+            logging.info("Voters missing:")
+            for i in self.validator_list:
+                if i not in self.voted_validators:
+                    logging.info(f"{self.hash_to_port[i]}:{i}")
+
         # if all validators have voted
         if len(self.voted_validators) == len(self.validator_list):
             # perform consensus
@@ -293,9 +301,9 @@ class Server(threading.Thread):
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
         if len(sorted_consensus):
+            self.blockchain.append(bf.get_block_objs(self.chains_dict[sorted_consensus[0]])[0])
             print(f"adding block at smartcontract: {self.blockchain[-1].hash}")
             logging.debug(f"adding block at smartcontract: {self.blockchain[-1].hash}")
-            self.blockchain.append(bf.get_block_objs(self.chains_dict[sorted_consensus[0]])[0])
             self.transactions = self.trans_dict[sorted_consensus[0]]
             ne.update_chain(self.port, self.blockchain)
             ne.update_transactions(self.port, self.transactions)
@@ -444,9 +452,10 @@ class Server(threading.Thread):
 
             # pick random number of validators up to the max set value
             if len(hashList) > self.max_validators:
-                numValidators = random.randint(1, len(self.max_validators))
+                numValidators = random.randint(1, self.max_validators)
             else:
                 numValidators = random.randint(1, len(hashList))
+
 
             # pick out the validators
             for i in range(numValidators):

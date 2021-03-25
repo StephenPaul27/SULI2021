@@ -248,7 +248,9 @@ def create_genesis_block():
     }, "0")
 
 
-def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain_dict=None, node_list=None, trans_dict=None):
+def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
+              chain_dict=None, node_list=None, trans_dict=None, id_list=None,
+              trans_vote_dict=None):
     """
     This function is responsible for enacting consensus on this node's blockchain.
     Once all "votes" have been received or the time window has expired, the most popular
@@ -256,7 +258,7 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
 
     :param chainList: current or specified blockchain
     :param port: port of enacting node
-    :param cons_dict: dictionary/ of votes for consensus
+    :param cons_array: dictionary/ of votes for consensus
     :param cindex: index of last agreed block
     :param chain_dict: dictionary of blockchains being voted on
     :param node_list: list of nodes connected
@@ -271,17 +273,21 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
         chainList = g.blockchain
     if trans_dict is None:
         trans_dict = g.trans_dict
-    if cons_dict is None:
-        cons_dict = g.consensus_dict
+    if trans_vote_dict is None:
+        trans_vote_dict = g.trans_vote_dict
+    if cons_array is None:
+        cons_array = g.consensus_array
     if cindex is None:
         cindex = g.consensus_index
     if chain_dict is None:
         chain_dict = g.chain_dict
     if node_list is None:
         node_list = g.node_list
+    if id_list is None:
+        id_list = g.consensus_id_list
 
     # sort consensus dict by quantity of nodes agreeing on a hash
-    sorted_consensus = sorted(cons_dict, key=lambda k: len(cons_dict[k]), reverse=True)
+    popular_choice = max(set(cons_array), key=cons_array.count)
 
     # debugging
     # print(f"before consensus performed, chain: {blockchain[-1].hash}")
@@ -289,31 +295,41 @@ def consensus(chainList=None, port=g.my_port, cons_dict=None, cindex=None, chain
     # print(f"g.consensus_dict: {g.consensus_dict}")
     # print(f"sorted_consensus: {sorted_consensus}")
 
-    # If most popular choice has > than half of all nodes agreeing (excluding consensus server), go with that choice
-    if len(sorted_consensus) and len(cons_dict[sorted_consensus[0]]) > (len(node_list))/2:
+    # If most popular choice has > than half of all voting nodes agreeing (excluding consensus server), go with that choice
+    if popular_choice and cons_array.count(popular_choice) > (len(id_list))/2:
 
         # erase any blocks in our chain that have not been agreed on
         while len(chainList) and chainList[-1].index > cindex:
+            logging.debug(f"node: {port} bf_consensus (idx:{cindex}) popping {chainList[-1].hash}")
             chainList.pop(len(chainList)-1)
 
         # add each block to our blockchain that is past what we've already agreed on
-        for i in chain_dict[sorted_consensus[0]]:
+        logging.debug(f"node: {port} about to push chain: {popular_choice} from:"
+                      f"\n{chain_dict}")
+        for i in chain_dict[popular_choice]:
             if i['index'] > cindex:
                 chainList.append(Block(i['index'], i['timestamp'], i['data'], i['previous_hash']))
+                logging.debug(f"node: {port} bf_consensus adding {chainList[-1].hash}")
                 cindex = i['index']
 
         print(f"Consensus performed, resulting chain: {chainList[-1].hash}")
 
-        ne.update_chain(chainList=chainList, port=port)
-        ne.update_transactions(port=port, transactions=trans_dict[sorted_consensus[0]])
     else:
-        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}")
+        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: dict:{cons_array[popular_choice]}")
         print(f"Consensus failed: popular choice <= half of all nodes, at port {port}")
-        return chainList, g.this_nodes_transactions
+        return chainList
 
+    my_transactions = get_dict_list(g.this_nodes_transactions)
 
+    # insort popular transactions that are not in our transactions already
+    for i in trans_vote_dict.keys():
+        if len(trans_vote_dict[i]) > (len(id_list))/2 and (trans_dict[i].to_dict() not in my_transactions):
+            bisect.insort_left(g.this_nodes_transactions, trans_dict[i])
 
-    return chainList, trans_dict[sorted_consensus[0]]
+    ne.update_chain(chainList=chainList, port=port)
+    ne.update_transactions(port=port, transactions=g.this_nodes_transactions)
+
+    return chainList
 
 
 def in_transactions(t_hash,t_list=None):
@@ -332,9 +348,10 @@ def in_transactions(t_hash,t_list=None):
 
 def reset_consensus(newIndex):
     # Reset consensus variables
-    g.consensus_dict = {}
+    g.consensus_array = []
     g.consensus_time = 0
     g.trans_dict = {}
+    g.trans_vote_dict = {}
     g.chain_dict = {}
     g.consensus_index = newIndex
     g.consensus_id_list = []
