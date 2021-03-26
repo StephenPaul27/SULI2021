@@ -16,10 +16,10 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
     NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
 else:
     NUM_NODES = 10
-MSG_PERIOD = 10             # seconds between broadcast of powerref downstream
+MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = 10            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
-BLOCK_SIZE = 30             # size of each block of transactions to be added
+BLOCK_SIZE = 50             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
 BLOCK_BUFFER = BLOCK_SIZE/2  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks

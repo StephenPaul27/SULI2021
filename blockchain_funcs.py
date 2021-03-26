@@ -313,6 +313,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
                 cindex = i['index']
 
         print(f"Consensus performed, resulting chain: {chainList[-1].hash}")
+        logging.debug(f"Consensus performed, resulting chain: {chainList[-1].hash}")
 
     else:
         logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: dict:{cons_array[popular_choice]}")
@@ -347,14 +348,15 @@ def in_transactions(t_hash,t_list=None):
 
 
 def reset_consensus(newIndex):
+    logging.debug(f"node {g.my_port} consensus reset")
     # Reset consensus variables
+    g.consensus_id_list = []
     g.consensus_array = []
     g.consensus_time = 0
     g.trans_dict = {}
     g.trans_vote_dict = {}
     g.chain_dict = {}
     g.consensus_index = newIndex
-    g.consensus_id_list = []
 
 
 def add_trans_to_block():

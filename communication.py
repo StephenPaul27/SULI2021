@@ -237,39 +237,46 @@ class Receiver(threading.Thread):
             return
 
         # recognize consensus only on NEW blocks
-        if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
+        # if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
 
-            loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+        logging.debug(
+            f"node {g.my_port} received response from {msgData['fromport']}, {len(g.consensus_id_list)}/{len(g.node_list)}")
 
-            # if hash has already been validated, just add it to the list
-            if msgData['lasthash'] in g.consensus_array:
-                g.consensus_array.append(msgData['lasthash'])
-            # if not in the histogram yet, add them after validating the chain
-            elif bf.validate(msgData['chain'], msgData['lasthash'], fromport=g.hash_to_port[msgJson['from']]):
-                g.consensus_array.append(msgData['lasthash'])
-                # store the chain itself
-                g.chain_dict[msgData['lasthash']] = msgData['chain']
+        loaded_transactions = bf.get_trans_objs(msgData['transactions'])
 
-            for i in loaded_transactions:
-                # histogram votes for specific transactions
-                try:
-                    g.trans_vote_dict[i.hash].append(msgJson['from'])
-                except:
-                    # add transaction to histogram if not in it
-                    g.trans_vote_dict[i.hash] = [msgJson['from']]
-                    g.trans_dict[i.hash] = i
+        # if hash has already been validated, just add it to the list
+        if msgData['lasthash'] in g.consensus_array:
+            g.consensus_array.append(msgData['lasthash'])
+        # if not in the histogram yet, add them after validating the chain
+        elif bf.validate(msgData['chain'], msgData['lasthash'], fromport=g.hash_to_port[msgJson['from']]):
+            g.consensus_array.append(msgData['lasthash'])
+            # store the chain itself
+            g.chain_dict[msgData['lasthash']] = msgData['chain']
 
-            # if consensus has timed out or received messages from all participating nodes
-            if len(g.consensus_id_list) >= len(g.node_list):
-                print(f"performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} votes")
-                # perform consensus
-                g.blockchain = bf.consensus()
-                # reset the consensus variables and set the updated consensus-agreed index
-                bf.reset_consensus(g.blockchain[-1].index)
-            # elif not g.consensus_time:
-            #     # print("STARTING CONSENSUS TIMER")
-            #     # Start recording time since consensus began
-            #     g.consensus_time = time.time()
+        for i in loaded_transactions:
+            # histogram votes for specific transactions
+            try:
+                g.trans_vote_dict[i.hash].append(msgJson['from'])
+            except:
+                # add transaction to histogram if not in it
+                g.trans_vote_dict[i.hash] = [msgJson['from']]
+                g.trans_dict[i.hash] = i
+
+        # if consensus has timed out or received messages from all participating nodes
+        if len(g.consensus_id_list) >= len(g.node_list):
+            print(f"performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} votes")
+            logging.debug(f"node {g.my_port} is performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} ")
+            # perform consensus
+            g.blockchain = bf.consensus()
+            # reset the consensus variables and set the updated consensus-agreed index
+            bf.reset_consensus(g.blockchain[-1].index)
+        # elif not g.consensus_time:
+        #     # print("STARTING CONSENSUS TIMER")
+        #     # Start recording time since consensus began
+        #     g.consensus_time = time.time()
+
+        # else:
+        #     logging.warning(f"response received at node {g.my_port} from {msgData['fromport']} index: {msgData['chain'][-1]['index']}>{g.consensus_index}")
 
     def respond_powerref(self, msgJson, msgData):
         """
@@ -442,8 +449,9 @@ class Receiver(threading.Thread):
 
         T_hash = bf.get_transaction_list_hash(g.this_nodes_transactions)
         # create combination hash of transactions and blockchain
-        comboHash = bf.get_hash(str(g.blockchain[-1].hash) + str(T_hash))
         loaded_block = g.blockchain[-1].to_dict()
+
+        bf.reset_consensus(g.consensus_index)
 
         # Histogram the votes for the blockchain hash
         if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash\
@@ -550,15 +558,20 @@ class Receiver(threading.Thread):
         :return: None
         """
 
+        if msgJson['from'] not in g.consensus_id_list:
+            if g.my_hash in g.validator_list:
+                g.consensus_id_list.append(msgJson['from'])
+            else:
+                logging.warning(
+                    f"node {g.my_port} received non-validator addblock from {g.hash_to_port[msgJson['from']]}")
+        else:
+            logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]}")
+            return
+
         if msgData['newblock']['index'] > g.consensus_index:
 
             # only accept one vote per consensus
             # also double check that you're a validator
-            if msgJson['from'] not in g.consensus_id_list\
-                    and g.my_hash in g.validator_list:
-                g.consensus_id_list.append(msgJson['from'])
-            else:
-                return
 
             # recognize consensus only on NEW blocks
             logging.debug(
@@ -592,6 +605,9 @@ class Receiver(threading.Thread):
                 # perform consensus
                 g.blockchain = bf.consensus()
 
+                # reset the consensus variables and set the updated consensus-agreed index
+                bf.reset_consensus(g.blockchain[-1].index)
+
                 # logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract (Timeout:{(g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT))})for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
                 # send consensus result to the smart contract
                 try:
@@ -610,12 +626,13 @@ class Receiver(threading.Thread):
                 except Exception as e:
                     logging.warning(f"Couldn't send chain from {g.my_port} to smart contract because {e}")
 
-                # reset the consensus variables and set the updated consensus-agreed index
-                bf.reset_consensus(g.blockchain[-1].index)
             # elif not g.consensus_time:
             #     # print("STARTING CONSENSUS TIMER")
             #     # Start recording time since consensus began
             #     g.consensus_time = time.time()
+        else:
+            logging.warning(f"Addblock index received at node {g.my_port} from node {g.hash_to_port[msgJson['from']]}"
+                            f" cindex:{g.consensus_index} received:{msgData['newblock']['index']}")
 
     def respond_pay(self, msgJson, msgData):
         """
@@ -629,13 +646,14 @@ class Receiver(threading.Thread):
 
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
 
-            # update the index no matter what
-            g.consensus_index = msgData['newblock']['index']
-
             g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "payment", msgJson['from'], msgJson['to'],
                                                            msgData['value'])
             # update transactions in local storage
             ne.update_transactions()
+
+            if g.consensus_index >= 0:
+                # update the index as long as this is not a new node
+                g.consensus_index = msgData['newblock']['index']
 
             # correct our blockchain if it doesnt match the agreed one
             # and we are not a new node
@@ -660,6 +678,7 @@ class Receiver(threading.Thread):
                     and g.my_hash in g.validator_list:
                 logging.debug(f"Proposing new block at port {g.my_port} from pay")
                 self.propose_block(msgJson, msgData)
+
         else:
             logging.warning(f"Attempted payment observed at {g.my_port} from {g.hash_to_port[msgJson['from']]}")
 
