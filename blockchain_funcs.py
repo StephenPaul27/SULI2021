@@ -1,5 +1,6 @@
-"""This file contains functions and classes related to the blockchain
-This includes the general structure, consensus, validation
+"""
+This file contains functions and classes related to the blockchain and transactions
+This includes the general structure, consensus, validation, manipulation, data types, etc.
 """
 
 # imports
@@ -22,13 +23,17 @@ class Block:
 
     def hash_block(self):
         """
-        This function returns the hash of the local block, using the index, timestamp, data, and previous hash
+        This function returns the hash of this block, using the index, timestamp, data, and previous hash
         """
         sha = hasher.sha256()
         sha.update((str(self.index) + str(self.timestamp) + str(self.data) + str(self.previous_hash)).encode())
         return sha.hexdigest()
 
     def to_dict(self):
+        """
+        This function returns a dict of this block's fields
+        :returns:
+        """
         return {
             "index": self.index,
             "timestamp": self.timestamp,
@@ -60,19 +65,23 @@ class Transaction:
         """
         This function defines the ordering of transactions based on timestamp
 
-        :return: boolean of timestamp ordering (least to greatest time)
+        :returns: boolean of timestamp ordering (least to greatest time)
         """
         return self.timestamp < other.timestamp
 
     def hash_transaction(self):
         """
-        This function returns the hash of the transaction
+        This function returns the hash of this transaction
         """
         sha = hasher.sha256()
         sha.update((str(self.timestamp) + str(self.type) + str(self.sender) + str(self.recipient) + str(self.value)).encode())
         return sha.hexdigest()
 
     def to_dict(self):
+        """
+        This function returns a dictionary of this transactions fields
+        :returns: dictionary of fields
+        """
         return {
             "timestamp": self.timestamp,
             "type": self.type,
@@ -83,6 +92,10 @@ class Transaction:
         }
 
     def to_string(self):
+        """
+        This function string-ifies the transaction (was used for debugging purposes)
+        :returns: string of fields
+        """
         return f"Time:{self.timestamp}\n" \
                f"Type:{self.type}\n" \
                f"Sender:{self.sender}\n" \
@@ -96,8 +109,9 @@ def get_hash(hashString):
     This function will return a SHA256 hash of the string provided
 
     :param hashString: string to hash
-    :return: hash of string
+    :returns: hash of string
     """
+    hashString = str(hashString)    # ensure input is a string
     sha = hasher.sha256()
     sha.update(hashString.encode(g.ENCODING))
     return sha.hexdigest()
@@ -105,7 +119,7 @@ def get_hash(hashString):
 
 def get_dict_list(chainList=None):
     """
-    This function returns a dictionary list of a given list of objects
+    This function returns a dictionary list of a given list of objects (Blocks or Transactions)
     :param chainList: list to get objects from, default None results in global blockchain used
     :returns: returns local blockchain in dictionary form
     """
@@ -129,7 +143,7 @@ def get_block_objs(chainDict):
     into a list of Block objects, used to copy chains from messages
 
     :param chainDict: the dict list to copy
-    :return: list of block objects
+    :returns: list of block objects
     """
     listToReturn = []
     for i in chainDict:
@@ -142,7 +156,7 @@ def get_trans_objs(chainDict):
     This function will take a dictionary list and turn it into a list of Transactions objects
 
     :param chainDict: the dict list to copy
-    :return: list of block objects
+    :returns: list of block objects
     """
     listToReturn = []
     for i in chainDict:
@@ -155,7 +169,7 @@ def restore_chain(port=g.my_port):
     """
     This function will restore the blockchain from local storage
 
-    :return: returns boolean, if false, generate genesis block
+    :returns: returns boolean, if false, generate genesis block
     """
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
@@ -186,7 +200,7 @@ def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=No
     :param Snode: hash of node sending sensitivity
     :param power: power reference
     :param sense: sensitivity
-    :return: updated list of transactions
+    :returns: updated list of transactions
     """
     if listOfTransactions is None:
         listOfTransactions = g.this_nodes_transactions
@@ -213,7 +227,7 @@ def get_transaction_list_hash(this_list=None):
     This function will hash together the list of transactions
 
     :param this_list: can specify a different list to hash
-    :return: the resulting hash
+    :returns: the resulting hash
     """
 
     # update optional parameter
@@ -238,7 +252,7 @@ def create_genesis_block():
     This is only relevant if it is the first node in the system, as all other nodes will
     seek consensus and throw away their genesis block
 
-    :return: returns the object of a genesis block
+    :returns: returns the object of a genesis block
     """
 
     # Manually construct a block with
@@ -262,7 +276,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
     :param cindex: index of last agreed block
     :param chain_dict: dictionary of blockchains being voted on
     :param node_list: list of nodes connected
-    :return: consensus-agreed chain
+    :returns: consensus-agreed chain
     """
 
     # local import because of cyclical nature
@@ -316,7 +330,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
         logging.debug(f"Consensus performed, resulting chain: {chainList[-1].hash}")
 
     else:
-        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: dict:{cons_array[popular_choice]}")
+        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: dict:{chain_dict[popular_choice]}")
         print(f"Consensus failed: popular choice <= half of all nodes, at port {port}")
         return chainList
 
@@ -324,7 +338,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
 
     # insort popular transactions that are not in our transactions already
     for i in trans_vote_dict.keys():
-        if len(trans_vote_dict[i]) > (len(id_list))/2 and (trans_dict[i].to_dict() not in my_transactions):
+        if len(trans_vote_dict[i]) > (len(id_list))/2 and not in_transactions(trans_dict[i].hash, g.this_nodes_transactions):
             bisect.insort_left(g.this_nodes_transactions, trans_dict[i])
 
     ne.update_chain(chainList=chainList, port=port)
@@ -333,13 +347,15 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
     return chainList
 
 
-def in_transactions(t_hash,t_list=None):
+def in_transactions(t_hash, t_list=None):
     """
     This function will tell if a transaction has already been recorded
     :param t_hash: hash of transaction to search for
     :param t_list: list of transactions
-    :return: Boolean representing whether the transaction was found
+    :returns: Boolean representing whether the transaction was found
     """
+    if t_list is None:
+        t_list = g.this_nodes_transactions
 
     for i in t_list:
         if i.hash == t_hash:
@@ -348,6 +364,12 @@ def in_transactions(t_hash,t_list=None):
 
 
 def reset_consensus(newIndex):
+    """
+    This function resets global variables used for consensus
+    :param newIndex: new index of consensus_index used to keep track of the last agreed block
+    :returns: None
+    """
+
     logging.debug(f"node {g.my_port} consensus reset")
     # Reset consensus variables
     g.consensus_id_list = []
@@ -361,8 +383,8 @@ def reset_consensus(newIndex):
 
 def add_trans_to_block():
     """
-    This function will add a block's transactions to their blockchain according to the blocksize
-    :return: None
+    This function will add a block's transactions to their blockchain according to the BLOCK_SIZE
+    :returns: None
     """
     # local import because bf is imported after node editor
     import node_editor as ne
@@ -387,7 +409,7 @@ def add_trans_to_block():
 
 def validate(chain, lasthash, index=None,fromport=None):
     """
-    This function validates a chain against itself and its claimed hash
+    This function validates a chain against itself and its proposed hash
 
     :returns: boolean value representing validity of the provided chain and hash
     """

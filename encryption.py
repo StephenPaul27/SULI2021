@@ -12,7 +12,7 @@ def decrypt(package, port=g.my_port, pr_key=None):
     :param pr_key: private key to decrypt with
     :param port: port for debugging
     :param package: message bytes to decrypt
-    :return: decrypted message string
+    :returns: decrypted message string
     """
 
     # correct the default private key
@@ -80,7 +80,7 @@ def encrypt(message, destPort, pr_key=None):
     :param pr_key: private key of the node trying to encrypt
     :param message: The string to encrypt
     :param destPort: The port of the destination node
-    :return: encoded Json of the encrypted message and key
+    :returns: encoded Json of the encrypted message and key
     """
 
     # correct the default key
@@ -137,7 +137,7 @@ def gen_signature(message, pr_key):
     This function will generate a signature for a given message
     :param message: message to be signed
     :param pr_key: sending node's private key
-    :return: signature
+    :returns: signature
     """
 
     return pr_key.sign(
@@ -156,7 +156,7 @@ def check_signature(signature, message, pub_port):
     :param signature: provided signature
     :param message: message claimed to be signed with signature
     :param pub_key: public key of sender
-    :return: boolean value representing validity
+    :returns: boolean value representing validity
     """
     # get the public key of the port
     pub_key = ke.get_pub_key(pub_port)

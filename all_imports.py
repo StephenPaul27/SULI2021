@@ -1,3 +1,8 @@
+"""
+This file is a consolidation of the majority of imports needed by the project scripts
+..note:: Some files need to reimport files locally because of their ordering in this file
+"""
+
 # imports
 import socket
 import threading
@@ -8,6 +13,7 @@ import hashlib as hasher
 import datetime as date
 import base64
 import random
+import math
 import statistics
 import sys
 import traceback

@@ -92,12 +92,15 @@ class Server(threading.Thread):
         self.port_to_hash = {}
         self.hash_to_port = {}
 
+        # list of faulty nodes to punish
+        self.faulty = []
+
         # restore validators and index from memory if they're up to date
         self.read_validators()
 
     def listen(self):
         """
-        This function is the listener for the server, it accepts connections and messages
+        This function is the listener for the server, it accepts connections and messages then reacts to them
         :return: None
         """
 
@@ -179,7 +182,7 @@ class Server(threading.Thread):
     def consensus_response(self, msgJson, msgData):
         """
         This function reacts to consensus messages, collecting consensus results from the validators then
-        performing its own consensus using those blockchains
+        performing its own consensus using those messages
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
@@ -227,6 +230,8 @@ class Server(threading.Thread):
         else:
             # case when validation fails
             logging.warning(f"Consensus chain from {msgJson['from']} was invalid")
+            # add the voter to list of faulty nodes
+            self.faulty.append(self.validator_list[vIndex])
             logging.info(f"proposed blockhash:{msgData['lasthash']}")
             logging.info(f"proposed prevhash:{msgData['newblock']['previous_hash']}=={self.blockchain[-1].hash}")
 
@@ -294,7 +299,7 @@ class Server(threading.Thread):
 
     def validator_consensus(self):
         """
-        This function will perform consensus among the assigned validators and issue punishment
+        This function will perform consensus among the assigned validators and issue payment/penalties
         :return: None
         """
 
@@ -318,15 +323,20 @@ class Server(threading.Thread):
                     # they will correct on the next block if needed
                     if count and self.chains_dict[i][-1]['hash'] != self.chains_dict[sorted_consensus[0]][-1]['hash']:
                         self.pay(j, g.PENALTY)
-                        logging.debug(f"Penalizing node {self.hash_to_port[j]},"
-                                      f"\nchain hash:{self.chains_dict[i][-1]['hash']},"
-                                      f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[i])},"
-                                      f"\ncompared to agreed answers:"
-                                      f"\nchain hash: {self.chains_dict[sorted_consensus[0]][-1]['hash']}"
-                                      f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[sorted_consensus[0]])}")
+                        # debugging
+                        # logging.debug(f"Penalizing node {self.hash_to_port[j]},"
+                        #               f"\nchain hash:{self.chains_dict[i][-1]['hash']},"
+                        #               f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[i])},"
+                        #               f"\ncompared to agreed answers:"
+                        #               f"\nchain hash: {self.chains_dict[sorted_consensus[0]][-1]['hash']}"
+                        #               f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[sorted_consensus[0]])}")
                     # pay the hashes in index 0 because its sorted by majority
                     else:
                         self.pay(j, g.INCENTIVE)
+
+            for i in self.faulty:
+                # penalize faulty nodes
+                self.pay(i, g.PENALTY)
 
             print(f"Updated Wallet values: {list(self.walletList.values())}")
 
@@ -346,6 +356,7 @@ class Server(threading.Thread):
         logging.debug("CONSENSUS RESET")
         self.chains_dict = {}
         self.trans_dict = {}
+        self.faulty = []
         self.votes = {}
         self.voted_validators = []
 
@@ -378,7 +389,7 @@ class Server(threading.Thread):
 
     def pay(self, destHash, value):
         """
-        This function will send an official message of transfer of UtilityTokens
+        This function will send an official message of UtilityToken transfer
 
         :param destHash: Destination port
         :param value: UtilityToken Value (negative for penalty)
@@ -452,9 +463,9 @@ class Server(threading.Thread):
 
             # pick random number of validators up to the max set value
             if len(hashList) > self.max_validators:
-                numValidators = random.randint(1, self.max_validators)
+                numValidators = self.max_validators
             else:
-                numValidators = random.randint(1, len(hashList))
+                numValidators = random.randint(math.ceil(0.25*len(hashList)), len(hashList))
 
 
             # pick out the validators
@@ -463,8 +474,9 @@ class Server(threading.Thread):
                     # make random weighted choice based on UtilityToken 'Balance'
                     choice = random.choices(range(0, len(hashList)), weights=weightList, k=1)[0]
 
-                    # add selection to list
-                    self.validator_list.append(hashList[choice])
+                    # add selection to list if it is trustworthy
+                    if weightList[choice]>0:
+                        self.validator_list.append(hashList[choice])
 
                     # pop for non-repeating
                     hashList.pop(choice)
@@ -497,13 +509,18 @@ class Server(threading.Thread):
     def check_validators(self):
         """
         This function will check if the validators need to be updated
-        :return:
+        :return: None
         """
         # checks if blockchain index is greater than current validator index
         if self.lastIndex < self.blockchain[-1].index:
             self.validator_select()
 
     def broadcast_validators(self):
+        """
+        This funciton will broadcast the current validators to the rest of the nodes online
+        :return: None
+        """
+
         logging.debug(f"Broadcasting validators from smart contract")
         # broadcast current validators anyway
         for i in self.port_to_hash:
@@ -524,7 +541,7 @@ class Server(threading.Thread):
     def read_validators(self):
         """
         This function will read the validators stored in memory
-        :return:
+        :return: None
         """
         # Read json from storage
         with open("SmartContracts/contractStorage.json", "r") as f:
@@ -537,7 +554,6 @@ class Server(threading.Thread):
             self.validator_list = node_file["validators"]
             self.lastIndex = node_file["index"]
             self.broadcast_validators()
-
 
     def write_validators(self):
         """
@@ -565,8 +581,12 @@ class Server(threading.Thread):
 
 
 def main():
-    # format the log
+    """
+    This is the main file, it will run if this script is run individually
+    :return:
+    """
 
+    # format the log
     if g.REWRITE_FILES:
         with open("Storage/blockchain.log", "r+") as f:
             f.truncate(0)

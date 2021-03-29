@@ -8,7 +8,7 @@ def create_key(port):
     file represents local storage accessible only to each node
 
     :param port: port number associated with the node
-    :return: private key (generated or read)
+    :returns: private key (generated or read)
     """
 
     # Read json from storage
@@ -86,7 +86,7 @@ def get_pub_key(port):
     This function will read the public key of a port
 
     :param port: The port of which to retrieve the public key
-    :return: returns the public key object read from the json file
+    :returns: returns the public key object read from the json file
     """
 
     # Read json from storage

@@ -138,7 +138,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
         logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
@@ -151,7 +151,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
 
         # respond with port and blockchain for consensus
@@ -187,7 +187,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
 
         logging.debug(f"Node {g.my_port} received request from {g.hash_to_port[msgJson['from']]}")
@@ -227,7 +227,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
 
         # only accept one vote per consensus
@@ -284,7 +284,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
         # print(f"received power for {msgData['id']}")
 
@@ -352,7 +352,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
         # print(f"received sense for {msgData['id']}")
 
@@ -420,7 +420,7 @@ class Receiver(threading.Thread):
                     sendMessage(message, j)
                 except Exception as e:
                     logging.warning(
-                        f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]}")
+                        f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
 
             # if transactions exceed block size and this node is a validator, propose a new block
             if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
@@ -437,7 +437,7 @@ class Receiver(threading.Thread):
     def propose_block(self, msgJson, msgData):
         """
         This function will propose a block update to all of the other blocks
-        :return: None
+        :returns: None
         """
 
         # if ready to add a new block, go ahead and put it on your blockchain
@@ -498,7 +498,7 @@ class Receiver(threading.Thread):
         This function will add the power/sensitivity transaction to the transaction list of this node
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
         # print(f"received confirm for {msgData['id']}")
 
@@ -555,7 +555,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
 
         if msgJson['from'] not in g.consensus_id_list:
@@ -611,13 +611,19 @@ class Receiver(threading.Thread):
                 # logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract (Timeout:{(g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT))})for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
                 # send consensus result to the smart contract
                 try:
+                    # set traitor
+                    if g.my_port == g.TRAITOR_PORT:
+                        idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
+                        logging.warning(f"INSERTING TRAITOR VALUE: {idx}")
+                    else:
+                        idx = -1
                     message = {
                         "type": "consensus",
                         "from": g.my_hash,
                         "to": g.port_to_hash[g.BASE_PORT],
                         "data": {
-                                    "lasthash": g.blockchain[-1].hash,
-                                    "newblock": g.blockchain[-1].to_dict(),
+                                    "lasthash": g.blockchain[idx].hash,
+                                    "newblock": g.blockchain[idx].to_dict(),
                                     "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
                                 },
                         "time": time.time()
@@ -640,7 +646,7 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
+        :returns: None
         """
 
 
