@@ -138,7 +138,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
         logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
@@ -151,7 +150,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
 
         # respond with port and blockchain for consensus
@@ -187,7 +185,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
 
         logging.debug(f"Node {g.my_port} received request from {g.hash_to_port[msgJson['from']]}")
@@ -227,7 +224,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
 
         # only accept one vote per consensus
@@ -284,7 +280,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
         # print(f"received power for {msgData['id']}")
 
@@ -352,7 +347,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
         # print(f"received sense for {msgData['id']}")
 
@@ -437,7 +431,6 @@ class Receiver(threading.Thread):
     def propose_block(self, msgJson, msgData):
         """
         This function will propose a block update to all of the other blocks
-        :returns: None
         """
 
         # if ready to add a new block, go ahead and put it on your blockchain
@@ -498,7 +491,6 @@ class Receiver(threading.Thread):
         This function will add the power/sensitivity transaction to the transaction list of this node
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
         # print(f"received confirm for {msgData['id']}")
 
@@ -555,7 +547,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
 
         if msgJson['from'] not in g.consensus_id_list:
@@ -646,7 +637,6 @@ class Receiver(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :returns: None
         """
 
 

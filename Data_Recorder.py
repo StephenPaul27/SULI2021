@@ -4,11 +4,19 @@ import csv
 
 
 def clear_balances():
+    """
+    This function will clear the csv that balances are written to
+    """
     with open("Storage/balances.csv", 'r+') as f:
         f.truncate(0)
 
 
 def write_balances(walletList,index):
+    """
+    This function will write the current balances to a csv file to be displayed as a graph
+    :param walletList: list of wallet values for each node
+    :param index: block index to keep
+    """
 
     balance_dict = {'index':[]}
     size_tracker = 0

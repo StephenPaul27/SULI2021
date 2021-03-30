@@ -367,7 +367,6 @@ def reset_consensus(newIndex):
     """
     This function resets global variables used for consensus
     :param newIndex: new index of consensus_index used to keep track of the last agreed block
-    :returns: None
     """
 
     logging.debug(f"node {g.my_port} consensus reset")
@@ -384,7 +383,6 @@ def reset_consensus(newIndex):
 def add_trans_to_block():
     """
     This function will add a block's transactions to their blockchain according to the BLOCK_SIZE
-    :returns: None
     """
     # local import because bf is imported after node editor
     import node_editor as ne

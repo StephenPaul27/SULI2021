@@ -101,7 +101,6 @@ class Server(threading.Thread):
     def listen(self):
         """
         This function is the listener for the server, it accepts connections and messages then reacts to them
-        :return: None
         """
 
         # create server socket
@@ -186,7 +185,6 @@ class Server(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
         """
 
         # obtain the index of the message sender hash in the validator list
@@ -255,7 +253,6 @@ class Server(threading.Thread):
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
-        :return: None
         """
 
         # respond with port in the data
@@ -300,7 +297,6 @@ class Server(threading.Thread):
     def validator_consensus(self):
         """
         This function will perform consensus among the assigned validators and issue payment/penalties
-        :return: None
         """
 
         # sort vote dict by quantity of nodes agreeing on a hash
@@ -351,7 +347,6 @@ class Server(threading.Thread):
     def reset_consensus(self):
         """
         This function will clear consensus server variables
-        :return: None
         """
         logging.debug("CONSENSUS RESET")
         self.chains_dict = {}
@@ -363,7 +358,6 @@ class Server(threading.Thread):
     def update_wallets(self):
         """
         This function will scan the blockchain to assign current balances for the nodes
-        :return: None
         """
 
         # reinitialize walletList before adding to it
@@ -393,7 +387,6 @@ class Server(threading.Thread):
 
         :param destHash: Destination port
         :param value: UtilityToken Value (negative for penalty)
-        :return: None
         """
 
         # create wallet if not available already
@@ -445,7 +438,6 @@ class Server(threading.Thread):
     def validator_select(self):
         """
         This function will select random nodes weighted by their UtilityToken Balance to be validator nodes
-        :return: None
         """
 
         # make sure there are participants visible to the server
@@ -509,7 +501,6 @@ class Server(threading.Thread):
     def check_validators(self):
         """
         This function will check if the validators need to be updated
-        :return: None
         """
         # checks if blockchain index is greater than current validator index
         if self.lastIndex < self.blockchain[-1].index:
@@ -518,7 +509,6 @@ class Server(threading.Thread):
     def broadcast_validators(self):
         """
         This funciton will broadcast the current validators to the rest of the nodes online
-        :return: None
         """
 
         logging.debug(f"Broadcasting validators from smart contract")
@@ -541,7 +531,6 @@ class Server(threading.Thread):
     def read_validators(self):
         """
         This function will read the validators stored in memory
-        :return: None
         """
         # Read json from storage
         with open("SmartContracts/contractStorage.json", "r") as f:
@@ -558,7 +547,6 @@ class Server(threading.Thread):
     def write_validators(self):
         """
         This function will write the validators to memory
-        :return:
         """
         # Read json from storage
         with open("SmartContracts/contractStorage.json", "r") as f:
@@ -575,7 +563,6 @@ class Server(threading.Thread):
     def run(self):
         """
         Run the thread
-        :return: None
         """
         self.listen()
 
@@ -583,7 +570,6 @@ class Server(threading.Thread):
 def main():
     """
     This is the main file, it will run if this script is run individually
-    :return:
     """
 
     # format the log

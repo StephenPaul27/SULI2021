@@ -65,8 +65,6 @@ def new_node(port):
 def update_chain(port=g.my_port,chainList=None):
     """
     This function will write a blockchain into local storage
-
-    :return: None
     """
 
     # assign the default value
@@ -103,8 +101,6 @@ def get_transactions(port=g.my_port):
 def update_transactions(port=g.my_port, transactions=None):
     """
     This function will write the transactions into local storage
-
-    :return: None
     """
 
     # update default value
