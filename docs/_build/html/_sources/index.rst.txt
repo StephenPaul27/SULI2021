@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    Modules
+   Scripts
 
 Indices and tables
 ==================

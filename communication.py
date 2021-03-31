@@ -432,10 +432,11 @@ class Receiver(threading.Thread):
         """
         This function will propose a block update to all of the other blocks
         """
-
         # if ready to add a new block, go ahead and put it on your blockchain
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE:
             bf.add_trans_to_block()
+
+        dr.write_msg_time(bf.get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index)
 
         # record request index to prevent duplication later
         g.last_proposed = g.blockchain[-1].index
@@ -555,6 +556,7 @@ class Receiver(threading.Thread):
             else:
                 logging.warning(
                     f"node {g.my_port} received non-validator addblock from {g.hash_to_port[msgJson['from']]}")
+                return
         else:
             logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]}")
             return
@@ -599,7 +601,10 @@ class Receiver(threading.Thread):
                 # reset the consensus variables and set the updated consensus-agreed index
                 bf.reset_consensus(g.blockchain[-1].index)
 
-                # logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract (Timeout:{(g.consensus_time and (time.time() - g.consensus_time > g.CONSENSUS_TIMEOUT))})for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
+                # record completion of this node's consensus
+                dr.write_msg_time(bf.get_hash(g.blockchain[-1].index, g.my_port), "consensus_process",g.consensus_index)
+
+                logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
                 # send consensus result to the smart contract
                 try:
                     # set traitor
@@ -761,6 +766,7 @@ class Sender(threading.Thread):
 
                         # broad cast that you're sending power reference to i
                         sendMessage(message, i)
+
                     except Exception as e:
                         logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
 
@@ -772,8 +778,10 @@ def sendMessage(message, destPort, pr_key=None, myport=g.my_port):
     :param pr_key: private key (None defaults to global variable)
     :param message: The string message to send
     :param destPort: The port of the destination node
+    :param myport: this node's port for debugging
     """
-
+    # log message for tracking latency
+    dr.write_msg_time(bf.get_hash(message['from'], message['to'], message['time']), message['type'], g.consensus_index)
     try:
         message = json.dumps(message)
     except json.JSONDecodeError:

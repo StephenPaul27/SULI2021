@@ -15,6 +15,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supplementary Scripts" href="Scripts.html" />
     <link rel="prev" title="Documentation for the SULI Blockchain Project" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -65,8 +66,7 @@ This includes the general structure, consensus, validation, manipulation, data t
 <dl class="py function">
 <dt id="blockchain_funcs.add_trans_to_block">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">add_trans_to_block</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.add_trans_to_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will add a block’s transactions to their blockchain according to the BLOCK_SIZE
-:returns: None</p>
+<dd><p>This function will add a block’s transactions to their blockchain according to the BLOCK_SIZE</p>
 </dd></dl>
 
 <dl class="py function">
@@ -150,7 +150,7 @@ into a list of Block objects, used to copy chains from messages</p>
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_hash">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hashString</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_hash" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will return a SHA256 hash of the string provided</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -203,8 +203,7 @@ into a list of Block objects, used to copy chains from messages</p>
 <dt id="blockchain_funcs.reset_consensus">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">reset_consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">newIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.reset_consensus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function resets global variables used for consensus
-:param newIndex: new index of consensus_index used to keep track of the last agreed block
-:returns: None</p>
+:param newIndex: new index of consensus_index used to keep track of the last agreed block</p>
 </dd></dl>
 
 <dl class="py function">
@@ -247,8 +246,7 @@ Every node will have a server for receiving and reacting to messages, and a clie
 <dl class="py method">
 <dt id="communication.Receiver.propose_block">
 <code class="sig-name descname">propose_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.propose_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will propose a block update to all of the other blocks
-:returns: None</p>
+<dd><p>This function will propose a block update to all of the other blocks</p>
 </dd></dl>
 
 <dl class="py method">
@@ -263,9 +261,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -274,8 +269,7 @@ then it will send the result to the smartcontract to finalize</p>
 <code class="sig-name descname">respond_confirm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_confirm" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will add the power/sensitivity transaction to the transaction list of this node
 :param msgJson: Json structure of message
-:param msgData: Json structure of message data
-:returns: None</p>
+:param msgData: Json structure of message data</p>
 </dd></dl>
 
 <dl class="py method">
@@ -288,9 +282,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgJson</strong> – Json structure of message</p></li>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -306,9 +297,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -322,9 +310,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgJson</strong> – Json structure of message</p></li>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -340,9 +325,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -356,9 +338,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgJson</strong> – Json structure of message</p></li>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -374,9 +353,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -390,9 +366,6 @@ then it will send the result to the smartcontract to finalize</p>
 <li><p><strong>msgJson</strong> – Json structure of message</p></li>
 <li><p><strong>msgData</strong> – Json structure of message data</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -435,6 +408,7 @@ from the args and kwargs arguments, respectively.</p>
 <li><p><strong>pr_key</strong> – private key (None defaults to global variable)</p></li>
 <li><p><strong>message</strong> – The string message to send</p></li>
 <li><p><strong>destPort</strong> – The port of the destination node</p></li>
+<li><p><strong>myport</strong> – this node’s port for debugging</p></li>
 </ul>
 </dd>
 </dl>
@@ -444,6 +418,34 @@ from the args and kwargs arguments, respectively.</p>
 <div class="section" id="module-Data_Recorder">
 <span id="data-recorder-py"></span><h2>Data_Recorder.py<a class="headerlink" href="#module-Data_Recorder" title="Permalink to this headline">¶</a></h2>
 <p>This file holds functions that will write data to storage for later analysis</p>
+<dl class="py function">
+<dt id="Data_Recorder.clear_balances">
+<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">clear_balances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_balances" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will clear the csv that balances are written to</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Data_Recorder.clear_latencies">
+<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">clear_latencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_latencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will clear the latency log</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Data_Recorder.write_balances">
+<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">write_balances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walletList</span></em>, <em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_balances" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will write the current balances to a csv file to be displayed as a graph
+:param walletList: list of wallet values for each node
+:param index: block index to keep</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Data_Recorder.write_msg_time">
+<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">write_msg_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_msg_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will write a log of a message’s send/receive time to calculate latency
+:param id: id of the sending message to be matched with its reception
+:param type: type of message if there are different latency patterns</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-encryption">
 <span id="encryption-py"></span><h2>encryption.py<a class="headerlink" href="#module-encryption" title="Permalink to this headline">¶</a></h2>
@@ -511,15 +513,6 @@ from the args and kwargs arguments, respectively.</p>
 <div class="section" id="module-key_editor">
 <span id="key-editor-py"></span><h2>key_editor.py<a class="headerlink" href="#module-key_editor" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-main">
-<span id="main-py"></span><h2>main.py<a class="headerlink" href="#module-main" title="Permalink to this headline">¶</a></h2>
-<p>Blockchain Network Code
-Stephen Paul</p>
-<p>format: python &lt;filename&gt;.py &lt;port&gt;</p>
-<p>This program will create a node to be used in a blockchain-like network.
-Nodes will communicate with each other via P2P where each node is both server and client.
-The goal is to attain stability when &lt;=1/3rd of nodes provide faulty information</p>
-</div>
 <div class="section" id="module-node_editor">
 <span id="node-editor-py"></span><h2>node_editor.py<a class="headerlink" href="#module-node_editor" title="Permalink to this headline">¶</a></h2>
 <p>This file contains functions that edit the local storage of the nodes</p>
@@ -552,10 +545,10 @@ The goal is to attain stability when &lt;=1/3rd of nodes provide faulty informat
 <li class="toctree-l2"><a class="reference internal" href="#module-encryption">encryption.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-global_vars">global_vars.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-key_editor">key_editor.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-main">main.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-node_editor">node_editor.py</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
 </ul>
 
 <div class="relations">
@@ -563,6 +556,7 @@ The goal is to attain stability when &lt;=1/3rd of nodes provide faulty informat
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Documentation for the SULI Blockchain Project</a></li>
+      <li>Next: <a href="Scripts.html" title="next chapter">Supplementary Scripts</a></li>
   </ul></li>
 </ul>
 </div>

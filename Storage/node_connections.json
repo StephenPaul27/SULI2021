@@ -166,9 +166,17 @@
         ]
     },
     "8122": {
-        "downstream": [],
+        "downstream": [
+            2
+        ],
         "upstream": [
             8121
+        ]
+    },
+    "2": {
+        "downstream": [],
+        "upstream": [
+            8122
         ]
     }
 }

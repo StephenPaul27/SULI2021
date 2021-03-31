@@ -55,6 +55,8 @@ def decrypt(package, port=g.my_port, pr_key=None):
     try:
         # print("decrypted message: ",message)
         msgJson = json.loads(message)
+        # log reception of message for tracking latency
+        dr.write_msg_time(bf.get_hash(msgJson['from'], msgJson['to'], msgJson['time']), msgJson['type'], g.consensus_index)
         if msgJson['type'] == 'intro' or msgJson['type'] == 'response':
             msgData = msgJson['data']
             pub_port = msgData['fromport']

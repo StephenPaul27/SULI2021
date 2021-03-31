@@ -42,8 +42,8 @@ class Server(threading.Thread):
 
         # erase validators if rewriting files
         if g.REWRITE_FILES and g.first_node:
-            with open("Storage/balances.csv", 'r+') as f:
-                f.truncate(0)
+            dr.clear_balances()
+            dr.clear_latencies()
 
             with open("SmartContracts/contractStorage.json", "w") as f:
                 json.dump({

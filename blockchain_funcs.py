@@ -104,14 +104,16 @@ class Transaction:
                f"Hash:{self.hash}\n"
 
 
-def get_hash(hashString):
+def get_hash(*s):
     """
     This function will return a SHA256 hash of the string provided
 
     :param hashString: string to hash
     :returns: hash of string
     """
-    hashString = str(hashString)    # ensure input is a string
+    hashString = ""
+    for i in s:
+        hashString += str(s)    # ensure input is a string
     sha = hasher.sha256()
     sha.update(hashString.encode(g.ENCODING))
     return sha.hexdigest()

@@ -1,7 +1,25 @@
 """This file holds functions that will write data to storage for later analysis"""
 
 import csv
+import time
 
+
+def clear_latencies():
+    """
+    This function will clear the latency log
+    """
+    with open("Storage/latencies.txt", 'r+') as f:
+        f.truncate(0)
+
+
+def write_msg_time(id,type,index):
+    """
+    This function will write a log of a message's send/receive time to calculate latency
+    :param id: id of the sending message to be matched with its reception
+    :param type: type of message if there are different latency patterns
+    """
+    with open("Storage/latencies.txt", "a") as f:
+        f.write(str(time.time())+'|'+str(type)+'|'+str(id)+'|'+str(index)+'\n')
 
 def clear_balances():
     """

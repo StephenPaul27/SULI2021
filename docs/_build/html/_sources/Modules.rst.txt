@@ -41,11 +41,6 @@ key_editor.py
 
 .. automodule:: key_editor
 
-main.py
-----------------
-
-.. automodule:: main
-
 node_editor.py
 ----------------
 
