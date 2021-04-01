@@ -1,6 +1,8 @@
 """
 This file is a consolidation of the majority of imports needed by the project scripts
-..note:: Some files need to reimport files locally because of their ordering in this file
+
+ .. note::  Some files need to reimport files locally because of their ordering in this file
+
 """
 
 # imports
@@ -29,6 +31,7 @@ import logging
 import Data_Recorder as dr
 import global_vars as g
 import blockchain_funcs as bf
+import Timeouts as tmo
 import node_editor as ne
 import key_editor as ke
 import encryption as crypt

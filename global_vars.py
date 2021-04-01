@@ -17,7 +17,7 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
 else:
     NUM_NODES = 10
 MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
-MSG_TIMEOUT = 10            # lifespan of messages before they're cleared
+MSG_TIMEOUT = MSG_PERIOD/2            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
 BLOCK_SIZE = 40             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
@@ -63,7 +63,8 @@ chain_dict = {}         # dict to store diff types of chains received
 trans_vote_dict = {}         # dict to store diff transactions received
 trans_dict = {}         # dict to store diff transactions received
 consensus_id_list = []  # list to store nodes that have already voted once
-consensus_time = 0      # time since first response received
+response_timer = 0      # time since first introduction response received
+addblock_timer = 0
 consensus_index = -1    # index of last block agreed upon
 
 # This node's blockchain copy

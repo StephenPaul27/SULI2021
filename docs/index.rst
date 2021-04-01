@@ -13,6 +13,7 @@ Contents:
 
    Modules
    Scripts
+   Storage
 
 Indices and tables
 ==================

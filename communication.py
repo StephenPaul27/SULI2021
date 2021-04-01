@@ -31,6 +31,9 @@ class Receiver(threading.Thread):
         # while loop to accept incoming connections/messages
         while True:
 
+            # check timeouts
+            tmo.time_check()
+
             # accept client connection
             connection, client_address = sock.accept()
             # print(connection)
@@ -40,6 +43,9 @@ class Receiver(threading.Thread):
 
                 # while loop to read in data from incoming message
                 while True:
+
+                    # check timeouts
+                    tmo.time_check()
 
                     # Receive 2048 bytes at a time
                     data = connection.recv(2048)
@@ -91,11 +97,9 @@ class Receiver(threading.Thread):
                                     node_conn = json.load(f)
 
                             # in response from smartcontract, the validators are included
-                            if msgJson['from'] == g.port_to_hash[g.BASE_PORT]\
-                                    and "validators" in msgData:
+                            if "validators" in msgData and msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
                                 g.validator_list = msgData['validators']
                                 logging.debug(f"Validators updated at node {g.my_port} from introduction")
-
 
                             # print(f"received handshake from {msgJson['data']}")
 
@@ -168,7 +172,7 @@ class Receiver(threading.Thread):
             }
 
             # append new node to list of seen nodes
-            if msgJson['from'] not in g.node_list and msgData['fromport'] != g.BASE_PORT:
+            if msgData['fromport'] not in g.node_list and msgData['fromport'] != g.BASE_PORT:
                 g.node_list.append(msgData['fromport'])
                 # print(f"node list: {node_list}")
             # finally send the message
@@ -226,6 +230,10 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
 
+        # start the timer for timeout
+        if not len(g.consensus_id_list) and not g.response_timer:
+            g.response_timer = time.time()
+
         # only accept one vote per consensus
         if msgJson['from'] not in g.consensus_id_list:
             g.consensus_id_list.append(msgJson['from'])
@@ -266,6 +274,8 @@ class Receiver(threading.Thread):
             g.blockchain = bf.consensus()
             # reset the consensus variables and set the updated consensus-agreed index
             bf.reset_consensus(g.blockchain[-1].index)
+            # reset the timer
+            g.response_timer = 0
         # elif not g.consensus_time:
         #     # print("STARTING CONSENSUS TIMER")
         #     # Start recording time since consensus began
@@ -441,7 +451,6 @@ class Receiver(threading.Thread):
         # record request index to prevent duplication later
         g.last_proposed = g.blockchain[-1].index
 
-        T_hash = bf.get_transaction_list_hash(g.this_nodes_transactions)
         # create combination hash of transactions and blockchain
         loaded_block = g.blockchain[-1].to_dict()
 
@@ -550,6 +559,9 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
 
+        if not len(g.consensus_id_list) and not g.addblock_timer:
+            g.addblock_timer = time.time()
+
         if msgJson['from'] not in g.consensus_id_list:
             if g.my_hash in g.validator_list:
                 g.consensus_id_list.append(msgJson['from'])
@@ -601,6 +613,9 @@ class Receiver(threading.Thread):
                 # reset the consensus variables and set the updated consensus-agreed index
                 bf.reset_consensus(g.blockchain[-1].index)
 
+                # reset addblock timer
+                g.addblock_timer = 0
+
                 # record completion of this node's consensus
                 dr.write_msg_time(bf.get_hash(g.blockchain[-1].index, g.my_port), "consensus_process",g.consensus_index)
 
@@ -644,8 +659,7 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
 
-
-        if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+        if g.BASE_PORT in g.port_to_hash and msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
 
             g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "payment", msgJson['from'], msgJson['to'],
                                                            msgData['value'])
@@ -667,9 +681,8 @@ class Receiver(threading.Thread):
                     loaded_transactions = bf.get_trans_objs(msgData['transactions'])
                     # correct our transactions
                     for i in g.this_nodes_transactions:
-                        if i.timestamp > g.blockchain[-1].timestamp\
-                                and i.to_dict() not in msgData['transactions']:
-                            bisect.insort_left(loaded_transactions, i)
+                        loaded_transactions = bf.add_transaction(i.timestamp, i.type, i.sender, i.recipient, i.value, listOfTransactions=loaded_transactions, port=g.my_port, my_chain=None)
+
                     logging.debug(f"Node {g.my_port} is correcting its transactions to size {len(loaded_transactions)}")
                     g.this_nodes_transactions = loaded_transactions
 
@@ -713,7 +726,7 @@ class Sender(threading.Thread):
                     sendMessage(message, g.BASE_PORT + i)
 
                     # track active ports/nodes that successfully connected
-                    if i:
+                    if i and (g.BASE_PORT+i) not in g.node_list:
                         g.node_list.append(g.BASE_PORT+i)
 
                 except Exception as e:

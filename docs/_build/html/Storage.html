@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage Files &#8212; SULIblockchain  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Supplementary Scripts" href="Scripts.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="storage-files">
+<h1>Storage Files<a class="headerlink" href="#storage-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="nodedata">
+<h2>NodeData<a class="headerlink" href="#nodedata" title="Permalink to this headline">¶</a></h2>
+<p>Holds all of the files for each node, containing blockchains and transactions</p>
+<p>Formatted: node&lt;port-number&gt;.json</p>
+</div>
+<div class="section" id="balances-csv">
+<h2>balances.csv<a class="headerlink" href="#balances-csv" title="Permalink to this headline">¶</a></h2>
+<p>Record of UtilityToken balances throughout the block history for visualization</p>
+</div>
+<div class="section" id="blockchain-log">
+<h2>blockchain.log<a class="headerlink" href="#blockchain-log" title="Permalink to this headline">¶</a></h2>
+<p>Log of debugging, info, warning, and error messages from program execution</p>
+</div>
+<div class="section" id="latencies-txt">
+<h2>latencies.txt<a class="headerlink" href="#latencies-txt" title="Permalink to this headline">¶</a></h2>
+<p>Record of message send/receive times for calculating latency with the <a class="reference internal" href="Scripts.html#latency-label"><span class="std std-ref">Latency.py</span></a> script</p>
+</div>
+<div class="section" id="local-key-json">
+<h2>local_key.json<a class="headerlink" href="#local-key-json" title="Permalink to this headline">¶</a></h2>
+<p>Json representative of local storage at each node, holding the public and private keys for each node</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Normally, only the node who owns the private key would be able to view it, but they are grouped here for convenience</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="node-connections-json">
+<h2>node_connections.json<a class="headerlink" href="#node-connections-json" title="Permalink to this headline">¶</a></h2>
+<p>Json containing the upstream and downstream connections from node-to-node for the power/sensitivity exchange</p>
+</div>
+<div class="section" id="public-keys-json">
+<h2>public_keys.json<a class="headerlink" href="#public-keys-json" title="Permalink to this headline">¶</a></h2>
+<p>This json is representative of a key server, responsible for giving access to public keys to decrypt and verify digital signature</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">SULIblockchain</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Storage Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nodedata">NodeData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#balances-csv">balances.csv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#blockchain-log">blockchain.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#latencies-txt">latencies.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local-key-json">local_key.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-connections-json">node_connections.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-keys-json">public_keys.json</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Scripts.html" title="previous chapter">Supplementary Scripts</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Stephen Paul.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Storage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

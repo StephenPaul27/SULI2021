@@ -37,8 +37,13 @@
 <h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-all_imports">
 <span id="all-imports-py"></span><h2>all_imports.py<a class="headerlink" href="#module-all_imports" title="Permalink to this headline">¶</a></h2>
-<p>This file is a consolidation of the majority of imports needed by the project scripts
-..note:: Some files need to reimport files locally because of their ordering in this file</p>
+<p>This file is a consolidation of the majority of imports needed by the project scripts</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some files need to reimport files locally because of their ordering in this file</p>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="module-blockchain_funcs">
 <span id="blockchain-funcs-py"></span><h2>blockchain_funcs.py<a class="headerlink" href="#module-blockchain_funcs" title="Permalink to this headline">¶</a></h2>
@@ -77,10 +82,13 @@ This includes the general structure, consensus, validation, manipulation, data t
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timestamp</strong> – Timestamp of transaction confirmation</p></li>
-<li><p><strong>Pnode</strong> – hash of node sending power reference</p></li>
-<li><p><strong>Snode</strong> – hash of node sending sensitivity</p></li>
-<li><p><strong>power</strong> – power reference</p></li>
-<li><p><strong>sense</strong> – sensitivity</p></li>
+<li><p><strong>type</strong> – type of transaction being added</p></li>
+<li><p><strong>sender</strong> – sender of the transaction</p></li>
+<li><p><strong>recip</strong> – recipient of the transaction</p></li>
+<li><p><strong>value</strong> – value associated with the transaction</p></li>
+<li><p><strong>listOfTransactions</strong> – provided list of transactions to add this transaction to</p></li>
+<li><p><strong>port</strong> – port of the node adding the transaction for debugging</p></li>
+<li><p><strong>my_chain</strong> – blockchain of the node adding the transaction</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -91,7 +99,7 @@ This includes the general structure, consensus, validation, manipulation, data t
 
 <dl class="py function">
 <dt id="blockchain_funcs.consensus">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainList</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em>, <em class="sig-param"><span class="n">cons_array</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cindex</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chain_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">node_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_vote_dict</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainList</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em>, <em class="sig-param"><span class="n">cons_array</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cindex</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chain_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_vote_dict</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for enacting consensus on this node’s blockchain.
 Once all “votes” have been received or the time window has expired, the most popular
 “vote” is copied to our blockchain if it is agreed upon by &gt;50% of the nodes</p>
@@ -103,7 +111,9 @@ Once all “votes” have been received or the time window has expired, the most
 <li><p><strong>cons_array</strong> – dictionary/ of votes for consensus</p></li>
 <li><p><strong>cindex</strong> – index of last agreed block</p></li>
 <li><p><strong>chain_dict</strong> – dictionary of blockchains being voted on</p></li>
-<li><p><strong>node_list</strong> – list of nodes connected</p></li>
+<li><p><strong>trans_dict</strong> – dictionary of transactions being voted on</p></li>
+<li><p><strong>id_list</strong> – list of nodes that voted</p></li>
+<li><p><strong>trans_vote_dict</strong> – dictionary of votes for the transactions</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -128,8 +138,8 @@ seek consensus and throw away their genesis block</p>
 <dl class="py function">
 <dt id="blockchain_funcs.get_block_objs">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_block_objs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainDict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_block_objs" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will do the opposite of get_dict_list(), it will take a dictionary list and turn it
-into a list of Block objects, used to copy chains from messages</p>
+<dd><p>This function will do the opposite of <a class="reference internal" href="#blockchain_funcs.get_dict_list" title="blockchain_funcs.get_dict_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">blockchain_funcs.get_dict_list()</span></code></a>, it will take a dictionary list and turn it
+into a list of <a class="reference internal" href="#blockchain_funcs.Block" title="blockchain_funcs.Block"><code class="xref py py-class docutils literal notranslate"><span class="pre">blockchain_funcs.Block</span></code></a> objects, used to copy chains from messages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>chainDict</strong> – the dict list to copy</p>
@@ -151,13 +161,13 @@ into a list of Block objects, used to copy chains from messages</p>
 <dl class="py function">
 <dt id="blockchain_funcs.get_hash">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_hash" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will return a SHA256 hash of the string provided</p>
+<dd><p>This function will return a SHA256 hash of the variables(s) provided</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>hashString</strong> – string to hash</p>
+<dd class="field-odd"><p><strong>s</strong> – arbitrary number of arguments to be combined into a string then converted to a hash</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>hash of string</p>
+<dd class="field-even"><p>hash of arguments provided</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,10 +175,10 @@ into a list of Block objects, used to copy chains from messages</p>
 <dl class="py function">
 <dt id="blockchain_funcs.get_trans_objs">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_trans_objs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainDict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_trans_objs" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will take a dictionary list and turn it into a list of Transactions objects</p>
+<dd><p>This function will take a dictionary list and turn it into a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">blockchain_funcs.Transaction</span></code> objects</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>chainDict</strong> – the dict list to copy</p>
+<dd class="field-odd"><p><strong>chainDict</strong> – the dict list to convert to blocks</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>list of block objects</p>
@@ -209,10 +219,14 @@ into a list of Block objects, used to copy chains from messages</p>
 <dl class="py function">
 <dt id="blockchain_funcs.restore_chain">
 <code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">restore_chain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.restore_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will restore the blockchain from local storage</p>
+<dd><p>This function will restore a blockchain from local storage or generate a genesis block
+if there is no chain stored</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>returns boolean, if false, generate genesis block</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – port of the node restoring its blockchain</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the restored blockchain</p>
 </dd>
 </dl>
 </dd></dl>
@@ -549,6 +563,7 @@ from the args and kwargs arguments, respectively.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">Storage Files</a></li>
 </ul>
 
 <div class="relations">

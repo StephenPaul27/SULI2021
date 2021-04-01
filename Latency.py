@@ -26,7 +26,7 @@ def main():
             filestring = f.readline()
     a = np.array(latencyArray)
     plt.hist(a, bins=10)
-    plt.title("Latency")
+    plt.title("Message Latency")
     plt.xlabel("Latency (s)")
     plt.ylabel("# of messages observed")
     plt.show()

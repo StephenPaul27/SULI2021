@@ -28,19 +28,19 @@ class Server(threading.Thread):
         self.host = my_host
         self.port = my_port
 
-        # open new file if needed for the node data
+        # open a new file if needed for the smartcontract node data
         with open(f"Storage/NodeData/node{self.port}.json", "w+") as f:
-            # if file is not formatted as json, format it as an empty json
+            # if file is not already formatted as json, format it as an empty json
             try:
                 json.load(f)
             except json.JSONDecodeError:
                 json.dump({}, f, ensure_ascii=False, indent=4, sort_keys=True)
             else:
-                # if rewriting files, erase the written file
+                # if REWRITE_FILES is True, write an empty json regardless
                 if g.REWRITE_FILES:
                     json.dump({}, f, ensure_ascii=False, indent=4)
 
-        # erase validators if rewriting files
+        # if REWRITE_FILES is True, clear the balance csv, latency record, and stored validators
         if g.REWRITE_FILES and g.first_node:
             dr.clear_balances()
             dr.clear_latencies()
@@ -51,6 +51,7 @@ class Server(threading.Thread):
                     "validators": []
                 }, f, ensure_ascii=False, indent=4)
 
+        # establish the maximum amount of validators
         self.max_validators = 10
 
         # create the hash for this node (if needed)
@@ -67,6 +68,9 @@ class Server(threading.Thread):
 
         # consensus dictionary
         self.votes = {}
+
+        # consensus timer
+        self.consensus_timer = 0
 
         # list of validators who have voted
         self.voted_validators = []
@@ -111,7 +115,8 @@ class Server(threading.Thread):
 
         # while loop to accept incoming connections/messages
         while True:
-
+            # check timers
+            self.time_check()
             # accept client connection
             connection, client_address = sock.accept()
             # logging.debug("\nconnection started at consensus server\n")
@@ -121,7 +126,8 @@ class Server(threading.Thread):
 
                 # while loop to read in data from incoming message
                 while True:
-
+                    # check timers
+                    self.time_check()
                     # Receive 2048 bytes at a time
                     data = connection.recv(2048)
 
@@ -178,6 +184,14 @@ class Server(threading.Thread):
                 # logging.debug("\nconnection closed at consensus server\n")
                 connection.close()
 
+    def time_check(self):
+        """
+        This function will check if the consensus timer has exceeded the timeout
+        """
+        if self.consensus_timer and time.time() - self.consensus_timer > g.CONSENSUS_TIMEOUT:
+            logging.warning(f"Smart contract performing consensus from timeout idx:{self.lastIndex+1}")
+            self.validator_consensus()
+
     def consensus_response(self, msgJson, msgData):
         """
         This function reacts to consensus messages, collecting consensus results from the validators then
@@ -199,6 +213,9 @@ class Server(threading.Thread):
             # case when sender has already sent one chain
             logging.warning(f"Consensus attempted multiple times from {msgJson['from']}, with {len(self.voted_validators)}/{len(self.validator_list)} votes")
             return
+
+        if not len(self.voted_validators) and not self.consensus_timer:
+            self.consensus_timer = time.time()
 
         # mark the validator as already having voted once in this cycle
         self.voted_validators.append(self.validator_list[vIndex])
@@ -244,8 +261,6 @@ class Server(threading.Thread):
         if len(self.voted_validators) == len(self.validator_list):
             # perform consensus
             self.validator_consensus()
-            # reset the consensus variables
-            self.reset_consensus()
 
     def introduction_response(self, msgJson, msgData):
         """
@@ -344,11 +359,15 @@ class Server(threading.Thread):
         else:
             logging.error("consensus at smart contract couldn't pick an option")
 
+        # reset the consensus variables
+        self.reset_consensus()
+
     def reset_consensus(self):
         """
         This function will clear consensus server variables
         """
         logging.debug("CONSENSUS RESET")
+        self.consensus_timer = 0
         self.chains_dict = {}
         self.trans_dict = {}
         self.faulty = []
