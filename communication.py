@@ -13,6 +13,11 @@ class Receiver(threading.Thread):
     """
 
     def __init__(self, my_host, my_port):
+        """
+        This function will initialize the receiver server variables
+        :param my_host: host of this node
+        :param my_port: port of this node
+        """
         threading.Thread.__init__(self, name="messenger_receiver")
         self.host = my_host
         self.port = my_port
@@ -29,116 +34,114 @@ class Receiver(threading.Thread):
         # print("server started")
 
         # while loop to accept incoming connections/messages
-        while True:
+        try:
+            while True:
 
-            # check timeouts
-            tmo.time_check()
+                # accept client connection
+                connection, client_address = sock.accept()
+                # print(connection)
 
-            # accept client connection
-            connection, client_address = sock.accept()
-            # print(connection)
+                try:
+                    # initialize message 'string'
+                    full_message = b''
 
-            try:
-                full_message = b''
+                    # while loop to read in data from incoming message
+                    while True:
 
-                # while loop to read in data from incoming message
-                while True:
+                        # Receive 2048 bytes at a time
+                        data = connection.recv(2048)
 
-                    # check timeouts
-                    tmo.time_check()
+                        # accumulate the bytes into the message
+                        full_message = full_message + data
+                        # print("data:"+str(data))
 
-                    # Receive 2048 bytes at a time
-                    data = connection.recv(2048)
+                        # once data has stopped coming in, decode the message
+                        if not data:
 
-                    # accumulate the bytes into the message
-                    full_message = full_message + data
-                    # print("data:"+str(data))
+                            # go ahead and close the connection
+                            if connection.fileno() != -1:
+                                connection.close()
 
-                    # once data has stopped coming in, decode the message
-                    if not data:
+                            # print(f"received a message {time.time()}")
+                            # print("\nreceived encrypted message:",full_message)
 
-                        # go ahead and close the connection
-                        if connection.fileno() != -1:
-                            connection.close()
+                            # decrypt received message using known keys:
+                            full_message = crypt.decrypt(full_message)
 
-                        # print(f"received a message {time.time()}")
-                        # print("\nreceived encrypted message:",full_message)
+                            # print("\ndecrypted message:", full_message)
 
-                        # decrypt received message using known key:
-                        full_message = crypt.decrypt(full_message)
+                            try:
+                                # load the message structure as a json
+                                msgJson = json.loads(full_message)
 
-                        # print("\ndecrypted message:", full_message)
+                            # Exception catch if for some reason the json conversion fails
+                            except json.JSONDecodeError as e:
+                                print(f"Error decoding received message at port {g.my_port}: {e}")
+                                logging.error(f"Error decoding received message at port {self.port}: {e}")
+                                break
 
-                        try:
-                            # load the message structure as a json
-                            msgJson = json.loads(full_message)
+                            # load the data structure that the message is carrying
+                            msgData = msgJson['data']
+                            # print("msgJson", msgJson)
 
-                        # Exception catch from message conversion to json
-                        except json.JSONDecodeError as e:
-                            print(f"Error decoding received message at port {g.my_port}: {e}")
-                            logging.error(f"Error decoding received message at port {self.port}: {e}")
+                            # action upon receiving an introduction or introduction response
+                            if msgJson['type'] == "intro" or msgJson['type'] == "response":
+
+                                # map sender's hash to its provided port
+                                if msgData['fromport'] not in g.port_to_hash:
+                                    # map sender's hash to its local port and vice versa
+                                    g.port_to_hash[msgData['fromport']] = msgJson['from']
+                                    g.hash_to_port[msgJson['from']] = msgData['fromport']
+
+                                    # update node connections just in case this node added one
+                                    with open("Storage/node_connections.json", 'r') as f:
+                                        node_conn = json.load(f)
+
+                                # in response from smartcontract, the validators are included
+                                if "validators" in msgData and msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+                                    g.validator_list = msgData['validators']
+                                    logging.debug(f"Validators updated at node {g.my_port} from introduction")
+
+                                # print(f"received handshake from {msgJson['data']}")
+
+                            # Response algorithms
+
+                            # reactions to different message types
+                            if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
+                                    and msgJson['to'] == self.port:
+                                self.respond_intro(msgJson, msgData)
+                            elif msgJson['type'] == "response" and 'lasthash' in msgData:
+                                self.respond_response(msgJson, msgData)
+                            elif msgJson['type'] == "powerref":
+                                self.respond_powerref(msgJson, msgData)
+                            elif msgJson['type'] == "sensitivity":
+                                self.respond_sensitivity(msgJson, msgData)
+                            elif msgJson['type'] == "confirm":
+                                self.respond_confirm(msgJson, msgData)
+                            elif msgJson['type'] == "request" and msgJson['from'] in g.validator_list:
+                                self.respond_request(msgJson, msgData)
+                            elif msgJson['type'] == "addblock":
+                                self.respond_addblock(msgJson, msgData)
+                            elif msgJson['type'] == 'validators':
+                                self.respond_validators(msgJson, msgData)
+                            elif msgJson['type'] == 'payment':
+                                self.respond_pay(msgJson, msgData)
+
+                            # break to accept new messages
                             break
-
-                        # load the data structure that the message is carrying
-                        msgData = msgJson['data']
-                        # print("msgJson", msgJson)
-
-                        # action upon receiving an introduction or introduction response
-                        if msgJson['type'] == "intro" or msgJson['type'] == "response":
-
-                            # map sender's hash to its local port
-                            if msgData['fromport'] not in g.port_to_hash:
-                                # map sender's hash to its local port
-                                g.port_to_hash[msgData['fromport']] = msgJson['from']
-                                g.hash_to_port[msgJson['from']] = msgData['fromport']
-
-                                # update node connections just in case this node added one
-                                with open("Storage/node_connections.json", 'r') as f:
-                                    node_conn = json.load(f)
-
-                            # in response from smartcontract, the validators are included
-                            if "validators" in msgData and msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
-                                g.validator_list = msgData['validators']
-                                logging.debug(f"Validators updated at node {g.my_port} from introduction")
-
-                            # print(f"received handshake from {msgJson['data']}")
-
-                        # Response algorithms
-
-                        # reaction to introduction
-                        if (msgJson['type'] == "intro" or msgJson['type'] == "request") \
-                                and msgJson['to'] == self.port:
-                            self.respond_intro(msgJson, msgData)
-                        # reaction to response
-                        elif msgJson['type'] == "response" and 'lasthash' in msgData:
-                            self.respond_response(msgJson, msgData)
-                        # reaction to power ref transmission
-                        elif msgJson['type'] == "powerref":
-                            self.respond_powerref(msgJson, msgData)
-                        # reaction to sensitivity transmission
-                        elif msgJson['type'] == "sensitivity":
-                            self.respond_sensitivity(msgJson, msgData)
-                        elif msgJson['type'] == "confirm":
-                            self.respond_confirm(msgJson, msgData)
-                        elif msgJson['type'] == "request" and msgJson['from'] in g.validator_list:
-                            self.respond_request(msgJson, msgData)
-                        elif msgJson['type'] == "addblock":
-                            self.respond_addblock(msgJson, msgData)
-                        elif msgJson['type'] == 'validators':
-                            self.respond_validators(msgJson, msgData)
-                        elif msgJson['type'] == 'payment':
-                            self.respond_pay(msgJson, msgData)
-                        # break to accept new messages
-                        break
-            finally:
-                #connection.shutdown(2)
-                if connection.fileno() != -1:
-                    connection.close()
-
+                # close the connection on the server side
+                finally:
+                    #connection.shutdown(2)
+                    # if not closed already:
+                    if connection.fileno() != -1:
+                        connection.close()
+        except:
+            logging.error(f"Node {g.my_port} failed because {traceback.format_exc()}")
+            print(f"Node {g.my_port} failed because {traceback.format_exc()}")
 
     def respond_validators(self, msgJson, msgData):
         """
-        This function is responsible for recording validators from the smartcontract
+        This function is responsible for recording validators broadcasted from the smartcontract
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
@@ -146,7 +149,6 @@ class Receiver(threading.Thread):
         logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
             g.validator_list = msgData['validators']
-
 
     def respond_intro(self, msgJson, msgData):
         """
@@ -163,11 +165,11 @@ class Receiver(threading.Thread):
                 "from": g.my_hash,
                 "to": msgJson['from'],
                 "data": {
-                            "fromport": self.port,
-                            "lasthash": g.blockchain[-1].hash,
-                            "chain": bf.get_dict_list(),
-                            "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
-                        },
+                    "fromport": self.port,
+                    "lasthash": g.blockchain[-1].hash,
+                    "chain": bf.get_dict_list(),
+                    "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
+                },
                 "time": time.time()
             }
 
@@ -193,12 +195,14 @@ class Receiver(threading.Thread):
 
         logging.debug(f"Node {g.my_port} received request from {g.hash_to_port[msgJson['from']]}")
 
+        if msgJson['from'] not in g.validator_list:
+            logging.warning(f"Node {g.my_port} received non-validator request from {g.hash_to_port[msgJson['from']]}")
+            return
+
         # if ready to add a new block, go ahead and put it on your blockchain
-        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE\
+        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE \
                 and g.blockchain[-1].index == msgData['index']-1:
             bf.add_trans_to_block()
-        # else:
-        #     print(f"Didn't add transactions to block:{g.blockchain[-1].index}<{msgData['index']} or {len(g.this_nodes_transactions)}")
 
         # respond with port and blockchain for consensus
         try:
@@ -207,10 +211,10 @@ class Receiver(threading.Thread):
                 "from": g.my_hash,
                 "to": msgJson['from'],
                 "data": {
-                            "lasthash": g.blockchain[-1].hash,
-                            "newblock": g.blockchain[-1].to_dict(),
-                            "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
-                        },
+                    "lasthash": g.blockchain[-1].hash,
+                    "newblock": g.blockchain[-1].to_dict(),
+                    "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
+                },
                 "time": time.time()
             }
 
@@ -225,64 +229,66 @@ class Receiver(threading.Thread):
     def respond_response(self, msgJson, msgData):
         """
         This function is responsible for responding to introduction responses
+        (performing consensus on all of the returned blockchains)
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
 
-        # start the timer for timeout
-        if not len(g.consensus_id_list) and not g.response_timer:
-            g.response_timer = time.time()
-
-        # only accept one vote per consensus
-        if msgJson['from'] not in g.consensus_id_list:
-            g.consensus_id_list.append(msgJson['from'])
-        else:
-            return
-
         # recognize consensus only on NEW blocks
-        # if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
+        if msgData['chain'][-1]['index'] > g.consensus_index:
 
-        logging.debug(
-            f"node {g.my_port} received response from {msgData['fromport']}, {len(g.consensus_id_list)}/{len(g.node_list)}")
+            # only accept one vote per consensus
+            if msgJson['from'] not in g.consensus_id_list:
+                g.consensus_id_list.append(msgJson['from'])
+            else:
+                return
 
-        loaded_transactions = bf.get_trans_objs(msgData['transactions'])
+            # if len(msgData['chain']) and msgData['chain'][-1]['index'] > g.consensus_index:
 
-        # if hash has already been validated, just add it to the list
-        if msgData['lasthash'] in g.consensus_array:
-            g.consensus_array.append(msgData['lasthash'])
-        # if not in the histogram yet, add them after validating the chain
-        elif bf.validate(msgData['chain'], msgData['lasthash'], fromport=g.hash_to_port[msgJson['from']]):
-            g.consensus_array.append(msgData['lasthash'])
-            # store the chain itself
-            g.chain_dict[msgData['lasthash']] = msgData['chain']
+            logging.debug(
+                f"node {g.my_port} received response from {msgData['fromport']}, {len(g.consensus_id_list)}/{len(g.node_list)}")
 
-        for i in loaded_transactions:
-            # histogram votes for specific transactions
-            try:
-                g.trans_vote_dict[i.hash].append(msgJson['from'])
-            except:
-                # add transaction to histogram if not in it
-                g.trans_vote_dict[i.hash] = [msgJson['from']]
-                g.trans_dict[i.hash] = i
+            loaded_transactions = bf.get_trans_objs(msgData['transactions'])
 
-        # if consensus has timed out or received messages from all participating nodes
-        if len(g.consensus_id_list) >= len(g.node_list):
-            print(f"performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} votes")
-            logging.debug(f"node {g.my_port} is performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} ")
-            # perform consensus
-            g.blockchain = bf.consensus()
-            # reset the consensus variables and set the updated consensus-agreed index
-            bf.reset_consensus(g.blockchain[-1].index)
-            # reset the timer
-            g.response_timer = 0
-        # elif not g.consensus_time:
-        #     # print("STARTING CONSENSUS TIMER")
-        #     # Start recording time since consensus began
-        #     g.consensus_time = time.time()
+            # if hash has already been validated, just add it to the list
+            if msgData['lasthash'] in g.consensus_array:
+                g.consensus_array.append(msgData['lasthash'])
+            # if not in the histogram yet, add them after validating the chain
+            elif bf.validate(msgData['chain'], msgData['lasthash'], fromport=g.hash_to_port[msgJson['from']]):
+                g.consensus_array.append(msgData['lasthash'])
+                # store the chain itself
+                g.chain_dict[msgData['lasthash']] = msgData['chain']
 
-        # else:
-        #     logging.warning(f"response received at node {g.my_port} from {msgData['fromport']} index: {msgData['chain'][-1]['index']}>{g.consensus_index}")
+            # create list of transaction hashes from the list loaded from the message
+            check_duplicates = [i.hash for i in loaded_transactions]
+
+            # if there are no duplicate transactions in the list loaded from the message
+            if len(set(check_duplicates)) == len(check_duplicates):
+                # go through all of the transactions in the list loaded from the message
+                for i in loaded_transactions:
+                    # histogram votes for specific transactions
+                    try:
+                        g.trans_vote_dict[i.hash].append(msgJson['from'])
+                    except:
+                        # add transaction to histogram if not in it
+                        g.trans_vote_dict[i.hash] = [msgJson['from']]
+                        g.trans_dict[i.hash] = i
+
+            # start a timeout timer for responses if not already started
+            if not g.response_timer_thread:
+                g.response_timer_thread = tmo.Timeout("response", bf.consensus_and_reset, g.CONSENSUS_TIMEOUT)
+                g.response_timer_thread.start()
+
+            # if consensus has received messages from all participating nodes
+            if len(g.consensus_id_list) >= len(g.node_list):
+                print(f"performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} votes")
+                logging.debug(f"node {g.my_port} is performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} ")
+                # perform consensus
+                bf.consensus_and_reset()
+
+        else:
+            logging.warning(f"response received at node {g.my_port} from {msgData['fromport']} index: {msgData['chain'][-1]['index']}>{g.consensus_index}")
 
     def respond_powerref(self, msgJson, msgData):
         """
@@ -304,8 +310,8 @@ class Receiver(threading.Thread):
         signature = bytes(base64.b64decode(msgData['signature']))
 
         # if sending node is upstream of this node, send the sensitivity broadcast and record it
-        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["upstream"]\
-                and msgJson['to'] == g.my_hash\
+        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["upstream"] \
+                and msgJson['to'] == g.my_hash \
                 and crypt.check_signature(signature, sign_str.encode(g.ENCODING), g.hash_to_port[msgJson['from']]):
             # set variables for recording senstivity and sending it to other nodes
             message_time = time.time()
@@ -327,16 +333,16 @@ class Receiver(threading.Thread):
                     "from": g.my_hash,
                     "to": msgJson['from'],
                     "data": {
-                                "sense": message_sensitivity,
-                                "powerdata": {
-                                        "from": msgJson['from'],
-                                        "to": msgJson['to'],
-                                        "time": msgJson['time'],
-                                        "power": msgData['power'],
-                                        "signature": msgData['signature']
-                                    },
-                                "signature": json_signature
-                            },
+                        "sense": message_sensitivity,
+                        "powerdata": {
+                            "from": msgJson['from'],
+                            "to": msgJson['to'],
+                            "time": msgJson['time'],
+                            "power": msgData['power'],
+                            "signature": msgData['signature']
+                        },
+                        "signature": json_signature
+                    },
                     "time": message_time
                 }
                 logging.debug(
@@ -363,29 +369,33 @@ class Receiver(threading.Thread):
         logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
                       f"Received sensitivity from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['from']]}")
 
+        # generate the signed string from the message power data
         power_sign_str = bf.get_hash(str(msgData['powerdata']['from']) + str(msgData['powerdata']['to']) +
                                      str(msgData['powerdata']['power']) + str(msgData['powerdata']['time']))
+        # load the power signature from the message power data
         power_signature = bytes(base64.b64decode(msgData['powerdata']['signature']))
-
+        # generate the signed string from the message sensitivity data
         sense_sign_str = bf.get_hash(str(msgJson['from']) + str(msgJson['to']) +
                                      str(msgData['sense']) +str(msgJson['time']) + str(msgData['powerdata']['signature']))
+        # load the sensitivity signature from the message sensitivity data
         sense_signature = bytes(base64.b64decode(msgData['signature']))
 
         # check that sender is downstream from us,
         # and that the message is for us
         # and that this node signed the original power message
         # and that the sending node signed the sensitivity message
-        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["downstream"]\
-                and msgJson['to'] == g.my_hash\
-                and crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.my_port)\
+        if g.hash_to_port[msgJson['from']] in g.node_conn[str(self.port)]["downstream"] \
+                and msgJson['to'] == g.my_hash \
+                and crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.my_port) \
                 and crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgJson['from']]):
 
             # send same time value to all nodes
             message_time = time.time()
 
-            # store transactions (consider confirmed if we are the recipient)
+            # store power and sensitivity transactions
+            # (consider them confirmed if we are the recipient of the sensitivity)
             g.this_nodes_transactions = bf.add_transaction(msgData['powerdata']['time'], "power",
-                    msgData['powerdata']['from'], msgData['powerdata']['to'],msgData['powerdata']['power'])
+                                                           msgData['powerdata']['from'], msgData['powerdata']['to'],msgData['powerdata']['power'])
             g.this_nodes_transactions = bf.add_transaction(msgJson['time'], "sense",
                                                            msgJson['from'], msgJson['to'],
                                                            msgData['sense'])
@@ -394,27 +404,27 @@ class Receiver(threading.Thread):
 
             for j in g.node_list:  # broadcast confirmation to all seen nodes
                 try:
-                    # write confirmation message
+                    # write confirmation message with record of power and sensitivity messages
                     message = {
                         "type": "confirm",
                         "from": g.my_hash,
                         "to": g.port_to_hash[j],
                         "data": {
-                                    "powerdata": {
-                                        "from": msgData["powerdata"]['from'],
-                                        "to": msgData["powerdata"]['to'],
-                                        "time": msgData["powerdata"]['time'],
-                                        "power": msgData["powerdata"]['power'],
-                                        "signature": msgData["powerdata"]['signature']
-                                    },
-                                    "sensedata": {
-                                        "from": msgJson['from'],
-                                        "to": msgJson['to'],
-                                        "time": msgJson['time'],
-                                        "sense": msgData['sense'],
-                                        "signature": msgData['signature']
-                                    }
-                                },
+                            "powerdata": {
+                                "from": msgData["powerdata"]['from'],
+                                "to": msgData["powerdata"]['to'],
+                                "time": msgData["powerdata"]['time'],
+                                "power": msgData["powerdata"]['power'],
+                                "signature": msgData["powerdata"]['signature']
+                            },
+                            "sensedata": {
+                                "from": msgJson['from'],
+                                "to": msgJson['to'],
+                                "time": msgJson['time'],
+                                "sense": msgData['sense'],
+                                "signature": msgData['signature']
+                            }
+                        },
                         "time": message_time
                     }
 
@@ -433,6 +443,7 @@ class Receiver(threading.Thread):
                 logging.debug(f"Proposing new block at port {g.my_port} from sensitivity")
                 self.propose_block(msgJson, msgData)
         else:
+            # case when there is an issue with the identities in the sensitivity message
             logging.warning(f"Invalid sensitivity message received at port {self.port} from port {g.hash_to_port[msgJson['from']]}")
             logging.warning(
                 f"pcheck: {crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.my_port)}, "
@@ -446,6 +457,7 @@ class Receiver(threading.Thread):
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE:
             bf.add_trans_to_block()
 
+        # start latency recording of consensus process
         dr.write_msg_time(bf.get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index)
 
         # record request index to prevent duplication later
@@ -454,16 +466,19 @@ class Receiver(threading.Thread):
         # create combination hash of transactions and blockchain
         loaded_block = g.blockchain[-1].to_dict()
 
+        # reset consensus variables
         bf.reset_consensus(g.consensus_index)
 
         # Histogram the votes for the blockchain hash
-        if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash\
+        if loaded_block['previous_hash'] == g.blockchain[g.consensus_index].hash \
                 and g.my_hash not in g.consensus_id_list:
             # store the chain itself
-            g.chain_dict[loaded_block['hash']] = [loaded_block]
+            if loaded_block['hash'] not in g.chain_dict:
+                g.chain_dict[loaded_block['hash']] = [loaded_block]
 
+            # go through all of the provided transactions to vote on them
             for i in g.this_nodes_transactions:
-                # histogram votes for specific transactions
+                # store votes for specific transactions
                 try:
                     g.trans_vote_dict[i.hash].append(g.my_hash)
                 except:
@@ -471,7 +486,7 @@ class Receiver(threading.Thread):
                     g.trans_vote_dict[i.hash] = [g.my_hash]
                     g.trans_dict[i.hash] = i
 
-            # add to histogram
+            # add blockchain
             g.consensus_array.append(g.blockchain[-1].hash)
             g.consensus_id_list.append(g.my_hash)
 
@@ -484,10 +499,10 @@ class Receiver(threading.Thread):
                     "from": g.my_hash,
                     "to": g.port_to_hash[j],
                     "data": {
-                                "transactions": bf.get_dict_list(g.this_nodes_transactions),
-                                "hash": bf.get_transaction_list_hash(),
-                                "index": g.blockchain[-1].index
-                            },
+                        "transactions": bf.get_dict_list(g.this_nodes_transactions),
+                        "hash": bf.get_transaction_list_hash(),
+                        "index": g.blockchain[-1].index
+                    },
                     "time": time.time()
                 }
                 # broadcast message
@@ -522,13 +537,13 @@ class Receiver(threading.Thread):
         # and sense messages
         # and that the sender of the confirm is the signer of the power message
         # verify that this node is the recipient of the broadcast
-        if crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['powerdata']['from']])\
-                and crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['sensedata']['from']])\
-                and msgJson['from'] == msgData['powerdata']['from']\
+        if crypt.check_signature(power_signature, power_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['powerdata']['from']]) \
+                and crypt.check_signature(sense_signature, sense_sign_str.encode(g.ENCODING), g.hash_to_port[msgData['sensedata']['from']]) \
+                and msgJson['from'] == msgData['powerdata']['from'] \
                 and msgJson['to'] == g.my_hash:
             # store transactions
             g.this_nodes_transactions = bf.add_transaction(msgData['powerdata']['time'], "power",
-                    msgData['powerdata']['from'], msgData['powerdata']['to'], msgData['powerdata']['power'])
+                                                           msgData['powerdata']['from'], msgData['powerdata']['to'], msgData['powerdata']['power'])
             g.this_nodes_transactions = bf.add_transaction(msgData['sensedata']['time'], "sense",
                                                            msgData['sensedata']['from'], msgData['sensedata']['to'],
                                                            msgData['sensedata']['sense'])
@@ -559,21 +574,13 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
 
-        if not len(g.consensus_id_list) and not g.addblock_timer:
-            g.addblock_timer = time.time()
+        if msgData['newblock']['index'] > g.consensus_index:
 
-        if msgJson['from'] not in g.consensus_id_list:
-            if g.my_hash in g.validator_list:
+            if msgJson['from'] not in g.consensus_id_list:
                 g.consensus_id_list.append(msgJson['from'])
             else:
-                logging.warning(
-                    f"node {g.my_port} received non-validator addblock from {g.hash_to_port[msgJson['from']]}")
+                logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]}")
                 return
-        else:
-            logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]}")
-            return
-
-        if msgData['newblock']['index'] > g.consensus_index:
 
             # only accept one vote per consensus
             # also double check that you're a validator
@@ -604,44 +611,16 @@ class Receiver(threading.Thread):
                     g.trans_vote_dict[i.hash] = [msgJson['from']]
                     g.trans_dict[i.hash] = i
 
+            # start a timeout timer for addblock if not already started
+            if not g.addblock_timer_thread:
+                g.addblock_timer_thread = tmo.Timeout("addblock", bf.consensus_reset_and_send, g.CONSENSUS_TIMEOUT)
+                g.addblock_timer_thread.start()
 
             # if consensus has timed out or received messages from all participating nodes
             if len(g.consensus_id_list) > len(g.node_list):
+
                 # perform consensus
-                g.blockchain = bf.consensus()
-
-                # reset the consensus variables and set the updated consensus-agreed index
-                bf.reset_consensus(g.blockchain[-1].index)
-
-                # reset addblock timer
-                g.addblock_timer = 0
-
-                # record completion of this node's consensus
-                dr.write_msg_time(bf.get_hash(g.blockchain[-1].index, g.my_port), "consensus_process",g.consensus_index)
-
-                logging.debug(f"Node {g.my_port} is sending consensus to the smartcontract for index {msgData['newblock']['index']} with {len(g.consensus_id_list)} votes out of {len(g.node_list)+1}")
-                # send consensus result to the smart contract
-                try:
-                    # set traitor
-                    if g.my_port == g.TRAITOR_PORT:
-                        idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
-                        logging.warning(f"INSERTING TRAITOR VALUE: {idx}")
-                    else:
-                        idx = -1
-                    message = {
-                        "type": "consensus",
-                        "from": g.my_hash,
-                        "to": g.port_to_hash[g.BASE_PORT],
-                        "data": {
-                                    "lasthash": g.blockchain[idx].hash,
-                                    "newblock": g.blockchain[idx].to_dict(),
-                                    "transactions": bf.get_dict_list(chainList=g.this_nodes_transactions)
-                                },
-                        "time": time.time()
-                    }
-                    sendMessage(message, g.BASE_PORT)
-                except Exception as e:
-                    logging.warning(f"Couldn't send chain from {g.my_port} to smart contract because {e}")
+                bf.consensus_reset_and_send()
 
             # elif not g.consensus_time:
             #     # print("STARTING CONSENSUS TIMER")

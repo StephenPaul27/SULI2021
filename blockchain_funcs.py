@@ -286,6 +286,52 @@ def create_genesis_block():
     }, "0")
 
 
+def consensus_and_reset():
+    """
+    This function will call consensus and reset its variables
+    (used as the timeout callback)
+    """
+    g.blockchain = consensus()
+    reset_consensus(g.blockchain[-1].index)
+
+
+def consensus_reset_and_send():
+
+    import communication as comm
+
+    consensus_and_reset()
+
+    # record completion of this node's consensus
+    dr.write_msg_time(get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index)
+
+    logging.debug(
+        f"Node {g.my_port} is sending consensus to the smartcontract for index {g.blockchain[-1].index} with {len(g.consensus_id_list)} votes out of {len(g.node_list) + 1}")
+    # send consensus result to the smart contract
+    try:
+        # set traitor
+        if g.my_port == g.TRAITOR_PORT:
+            logging.warning("Traitor is refusing to respond")
+            return
+            # idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
+            # logging.warning(f"INSERTING TRAITOR VALUE: {idx}")
+        else:
+            idx = -1
+        message = {
+            "type": "consensus",
+            "from": g.my_hash,
+            "to": g.port_to_hash[g.BASE_PORT],
+            "data": {
+                "lasthash": g.blockchain[idx].hash,
+                "newblock": g.blockchain[idx].to_dict(),
+                "transactions": get_dict_list(chainList=g.this_nodes_transactions)
+            },
+            "time": time.time()
+        }
+        comm.sendMessage(message, g.BASE_PORT)
+    except Exception as e:
+        logging.warning(f"Couldn't send chain from {g.my_port} to smart contract because {e}")
+
+
 def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
               chain_dict=None, trans_dict=None, id_list=None,
               trans_vote_dict=None):
@@ -323,6 +369,13 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
         chain_dict = g.chain_dict
     if id_list is None:
         id_list = g.consensus_id_list
+
+    if g.addblock_timer_thread:
+        g.addblock_timer_thread.stop()
+        g.addblock_timer_thread = None
+    if g.response_timer_thread:
+        g.response_timer_thread.stop()
+        g.response_timer_thread = None
 
     if not len(cons_array):
         return chainList

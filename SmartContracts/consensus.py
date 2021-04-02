@@ -69,8 +69,8 @@ class Server(threading.Thread):
         # consensus dictionary
         self.votes = {}
 
-        # consensus timer
-        self.consensus_timer = 0
+        # consensus timer thread
+        self.consensus_timer_thread = None
 
         # list of validators who have voted
         self.voted_validators = []
@@ -115,8 +115,6 @@ class Server(threading.Thread):
 
         # while loop to accept incoming connections/messages
         while True:
-            # check timers
-            self.time_check()
             # accept client connection
             connection, client_address = sock.accept()
             # logging.debug("\nconnection started at consensus server\n")
@@ -126,8 +124,6 @@ class Server(threading.Thread):
 
                 # while loop to read in data from incoming message
                 while True:
-                    # check timers
-                    self.time_check()
                     # Receive 2048 bytes at a time
                     data = connection.recv(2048)
 
@@ -184,14 +180,6 @@ class Server(threading.Thread):
                 # logging.debug("\nconnection closed at consensus server\n")
                 connection.close()
 
-    def time_check(self):
-        """
-        This function will check if the consensus timer has exceeded the timeout
-        """
-        if self.consensus_timer and time.time() - self.consensus_timer > g.CONSENSUS_TIMEOUT:
-            logging.warning(f"Smart contract performing consensus from timeout idx:{self.lastIndex+1}")
-            self.validator_consensus()
-
     def consensus_response(self, msgJson, msgData):
         """
         This function reacts to consensus messages, collecting consensus results from the validators then
@@ -213,9 +201,6 @@ class Server(threading.Thread):
             # case when sender has already sent one chain
             logging.warning(f"Consensus attempted multiple times from {msgJson['from']}, with {len(self.voted_validators)}/{len(self.validator_list)} votes")
             return
-
-        if not len(self.voted_validators) and not self.consensus_timer:
-            self.consensus_timer = time.time()
 
         # mark the validator as already having voted once in this cycle
         self.voted_validators.append(self.validator_list[vIndex])
@@ -256,6 +241,12 @@ class Server(threading.Thread):
             for i in self.validator_list:
                 if i not in self.voted_validators:
                     logging.info(f"{self.hash_to_port[i]}:{i}")
+
+        # start the consensus timer thread if not already started
+        if not self.consensus_timer_thread:
+            self.consensus_timer_thread = tmo.Timeout("smart-contract", self.validator_consensus,
+                                                      g.CONSENSUS_TIMEOUT, self.port)
+            self.consensus_timer_thread.start()
 
         # if all validators have voted
         if len(self.voted_validators) == len(self.validator_list):
@@ -314,6 +305,11 @@ class Server(threading.Thread):
         This function will perform consensus among the assigned validators and issue payment/penalties
         """
 
+        # clear the smart contract timer thread if needed
+        if self.consensus_timer_thread:
+            self.consensus_timer_thread.stop()
+            self.consensus_timer_thread = None
+
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
         if len(sorted_consensus):
@@ -325,29 +321,15 @@ class Server(threading.Thread):
             ne.update_transactions(self.port, self.transactions)
 
             # distribute payment/punishment
-            for count, i in enumerate(sorted_consensus):
-                for j in self.votes[i]:
-                    print(f"paying {j}")
-                    logging.debug(f"Smart-Contract Paying {j}")
-                    # penalize everyone past index 0 with a mismatched chain hash
-                    # but omit nodes that match the chain but not transactions
-                    # they will correct on the next block if needed
-                    if count and self.chains_dict[i][-1]['hash'] != self.chains_dict[sorted_consensus[0]][-1]['hash']:
-                        self.pay(j, g.PENALTY)
-                        # debugging
-                        # logging.debug(f"Penalizing node {self.hash_to_port[j]},"
-                        #               f"\nchain hash:{self.chains_dict[i][-1]['hash']},"
-                        #               f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[i])},"
-                        #               f"\ncompared to agreed answers:"
-                        #               f"\nchain hash: {self.chains_dict[sorted_consensus[0]][-1]['hash']}"
-                        #               f"\ntrans hash: {bf.get_transaction_list_hash(self.trans_dict[sorted_consensus[0]])}")
-                    # pay the hashes in index 0 because its sorted by majority
-                    else:
-                        self.pay(j, g.INCENTIVE)
-
-            for i in self.faulty:
-                # penalize faulty nodes
-                self.pay(i, g.PENALTY)
+            for i in self.validator_list:
+                # pay all the correct and active voters
+                if i in self.votes[sorted_consensus[0]]:
+                    logging.debug(f"Smart-contract Paying {i}")
+                    self.pay(i, g.INCENTIVE)
+                else:
+                    # penalize all else
+                    logging.debug(f"Smart-contract Penalizing {i}")
+                    self.pay(i, g.PENALTY)
 
             print(f"Updated Wallet values: {list(self.walletList.values())}")
 
@@ -367,7 +349,6 @@ class Server(threading.Thread):
         This function will clear consensus server variables
         """
         logging.debug("CONSENSUS RESET")
-        self.consensus_timer = 0
         self.chains_dict = {}
         self.trans_dict = {}
         self.faulty = []

@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/communication.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/global_vars.py">
           <value>
             <Attribute>

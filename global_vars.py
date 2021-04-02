@@ -16,17 +16,17 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
     NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
 else:
     NUM_NODES = 10
-MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
+MSG_PERIOD = 10             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = MSG_PERIOD/2            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
-BLOCK_SIZE = 40             # size of each block of transactions to be added
+BLOCK_SIZE = 15             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
 BLOCK_BUFFER = BLOCK_SIZE/2  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
-TRAITOR_PORT = 8200         # port of traitor node for visualization
+TRAITOR_PORT = 8105         # port of traitor node for visualization
 
 # load node connections
 try:
@@ -63,6 +63,8 @@ chain_dict = {}         # dict to store diff types of chains received
 trans_vote_dict = {}         # dict to store diff transactions received
 trans_dict = {}         # dict to store diff transactions received
 consensus_id_list = []  # list to store nodes that have already voted once
+response_timer_thread = None    # global variable holder for response timer thread
+addblock_timer_thread = None    # global variable holder for addblock timer thread
 response_timer = 0      # time since first introduction response received
 addblock_timer = 0
 consensus_index = -1    # index of last block agreed upon

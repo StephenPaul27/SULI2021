@@ -1,26 +1,1706 @@
-2021-03-31 15:29:00,525 main:50 - INFO: New Session Started
-2021-03-31 15:29:00,525 consensus:25 - DEBUG: Consensus server started at port 8100
-2021-03-31 15:29:00,572 main:76 - INFO: Node started at port 8101 with hash 583b0fecc9c85948963fafce020bde75fa72af7c4fae8de66de068d03710889a
-2021-03-31 15:29:00,580 communication:736 - DEBUG: first node is securing its consensus index
-2021-03-31 15:29:00,582 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
-2021-03-31 15:29:00,582 communication:102 - DEBUG: Validators updated at node 8101 from introduction
-2021-03-31 15:29:00,583 consensus:499 - DEBUG: selected new validators:['583b0fecc9c85948963fafce020bde75fa72af7c4fae8de66de068d03710889a']
-2021-03-31 15:29:00,583 consensus:533 - DEBUG: Broadcasting validators from smart contract
-2021-03-31 15:29:00,585 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
-2021-03-31 15:29:00,585 communication:676 - DEBUG: Node 8101 is correcting its blockchain to dd365c595616d4e75f43defc89dd3bbcd9082b6ac27e18ca5b12c647a08f8707
-2021-03-31 15:29:00,586 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
-2021-03-31 15:29:00,586 communication:686 - DEBUG: Node 8101 is correcting its transactions to size 1
-2021-03-31 15:29:00,587 communication:146 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
-2021-03-31 15:29:01,555 consensus:142 - DEBUG: Received blank message at port 8100
-2021-03-31 15:29:01,598 main:76 - INFO: Node started at port 8102 with hash d2b47101e2f6f388999e97848ea5df016cb9396add3acc1be7415b927214e370
-2021-03-31 15:29:01,607 communication:102 - DEBUG: Validators updated at node 8102 from introduction
-2021-03-31 15:29:01,609 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 2
-2021-03-31 15:29:01,609 communication:246 - DEBUG: node 8102 received response from 8101, 1/1
-2021-03-31 15:29:01,610 communication:272 - DEBUG: node 8102 is performing consensus after 1/1 
-2021-03-31 15:29:01,610 blockchain_funcs:345 - DEBUG: node: 8102 bf_consensus (idx:-1) popping 8ec27cb0785f80a834e822cf80193bebba408ad088ece2022501f19b5d4cead5
-2021-03-31 15:29:01,610 blockchain_funcs:354 - DEBUG: node: 8102 bf_consensus adding dd365c595616d4e75f43defc89dd3bbcd9082b6ac27e18ca5b12c647a08f8707
-2021-03-31 15:29:01,610 blockchain_funcs:358 - DEBUG: Consensus performed, resulting chain: dd365c595616d4e75f43defc89dd3bbcd9082b6ac27e18ca5b12c647a08f8707
-2021-03-31 15:29:01,610 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 2
-2021-03-31 15:29:01,610 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 1
-2021-03-31 15:29:01,611 blockchain_funcs:406 - DEBUG: node 8102 consensus reset
-2021-03-31 15:29:01,612 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 2
+2021-04-02 15:15:39,639 main:50 - INFO: New Session Started
+2021-04-02 15:15:39,640 consensus:25 - DEBUG: Consensus server started at port 8100
+2021-04-02 15:15:39,688 main:76 - INFO: Node started at port 8101 with hash ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:15:39,691 communication:715 - DEBUG: first node is securing its consensus index
+2021-04-02 15:15:39,696 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
+2021-04-02 15:15:39,696 communication:103 - DEBUG: Validators updated at node 8101 from introduction
+2021-04-02 15:15:39,697 consensus:480 - DEBUG: selected new validators:['ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278']
+2021-04-02 15:15:39,697 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:15:39,699 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
+2021-04-02 15:15:39,699 communication:655 - DEBUG: Node 8101 is correcting its blockchain to fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:39,700 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 1
+2021-04-02 15:15:39,700 communication:665 - DEBUG: Node 8101 is correcting its transactions to size 1
+2021-04-02 15:15:39,701 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:15:39,845 consensus:138 - DEBUG: Received blank message at port 8100
+2021-04-02 15:15:39,885 main:76 - INFO: Node started at port 8102 with hash a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:15:39,893 communication:103 - DEBUG: Validators updated at node 8102 from introduction
+2021-04-02 15:15:39,894 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 2
+2021-04-02 15:15:39,895 communication:249 - DEBUG: node 8102 received response from 8101, 1/1
+2021-04-02 15:15:39,895 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 2
+2021-04-02 15:15:39,896 communication:286 - DEBUG: node 8102 is performing consensus after 1/1 
+2021-04-02 15:15:39,896 blockchain_funcs:398 - DEBUG: node: 8102 bf_consensus (idx:-1) popping 25091a606c81516e17a8dea376c3f85f26a62026242d56a8b86d5d2c1233a012
+2021-04-02 15:15:39,896 blockchain_funcs:407 - DEBUG: node: 8102 bf_consensus adding fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:39,896 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:39,896 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 1
+2021-04-02 15:15:39,897 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:15:39,898 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 2
+2021-04-02 15:15:40,052 consensus:138 - DEBUG: Received blank message at port 8100
+2021-04-02 15:15:40,094 main:76 - INFO: Node started at port 8103 with hash 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:15:40,103 communication:103 - DEBUG: Validators updated at node 8103 from introduction
+2021-04-02 15:15:40,106 communication:249 - DEBUG: node 8103 received response from 8101, 1/2
+2021-04-02 15:15:40,106 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 3
+2021-04-02 15:15:40,108 communication:249 - DEBUG: node 8103 received response from 8102, 2/2
+2021-04-02 15:15:40,109 communication:286 - DEBUG: node 8103 is performing consensus after 2/2 
+2021-04-02 15:15:40,109 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:-1) popping 0d1e47a20ddd4415b94264556b03d0fb59b0f2508f20266fbd312890d576e1ea
+2021-04-02 15:15:40,109 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,109 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,109 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 1
+2021-04-02 15:15:40,109 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 3
+2021-04-02 15:15:40,109 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 2
+2021-04-02 15:15:40,109 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 3
+2021-04-02 15:15:40,110 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:15:40,112 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 3
+2021-04-02 15:15:40,260 consensus:138 - DEBUG: Received blank message at port 8100
+2021-04-02 15:15:40,302 main:76 - INFO: Node started at port 8104 with hash cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:15:40,311 communication:103 - DEBUG: Validators updated at node 8104 from introduction
+2021-04-02 15:15:40,314 communication:249 - DEBUG: node 8104 received response from 8101, 1/3
+2021-04-02 15:15:40,314 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 4
+2021-04-02 15:15:40,316 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 4
+2021-04-02 15:15:40,316 communication:249 - DEBUG: node 8104 received response from 8102, 2/3
+2021-04-02 15:15:40,319 communication:249 - DEBUG: node 8104 received response from 8103, 3/3
+2021-04-02 15:15:40,319 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 4
+2021-04-02 15:15:40,319 communication:286 - DEBUG: node 8104 is performing consensus after 3/3 
+2021-04-02 15:15:40,319 blockchain_funcs:398 - DEBUG: node: 8104 bf_consensus (idx:-1) popping 836b8626cca38df1483dd603a8fd9ee2b261e815c19ab4fcdf78d091064eb521
+2021-04-02 15:15:40,319 blockchain_funcs:407 - DEBUG: node: 8104 bf_consensus adding fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,319 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,319 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 4
+2021-04-02 15:15:40,319 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 1
+2021-04-02 15:15:40,319 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 2
+2021-04-02 15:15:40,319 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 3
+2021-04-02 15:15:40,320 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:15:40,322 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 4
+2021-04-02 15:15:40,471 consensus:138 - DEBUG: Received blank message at port 8100
+2021-04-02 15:15:40,511 main:76 - INFO: Node started at port 8105 with hash 0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:15:40,522 communication:103 - DEBUG: Validators updated at node 8105 from introduction
+2021-04-02 15:15:40,524 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 5
+2021-04-02 15:15:40,525 communication:249 - DEBUG: node 8105 received response from 8101, 1/4
+2021-04-02 15:15:40,527 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 5
+2021-04-02 15:15:40,527 communication:249 - DEBUG: node 8105 received response from 8102, 2/4
+2021-04-02 15:15:40,529 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 5
+2021-04-02 15:15:40,530 communication:249 - DEBUG: node 8105 received response from 8103, 3/4
+2021-04-02 15:15:40,531 communication:249 - DEBUG: node 8105 received response from 8104, 4/4
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 5
+2021-04-02 15:15:40,532 communication:286 - DEBUG: node 8105 is performing consensus after 4/4 
+2021-04-02 15:15:40,532 blockchain_funcs:398 - DEBUG: node: 8105 bf_consensus (idx:-1) popping 7e6a14ef0e832c8ebff2314eccd78e09b93ca5df841523228a878620ebede1cb
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 5
+2021-04-02 15:15:40,532 blockchain_funcs:407 - DEBUG: node: 8105 bf_consensus adding fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,532 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fc64bb61f3f8f0c0b1075e95c87dee4ba7946a31d40c867de1c7070e3bb2665d
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 1
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 2
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 3
+2021-04-02 15:15:40,532 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 4
+2021-04-02 15:15:40,533 blockchain_funcs:459 - DEBUG: node 8105 consensus reset
+2021-04-02 15:15:40,535 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 5
+2021-04-02 15:15:49,697 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:15:49,702 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:15:49,703 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:15:49,707 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:15:49,708 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 6
+2021-04-02 15:15:49,708 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 7
+2021-04-02 15:15:49,708 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:49,710 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:49,712 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:15:49,712 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:49,713 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 6
+2021-04-02 15:15:49,713 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 7
+2021-04-02 15:15:49,714 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:15:49,714 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:49,715 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 6
+2021-04-02 15:15:49,715 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 7
+2021-04-02 15:15:49,716 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:15:49,717 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 6
+2021-04-02 15:15:49,717 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 7
+2021-04-02 15:15:49,718 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:15:49,719 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 6
+2021-04-02 15:15:49,719 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 7
+2021-04-02 15:15:49,895 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:15:49,900 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:15:49,902 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:15:49,905 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:15:49,906 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 8
+2021-04-02 15:15:49,906 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 9
+2021-04-02 15:15:49,906 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:49,908 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:49,910 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:15:49,910 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:49,911 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 8
+2021-04-02 15:15:49,911 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:15:49,912 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:15:49,912 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:49,912 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 8
+2021-04-02 15:15:49,913 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 9
+2021-04-02 15:15:49,914 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:15:49,915 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 8
+2021-04-02 15:15:49,915 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 9
+2021-04-02 15:15:49,916 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:15:49,916 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 8
+2021-04-02 15:15:49,916 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 9
+2021-04-02 15:15:50,107 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:15:50,112 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:15:50,113 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:15:50,116 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:15:50,117 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:15:50,117 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:15:50,118 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:15:50,120 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:15:50,121 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:15:50,121 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:15:50,122 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:15:50,122 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:15:50,123 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:15:50,123 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:15:50,124 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:15:50,124 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:15:50,125 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:15:50,126 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:15:50,126 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:15:50,127 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:15:50,128 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:15:50,128 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:15:50,317 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:15:50,322 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:15:50,323 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:15:50,327 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:15:50,328 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:15:50,328 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:15:50,328 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:15:50,330 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:15:50,332 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:15:50,332 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:15:50,333 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:15:50,333 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:15:50,334 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:15:50,334 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:15:50,335 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:15:50,335 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:15:50,336 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:15:50,336 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:15:50,337 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:15:50,337 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:15:50,338 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:15:50,338 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:15:59,707 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:15:59,712 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:15:59,713 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:15:59,716 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:15:59,717 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:15:59,717 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:15:59,718 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:59,720 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:59,722 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:15:59,722 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:59,723 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:15:59,723 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:15:59,724 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:15:59,724 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:15:59,725 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:15:59,725 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:15:59,726 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:15:59,727 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:15:59,727 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:15:59,728 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:15:59,729 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:15:59,729 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:15:59,905 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:15:59,910 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:15:59,911 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:15:59,915 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:15:59,915 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:15:59,915 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:15:59,916 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:59,918 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:59,920 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:15:59,920 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:59,920 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:15:59,920 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:15:59,922 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:15:59,922 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:15:59,922 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:15:59,922 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:15:59,924 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:15:59,924 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:15:59,925 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:15:59,925 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:15:59,926 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:15:59,926 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:16:00,112 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:00,117 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:00,119 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:00,122 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:00,123 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:16:00,123 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:16:00,124 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:00,125 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:00,127 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:00,127 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:00,128 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:16:00,128 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:16:00,130 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:00,130 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:00,131 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:16:00,131 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:16:00,132 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:00,133 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:16:00,133 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:16:00,134 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:00,135 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:16:00,135 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:16:00,321 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:00,326 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:00,328 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:00,331 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:00,332 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:16:00,332 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:16:00,333 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:00,335 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:00,336 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:00,336 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:00,337 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:16:00,337 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:16:00,338 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:00,338 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:00,339 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:16:00,339 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:16:00,340 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:00,341 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:16:00,341 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:16:00,342 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:00,343 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:16:00,343 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:16:09,712 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:09,717 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:09,718 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:09,722 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:09,722 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:16:09,722 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:16:09,723 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:09,725 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:09,727 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:09,727 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:09,728 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:16:09,728 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:16:09,729 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:09,730 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:09,731 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:16:09,731 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:16:09,731 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:09,731 communication:443 - DEBUG: Proposing new block at port 8101 from sensitivity
+2021-04-02 15:16:09,731 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 1 to its blockchain
+2021-04-02 15:16:09,732 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:16:09,732 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:16:09,733 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:09,733 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:09,733 communication:495 - DEBUG: Node 8101 is requesting index:1 from 8102
+2021-04-02 15:16:09,734 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:16:09,734 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:16:09,735 communication:495 - DEBUG: Node 8101 is requesting index:1 from 8103
+2021-04-02 15:16:09,737 communication:196 - DEBUG: Node 8102 received request from 8101
+2021-04-02 15:16:09,737 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 1 to its blockchain
+2021-04-02 15:16:09,737 communication:495 - DEBUG: Node 8101 is requesting index:1 from 8104
+2021-04-02 15:16:09,739 communication:196 - DEBUG: Node 8103 received request from 8101
+2021-04-02 15:16:09,739 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 1 to its blockchain
+2021-04-02 15:16:09,739 communication:495 - DEBUG: Node 8101 is requesting index:1 from 8105
+2021-04-02 15:16:09,742 communication:196 - DEBUG: Node 8104 received request from 8101
+2021-04-02 15:16:09,742 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 1 to its blockchain
+2021-04-02 15:16:09,744 communication:196 - DEBUG: Node 8105 received request from 8101
+2021-04-02 15:16:09,744 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 1 to its blockchain
+2021-04-02 15:16:09,744 communication:589 - DEBUG: node 8101 received addblock from 8102 with index 1>0,and votes: 2/5 with hash: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,746 communication:589 - DEBUG: node 8101 received addblock from 8103 with index 1>0,and votes: 3/5 with hash: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,748 communication:589 - DEBUG: node 8101 received addblock from 8104 with index 1>0,and votes: 4/5 with hash: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,749 communication:589 - DEBUG: node 8101 received addblock from 8105 with index 1>0,and votes: 5/5 with hash: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,749 blockchain_funcs:398 - DEBUG: node: 8101 bf_consensus (idx:0) popping 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,750 blockchain_funcs:407 - DEBUG: node: 8101 bf_consensus adding 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,750 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,751 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:09,751 blockchain_funcs:307 - DEBUG: Node 8101 is sending consensus to the smartcontract for index 1 with 0 votes out of 5
+2021-04-02 15:16:09,754 consensus:207 - DEBUG: received vote at smart contract from ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:09,755 consensus:238 - INFO: checking num votes to validators at smartcontract:1==1
+2021-04-02 15:16:09,755 consensus:318 - DEBUG: adding block at smartcontract: 0665803fa92263fcd19d6d84c30044646d45c2863468994279d7a2d47ade7545
+2021-04-02 15:16:09,756 consensus:327 - DEBUG: Smart-contract Paying ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:09,760 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:09,764 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 9
+2021-04-02 15:16:09,766 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 9
+2021-04-02 15:16:09,767 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:09,767 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 9
+2021-04-02 15:16:09,768 consensus:480 - DEBUG: selected new validators:['ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278', '7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8', 'a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede', '0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125', 'cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b']
+2021-04-02 15:16:09,768 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:16:09,769 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 9
+2021-04-02 15:16:09,772 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:16:09,773 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:True
+2021-04-02 15:16:09,775 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
+2021-04-02 15:16:09,777 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:True
+2021-04-02 15:16:09,777 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:16:09,778 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:True
+2021-04-02 15:16:09,915 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:09,920 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:09,921 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:09,924 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:09,925 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:16:09,925 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:16:09,926 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:09,928 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:09,930 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:09,930 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:09,930 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:09,931 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:09,932 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:09,932 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:09,932 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:16:09,933 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:16:09,934 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:09,935 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:16:09,935 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:16:09,936 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:09,937 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:16:09,937 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:16:10,118 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:10,123 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:10,125 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:10,128 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:10,129 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:16:10,129 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:16:10,130 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:10,132 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:10,134 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:10,134 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:10,135 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:10,135 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:16:10,136 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:10,136 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:10,137 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:16:10,137 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:16:10,138 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:10,139 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:16:10,139 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:16:10,140 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:10,141 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:16:10,141 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:16:10,327 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:10,332 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:10,333 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:10,337 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:10,337 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:16:10,338 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:16:10,339 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:10,340 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:10,342 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:10,342 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:10,343 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:16:10,343 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:16:10,344 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:10,344 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:10,345 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:16:10,345 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:16:10,346 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:10,347 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:16:10,347 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:16:10,348 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:10,349 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:16:10,349 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:16:19,718 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:19,723 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:19,724 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:19,727 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:19,728 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:16:19,728 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:16:19,729 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:19,731 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:19,733 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:19,733 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:19,734 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:16:19,734 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:16:19,735 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:19,735 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:19,736 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:16:19,736 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:16:19,737 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:19,738 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:16:19,738 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:16:19,739 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:19,740 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:16:19,740 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:16:19,919 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:19,925 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:19,926 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:19,929 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:19,930 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:16:19,930 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:16:19,931 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:19,933 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:19,934 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:19,935 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:19,935 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:16:19,935 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:16:19,936 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:19,936 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:19,937 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:16:19,937 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:16:19,938 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:19,939 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:16:19,939 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:16:19,940 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:19,941 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:16:19,941 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:16:20,126 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:20,130 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:20,132 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:20,135 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:20,136 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:16:20,136 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:16:20,137 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:20,139 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:20,141 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:20,141 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:20,142 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:16:20,142 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:16:20,143 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:20,143 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:20,144 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:16:20,144 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:16:20,145 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:20,146 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:16:20,146 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:16:20,147 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:20,148 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:16:20,148 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:16:20,331 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:20,335 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:20,336 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:20,339 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:20,340 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:16:20,340 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:16:20,342 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:20,344 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:20,347 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:20,347 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:20,349 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:16:20,349 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:16:20,350 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:20,350 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:20,352 communication:557 - DEBUG: Proposing new block at port 8101 from confirm
+2021-04-02 15:16:20,352 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 2 to its blockchain
+2021-04-02 15:16:20,352 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:16:20,352 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:16:20,353 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:20,353 communication:443 - DEBUG: Proposing new block at port 8104 from sensitivity
+2021-04-02 15:16:20,353 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 2 to its blockchain
+2021-04-02 15:16:20,354 communication:557 - DEBUG: Proposing new block at port 8102 from confirm
+2021-04-02 15:16:20,354 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:16:20,354 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 2 to its blockchain
+2021-04-02 15:16:20,354 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:16:20,355 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:20,355 communication:495 - DEBUG: Node 8101 is requesting index:2 from 8102
+2021-04-02 15:16:20,356 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:20,356 communication:557 - DEBUG: Proposing new block at port 8103 from confirm
+2021-04-02 15:16:20,356 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 2 to its blockchain
+2021-04-02 15:16:20,357 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:16:20,357 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:20,357 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:16:20,357 communication:495 - DEBUG: Node 8104 is requesting index:2 from 8101
+2021-04-02 15:16:20,357 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:16:20,358 communication:495 - DEBUG: Node 8102 is requesting index:2 from 8101
+2021-04-02 15:16:20,358 communication:495 - DEBUG: Node 8101 is requesting index:2 from 8103
+2021-04-02 15:16:20,359 communication:557 - DEBUG: Proposing new block at port 8105 from confirm
+2021-04-02 15:16:20,359 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 2 to its blockchain
+2021-04-02 15:16:20,360 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:20,360 communication:495 - DEBUG: Node 8104 is requesting index:2 from 8102
+2021-04-02 15:16:20,360 communication:495 - DEBUG: Node 8103 is requesting index:2 from 8101
+2021-04-02 15:16:20,360 communication:495 - DEBUG: Node 8102 is requesting index:2 from 8103
+2021-04-02 15:16:20,361 communication:495 - DEBUG: Node 8101 is requesting index:2 from 8104
+2021-04-02 15:16:20,362 blockchain_funcs:459 - DEBUG: node 8105 consensus reset
+2021-04-02 15:16:20,362 communication:495 - DEBUG: Node 8103 is requesting index:2 from 8102
+2021-04-02 15:16:20,363 communication:495 - DEBUG: Node 8105 is requesting index:2 from 8101
+2021-04-02 15:16:20,363 communication:495 - DEBUG: Node 8104 is requesting index:2 from 8103
+2021-04-02 15:16:20,363 communication:495 - DEBUG: Node 8102 is requesting index:2 from 8104
+2021-04-02 15:16:20,364 communication:495 - DEBUG: Node 8101 is requesting index:2 from 8105
+2021-04-02 15:16:20,366 communication:495 - DEBUG: Node 8103 is requesting index:2 from 8104
+2021-04-02 15:16:20,366 communication:495 - DEBUG: Node 8104 is requesting index:2 from 8105
+2021-04-02 15:16:20,366 communication:495 - DEBUG: Node 8105 is requesting index:2 from 8102
+2021-04-02 15:16:20,367 communication:495 - DEBUG: Node 8102 is requesting index:2 from 8105
+2021-04-02 15:16:20,368 communication:495 - DEBUG: Node 8103 is requesting index:2 from 8105
+2021-04-02 15:16:20,369 communication:495 - DEBUG: Node 8105 is requesting index:2 from 8103
+2021-04-02 15:16:20,369 communication:196 - DEBUG: Node 8101 received request from 8104
+2021-04-02 15:16:20,370 communication:196 - DEBUG: Node 8104 received request from 8101
+2021-04-02 15:16:20,371 communication:495 - DEBUG: Node 8105 is requesting index:2 from 8104
+2021-04-02 15:16:20,372 communication:196 - DEBUG: Node 8102 received request from 8101
+2021-04-02 15:16:20,373 communication:196 - DEBUG: Node 8103 received request from 8101
+2021-04-02 15:16:20,375 communication:196 - DEBUG: Node 8101 received request from 8102
+2021-04-02 15:16:20,375 communication:196 - DEBUG: Node 8104 received request from 8102
+2021-04-02 15:16:20,376 communication:196 - DEBUG: Node 8105 received request from 8101
+2021-04-02 15:16:20,377 communication:196 - DEBUG: Node 8102 received request from 8104
+2021-04-02 15:16:20,378 communication:196 - DEBUG: Node 8103 received request from 8102
+2021-04-02 15:16:20,380 communication:196 - DEBUG: Node 8101 received request from 8103
+2021-04-02 15:16:20,381 communication:196 - DEBUG: Node 8104 received request from 8103
+2021-04-02 15:16:20,381 communication:196 - DEBUG: Node 8105 received request from 8104
+2021-04-02 15:16:20,382 communication:196 - DEBUG: Node 8102 received request from 8103
+2021-04-02 15:16:20,383 communication:196 - DEBUG: Node 8103 received request from 8104
+2021-04-02 15:16:20,385 communication:196 - DEBUG: Node 8101 received request from 8105
+2021-04-02 15:16:20,386 communication:196 - DEBUG: Node 8105 received request from 8102
+2021-04-02 15:16:20,386 communication:589 - DEBUG: node 8104 received addblock from 8101 with index 2>1,and votes: 2/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,387 communication:196 - DEBUG: Node 8102 received request from 8105
+2021-04-02 15:16:20,388 communication:196 - DEBUG: Node 8103 received request from 8105
+2021-04-02 15:16:20,388 communication:196 - DEBUG: Node 8104 received request from 8105
+2021-04-02 15:16:20,389 communication:589 - DEBUG: node 8101 received addblock from 8104 with index 2>1,and votes: 2/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,390 communication:196 - DEBUG: Node 8105 received request from 8103
+2021-04-02 15:16:20,392 communication:589 - DEBUG: node 8102 received addblock from 8104 with index 2>1,and votes: 2/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,392 communication:589 - DEBUG: node 8101 received addblock from 8102 with index 2>1,and votes: 3/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,392 communication:589 - DEBUG: node 8103 received addblock from 8101 with index 2>1,and votes: 2/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,393 communication:589 - DEBUG: node 8104 received addblock from 8102 with index 2>1,and votes: 3/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,394 communication:589 - DEBUG: node 8102 received addblock from 8101 with index 2>1,and votes: 3/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,394 communication:589 - DEBUG: node 8101 received addblock from 8103 with index 2>1,and votes: 4/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,395 communication:589 - DEBUG: node 8103 received addblock from 8104 with index 2>1,and votes: 3/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,395 communication:589 - DEBUG: node 8105 received addblock from 8101 with index 2>1,and votes: 2/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,395 communication:589 - DEBUG: node 8104 received addblock from 8105 with index 2>1,and votes: 4/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,396 communication:589 - DEBUG: node 8102 received addblock from 8103 with index 2>1,and votes: 4/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,397 communication:589 - DEBUG: node 8101 received addblock from 8105 with index 2>1,and votes: 5/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,397 blockchain_funcs:398 - DEBUG: node: 8101 bf_consensus (idx:1) popping b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,397 blockchain_funcs:407 - DEBUG: node: 8101 bf_consensus adding b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,397 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 communication:589 - DEBUG: node 8104 received addblock from 8103 with index 2>1,and votes: 5/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 communication:589 - DEBUG: node 8103 received addblock from 8102 with index 2>1,and votes: 4/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 communication:589 - DEBUG: node 8105 received addblock from 8102 with index 2>1,and votes: 3/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 blockchain_funcs:398 - DEBUG: node: 8104 bf_consensus (idx:1) popping b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 blockchain_funcs:407 - DEBUG: node: 8104 bf_consensus adding b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,398 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,399 communication:589 - DEBUG: node 8102 received addblock from 8105 with index 2>1,and votes: 5/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,399 blockchain_funcs:398 - DEBUG: node: 8102 bf_consensus (idx:1) popping b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,399 blockchain_funcs:407 - DEBUG: node: 8102 bf_consensus adding b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,399 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,400 communication:589 - DEBUG: node 8103 received addblock from 8105 with index 2>1,and votes: 5/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,400 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:1) popping b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,400 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,400 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,400 communication:589 - DEBUG: node 8105 received addblock from 8103 with index 2>1,and votes: 4/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,401 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:20,401 blockchain_funcs:307 - DEBUG: Node 8101 is sending consensus to the smartcontract for index 2 with 0 votes out of 5
+2021-04-02 15:16:20,401 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:20,401 blockchain_funcs:307 - DEBUG: Node 8104 is sending consensus to the smartcontract for index 2 with 0 votes out of 5
+2021-04-02 15:16:20,403 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:16:20,403 blockchain_funcs:307 - DEBUG: Node 8102 is sending consensus to the smartcontract for index 2 with 0 votes out of 5
+2021-04-02 15:16:20,403 communication:589 - DEBUG: node 8105 received addblock from 8104 with index 2>1,and votes: 5/5 with hash: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,403 blockchain_funcs:398 - DEBUG: node: 8105 bf_consensus (idx:1) popping b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,403 blockchain_funcs:407 - DEBUG: node: 8105 bf_consensus adding b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,404 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:20,404 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:20,404 blockchain_funcs:307 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 2 with 0 votes out of 5
+2021-04-02 15:16:20,406 consensus:207 - DEBUG: received vote at smart contract from ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:20,406 consensus:238 - INFO: checking num votes to validators at smartcontract:1==5
+2021-04-02 15:16:20,406 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:20,406 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:20,406 consensus:243 - INFO: 8102:a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:20,406 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:16:20,406 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:20,406 blockchain_funcs:459 - DEBUG: node 8105 consensus reset
+2021-04-02 15:16:20,407 blockchain_funcs:307 - DEBUG: Node 8105 is sending consensus to the smartcontract for index 2 with 0 votes out of 5
+2021-04-02 15:16:20,407 blockchain_funcs:313 - WARNING: Traitor is refusing to respond
+2021-04-02 15:16:20,408 consensus:207 - DEBUG: received vote at smart contract from cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:20,408 consensus:238 - INFO: checking num votes to validators at smartcontract:2==5
+2021-04-02 15:16:20,408 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:20,408 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:20,408 consensus:243 - INFO: 8102:a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:20,408 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:16:20,410 consensus:207 - DEBUG: received vote at smart contract from a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:20,410 consensus:238 - INFO: checking num votes to validators at smartcontract:3==5
+2021-04-02 15:16:20,410 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:20,410 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:20,410 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:16:20,411 consensus:207 - DEBUG: received vote at smart contract from 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:20,412 consensus:238 - INFO: checking num votes to validators at smartcontract:4==5
+2021-04-02 15:16:20,412 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:20,412 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:16:25,452 Timeouts:45 - WARNING: Node 8100 is performing smart-contract consensus from timeout
+2021-04-02 15:16:25,453 consensus:318 - DEBUG: adding block at smartcontract: b8340dc97f5a1806aca4d7376b5a9bc173c41fce05feaa862a10ccaee11c8be5
+2021-04-02 15:16:25,458 consensus:327 - DEBUG: Smart-contract Paying ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:25,463 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:25,467 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 9
+2021-04-02 15:16:25,469 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 9
+2021-04-02 15:16:25,470 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 9
+2021-04-02 15:16:25,471 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:25,472 consensus:327 - DEBUG: Smart-contract Paying 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:25,472 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 9
+2021-04-02 15:16:25,476 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:25,479 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:16:25,481 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:16:25,484 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:16:25,484 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:25,485 consensus:327 - DEBUG: Smart-contract Paying a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:25,486 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:16:25,490 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:25,493 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:16:25,495 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:16:25,497 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:25,497 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:16:25,498 consensus:331 - DEBUG: Smart-contract Penalizing 0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:16:25,499 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:16:25,502 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:25,504 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:16:25,507 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:16:25,509 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:16:25,509 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:25,511 consensus:327 - DEBUG: Smart-contract Paying cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:25,511 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:16:25,515 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:16:25,517 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:16:25,520 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:16:25,522 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:16:25,522 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:16:25,524 consensus:480 - DEBUG: selected new validators:['7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8', 'ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278', 'cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b', 'a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede']
+2021-04-02 15:16:25,524 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:16:25,524 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:16:25,528 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:16:25,530 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:True
+2021-04-02 15:16:25,531 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
+2021-04-02 15:16:25,533 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:True
+2021-04-02 15:16:25,534 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:16:25,534 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:False
+2021-04-02 15:16:29,725 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:29,730 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:29,731 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:29,735 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:29,735 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:16:29,736 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:16:29,737 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:29,738 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:29,740 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:29,740 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:29,741 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:16:29,741 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:16:29,742 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:29,742 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:29,743 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:16:29,743 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:16:29,744 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:29,745 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:16:29,745 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:16:29,746 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:29,747 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:16:29,747 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:16:29,925 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:29,930 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:29,931 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:29,935 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:29,936 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:16:29,936 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:16:29,937 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:29,939 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:29,940 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:29,941 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:29,941 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:16:29,941 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:16:29,943 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:29,943 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:29,944 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:16:29,944 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:16:29,945 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:29,945 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:16:29,945 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:16:29,947 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:29,948 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:16:29,948 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:16:30,132 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:30,138 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:30,139 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:30,143 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:30,144 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:16:30,144 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:16:30,145 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:30,147 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:30,148 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:30,149 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:30,149 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:16:30,150 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:16:30,150 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:30,151 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:30,151 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:16:30,152 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:16:30,153 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:30,153 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:16:30,154 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:16:30,155 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:30,155 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:16:30,155 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:16:30,340 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:30,346 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:30,348 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:30,351 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:30,352 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:16:30,352 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:16:30,353 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:30,355 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:30,356 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:30,357 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:30,357 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:16:30,357 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:16:30,358 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:30,358 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:30,359 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:16:30,359 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:16:30,360 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:30,361 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:16:30,361 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:16:30,362 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:30,362 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:16:30,362 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:16:39,730 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:39,735 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:39,737 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:39,740 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:39,741 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:16:39,741 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:16:39,743 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:39,744 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:39,746 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:39,746 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:39,746 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:16:39,746 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:16:39,748 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:39,748 communication:557 - DEBUG: Proposing new block at port 8102 from confirm
+2021-04-02 15:16:39,748 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:39,748 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 3 to its blockchain
+2021-04-02 15:16:39,749 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:16:39,749 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:16:39,751 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:39,751 communication:443 - DEBUG: Proposing new block at port 8101 from sensitivity
+2021-04-02 15:16:39,751 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 3 to its blockchain
+2021-04-02 15:16:39,751 communication:557 - DEBUG: Proposing new block at port 8103 from confirm
+2021-04-02 15:16:39,751 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 3 to its blockchain
+2021-04-02 15:16:39,752 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:16:39,752 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:16:39,753 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:16:39,753 communication:495 - DEBUG: Node 8102 is requesting index:3 from 8101
+2021-04-02 15:16:39,754 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:39,755 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:16:39,755 communication:557 - DEBUG: Proposing new block at port 8104 from confirm
+2021-04-02 15:16:39,755 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 3 to its blockchain
+2021-04-02 15:16:39,755 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:16:39,755 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:39,756 communication:495 - DEBUG: Node 8101 is requesting index:3 from 8102
+2021-04-02 15:16:39,756 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:39,756 communication:495 - DEBUG: Node 8102 is requesting index:3 from 8103
+2021-04-02 15:16:39,756 communication:495 - DEBUG: Node 8103 is requesting index:3 from 8101
+2021-04-02 15:16:39,759 communication:495 - DEBUG: Node 8101 is requesting index:3 from 8103
+2021-04-02 15:16:39,759 communication:495 - DEBUG: Node 8102 is requesting index:3 from 8104
+2021-04-02 15:16:39,759 communication:495 - DEBUG: Node 8103 is requesting index:3 from 8102
+2021-04-02 15:16:39,760 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:39,760 communication:495 - DEBUG: Node 8104 is requesting index:3 from 8101
+2021-04-02 15:16:39,761 communication:495 - DEBUG: Node 8102 is requesting index:3 from 8105
+2021-04-02 15:16:39,761 communication:495 - DEBUG: Node 8101 is requesting index:3 from 8104
+2021-04-02 15:16:39,762 communication:495 - DEBUG: Node 8103 is requesting index:3 from 8104
+2021-04-02 15:16:39,762 communication:495 - DEBUG: Node 8104 is requesting index:3 from 8102
+2021-04-02 15:16:39,764 communication:495 - DEBUG: Node 8104 is requesting index:3 from 8103
+2021-04-02 15:16:39,764 communication:495 - DEBUG: Node 8103 is requesting index:3 from 8105
+2021-04-02 15:16:39,764 communication:495 - DEBUG: Node 8101 is requesting index:3 from 8105
+2021-04-02 15:16:39,766 communication:196 - DEBUG: Node 8102 received request from 8101
+2021-04-02 15:16:39,766 communication:196 - DEBUG: Node 8105 received request from 8102
+2021-04-02 15:16:39,766 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 3 to its blockchain
+2021-04-02 15:16:39,768 communication:495 - DEBUG: Node 8104 is requesting index:3 from 8105
+2021-04-02 15:16:39,771 communication:196 - DEBUG: Node 8101 received request from 8102
+2021-04-02 15:16:39,771 communication:196 - DEBUG: Node 8103 received request from 8102
+2021-04-02 15:16:39,772 communication:196 - DEBUG: Node 8102 received request from 8103
+2021-04-02 15:16:39,773 communication:196 - DEBUG: Node 8104 received request from 8102
+2021-04-02 15:16:39,776 communication:196 - DEBUG: Node 8103 received request from 8101
+2021-04-02 15:16:39,776 communication:196 - DEBUG: Node 8101 received request from 8103
+2021-04-02 15:16:39,776 communication:196 - DEBUG: Node 8105 received request from 8101
+2021-04-02 15:16:39,778 communication:196 - DEBUG: Node 8102 received request from 8104
+2021-04-02 15:16:39,779 communication:196 - DEBUG: Node 8104 received request from 8101
+2021-04-02 15:16:39,781 communication:196 - DEBUG: Node 8103 received request from 8104
+2021-04-02 15:16:39,781 communication:196 - DEBUG: Node 8101 received request from 8104
+2021-04-02 15:16:39,781 communication:196 - DEBUG: Node 8105 received request from 8103
+2021-04-02 15:16:39,783 communication:589 - DEBUG: node 8102 received addblock from 8101 with index 3>2,and votes: 2/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,785 communication:196 - DEBUG: Node 8104 received request from 8103
+2021-04-02 15:16:39,785 communication:589 - DEBUG: node 8102 received addblock from 8103 with index 3>2,and votes: 3/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,786 communication:196 - DEBUG: Node 8105 received request from 8104
+2021-04-02 15:16:39,786 communication:589 - DEBUG: node 8103 received addblock from 8102 with index 3>2,and votes: 2/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,787 communication:589 - DEBUG: node 8101 received addblock from 8102 with index 3>2,and votes: 2/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,788 communication:589 - DEBUG: node 8102 received addblock from 8105 with index 3>2,and votes: 4/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,788 communication:589 - DEBUG: node 8103 received addblock from 8101 with index 3>2,and votes: 3/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,789 communication:589 - DEBUG: node 8101 received addblock from 8103 with index 3>2,and votes: 3/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,789 communication:589 - DEBUG: node 8104 received addblock from 8102 with index 3>2,and votes: 2/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,790 communication:589 - DEBUG: node 8102 received addblock from 8104 with index 3>2,and votes: 5/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,790 blockchain_funcs:398 - DEBUG: node: 8102 bf_consensus (idx:2) popping b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,790 blockchain_funcs:407 - DEBUG: node: 8102 bf_consensus adding b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,790 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,791 communication:589 - DEBUG: node 8103 received addblock from 8105 with index 3>2,and votes: 4/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,791 communication:589 - DEBUG: node 8101 received addblock from 8105 with index 3>2,and votes: 4/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,792 communication:589 - DEBUG: node 8104 received addblock from 8103 with index 3>2,and votes: 3/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 communication:589 - DEBUG: node 8103 received addblock from 8104 with index 3>2,and votes: 5/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:2) popping b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 communication:589 - DEBUG: node 8101 received addblock from 8104 with index 3>2,and votes: 5/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 blockchain_funcs:398 - DEBUG: node: 8101 bf_consensus (idx:2) popping b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,793 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,794 blockchain_funcs:407 - DEBUG: node: 8101 bf_consensus adding b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,794 communication:589 - DEBUG: node 8104 received addblock from 8101 with index 3>2,and votes: 4/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,794 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,794 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:16:39,794 blockchain_funcs:307 - DEBUG: Node 8102 is sending consensus to the smartcontract for index 3 with 0 votes out of 5
+2021-04-02 15:16:39,796 communication:589 - DEBUG: node 8104 received addblock from 8105 with index 3>2,and votes: 5/5 with hash: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,796 blockchain_funcs:398 - DEBUG: node: 8104 bf_consensus (idx:2) popping b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,797 blockchain_funcs:407 - DEBUG: node: 8104 bf_consensus adding b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,797 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,798 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:39,798 blockchain_funcs:307 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 3 with 0 votes out of 5
+2021-04-02 15:16:39,798 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:39,799 blockchain_funcs:307 - DEBUG: Node 8101 is sending consensus to the smartcontract for index 3 with 0 votes out of 5
+2021-04-02 15:16:39,801 consensus:207 - DEBUG: received vote at smart contract from a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:39,801 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:39,801 consensus:238 - INFO: checking num votes to validators at smartcontract:1==4
+2021-04-02 15:16:39,801 blockchain_funcs:307 - DEBUG: Node 8104 is sending consensus to the smartcontract for index 3 with 0 votes out of 5
+2021-04-02 15:16:39,801 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:39,801 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:39,801 consensus:243 - INFO: 8101:ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:39,802 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:39,804 consensus:207 - DEBUG: received vote at smart contract from 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:39,804 consensus:238 - INFO: checking num votes to validators at smartcontract:2==4
+2021-04-02 15:16:39,804 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:39,804 consensus:243 - INFO: 8101:ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:39,804 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:39,806 consensus:207 - DEBUG: received vote at smart contract from ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:39,806 consensus:238 - INFO: checking num votes to validators at smartcontract:3==4
+2021-04-02 15:16:39,806 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:39,806 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:39,808 consensus:207 - DEBUG: received vote at smart contract from cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:39,808 consensus:238 - INFO: checking num votes to validators at smartcontract:4==4
+2021-04-02 15:16:39,808 consensus:318 - DEBUG: adding block at smartcontract: b32894c49d622eb861b853ee2740a830f6d9820fa2f2d82bc134ef40c17c0740
+2021-04-02 15:16:39,810 consensus:327 - DEBUG: Smart-contract Paying 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:39,814 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:39,819 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 9
+2021-04-02 15:16:39,821 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 9
+2021-04-02 15:16:39,824 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 9
+2021-04-02 15:16:39,824 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:16:39,826 consensus:327 - DEBUG: Smart-contract Paying ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:39,826 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 9
+2021-04-02 15:16:39,830 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:39,832 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:16:39,835 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:16:39,837 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:16:39,838 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:39,839 consensus:327 - DEBUG: Smart-contract Paying cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:39,839 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:16:39,843 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:39,846 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:16:39,848 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:16:39,850 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:16:39,850 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:39,852 consensus:327 - DEBUG: Smart-contract Paying a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:16:39,852 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:16:39,855 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:39,858 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:16:39,861 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:16:39,863 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:16:39,864 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:39,865 consensus:480 - DEBUG: selected new validators:['cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b', '7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8', 'ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278']
+2021-04-02 15:16:39,865 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:16:39,866 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:16:39,868 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:16:39,870 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:False
+2021-04-02 15:16:39,872 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
+2021-04-02 15:16:39,873 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:True
+2021-04-02 15:16:39,874 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:16:39,875 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:False
+2021-04-02 15:16:39,934 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:39,939 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:39,940 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:39,944 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:39,945 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:16:39,945 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:16:39,946 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:39,948 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:39,949 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:39,950 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:39,950 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:16:39,950 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:16:39,952 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:39,952 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:39,952 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:16:39,953 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:16:39,953 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:39,954 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:16:39,954 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:16:39,956 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:39,957 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:16:39,957 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:16:40,139 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:40,144 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:40,145 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:40,148 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:40,149 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:16:40,149 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:16:40,151 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:40,153 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:40,154 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:40,155 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:40,155 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:16:40,155 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:16:40,156 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:40,156 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:40,157 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:16:40,158 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:16:40,158 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:40,159 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:16:40,159 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:16:40,160 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:40,161 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:16:40,161 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:16:40,349 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:40,357 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:40,358 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:40,361 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:40,362 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:16:40,362 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:16:40,364 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:40,366 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:40,367 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:40,367 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:40,368 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:16:40,368 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:16:40,369 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:40,369 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:40,370 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:16:40,370 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:16:40,371 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:40,372 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:16:40,372 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:16:40,373 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:40,374 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:16:40,374 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:16:49,740 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:49,745 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:49,746 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:49,750 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:49,751 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:16:49,751 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:16:49,753 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:49,754 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:49,756 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:49,756 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:49,757 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:16:49,757 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:16:49,758 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:49,758 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:49,759 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:16:49,759 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:16:49,760 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:49,761 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:16:49,761 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:16:49,762 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:49,763 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:16:49,763 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:16:49,942 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:49,947 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:49,948 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:49,952 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:49,953 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:16:49,953 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:16:49,954 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:49,956 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:49,958 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:49,958 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:49,959 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:16:49,959 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:16:49,960 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:49,960 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:49,961 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:16:49,961 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:16:49,962 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:49,963 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:16:49,963 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:16:49,964 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:49,965 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:16:49,965 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:16:50,148 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:16:50,153 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:16:50,155 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:16:50,158 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:16:50,159 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:16:50,159 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 24
+2021-04-02 15:16:50,161 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:50,163 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:50,164 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:16:50,165 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:50,165 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:16:50,165 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 24
+2021-04-02 15:16:50,166 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:16:50,167 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:16:50,167 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:16:50,167 communication:557 - DEBUG: Proposing new block at port 8101 from confirm
+2021-04-02 15:16:50,167 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 24
+2021-04-02 15:16:50,167 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 4 to its blockchain
+2021-04-02 15:16:50,168 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:16:50,169 communication:443 - DEBUG: Proposing new block at port 8103 from sensitivity
+2021-04-02 15:16:50,169 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 4 to its blockchain
+2021-04-02 15:16:50,169 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:16:50,170 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 24
+2021-04-02 15:16:50,171 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:16:50,172 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:16:50,172 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 24
+2021-04-02 15:16:50,172 communication:557 - DEBUG: Proposing new block at port 8104 from confirm
+2021-04-02 15:16:50,172 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 4 to its blockchain
+2021-04-02 15:16:50,172 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:50,172 communication:495 - DEBUG: Node 8101 is requesting index:4 from 8102
+2021-04-02 15:16:50,174 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:50,174 communication:495 - DEBUG: Node 8103 is requesting index:4 from 8101
+2021-04-02 15:16:50,175 communication:495 - DEBUG: Node 8101 is requesting index:4 from 8103
+2021-04-02 15:16:50,176 communication:495 - DEBUG: Node 8103 is requesting index:4 from 8102
+2021-04-02 15:16:50,176 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:50,177 communication:495 - DEBUG: Node 8104 is requesting index:4 from 8101
+2021-04-02 15:16:50,177 communication:196 - DEBUG: Node 8102 received request from 8101
+2021-04-02 15:16:50,177 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 4 to its blockchain
+2021-04-02 15:16:50,178 communication:495 - DEBUG: Node 8101 is requesting index:4 from 8104
+2021-04-02 15:16:50,178 communication:495 - DEBUG: Node 8103 is requesting index:4 from 8104
+2021-04-02 15:16:50,179 communication:495 - DEBUG: Node 8104 is requesting index:4 from 8102
+2021-04-02 15:16:50,180 communication:495 - DEBUG: Node 8101 is requesting index:4 from 8105
+2021-04-02 15:16:50,181 communication:495 - DEBUG: Node 8103 is requesting index:4 from 8105
+2021-04-02 15:16:50,182 communication:495 - DEBUG: Node 8104 is requesting index:4 from 8103
+2021-04-02 15:16:50,184 communication:495 - DEBUG: Node 8104 is requesting index:4 from 8105
+2021-04-02 15:16:50,184 communication:196 - DEBUG: Node 8105 received request from 8101
+2021-04-02 15:16:50,184 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 4 to its blockchain
+2021-04-02 15:16:50,185 communication:196 - DEBUG: Node 8101 received request from 8103
+2021-04-02 15:16:50,185 communication:196 - DEBUG: Node 8103 received request from 8101
+2021-04-02 15:16:50,186 communication:196 - DEBUG: Node 8102 received request from 8103
+2021-04-02 15:16:50,188 communication:196 - DEBUG: Node 8104 received request from 8101
+2021-04-02 15:16:50,189 communication:196 - DEBUG: Node 8101 received request from 8104
+2021-04-02 15:16:50,190 communication:196 - DEBUG: Node 8103 received request from 8104
+2021-04-02 15:16:50,190 communication:196 - DEBUG: Node 8102 received request from 8104
+2021-04-02 15:16:50,193 communication:196 - DEBUG: Node 8104 received request from 8103
+2021-04-02 15:16:50,194 communication:196 - DEBUG: Node 8105 received request from 8103
+2021-04-02 15:16:50,194 communication:589 - DEBUG: node 8101 received addblock from 8102 with index 4>3,and votes: 2/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,195 communication:589 - DEBUG: node 8103 received addblock from 8101 with index 4>3,and votes: 2/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,196 communication:589 - DEBUG: node 8101 received addblock from 8103 with index 4>3,and votes: 3/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,197 communication:589 - DEBUG: node 8103 received addblock from 8102 with index 4>3,and votes: 3/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,198 communication:589 - DEBUG: node 8104 received addblock from 8101 with index 4>3,and votes: 2/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,198 communication:589 - DEBUG: node 8101 received addblock from 8104 with index 4>3,and votes: 4/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,198 communication:196 - DEBUG: Node 8105 received request from 8104
+2021-04-02 15:16:50,200 communication:589 - DEBUG: node 8103 received addblock from 8104 with index 4>3,and votes: 4/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,200 communication:589 - DEBUG: node 8104 received addblock from 8103 with index 4>3,and votes: 3/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,201 communication:589 - DEBUG: node 8101 received addblock from 8105 with index 4>3,and votes: 5/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,201 blockchain_funcs:398 - DEBUG: node: 8101 bf_consensus (idx:3) popping 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,201 blockchain_funcs:407 - DEBUG: node: 8101 bf_consensus adding 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,201 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,202 communication:589 - DEBUG: node 8103 received addblock from 8105 with index 4>3,and votes: 5/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,202 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:3) popping 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,202 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,202 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,202 communication:589 - DEBUG: node 8104 received addblock from 8102 with index 4>3,and votes: 4/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,204 communication:589 - DEBUG: node 8104 received addblock from 8105 with index 4>3,and votes: 5/5 with hash: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,204 blockchain_funcs:398 - DEBUG: node: 8104 bf_consensus (idx:3) popping 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,204 blockchain_funcs:407 - DEBUG: node: 8104 bf_consensus adding 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,204 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,205 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:16:50,205 blockchain_funcs:307 - DEBUG: Node 8101 is sending consensus to the smartcontract for index 4 with 0 votes out of 5
+2021-04-02 15:16:50,206 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:16:50,206 blockchain_funcs:307 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 4 with 0 votes out of 5
+2021-04-02 15:16:50,208 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:16:50,209 blockchain_funcs:307 - DEBUG: Node 8104 is sending consensus to the smartcontract for index 4 with 0 votes out of 5
+2021-04-02 15:16:50,209 consensus:207 - DEBUG: received vote at smart contract from ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:50,209 consensus:238 - INFO: checking num votes to validators at smartcontract:1==3
+2021-04-02 15:16:50,209 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:50,209 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:50,209 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:50,211 consensus:207 - DEBUG: received vote at smart contract from 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:50,211 consensus:238 - INFO: checking num votes to validators at smartcontract:2==3
+2021-04-02 15:16:50,211 consensus:240 - INFO: Voters missing:
+2021-04-02 15:16:50,211 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:50,213 consensus:207 - DEBUG: received vote at smart contract from cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:50,213 consensus:238 - INFO: checking num votes to validators at smartcontract:3==3
+2021-04-02 15:16:50,213 consensus:318 - DEBUG: adding block at smartcontract: 46c0fbc68c72c6ede436a6378637d62016d3c5baa50cbce0a6e87dca7f323922
+2021-04-02 15:16:50,216 consensus:327 - DEBUG: Smart-contract Paying cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:16:50,221 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:50,224 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:16:50,227 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:16:50,230 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:16:50,230 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:16:50,231 consensus:327 - DEBUG: Smart-contract Paying 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:16:50,232 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:16:50,236 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:50,239 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:16:50,242 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:16:50,244 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:16:50,244 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:16:50,246 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:16:50,246 consensus:327 - DEBUG: Smart-contract Paying ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:16:50,251 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:50,253 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:16:50,256 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:16:50,258 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:16:50,258 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:16:50,260 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:16:50,261 consensus:480 - DEBUG: selected new validators:['cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b', '0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125', '7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8', 'ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278']
+2021-04-02 15:16:50,261 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:16:50,264 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:16:50,266 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:False
+2021-04-02 15:16:50,268 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
+2021-04-02 15:16:50,270 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:True
+2021-04-02 15:16:50,271 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:16:50,272 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:True
+2021-04-02 15:16:50,357 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:16:50,362 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:16:50,363 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:16:50,367 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:16:50,367 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:16:50,367 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:16:50,369 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:50,371 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:50,372 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:16:50,373 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:50,373 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:16:50,373 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:16:50,374 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:16:50,375 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:16:50,375 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:16:50,375 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:16:50,377 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:16:50,377 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:16:50,377 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:16:50,378 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:16:50,379 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:16:50,379 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:16:59,750 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:16:59,755 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:16:59,756 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:16:59,759 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:16:59,760 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:16:59,760 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:16:59,762 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:59,764 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:59,765 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:16:59,766 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:59,766 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:16:59,766 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:16:59,767 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:16:59,768 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:16:59,768 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:16:59,769 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:16:59,770 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:16:59,770 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:16:59,770 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:16:59,772 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:16:59,772 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:16:59,772 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:16:59,951 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:16:59,957 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:16:59,958 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:16:59,961 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:16:59,962 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:16:59,962 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:16:59,964 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:59,966 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:59,967 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:16:59,967 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:59,968 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:16:59,968 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:16:59,969 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:16:59,970 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:16:59,970 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:16:59,970 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:16:59,971 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:16:59,972 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:16:59,972 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:16:59,973 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:16:59,974 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:16:59,974 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:17:00,158 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:17:00,163 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:17:00,164 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:17:00,168 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:17:00,168 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:17:00,169 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:17:00,170 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:00,172 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:00,174 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:17:00,174 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:00,175 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:17:00,175 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:17:00,176 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:17:00,176 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:00,176 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:17:00,177 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:17:00,178 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:17:00,178 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:17:00,179 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:17:00,180 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:17:00,181 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:17:00,181 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:17:00,364 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:17:00,369 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:17:00,370 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:17:00,374 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:17:00,374 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:17:00,375 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:17:00,377 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:00,378 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:00,380 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:17:00,380 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:00,381 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:17:00,381 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:17:00,382 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:17:00,382 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:00,383 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:17:00,383 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:17:00,384 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:17:00,385 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:17:00,385 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:17:00,386 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:17:00,387 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:17:00,387 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:17:09,759 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:17:09,764 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:17:09,766 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:17:09,769 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:17:09,770 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:17:09,770 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 24
+2021-04-02 15:17:09,772 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:09,774 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:09,775 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:09,776 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:17:09,777 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:17:09,777 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 24
+2021-04-02 15:17:09,778 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:17:09,778 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:09,779 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:17:09,780 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 24
+2021-04-02 15:17:09,781 communication:443 - DEBUG: Proposing new block at port 8101 from sensitivity
+2021-04-02 15:17:09,782 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 5 to its blockchain
+2021-04-02 15:17:09,782 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:17:09,783 communication:557 - DEBUG: Proposing new block at port 8103 from confirm
+2021-04-02 15:17:09,783 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 5 to its blockchain
+2021-04-02 15:17:09,783 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:17:09,783 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 24
+2021-04-02 15:17:09,784 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:17:09,785 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:17:09,785 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 24
+2021-04-02 15:17:09,787 communication:557 - DEBUG: Proposing new block at port 8104 from confirm
+2021-04-02 15:17:09,787 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 5 to its blockchain
+2021-04-02 15:17:09,788 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:17:09,788 communication:495 - DEBUG: Node 8101 is requesting index:5 from 8102
+2021-04-02 15:17:09,789 communication:557 - DEBUG: Proposing new block at port 8105 from confirm
+2021-04-02 15:17:09,789 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 5 to its blockchain
+2021-04-02 15:17:09,790 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:17:09,790 communication:495 - DEBUG: Node 8103 is requesting index:5 from 8101
+2021-04-02 15:17:09,791 communication:495 - DEBUG: Node 8101 is requesting index:5 from 8103
+2021-04-02 15:17:09,793 communication:196 - DEBUG: Node 8102 received request from 8101
+2021-04-02 15:17:09,793 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 5 to its blockchain
+2021-04-02 15:17:09,793 communication:495 - DEBUG: Node 8103 is requesting index:5 from 8102
+2021-04-02 15:17:09,793 communication:495 - DEBUG: Node 8101 is requesting index:5 from 8104
+2021-04-02 15:17:09,793 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:17:09,793 communication:495 - DEBUG: Node 8104 is requesting index:5 from 8101
+2021-04-02 15:17:09,795 blockchain_funcs:459 - DEBUG: node 8105 consensus reset
+2021-04-02 15:17:09,795 communication:495 - DEBUG: Node 8105 is requesting index:5 from 8101
+2021-04-02 15:17:09,795 communication:495 - DEBUG: Node 8101 is requesting index:5 from 8105
+2021-04-02 15:17:09,796 communication:495 - DEBUG: Node 8103 is requesting index:5 from 8104
+2021-04-02 15:17:09,796 communication:495 - DEBUG: Node 8104 is requesting index:5 from 8102
+2021-04-02 15:17:09,798 communication:495 - DEBUG: Node 8105 is requesting index:5 from 8102
+2021-04-02 15:17:09,798 communication:495 - DEBUG: Node 8103 is requesting index:5 from 8105
+2021-04-02 15:17:09,798 communication:495 - DEBUG: Node 8104 is requesting index:5 from 8103
+2021-04-02 15:17:09,800 communication:196 - DEBUG: Node 8101 received request from 8103
+2021-04-02 15:17:09,801 communication:495 - DEBUG: Node 8105 is requesting index:5 from 8103
+2021-04-02 15:17:09,801 communication:495 - DEBUG: Node 8104 is requesting index:5 from 8105
+2021-04-02 15:17:09,803 communication:196 - DEBUG: Node 8103 received request from 8101
+2021-04-02 15:17:09,803 communication:196 - DEBUG: Node 8102 received request from 8103
+2021-04-02 15:17:09,803 communication:495 - DEBUG: Node 8105 is requesting index:5 from 8104
+2021-04-02 15:17:09,806 communication:196 - DEBUG: Node 8104 received request from 8101
+2021-04-02 15:17:09,806 communication:196 - DEBUG: Node 8101 received request from 8104
+2021-04-02 15:17:09,808 communication:196 - DEBUG: Node 8103 received request from 8104
+2021-04-02 15:17:09,808 communication:196 - DEBUG: Node 8102 received request from 8104
+2021-04-02 15:17:09,808 communication:196 - DEBUG: Node 8105 received request from 8101
+2021-04-02 15:17:09,810 communication:196 - DEBUG: Node 8104 received request from 8103
+2021-04-02 15:17:09,812 communication:196 - DEBUG: Node 8101 received request from 8105
+2021-04-02 15:17:09,813 communication:196 - DEBUG: Node 8102 received request from 8105
+2021-04-02 15:17:09,813 communication:196 - DEBUG: Node 8105 received request from 8103
+2021-04-02 15:17:09,813 communication:589 - DEBUG: node 8103 received addblock from 8101 with index 5>4,and votes: 2/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,815 communication:196 - DEBUG: Node 8104 received request from 8105
+2021-04-02 15:17:09,816 communication:196 - DEBUG: Node 8103 received request from 8105
+2021-04-02 15:17:09,817 communication:589 - DEBUG: node 8101 received addblock from 8102 with index 5>4,and votes: 2/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,817 communication:196 - DEBUG: Node 8105 received request from 8104
+2021-04-02 15:17:09,819 communication:589 - DEBUG: node 8101 received addblock from 8103 with index 5>4,and votes: 3/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,820 communication:589 - DEBUG: node 8104 received addblock from 8101 with index 5>4,and votes: 2/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,820 communication:589 - DEBUG: node 8103 received addblock from 8102 with index 5>4,and votes: 3/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,821 communication:589 - DEBUG: node 8105 received addblock from 8101 with index 5>4,and votes: 2/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,821 communication:589 - DEBUG: node 8101 received addblock from 8104 with index 5>4,and votes: 4/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,822 communication:589 - DEBUG: node 8103 received addblock from 8104 with index 5>4,and votes: 4/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,822 communication:589 - DEBUG: node 8104 received addblock from 8103 with index 5>4,and votes: 3/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,823 communication:589 - DEBUG: node 8105 received addblock from 8102 with index 5>4,and votes: 3/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,823 communication:589 - DEBUG: node 8101 received addblock from 8105 with index 5>4,and votes: 5/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 blockchain_funcs:398 - DEBUG: node: 8101 bf_consensus (idx:4) popping fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 blockchain_funcs:407 - DEBUG: node: 8101 bf_consensus adding fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 communication:589 - DEBUG: node 8104 received addblock from 8102 with index 5>4,and votes: 4/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 communication:589 - DEBUG: node 8103 received addblock from 8105 with index 5>4,and votes: 5/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:4) popping fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,824 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,825 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,826 communication:589 - DEBUG: node 8105 received addblock from 8104 with index 5>4,and votes: 4/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,826 communication:589 - DEBUG: node 8104 received addblock from 8105 with index 5>4,and votes: 5/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,826 blockchain_funcs:398 - DEBUG: node: 8104 bf_consensus (idx:4) popping fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,826 blockchain_funcs:407 - DEBUG: node: 8104 bf_consensus adding fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,826 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,828 communication:589 - DEBUG: node 8105 received addblock from 8103 with index 5>4,and votes: 5/5 with hash: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,828 blockchain_funcs:398 - DEBUG: node: 8105 bf_consensus (idx:4) popping fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,828 blockchain_funcs:407 - DEBUG: node: 8105 bf_consensus adding fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,828 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:09,828 blockchain_funcs:459 - DEBUG: node 8101 consensus reset
+2021-04-02 15:17:09,829 blockchain_funcs:307 - DEBUG: Node 8101 is sending consensus to the smartcontract for index 5 with 0 votes out of 5
+2021-04-02 15:17:09,829 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:17:09,829 blockchain_funcs:307 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 5 with 0 votes out of 5
+2021-04-02 15:17:09,831 blockchain_funcs:459 - DEBUG: node 8104 consensus reset
+2021-04-02 15:17:09,832 blockchain_funcs:307 - DEBUG: Node 8104 is sending consensus to the smartcontract for index 5 with 0 votes out of 5
+2021-04-02 15:17:09,833 blockchain_funcs:459 - DEBUG: node 8105 consensus reset
+2021-04-02 15:17:09,833 consensus:207 - DEBUG: received vote at smart contract from ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:17:09,833 blockchain_funcs:307 - DEBUG: Node 8105 is sending consensus to the smartcontract for index 5 with 0 votes out of 5
+2021-04-02 15:17:09,833 blockchain_funcs:313 - WARNING: Traitor is refusing to respond
+2021-04-02 15:17:09,833 consensus:238 - INFO: checking num votes to validators at smartcontract:1==4
+2021-04-02 15:17:09,833 consensus:240 - INFO: Voters missing:
+2021-04-02 15:17:09,833 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:17:09,833 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:17:09,833 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:09,835 consensus:207 - DEBUG: received vote at smart contract from 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:09,835 consensus:238 - INFO: checking num votes to validators at smartcontract:2==4
+2021-04-02 15:17:09,835 consensus:240 - INFO: Voters missing:
+2021-04-02 15:17:09,835 consensus:243 - INFO: 8104:cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:17:09,835 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:17:09,837 consensus:207 - DEBUG: received vote at smart contract from cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:17:09,837 consensus:238 - INFO: checking num votes to validators at smartcontract:3==4
+2021-04-02 15:17:09,837 consensus:240 - INFO: Voters missing:
+2021-04-02 15:17:09,837 consensus:243 - INFO: 8105:0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:17:09,960 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:17:09,965 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:17:09,966 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:17:09,970 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:17:09,970 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:17:09,970 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:17:09,972 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:09,974 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:09,976 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:17:09,976 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:09,976 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:17:09,976 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:17:09,978 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:17:09,978 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:09,979 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:17:09,979 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:17:09,980 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:17:09,981 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:17:09,981 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:17:09,982 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:17:09,982 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:17:09,983 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:17:10,168 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:17:10,173 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:17:10,174 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:17:10,177 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:17:10,178 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:17:10,178 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:17:10,180 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:10,182 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:10,184 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:17:10,184 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:10,184 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:17:10,184 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:17:10,186 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:17:10,186 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:10,187 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:17:10,187 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:17:10,188 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:17:10,189 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:17:10,189 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:17:10,190 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:17:10,191 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:17:10,191 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:17:10,374 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:17:10,379 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:17:10,381 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:17:10,384 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:17:10,385 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:17:10,385 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:17:10,387 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:10,388 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:10,390 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:17:10,390 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:10,391 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:17:10,391 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:17:10,392 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:17:10,393 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:10,393 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:17:10,393 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:17:10,395 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:17:10,395 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:17:10,396 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:17:10,396 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:17:10,397 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:17:10,397 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:17:14,883 Timeouts:45 - WARNING: Node 8100 is performing smart-contract consensus from timeout
+2021-04-02 15:17:14,883 consensus:318 - DEBUG: adding block at smartcontract: fa1a29cf5e2b84e31e3d1fe9b00a8278ee3d4c71073b066713505e2a7479639d
+2021-04-02 15:17:14,889 consensus:327 - DEBUG: Smart-contract Paying cf72e60e66bdb3135a87c439f7907696d5388b9aaea0ba60951b48519e1f098b
+2021-04-02 15:17:14,895 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:17:14,896 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:17:14,901 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:17:14,903 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:17:14,904 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:17:14,905 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:17:14,906 consensus:331 - DEBUG: Smart-contract Penalizing 0bd6e00d30c7e4bc928bd7612914249d5af1b4dfa192d9b26ccc91c56fac3125
+2021-04-02 15:17:14,910 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:17:14,914 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:17:14,917 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:17:14,919 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:17:14,919 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:17:14,921 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:17:14,921 consensus:327 - DEBUG: Smart-contract Paying 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:14,925 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:17:14,928 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:17:14,931 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:17:14,933 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:17:14,933 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:17:14,935 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:17:14,935 consensus:327 - DEBUG: Smart-contract Paying ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278
+2021-04-02 15:17:14,941 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:17:14,945 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:17:14,947 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:17:14,949 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:17:14,949 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:17:14,951 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:17:14,951 consensus:480 - DEBUG: selected new validators:['a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede', '7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8']
+2021-04-02 15:17:14,951 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:17:14,955 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:False
+2021-04-02 15:17:14,956 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:True
+2021-04-02 15:17:14,958 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
+2021-04-02 15:17:14,960 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:False
+2021-04-02 15:17:14,961 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:17:14,961 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:False
+2021-04-02 15:17:19,769 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:17:19,774 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:17:19,775 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:17:19,779 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:17:19,779 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:17:19,780 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:17:19,782 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:19,784 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:19,785 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:17:19,786 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:19,786 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:17:19,786 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:17:19,787 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:17:19,788 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:19,788 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:17:19,788 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:17:19,790 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:17:19,790 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:17:19,790 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:17:19,792 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:17:19,792 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:17:19,792 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:17:19,969 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:17:19,974 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:17:19,976 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:17:19,979 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:17:19,980 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:17:19,980 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 23
+2021-04-02 15:17:19,982 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:19,984 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:19,985 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:17:19,985 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:19,986 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:17:19,986 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 23
+2021-04-02 15:17:19,987 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:17:19,987 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:19,988 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:17:19,988 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 23
+2021-04-02 15:17:19,990 communication:443 - DEBUG: Proposing new block at port 8102 from sensitivity
+2021-04-02 15:17:19,990 blockchain_funcs:476 - DEBUG: Node at port 8102 is adding index 6 to its blockchain
+2021-04-02 15:17:19,990 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:17:19,991 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:17:19,991 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 23
+2021-04-02 15:17:19,991 communication:557 - DEBUG: Proposing new block at port 8103 from confirm
+2021-04-02 15:17:19,991 blockchain_funcs:476 - DEBUG: Node at port 8103 is adding index 6 to its blockchain
+2021-04-02 15:17:19,992 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:17:19,992 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
+2021-04-02 15:17:19,993 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 23
+2021-04-02 15:17:19,995 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:17:19,995 communication:495 - DEBUG: Node 8102 is requesting index:6 from 8101
+2021-04-02 15:17:19,996 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:17:19,996 communication:495 - DEBUG: Node 8103 is requesting index:6 from 8101
+2021-04-02 15:17:19,998 communication:495 - DEBUG: Node 8102 is requesting index:6 from 8103
+2021-04-02 15:17:19,998 communication:495 - DEBUG: Node 8103 is requesting index:6 from 8102
+2021-04-02 15:17:19,999 communication:196 - DEBUG: Node 8101 received request from 8102
+2021-04-02 15:17:20,000 blockchain_funcs:476 - DEBUG: Node at port 8101 is adding index 6 to its blockchain
+2021-04-02 15:17:20,000 communication:495 - DEBUG: Node 8102 is requesting index:6 from 8104
+2021-04-02 15:17:20,000 communication:495 - DEBUG: Node 8103 is requesting index:6 from 8104
+2021-04-02 15:17:20,002 communication:495 - DEBUG: Node 8102 is requesting index:6 from 8105
+2021-04-02 15:17:20,002 communication:495 - DEBUG: Node 8103 is requesting index:6 from 8105
+2021-04-02 15:17:20,004 communication:196 - DEBUG: Node 8104 received request from 8102
+2021-04-02 15:17:20,004 blockchain_funcs:476 - DEBUG: Node at port 8104 is adding index 6 to its blockchain
+2021-04-02 15:17:20,006 communication:196 - DEBUG: Node 8103 received request from 8102
+2021-04-02 15:17:20,007 communication:196 - DEBUG: Node 8102 received request from 8103
+2021-04-02 15:17:20,007 communication:196 - DEBUG: Node 8105 received request from 8102
+2021-04-02 15:17:20,007 blockchain_funcs:476 - DEBUG: Node at port 8105 is adding index 6 to its blockchain
+2021-04-02 15:17:20,010 communication:196 - DEBUG: Node 8101 received request from 8103
+2021-04-02 15:17:20,011 communication:589 - DEBUG: node 8102 received addblock from 8101 with index 6>5,and votes: 2/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,012 communication:589 - DEBUG: node 8103 received addblock from 8102 with index 6>5,and votes: 2/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,014 communication:589 - DEBUG: node 8102 received addblock from 8103 with index 6>5,and votes: 3/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,015 communication:589 - DEBUG: node 8103 received addblock from 8101 with index 6>5,and votes: 3/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,015 communication:196 - DEBUG: Node 8104 received request from 8103
+2021-04-02 15:17:20,016 communication:589 - DEBUG: node 8102 received addblock from 8104 with index 6>5,and votes: 4/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,017 communication:196 - DEBUG: Node 8105 received request from 8103
+2021-04-02 15:17:20,018 communication:589 - DEBUG: node 8102 received addblock from 8105 with index 6>5,and votes: 5/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,018 blockchain_funcs:398 - DEBUG: node: 8102 bf_consensus (idx:5) popping 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,018 blockchain_funcs:407 - DEBUG: node: 8102 bf_consensus adding 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,018 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,019 communication:589 - DEBUG: node 8103 received addblock from 8104 with index 6>5,and votes: 4/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,021 communication:589 - DEBUG: node 8103 received addblock from 8105 with index 6>5,and votes: 5/5 with hash: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,021 blockchain_funcs:398 - DEBUG: node: 8103 bf_consensus (idx:5) popping 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,022 blockchain_funcs:407 - DEBUG: node: 8103 bf_consensus adding 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,022 blockchain_funcs:411 - DEBUG: Consensus performed, resulting chain: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,023 blockchain_funcs:459 - DEBUG: node 8102 consensus reset
+2021-04-02 15:17:20,024 blockchain_funcs:307 - DEBUG: Node 8102 is sending consensus to the smartcontract for index 6 with 0 votes out of 5
+2021-04-02 15:17:20,026 blockchain_funcs:459 - DEBUG: node 8103 consensus reset
+2021-04-02 15:17:20,026 blockchain_funcs:307 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 6 with 0 votes out of 5
+2021-04-02 15:17:20,028 consensus:207 - DEBUG: received vote at smart contract from a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:17:20,028 consensus:238 - INFO: checking num votes to validators at smartcontract:1==2
+2021-04-02 15:17:20,028 consensus:240 - INFO: Voters missing:
+2021-04-02 15:17:20,028 consensus:243 - INFO: 8103:7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:20,029 consensus:207 - DEBUG: received vote at smart contract from 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:20,030 consensus:238 - INFO: checking num votes to validators at smartcontract:2==2
+2021-04-02 15:17:20,030 consensus:318 - DEBUG: adding block at smartcontract: 1f94e8026370a606694e6687bff279e3e060a90ab1d506aaf99b4350c0f1ab0e
+2021-04-02 15:17:20,034 consensus:327 - DEBUG: Smart-contract Paying a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede
+2021-04-02 15:17:20,038 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:17:20,041 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 9
+2021-04-02 15:17:20,044 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 9
+2021-04-02 15:17:20,046 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 9
+2021-04-02 15:17:20,046 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 9
+2021-04-02 15:17:20,048 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 9
+2021-04-02 15:17:20,049 consensus:327 - DEBUG: Smart-contract Paying 7489521ac686e8b8f9723a1ea391cd450a49bface3cfe273d4b3f5bb5b31fab8
+2021-04-02 15:17:20,053 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:17:20,056 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 10
+2021-04-02 15:17:20,059 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 10
+2021-04-02 15:17:20,061 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 10
+2021-04-02 15:17:20,061 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 10
+2021-04-02 15:17:20,063 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 10
+2021-04-02 15:17:20,064 consensus:480 - DEBUG: selected new validators:['a03b591b3897eb9fa344b9de4a0a1b16cbeec35ae47a6b3078c1b6b8e5e43ede', 'ce10f70ed926adca2d51092f061a0ace21e7640a2742e9170cab6689e1821278']
+2021-04-02 15:17:20,064 consensus:514 - DEBUG: Broadcasting validators from smart contract
+2021-04-02 15:17:20,067 communication:149 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-04-02 15:17:20,069 communication:149 - DEBUG: Updating validators at node 8102 from broadcast, me?:True
+2021-04-02 15:17:20,070 communication:149 - DEBUG: Updating validators at node 8103 from broadcast, me?:False
+2021-04-02 15:17:20,072 communication:149 - DEBUG: Updating validators at node 8104 from broadcast, me?:False
+2021-04-02 15:17:20,073 consensus:351 - DEBUG: CONSENSUS RESET
+2021-04-02 15:17:20,074 communication:149 - DEBUG: Updating validators at node 8105 from broadcast, me?:False
+2021-04-02 15:17:20,177 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:17:20,182 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:17:20,184 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:17:20,187 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:17:20,188 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 11
+2021-04-02 15:17:20,188 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 12
+2021-04-02 15:17:20,191 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:20,193 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:20,194 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:17:20,194 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:20,195 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 11
+2021-04-02 15:17:20,195 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 12
+2021-04-02 15:17:20,196 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:17:20,196 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:20,197 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 11
+2021-04-02 15:17:20,197 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 12
+2021-04-02 15:17:20,199 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:17:20,199 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 11
+2021-04-02 15:17:20,199 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 12
+2021-04-02 15:17:20,200 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:17:20,201 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 11
+2021-04-02 15:17:20,201 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 12
+2021-04-02 15:17:20,383 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:17:20,388 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:17:20,389 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:17:20,393 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:17:20,394 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 13
+2021-04-02 15:17:20,394 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 14
+2021-04-02 15:17:20,396 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:20,398 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:20,400 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:20,400 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:17:20,401 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 13
+2021-04-02 15:17:20,401 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 14
+2021-04-02 15:17:20,402 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:17:20,402 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:20,403 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 13
+2021-04-02 15:17:20,403 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 14
+2021-04-02 15:17:20,404 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:17:20,405 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 13
+2021-04-02 15:17:20,405 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 14
+2021-04-02 15:17:20,406 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:17:20,407 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 13
+2021-04-02 15:17:20,407 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 14
+2021-04-02 15:17:29,779 communication:757 - DEBUG: Message(8101 - 8102): Sending power ref from 8101 to 8102
+2021-04-02 15:17:29,784 communication:303 - DEBUG: Message(8101 - 8102): Received power ref from 8101 to 8102
+2021-04-02 15:17:29,785 communication:348 - DEBUG: Message(8102 - 8101): Sending sensitivity from 8102 to 8101
+2021-04-02 15:17:29,788 communication:369 - DEBUG: Message(8102 - 8101): Received sensitivity from 8102 to 8102
+2021-04-02 15:17:29,789 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 15
+2021-04-02 15:17:29,789 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 16
+2021-04-02 15:17:29,791 communication:431 - DEBUG: Message(8101 - 8102): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:29,793 communication:431 - DEBUG: Message(8101 - 8103): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:29,795 communication:523 - DEBUG: Message(8101 - 8102): Received confirmation from 8101 to 8102
+2021-04-02 15:17:29,795 communication:431 - DEBUG: Message(8101 - 8104): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:29,796 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 15
+2021-04-02 15:17:29,796 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 16
+2021-04-02 15:17:29,797 communication:523 - DEBUG: Message(8101 - 8103): Received confirmation from 8101 to 8103
+2021-04-02 15:17:29,797 communication:431 - DEBUG: Message(8101 - 8105): Sending Confirmation from 8101 to 8102
+2021-04-02 15:17:29,798 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 15
+2021-04-02 15:17:29,798 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 16
+2021-04-02 15:17:29,799 communication:523 - DEBUG: Message(8101 - 8104): Received confirmation from 8101 to 8104
+2021-04-02 15:17:29,800 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 15
+2021-04-02 15:17:29,800 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 16
+2021-04-02 15:17:29,801 communication:523 - DEBUG: Message(8101 - 8105): Received confirmation from 8101 to 8105
+2021-04-02 15:17:29,802 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 15
+2021-04-02 15:17:29,802 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 16
+2021-04-02 15:17:29,976 communication:757 - DEBUG: Message(8102 - 8103): Sending power ref from 8102 to 8103
+2021-04-02 15:17:29,981 communication:303 - DEBUG: Message(8102 - 8103): Received power ref from 8102 to 8103
+2021-04-02 15:17:29,982 communication:348 - DEBUG: Message(8103 - 8102): Sending sensitivity from 8103 to 8102
+2021-04-02 15:17:29,986 communication:369 - DEBUG: Message(8103 - 8102): Received sensitivity from 8103 to 8103
+2021-04-02 15:17:29,986 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 17
+2021-04-02 15:17:29,987 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 18
+2021-04-02 15:17:29,989 communication:431 - DEBUG: Message(8102 - 8101): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:29,990 communication:431 - DEBUG: Message(8102 - 8103): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:29,992 communication:523 - DEBUG: Message(8102 - 8101): Received confirmation from 8102 to 8101
+2021-04-02 15:17:29,992 communication:431 - DEBUG: Message(8102 - 8104): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:29,993 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 17
+2021-04-02 15:17:29,993 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 18
+2021-04-02 15:17:29,994 communication:523 - DEBUG: Message(8102 - 8103): Received confirmation from 8102 to 8103
+2021-04-02 15:17:29,994 communication:431 - DEBUG: Message(8102 - 8105): Sending Confirmation from 8102 to 8103
+2021-04-02 15:17:29,995 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 17
+2021-04-02 15:17:29,995 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 18
+2021-04-02 15:17:29,996 communication:523 - DEBUG: Message(8102 - 8104): Received confirmation from 8102 to 8104
+2021-04-02 15:17:29,997 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 17
+2021-04-02 15:17:29,997 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 18
+2021-04-02 15:17:29,998 communication:523 - DEBUG: Message(8102 - 8105): Received confirmation from 8102 to 8105
+2021-04-02 15:17:29,999 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 17
+2021-04-02 15:17:29,999 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 18
+2021-04-02 15:17:30,187 communication:757 - DEBUG: Message(8103 - 8104): Sending power ref from 8103 to 8104
+2021-04-02 15:17:30,192 communication:303 - DEBUG: Message(8103 - 8104): Received power ref from 8103 to 8104
+2021-04-02 15:17:30,193 communication:348 - DEBUG: Message(8104 - 8103): Sending sensitivity from 8104 to 8103
+2021-04-02 15:17:30,197 communication:369 - DEBUG: Message(8104 - 8103): Received sensitivity from 8104 to 8104
+2021-04-02 15:17:30,197 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 19
+2021-04-02 15:17:30,197 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 20
+2021-04-02 15:17:30,200 communication:431 - DEBUG: Message(8103 - 8101): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:30,202 communication:431 - DEBUG: Message(8103 - 8102): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:30,204 communication:523 - DEBUG: Message(8103 - 8101): Received confirmation from 8103 to 8101
+2021-04-02 15:17:30,204 communication:431 - DEBUG: Message(8103 - 8104): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:30,204 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 19
+2021-04-02 15:17:30,205 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 20
+2021-04-02 15:17:30,206 communication:523 - DEBUG: Message(8103 - 8102): Received confirmation from 8103 to 8102
+2021-04-02 15:17:30,206 communication:431 - DEBUG: Message(8103 - 8105): Sending Confirmation from 8103 to 8104
+2021-04-02 15:17:30,207 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 19
+2021-04-02 15:17:30,207 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 20
+2021-04-02 15:17:30,208 communication:523 - DEBUG: Message(8103 - 8104): Received confirmation from 8103 to 8104
+2021-04-02 15:17:30,209 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 19
+2021-04-02 15:17:30,209 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 20
+2021-04-02 15:17:30,210 communication:523 - DEBUG: Message(8103 - 8105): Received confirmation from 8103 to 8105
+2021-04-02 15:17:30,211 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 19
+2021-04-02 15:17:30,211 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 20
+2021-04-02 15:17:30,388 communication:757 - DEBUG: Message(8104 - 8105): Sending power ref from 8104 to 8105
+2021-04-02 15:17:30,393 communication:303 - DEBUG: Message(8104 - 8105): Received power ref from 8104 to 8105
+2021-04-02 15:17:30,395 communication:348 - DEBUG: Message(8105 - 8104): Sending sensitivity from 8105 to 8104
+2021-04-02 15:17:30,398 communication:369 - DEBUG: Message(8105 - 8104): Received sensitivity from 8105 to 8105
+2021-04-02 15:17:30,399 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 21
+2021-04-02 15:17:30,399 blockchain_funcs:244 - DEBUG: adding transaction at port 8104, new size: 22
+2021-04-02 15:17:30,402 communication:431 - DEBUG: Message(8104 - 8101): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:30,404 communication:431 - DEBUG: Message(8104 - 8102): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:30,405 communication:523 - DEBUG: Message(8104 - 8101): Received confirmation from 8104 to 8101
+2021-04-02 15:17:30,405 communication:431 - DEBUG: Message(8104 - 8103): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:30,406 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 21
+2021-04-02 15:17:30,406 blockchain_funcs:244 - DEBUG: adding transaction at port 8101, new size: 22
+2021-04-02 15:17:30,407 communication:523 - DEBUG: Message(8104 - 8102): Received confirmation from 8104 to 8102
+2021-04-02 15:17:30,407 communication:431 - DEBUG: Message(8104 - 8105): Sending Confirmation from 8104 to 8105
+2021-04-02 15:17:30,408 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 21
+2021-04-02 15:17:30,408 blockchain_funcs:244 - DEBUG: adding transaction at port 8102, new size: 22
+2021-04-02 15:17:30,409 communication:523 - DEBUG: Message(8104 - 8103): Received confirmation from 8104 to 8103
+2021-04-02 15:17:30,410 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 21
+2021-04-02 15:17:30,410 blockchain_funcs:244 - DEBUG: adding transaction at port 8103, new size: 22
+2021-04-02 15:17:30,411 communication:523 - DEBUG: Message(8104 - 8105): Received confirmation from 8104 to 8105
+2021-04-02 15:17:30,412 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 21
+2021-04-02 15:17:30,412 blockchain_funcs:244 - DEBUG: adding transaction at port 8105, new size: 22
