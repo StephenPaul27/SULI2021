@@ -48,4 +48,4 @@ class Timeout(threading.Thread):
                 # sleep a little to reduce frequency of checks
                 time.sleep(0.1)
         except Exception as e:
-            logging.debug(f"Node {self.port} Timer of type: {self.type} exited because {e}")
+            logging.error(f"Node {self.port} Timer of type: {self.type} exited because {e}")

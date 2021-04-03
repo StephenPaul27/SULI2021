@@ -579,13 +579,9 @@ class Receiver(threading.Thread):
             if msgJson['from'] not in g.consensus_id_list:
                 g.consensus_id_list.append(msgJson['from'])
             else:
-                logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]}")
+                logging.warning(f"node {g.my_port} received duplicate addblock from {g.hash_to_port[msgJson['from']]} with index {msgData['newblock']['index']}>{g.consensus_index}")
                 return
 
-            # only accept one vote per consensus
-            # also double check that you're a validator
-
-            # recognize consensus only on NEW blocks
             logging.debug(
                 f"node {g.my_port} received addblock from {g.hash_to_port[msgJson['from']]} with index {msgData['newblock']['index']}>{g.consensus_index},"
                 f"and votes: {len(g.consensus_id_list)}/{len(g.node_list)+1} "
@@ -627,7 +623,7 @@ class Receiver(threading.Thread):
             #     # Start recording time since consensus began
             #     g.consensus_time = time.time()
         else:
-            logging.warning(f"Addblock index received at node {g.my_port} from node {g.hash_to_port[msgJson['from']]}"
+            logging.warning(f"Addblock index already agreed on at node {g.my_port} from node {g.hash_to_port[msgJson['from']]}"
                             f" cindex:{g.consensus_index} received:{msgData['newblock']['index']}")
 
     def respond_pay(self, msgJson, msgData):

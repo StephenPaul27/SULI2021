@@ -191,9 +191,15 @@ def restore_chain(port=g.my_port):
     :param port: port of the node restoring its blockchain
     :returns: the restored blockchain
     """
+    import node_editor as ne
+
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
-        node_file = json.load(f)
+        node_file, successful = ne.tryLoad(f, port)
+
+    if not successful:
+        logging.warning(f"unable to read chain for port: {port} FINAL")
+        return
 
     # create
     chainToReturn = []
@@ -241,7 +247,7 @@ def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=No
 
         # debugging
         print(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
-        logging.debug(f"adding transaction at port {g.my_port}, new size: {len(listOfTransactions)}")
+        logging.debug(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
 
     return listOfTransactions
 
@@ -299,21 +305,25 @@ def consensus_reset_and_send():
 
     import communication as comm
 
-    consensus_and_reset()
+    g.blockchain = consensus()
 
     # record completion of this node's consensus
     dr.write_msg_time(get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index)
 
     logging.debug(
         f"Node {g.my_port} is sending consensus to the smartcontract for index {g.blockchain[-1].index} with {len(g.consensus_id_list)} votes out of {len(g.node_list) + 1}")
+
+    reset_consensus(g.blockchain[-1].index)
+
     # send consensus result to the smart contract
     try:
         # set traitor
-        if g.my_port == g.TRAITOR_PORT:
-            logging.warning("Traitor is refusing to respond")
-            return
-            # idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
-            # logging.warning(f"INSERTING TRAITOR VALUE: {idx}")
+        if g.my_port in g.TRAITOR_PORTS:
+
+            idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
+            logging.warning(f"Traitor {g.my_port} is doing its interfering idx:{idx}")
+            if not idx:
+                return
         else:
             idx = -1
         message = {

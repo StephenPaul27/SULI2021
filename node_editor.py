@@ -15,7 +15,11 @@ def new_node(port):
 
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
-        node_file = json.load(f)
+        node_file, successful = tryLoad(f, port)
+
+    if not successful:
+        logging.warning(f"unable to read node file for port: {port} FINAL")
+        return
 
     # return if node already exists in file
     if "hash" in node_file:
@@ -42,7 +46,11 @@ def new_node(port):
     if port is not g.BASE_PORT:
         # Read json from storage
         with open(f"Storage/node_connections.json", "r") as f:
-            node_file = json.load(f)
+            node_file, successful = tryLoad(f, port)
+
+        if not successful:
+            logging.warning(f"unable to read node connections for port: {port} FINAL")
+            return
 
         if str(port) not in node_file:
             if port not in node_file[list(node_file)[-1]]['downstream']:
@@ -73,7 +81,11 @@ def update_chain(port=g.my_port,chainList=None):
 
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
-        node_file = json.load(f)
+        node_file, successful = tryLoad(f, port)
+
+    if not successful:
+        logging.warning(f"unable to read chain for port: {port} FINAL")
+        return
 
     # update the chain
     node_file["chain"] = bf.get_dict_list(chainList)
@@ -92,7 +104,11 @@ def get_transactions(port=g.my_port):
 
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
-        node_file = json.load(f)
+        node_file, successful = tryLoad(f, port)
+
+    if not successful:
+        logging.warning(f"unable to read transactions for port: {port} FINAL")
+        return []
 
     # read in the transactions from memory
     return bf.get_trans_objs(node_file["transactions"])
@@ -109,7 +125,11 @@ def update_transactions(port=g.my_port, transactions=None):
 
     # Read json from storage
     with open(f"Storage/NodeData/node{port}.json", "r") as f:
-        node_file = json.load(f)
+        node_file, successful = tryLoad(f, port)
+
+    if not successful:
+        logging.warning(f"unable to read transactions for port: {port} FINAL")
+        return
 
     # update the chain
     node_file["transactions"] = bf.get_dict_list(transactions)
@@ -117,3 +137,21 @@ def update_transactions(port=g.my_port, transactions=None):
     # Write the updated json back to the file
     with open(f"Storage/NodeData/node{port}.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4)
+
+
+def tryLoad(f, port):
+
+    successful = False
+    node_file = None
+    for i in range(5):
+        try:
+            # try to read the file
+            node_file = json.load(f)
+            successful = True
+            break
+        except json.decoder.JSONDecodeError:
+            # if there are problems, wait and try again 5 times
+            logging.warning(f"unable to read {f} for port: {port}, trying again")
+            time.sleep(0.05)
+
+    return node_file, successful

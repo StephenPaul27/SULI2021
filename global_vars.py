@@ -16,17 +16,17 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
     NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
 else:
     NUM_NODES = 10
-MSG_PERIOD = 10             # seconds between broadcast of powerref downstream
+MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = MSG_PERIOD/2            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
-BLOCK_SIZE = 15             # size of each block of transactions to be added
+BLOCK_SIZE = 50             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
 BLOCK_BUFFER = BLOCK_SIZE/2  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
-TRAITOR_PORT = 8105         # port of traitor node for visualization
+TRAITOR_PORTS = [8105, 8111, 8117]         # ports of traitor nodes for visualization
 
 # load node connections
 try:
