@@ -25,10 +25,10 @@ def main():
                     msgDict[filearray[2]] = float(filearray[0])
             filestring = f.readline()
     a = np.array(latencyArray)
-    plt.hist(a, bins=10)
-    plt.title("Message Latency")
+    plt.hist(a, bins=40)
+    plt.title("Contract Consensus with Timeouts")
     plt.xlabel("Latency (s)")
-    plt.ylabel("# of messages observed")
+    plt.ylabel("# of occurrences")
     plt.show()
 
 

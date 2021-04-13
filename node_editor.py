@@ -45,7 +45,7 @@ def new_node(port):
     # now add node connection if needed (not to consensus server though)
     if port is not g.BASE_PORT:
         # Read json from storage
-        with open(f"Storage/node_connections.json", "r") as f:
+        with open(f"Storage/{g.node_connection_file}.json", "r") as f:
             node_file, successful = tryLoad(f, port)
 
         if not successful:

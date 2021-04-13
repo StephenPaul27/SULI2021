@@ -1,0 +1,45 @@
+{
+    "8101": {
+        "downstream": [
+            8102
+        ],
+        "upstream": []
+    },
+    "8102": {
+        "downstream": [
+            8103,
+            8104
+        ],
+        "upstream": [
+            8101
+        ]
+    },
+    "8103": {
+        "downstream": [
+            8105
+        ],
+        "upstream": [
+            8102
+        ]
+    },
+    "8104": {
+        "downstream": [
+            8106
+        ],
+        "upstream": [
+            8102
+        ]
+    },
+    "8105": {
+        "downstream": [],
+        "upstream": [
+            8103
+        ]
+    },
+    "8106": {
+        "downstream": [],
+        "upstream": [
+            8104
+        ]
+    }
+}

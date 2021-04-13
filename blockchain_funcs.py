@@ -247,7 +247,8 @@ def add_transaction(timestamp, type, sender, recip, value, listOfTransactions=No
 
         # debugging
         print(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
-        logging.debug(f"adding transaction at port {port}, new size: {len(listOfTransactions)}")
+        logging.debug(f"adding transaction at port {port}, new size: {len(listOfTransactions)} "
+                      f"(hash: {transaction_to_add.hash}, T_time:{timestamp} > B_time(i:{my_chain[-1].index}):{my_chain[-1].timestamp})")
 
     return listOfTransactions
 
@@ -276,7 +277,7 @@ def get_transaction_list_hash(this_list=None):
     return sha.hexdigest()
 
 
-def create_genesis_block():
+def create_genesis_block(prev=None):
     """
     This function creates the genesis block upon this node's instantiation.
     This is only relevant if it is the first node in the system, as all other nodes will
@@ -285,11 +286,14 @@ def create_genesis_block():
     :returns: returns the object of a genesis block
     """
 
+    if prev is None:
+        prev = "0"
+
     # Manually construct a block with
     # index zero and arbitrary previous hash
     return Block(0, time.time(), {
         "transactions": []
-    }, "0")
+    }, prev)
 
 
 def consensus_and_reset():
@@ -321,9 +325,12 @@ def consensus_reset_and_send():
         if g.my_port in g.TRAITOR_PORTS:
 
             idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
-            logging.warning(f"Traitor {g.my_port} is doing its interfering idx:{idx}")
             if not idx:
-                return
+                logging.warning(f"Traitor {g.my_port} is doing its interfering")
+                # send a different hash
+                g.blockchain[-1] = create_genesis_block(g.blockchain[-1].previous_hash)
+                idx = -1
+                # return    # cause timeout error
         else:
             idx = -1
         message = {
@@ -381,9 +388,11 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
         id_list = g.consensus_id_list
 
     if g.addblock_timer_thread:
+        logging.debug(f"Addblock timer STOPPED at node {port}")
         g.addblock_timer_thread.stop()
         g.addblock_timer_thread = None
     if g.response_timer_thread:
+        logging.debug(f"Response timer STOPPED at node {port}")
         g.response_timer_thread.stop()
         g.response_timer_thread = None
 
@@ -401,7 +410,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
 
     # If most popular choice has > than half of all voting nodes agreeing
     # (excluding consensus server), go with that choice
-    if popular_choice and cons_array.count(popular_choice) > (len(id_list))/2:
+    if popular_choice and cons_array.count(popular_choice) > (len(cons_array))/2:
 
         # erase any blocks in our chain that have not been agreed on
         while len(chainList) and chainList[-1].index > cindex:
@@ -422,7 +431,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
 
     else:
         # case when popular choice is not agreed on by more than half of the voting nodes
-        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: dict:{chain_dict[popular_choice]}")
+        logging.warning(f"consensus failed: popular choice <= half of all nodes, at port {port}: votes:{cons_array}")
         print(f"Consensus failed: popular choice <= half of all nodes, at port {port}")
         return chainList
 
@@ -433,6 +442,8 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
                                                            trans_dict[i].sender, trans_dict[i].recipient,
                                                            trans_dict[i].value, listOfTransactions=None,
                                                            port=port, my_chain=chainList)
+
+    logging.debug(f"Transaction Consensus completed at node {port}, resulting size:{len(g.this_nodes_transactions)}")
 
     # update local storage with the chain and transactions
     ne.update_chain(chainList=chainList, port=port)
@@ -483,8 +494,6 @@ def add_trans_to_block():
     # local import because bf is imported after node editor
     import node_editor as ne
 
-    logging.debug(f"Node at port {g.my_port} is adding index {g.blockchain[-1].index+1} to its blockchain")
-
     # index of current last block
     prevIndex = g.blockchain[-1].index
 
@@ -501,6 +510,9 @@ def add_trans_to_block():
     g.blockchain.append(Block(prevIndex + 1, blocktime, {
         "transactions": transactions_to_add
     }, prevHash))
+
+
+    logging.debug(f"Node at port {g.my_port} is adding index {g.blockchain[-1].index} to its blockchain with hash: {g.blockchain[-1].hash}")
 
     # slice off the transactions added to the blockchain
     g.this_nodes_transactions = g.this_nodes_transactions[g.BLOCK_SIZE:]

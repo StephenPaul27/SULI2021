@@ -21,6 +21,7 @@ def write_msg_time(id,type,index):
     with open("Storage/latencies.txt", "a") as f:
         f.write(str(time.time())+'|'+str(type)+'|'+str(id)+'|'+str(index)+'\n')
 
+
 def clear_balances():
     """
     This function will clear the csv that balances are written to

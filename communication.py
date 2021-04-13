@@ -94,7 +94,7 @@ class Receiver(threading.Thread):
                                     g.hash_to_port[msgJson['from']] = msgData['fromport']
 
                                     # update node connections just in case this node added one
-                                    with open("Storage/node_connections.json", 'r') as f:
+                                    with open("Storage/node_connections_fork.json", 'r') as f:
                                         node_conn = json.load(f)
 
                                 # in response from smartcontract, the validators are included
@@ -146,8 +146,8 @@ class Receiver(threading.Thread):
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
-        logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
         if msgJson['from'] == g.port_to_hash[g.BASE_PORT]:
+            logging.debug(f"Updating validators at node {g.my_port} from broadcast, me?:{g.my_hash in msgData['validators']}")
             g.validator_list = msgData['validators']
 
     def respond_intro(self, msgJson, msgData):
@@ -193,7 +193,8 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
 
-        logging.debug(f"Node {g.my_port} received request from {g.hash_to_port[msgJson['from']]}")
+        logging.debug(f"Node {g.my_port} received request from {g.hash_to_port[msgJson['from']]} "
+                      f"for {msgData['index']}, This node has idx: {g.blockchain[-1].index} and cindex of {g.consensus_index}")
 
         if msgJson['from'] not in g.validator_list:
             logging.warning(f"Node {g.my_port} received non-validator request from {g.hash_to_port[msgJson['from']]}")
@@ -201,8 +202,17 @@ class Receiver(threading.Thread):
 
         # if ready to add a new block, go ahead and put it on your blockchain
         if len(g.this_nodes_transactions) >= g.BLOCK_SIZE \
-                and g.blockchain[-1].index == msgData['index']-1:
-            bf.add_trans_to_block()
+                and g.blockchain[-1].index == msgData['index']-1\
+                and g.blockchain[-1].index == g.consensus_index:
+
+            # if transactions exceed block size and this node is a validator, propose a new block
+            if len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER \
+                    and g.my_hash in g.validator_list \
+                    and g.last_proposed <= g.consensus_index:
+                logging.debug(f"Proposing new block at port {g.my_port} from pay")
+                self.propose_block(msgJson, msgData)
+            else:
+                bf.add_trans_to_block()
 
         # respond with port and blockchain for consensus
         try:
@@ -277,6 +287,7 @@ class Receiver(threading.Thread):
 
             # start a timeout timer for responses if not already started
             if not g.response_timer_thread:
+                logging.debug(f"Response timer STARTED at node {g.my_port}")
                 g.response_timer_thread = tmo.Timeout("response", bf.consensus_and_reset, g.CONSENSUS_TIMEOUT)
                 g.response_timer_thread.start()
 
@@ -286,6 +297,7 @@ class Receiver(threading.Thread):
                 logging.debug(f"node {g.my_port} is performing consensus after {len(g.consensus_id_list)}/{len(g.node_list)} ")
                 # perform consensus
                 bf.consensus_and_reset()
+                g.last_proposed = g.blockchain[-1].index
 
         else:
             logging.warning(f"response received at node {g.my_port} from {msgData['fromport']} index: {msgData['chain'][-1]['index']}>{g.consensus_index}")
@@ -438,8 +450,9 @@ class Receiver(threading.Thread):
 
             # if transactions exceed block size and this node is a validator, propose a new block
             if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
-                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
-                    and g.my_hash in g.validator_list:
+                or g.blockchain[-1].index == g.consensus_index+1) \
+                    and g.my_hash in g.validator_list \
+                    and g.last_proposed <= g.consensus_index:
                 logging.debug(f"Proposing new block at port {g.my_port} from sensitivity")
                 self.propose_block(msgJson, msgData)
         else:
@@ -454,7 +467,7 @@ class Receiver(threading.Thread):
         This function will propose a block update to all of the other blocks
         """
         # if ready to add a new block, go ahead and put it on your blockchain
-        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE:
+        if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.blockchain[-1].index < g.consensus_index+1:
             bf.add_trans_to_block()
 
         # start latency recording of consensus process
@@ -489,6 +502,13 @@ class Receiver(threading.Thread):
             # add blockchain
             g.consensus_array.append(g.blockchain[-1].hash)
             g.consensus_id_list.append(g.my_hash)
+        else:
+            logging.warning(f"Node {g.my_port} couldn't put its block in the addblock vote "
+                            f"last block index: {g.blockchain[-1].index}, "
+                            f"consensus index: {g.consensus_index}, "
+                            f"last proposed: {g.consensus_index}, "
+                            f"\nPrev:{loaded_block['previous_hash']}"
+                            f"\nActual:{g.blockchain[g.consensus_index].hash}")
 
         for j in g.node_list:  # broadcast to all seen nodes
             try:
@@ -552,8 +572,9 @@ class Receiver(threading.Thread):
 
             # if transactions exceed block size and this node is a validator, propose a new block
             if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
-                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
-                    and g.my_hash in g.validator_list:
+                or g.blockchain[-1].index == g.consensus_index+1) \
+                    and g.my_hash in g.validator_list\
+                    and g.last_proposed <= g.consensus_index:
                 logging.debug(f"Proposing new block at port {g.my_port} from confirm")
                 self.propose_block(msgJson, msgData)
         else:
@@ -609,6 +630,7 @@ class Receiver(threading.Thread):
 
             # start a timeout timer for addblock if not already started
             if not g.addblock_timer_thread:
+                logging.debug(f"Addblock timer STARTED at node {g.my_port}")
                 g.addblock_timer_thread = tmo.Timeout("addblock", bf.consensus_reset_and_send, g.CONSENSUS_TIMEOUT)
                 g.addblock_timer_thread.start()
 
@@ -648,7 +670,7 @@ class Receiver(threading.Thread):
             # correct our blockchain if it doesnt match the agreed one
             # and we are not a new node
             if msgData['lasthash'] != g.blockchain[-1].hash and g.consensus_index>=0:
-                logging.debug(f"Node {g.my_port} is correcting its blockchain to {msgData['lasthash']}")
+                logging.debug(f"Node {g.my_port} is correcting its blockchain to idx:{msgData['newblock']['index']}, hash:{msgData['lasthash']}")
                 g.blockchain[-1] = bf.get_block_objs([msgData['newblock']])[0]
                 ne.update_chain()
 
@@ -659,12 +681,14 @@ class Receiver(threading.Thread):
                         loaded_transactions = bf.add_transaction(i.timestamp, i.type, i.sender, i.recipient, i.value, listOfTransactions=loaded_transactions, port=g.my_port, my_chain=None)
 
                     logging.debug(f"Node {g.my_port} is correcting its transactions to size {len(loaded_transactions)}")
-                    g.this_nodes_transactions = loaded_transactions
+                    g.this_nodes_transactions = [x for x in loaded_transactions if x.timestamp > g.blockchain[-1].timestamp]
+                    logging.debug(f"Node {g.my_port} transactions popped down to size: {len(g.this_nodes_transactions)}")
 
             # if transactions exceed block size and this node is a validator, propose a new block
             if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
-                or (g.blockchain[-1].index > g.consensus_index and g.last_proposed < g.blockchain[-1].index)) \
-                    and g.my_hash in g.validator_list:
+                or g.blockchain[-1].index == g.consensus_index+1) \
+                    and g.my_hash in g.validator_list \
+                    and g.last_proposed <= g.consensus_index:
                 logging.debug(f"Proposing new block at port {g.my_port} from pay")
                 self.propose_block(msgJson, msgData)
 

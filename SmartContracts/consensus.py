@@ -194,6 +194,10 @@ class Server(threading.Thread):
         # obtain the index of the message sender hash in the validator list
         # if it does not exist (i.e. the sender is not a validator) it will return None
 
+        if not len(self.voted_validators):
+            # start latency recording of consensus process
+            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex)
+
         if not self.is_validator(msgJson['from']):
             # case when sender is not a validator
             logging.warning(f"Consensus attempted by non-validator: {msgJson['from']}")
@@ -201,6 +205,10 @@ class Server(threading.Thread):
         if msgJson['from'] in self.voted_validators:
             # case when sender has already sent one chain
             logging.warning(f"Consensus attempted multiple times from {msgJson['from']}, with {len(self.voted_validators)}/{len(self.validator_list)} votes")
+            return
+        if msgData['newblock']['index'] <= self.lastIndex:
+            logging.warning(f"Received consensus request from {self.hash_to_port[msgJson['from']]}"
+                            f" for index:{msgData['newblock']['index']} when last index was: {self.lastIndex}")
             return
 
         # mark the validator as already having voted once in this cycle
@@ -215,7 +223,11 @@ class Server(threading.Thread):
             # append this validator's vote to it
             self.votes[msgData['lasthash']].append(msgJson['from'])
         # else, validate the chain and hash
-        elif msgData['newblock']['previous_hash'] == self.blockchain[-1].hash:
+        elif msgData['newblock']['previous_hash'] == self.blockchain[-1].hash \
+                and msgData['lasthash'] == bf.get_hash(msgData['newblock']['index'],
+                                                       msgData['newblock']['timestamp'],
+                                                       msgData['newblock']['data'],
+                                                       msgData['newblock']['previous_hash']):
             # then create the first vote for this comboHash
             self.votes[msgData['lasthash']] = [msgJson['from']]
             # store the chain being voted on
@@ -245,6 +257,7 @@ class Server(threading.Thread):
 
         # start the consensus timer thread if not already started
         if not self.consensus_timer_thread:
+            logging.debug(f"Contract timer STARTED for index {msgData['newblock']['index']}")
             self.consensus_timer_thread = tmo.Timeout("smart-contract", self.validator_consensus,
                                                       g.CONSENSUS_TIMEOUT, self.port)
             self.consensus_timer_thread.start()
@@ -308,15 +321,32 @@ class Server(threading.Thread):
 
         # clear the smart contract timer thread if needed
         if self.consensus_timer_thread:
+            logging.debug(f"Contract timer STOPPED")
             self.consensus_timer_thread.stop()
             self.consensus_timer_thread = None
 
         # sort vote dict by quantity of nodes agreeing on a hash
         sorted_consensus = sorted(self.votes, key=lambda k: len(self.votes[k]), reverse=True)
+
         if len(sorted_consensus) and sorted_consensus[0] in self.votes:
             self.blockchain.append(bf.get_block_objs(self.chains_dict[sorted_consensus[0]])[0])
+
             print(f"adding block at smartcontract: {self.blockchain[-1].hash}")
-            logging.debug(f"adding block at smartcontract: {self.blockchain[-1].hash}")
+            logging.debug(
+                f"adding block at smartcontract (idx: {self.blockchain[-1].index}): {self.blockchain[-1].hash}")
+
+            # insort popular transactions that are not in our transactions already
+            for i in self.trans_vote_dict.keys():
+                if len(self.trans_vote_dict[i]) > (len(self.voted_validators)) / 2:
+                    self.transactions = bf.add_transaction(self.trans_dict[i].timestamp, self.trans_dict[i].type,
+                                                           self.trans_dict[i].sender, self.trans_dict[i].recipient,
+                                                           self.trans_dict[i].value,
+                                                           listOfTransactions=self.transactions,
+                                                           port=self.port, my_chain=self.blockchain)
+
+            # remove any old transactions
+            self.transactions = [x for x in self.transactions if x.timestamp > self.blockchain[-1].timestamp]
+            logging.debug(f"smart contract transactions popped down to size: {len(self.transactions)}")
 
             # distribute payment/punishment
             for i in self.validator_list:
@@ -331,6 +361,9 @@ class Server(threading.Thread):
 
             print(f"Updated Wallet values: {list(self.walletList.values())}")
 
+            # conclude the latency recording for this consensus
+            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex)
+
             # update validators
             self.check_validators()
 
@@ -339,18 +372,6 @@ class Server(threading.Thread):
         else:
             logging.error("consensus at smart contract couldn't pick an option")
 
-        # insort popular transactions that are not in our transactions already
-        for i in self.trans_vote_dict.keys():
-            if len(self.trans_vote_dict[i]) > (len(self.voted_validators)) / 2:
-                self.transactions = bf.add_transaction(self.trans_dict[i].timestamp, self.trans_dict[i].type,
-                                                       self.trans_dict[i].sender, self.trans_dict[i].recipient,
-                                                       self.trans_dict[i].value, listOfTransactions=self.transactions,
-                                                       port=self.port, my_chain=self.blockchain)
-
-        # remove any old transactions
-        for count, i in enumerate(self.transactions):
-            if i.timestamp <= self.blockchain[-1].timestamp:
-                self.transactions.pop(count)
 
         ne.update_chain(self.port, self.blockchain)
         ne.update_transactions(self.port, self.transactions)
@@ -468,10 +489,11 @@ class Server(threading.Thread):
             self.lastIndex = self.blockchain[-1].index
 
             # pick random number of validators up to the max set value
-            if len(hashList) > self.max_validators:
-                numValidators = self.max_validators
-            else:
-                numValidators = random.randint(math.ceil(0.5*len(hashList)), len(hashList))
+            # if len(hashList) > self.max_validators:
+            #     numValidators = self.max_validators
+            # else:
+            # must pick value greater than 2*1/3 to pass byzantine
+            numValidators = random.randint(math.ceil(0.7*len(hashList)), len(hashList))
 
 
             # pick out the validators

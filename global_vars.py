@@ -19,27 +19,26 @@ else:
 MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
 MSG_TIMEOUT = MSG_PERIOD/2            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
-BLOCK_SIZE = 50             # size of each block of transactions to be added
+BLOCK_SIZE = 80             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
-BLOCK_BUFFER = BLOCK_SIZE/2  # buffer to make sure transactions are ordered correctly
+BLOCK_BUFFER = BLOCK_SIZE  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
-TRAITOR_PORTS = [8105, 8111, 8117]         # ports of traitor nodes for visualization
+TRAITOR_PORTS = [8107,8109,8111]         # ports of traitor nodes for visualization
+
+node_connection_file = "node_connections_linear"
 
 # load node connections
 try:
-    with open("Storage/node_connections.json", 'r') as f:
+    with open(f"Storage/{node_connection_file}.json", 'r') as f:
         node_conn = json.load(f)
 except:
     do_nothing = True
 
-# # Building to building map (indexed by sender -> receiver of power reference)
-# network_map = {}
-
-# read port from system arguments
-if len(sys.argv)>1 and str.isdigit(sys.argv[1]):
+# read port from system arguments if the argument is there
+if len(sys.argv) > 1 and str.isdigit(sys.argv[1]):
     my_port = int(sys.argv[1])
 else:
     my_port = BASE_PORT
