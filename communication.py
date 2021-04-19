@@ -22,6 +22,9 @@ class Receiver(threading.Thread):
         self.host = my_host
         self.port = my_port
 
+    def run(self):
+        self.listen()
+
     def listen(self):
         """
         This function is the listener for incoming messages
@@ -126,6 +129,8 @@ class Receiver(threading.Thread):
                                 self.respond_validators(msgJson, msgData)
                             elif msgJson['type'] == 'payment':
                                 self.respond_pay(msgJson, msgData)
+                            elif msgJson['type'] == 'powerDMPC':
+                                self.respond_powerDMPC(msgJson, msgData)
 
                             # break to accept new messages
                             break
@@ -138,6 +143,10 @@ class Receiver(threading.Thread):
         except:
             logging.error(f"Node {g.my_port} failed because {traceback.format_exc()}")
             print(f"Node {g.my_port} failed because {traceback.format_exc()}")
+
+    def respond_powerDMPC(self, msgJson, msgData):
+        if g.DMPC_SIM:
+            sendPowerref(msgData['value'])
 
     def respond_validators(self, msgJson, msgData):
         """
@@ -311,6 +320,18 @@ class Receiver(threading.Thread):
         """
         # print(f"received power for {msgData['id']}")
 
+        if g.DMPC_SIM:
+            g.power_count += 1
+            # only tell dmpc to update after all the messages have been received
+            if g.power_count >= len([x for x in g.node_conn[str(self.port)]['upstream'] if x in g.node_list]):
+                g.power_count = 0
+                # tell DMPC to update V
+                message = {
+                    "type": "powerDMPC",
+                    "to_index": (g.my_port-8101)
+                }
+                sendToDMPC(message)
+
         try:
             logging.debug(
                 f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): Received power ref from "
@@ -377,6 +398,18 @@ class Receiver(threading.Thread):
         :param msgData: Json structure of message data
         """
         # print(f"received sense for {msgData['id']}")
+
+        if g.DMPC_SIM:
+            g.sense_count += 1
+            # only tell dmpc to update after all the messages have been received
+            if g.sense_count >= len([x for x in g.node_conn[str(self.port)]['downstream'] if x in g.node_list]):
+                g.sense_count = 0
+                # tell DMPC to update Psi
+                message = {
+                    "type": "senseDMPC",
+                    "to_index": (g.my_port-8101)
+                }
+                sendToDMPC(message)
 
         logging.debug(f"Message({g.hash_to_port[msgJson['from']]} - {self.port}): "
                       f"Received sensitivity from {g.hash_to_port[msgJson['from']]} to {g.hash_to_port[msgJson['from']]}")
@@ -447,6 +480,7 @@ class Receiver(threading.Thread):
                 except Exception as e:
                     logging.warning(
                         f"Unable to respond to sensitivity from port {self.port} to port {g.hash_to_port[msgJson['from']]} because {e}")
+
 
             # if transactions exceed block size and this node is a validator, propose a new block
             if (len(g.this_nodes_transactions) >= g.PROPOSE_TRIGGER
@@ -695,8 +729,6 @@ class Receiver(threading.Thread):
         else:
             logging.warning(f"Attempted payment observed at {g.my_port} from {g.hash_to_port[msgJson['from']]}")
 
-    def run(self):
-        self.listen()
 
 
 class Sender(threading.Thread):
@@ -734,53 +766,62 @@ class Sender(threading.Thread):
         if not len(g.node_list):
             logging.debug("first node is securing its consensus index")
             g.consensus_index = g.blockchain[-1].index
-        while True:
+
+        # send our own periodic power reference messages if not using dmpc simulation
+        if g.DMPC_SIM:
+            print("Awaiting LC-DMPC instructions")
+        while not g.DMPC_SIM:
             # broadcast every MSG_PERIOD seconds
             time.sleep(g.MSG_PERIOD)
             # breakpoint()
             # print(f"sending powerrefs {time.time()}")
 
-            for i in g.node_conn[str(self.my_port)]["downstream"]:   # send power reference to downstream nodes
+            # specify default power reference (using 1 for normalization)
+            message_power = 1
 
-                # break if node is offline
-                if i not in g.node_list:
-                    break
+            sendPowerref(message_power)
 
-                # failsafe: dont send to yourself
-                if(i != self.my_port):
 
-                    # specify default power reference (using 1 for normalization)
-                    message_power = 1
-                    # record time for the broadcast
-                    message_time = time.time()
+def sendPowerref(message_power):
+    for i in g.node_conn[str(g.my_port)]["downstream"]:  # send power reference to downstream nodes
 
-                    # hash of the from, to, power, and time fields to sign in the message
-                    sign_str = bf.get_hash(str(g.my_hash) + str(g.port_to_hash[i]) + str(message_power) + str(message_time))
-                    # generate signature of the hash
-                    sign_bytes = crypt.gen_signature(sign_str.encode(g.ENCODING), g.my_pr_key)
-                    # convert signature to json-able format
-                    json_signature = base64.b64encode(bytearray(sign_bytes)).decode(g.ENCODING)
+        # skip if node is offline
+        if i not in g.node_list:
+            continue
 
-                    try:
+        # failsafe: dont send to yourself
+        if (i != g.my_port):
+            # record time for the broadcast
+            message_time = time.time()
 
-                        # create skeleton of message
-                        message = {
-                            "type": "powerref",
-                            "from": g.my_hash,
-                            "to": g.port_to_hash[i],
-                            "data": {
-                                        "power": message_power,
-                                        "signature": json_signature
-                                    },
-                            "time": message_time
-                        }
-                        logging.debug(f"Message({self.my_port} - {i}): Sending power ref from {self.my_port} to {i}")
+            # hash of the from, to, power, and time fields to sign in the message
+            sign_str = bf.get_hash(str(g.my_hash) + str(g.port_to_hash[i]) + str(message_power) + str(message_time))
+            # generate signature of the hash
+            sign_bytes = crypt.gen_signature(sign_str.encode(g.ENCODING), g.my_pr_key)
+            # convert signature to json-able format
+            json_signature = base64.b64encode(bytearray(sign_bytes)).decode(g.ENCODING)
 
-                        # broad cast that you're sending power reference to i
-                        sendMessage(message, i)
+            try:
 
-                    except Exception as e:
-                        logging.warning(f"Unable to send power reference broadcast from port {self.my_port} to port {i} because {e}")
+                # create skeleton of message
+                message = {
+                    "type": "powerref",
+                    "from": g.my_hash,
+                    "to": g.port_to_hash[i],
+                    "data": {
+                        "power": message_power,
+                        "signature": json_signature
+                    },
+                    "time": message_time
+                }
+                logging.debug(f"Message({g.my_port} - {i}): Sending power ref from {g.my_port} to {i}")
+
+                # broad cast that you're sending power reference to i
+                sendMessage(message, i)
+
+            except Exception as e:
+                logging.warning(
+                    f"Unable to send power reference broadcast from port {g.my_port} to port {i} because {e}")
 
 
 def sendMessage(message, destPort, pr_key=None, myport=g.my_port):
@@ -819,3 +860,38 @@ def sendMessage(message, destPort, pr_key=None, myport=g.my_port):
     # close connection
     s.shutdown(socket.SHUT_RDWR)
     s.close()
+
+
+def sendToDMPC(message, myport=g.my_port):
+    """
+    This function sends a given message to the lcdmpc program
+
+    :param message: The string message to send
+    :param destPort: The port of the destination node
+    :param myport: this node's port for debugging
+    """
+
+    # failsafe
+    if not g.DMPC_SIM:
+        logging.error("Calling DMPC message sender when not testing DMPC!")
+        return
+
+    try:
+        message = json.dumps(message)
+    except json.JSONDecodeError:
+        print(f"Message failed to send from port {myport} to DMPC because it couldn't be json formatted")
+        logging.error(f"Message failed to send from port {myport} to DMPC because it couldn't be json formatted: {traceback.format_exc()}")
+
+    # print(f"sending message to port{destPort}")
+
+    # establish connection to port
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((g.BASE_HOST, g.DMPC_PORT))
+
+    # send all bytes of the message
+    s.sendall(message.encode(g.ENCODING))
+
+    # close connection
+    s.shutdown(socket.SHUT_RDWR)
+    s.close()
+

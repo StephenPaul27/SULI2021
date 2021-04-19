@@ -28,6 +28,9 @@ def decrypt(package, port=g.my_port, pr_key=None):
         logging.error(f"Message received at {port} was not formatted in a Json for decryption")
         return "ERROR"
 
+    if g.DMPC_SIM and "type" in inJson:
+        return package.decode(g.ENCODING)
+
     signature = bytes(base64.b64decode(inJson['sign']))
     fkey = bytes(base64.b64decode(inJson['key']))
     message = bytes(base64.b64decode(inJson['msg']))
@@ -67,7 +70,7 @@ def decrypt(package, port=g.my_port, pr_key=None):
         return "ERROR"
 
     # verify signature using the decrypted message's 'from' field
-    if not check_signature(signature, fkey, pub_port):
+    if not check_signature(signature, bf.get_hash(message).encode(g.ENCODING), pub_port):
         print(f"Signature failed at {port} from port {g.hash_to_port[msgJson['from']]} because \"{e}\"")
         logging.warning(f"Message at port {port} did not match its signature: {e}")
         return None
@@ -92,6 +95,8 @@ def encrypt(message, destPort, pr_key=None):
     # generate a random symmetric key
     fkey = Fernet.generate_key()
 
+    msg_hash = bf.get_hash(message).encode(g.ENCODING)
+
     # create symmetric encryptor
     f = Fernet(fkey)
 
@@ -99,7 +104,7 @@ def encrypt(message, destPort, pr_key=None):
     pubkey = ke.get_pub_key(destPort)
 
     # sign un-encrypted symmetric key (instead of message to avoid data size issue)
-    signature = gen_signature(fkey, pr_key);
+    signature = gen_signature(msg_hash, pr_key);
     # print("message signed successfully")
 
     # ensure that a public key is available

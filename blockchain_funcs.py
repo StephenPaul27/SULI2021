@@ -319,34 +319,36 @@ def consensus_reset_and_send():
 
     reset_consensus(g.blockchain[-1].index)
 
-    # send consensus result to the smart contract
-    try:
-        # set traitor
-        if g.my_port in g.TRAITOR_PORTS:
+    # double check that we're a validator
+    if g.my_hash in g.validator_list:
+        # send consensus result to the smart contract
+        try:
+            # set traitor
+            if g.my_port in g.TRAITOR_PORTS:
 
-            idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
-            if not idx:
-                logging.warning(f"Traitor {g.my_port} is doing its interfering")
-                # send a different hash
-                g.blockchain[-1] = create_genesis_block(g.blockchain[-1].previous_hash)
+                idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
+                if not idx:
+                    logging.warning(f"Traitor {g.my_port} is doing its interfering")
+                    # send a different hash
+                    g.blockchain[-1] = create_genesis_block(g.blockchain[-1].previous_hash)
+                    idx = -1
+                    # return    # cause timeout error
+            else:
                 idx = -1
-                # return    # cause timeout error
-        else:
-            idx = -1
-        message = {
-            "type": "consensus",
-            "from": g.my_hash,
-            "to": g.port_to_hash[g.BASE_PORT],
-            "data": {
-                "lasthash": g.blockchain[idx].hash,
-                "newblock": g.blockchain[idx].to_dict(),
-                "transactions": get_dict_list(chainList=g.this_nodes_transactions)
-            },
-            "time": time.time()
-        }
-        comm.sendMessage(message, g.BASE_PORT)
-    except Exception as e:
-        logging.warning(f"Couldn't send chain from {g.my_port} to smart contract because {e}")
+            message = {
+                "type": "consensus",
+                "from": g.my_hash,
+                "to": g.port_to_hash[g.BASE_PORT],
+                "data": {
+                    "lasthash": g.blockchain[idx].hash,
+                    "newblock": g.blockchain[idx].to_dict(),
+                    "transactions": get_dict_list(chainList=g.this_nodes_transactions)
+                },
+                "time": time.time()
+            }
+            comm.sendMessage(message, g.BASE_PORT)
+        except Exception as e:
+            logging.warning(f"Couldn't send chain from {g.my_port} to smart contract because {e}")
 
 
 def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,

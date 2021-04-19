@@ -172,11 +172,5 @@
         "upstream": [
             8121
         ]
-    },
-    "2": {
-        "downstream": [],
-        "upstream": [
-            8122
-        ]
     }
 }

@@ -16,19 +16,24 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
     NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
 else:
     NUM_NODES = 10
-MSG_PERIOD = 15             # seconds between broadcast of powerref downstream
-MSG_TIMEOUT = MSG_PERIOD/2            # lifespan of messages before they're cleared
+MSG_PERIOD = 20             # seconds between broadcast of powerref downstream
+MSG_TIMEOUT = 3            # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT       # seconds until consensus times out
-BLOCK_SIZE = 80             # size of each block of transactions to be added
+BLOCK_SIZE = 60             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100     # number of simultaneous socket connections that can be made
 BLOCK_BUFFER = BLOCK_SIZE  # buffer to make sure transactions are ordered correctly
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
 PENALTY = -10               # UtilityToken penalty for incorrect consensus
 INCENTIVE = 1               # UtilityToken incentive for correct consensus
 REWRITE_FILES = True        # Development boolean for writing files from scratch each time
-TRAITOR_PORTS = [8107,8109,8111]         # ports of traitor nodes for visualization
+TRAITOR_PORTS = []         # ports of traitor nodes
+DMPC_SIM = True            # bool for connecting with lcdmpc
+DMPC_PORT = 8099            # port used to send to lcdmpc
 
-node_connection_file = "node_connections_linear"
+if DMPC_SIM:
+    node_connection_file = "node_connections_dmpc"
+else:
+    node_connection_file = "node_connections_linear"
 
 # load node connections
 try:
@@ -70,6 +75,10 @@ consensus_index = -1    # index of last block agreed upon
 
 # This node's blockchain copy
 blockchain = []
+
+# DMPC message counting variables
+power_count = 0
+sense_count = 0
 
 # Store the transactions that
 # this node sees in a list

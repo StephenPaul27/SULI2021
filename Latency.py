@@ -19,14 +19,14 @@ def main():
             # siphon out the type
             if len(sys.argv) <= 1 or "all" in sys.argv or filearray[1] in sys.argv:
                 if filearray[2] in msgDict:
-                    if int(filearray[3]) >= -1:
+                    if int(filearray[3]) == 18 and filearray[1] != 'consensus_process':
                         latencyArray.append(float(filearray[0]) - msgDict[filearray[2]])
                 else:
                     msgDict[filearray[2]] = float(filearray[0])
             filestring = f.readline()
     a = np.array(latencyArray)
-    plt.hist(a, bins=40)
-    plt.title("Contract Consensus with Timeouts")
+    plt.hist(a, bins=40, range=(0,1))
+    plt.title(f"20-Node, 1-Block Message Latency ({len(latencyArray)} Messages Total)")
     plt.xlabel("Latency (s)")
     plt.ylabel("# of occurrences")
     plt.show()

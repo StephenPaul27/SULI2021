@@ -19,11 +19,19 @@ done
 
 echo Nodes Started
 
+# if test duration is not negative
+if [ $TEST_DURATION -gt 0 ]
+then
+# run test for X seconds
 sleep $TEST_DURATION
 
-# stop all nodes
+# then stop all nodes
 echo Killing Nodes...
 pkill -f main.py
 echo Nodes Killed
+
+fi
+
+
 
 # check by using: "ps -fA | grep python"
