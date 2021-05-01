@@ -51,6 +51,10 @@ class Server(threading.Thread):
                     "validators": []
                 }, f, ensure_ascii=False, indent=4)
 
+            # clear file sizes
+            with open("Storage/FileSizes.csv","r+") as f:
+                f.truncate(0)
+
         # establish the maximum amount of validators
         self.max_validators = 10
 
@@ -74,6 +78,8 @@ class Server(threading.Thread):
 
         # list of validators who have voted
         self.voted_validators = []
+
+        self.reported = {}
 
         # dicts for storing chains and transactions for consensus
         self.chains_dict = {}
@@ -171,6 +177,8 @@ class Server(threading.Thread):
                             # reaction to consensus initiation
                             elif msgJson['type'] == "consensus":
                                 self.consensus_response(msgJson, msgData)
+                            elif msgJson['type'] == "report":
+                                self.report(msgJson, msgData)
 
                             # break out of message data action
                             break
@@ -196,7 +204,7 @@ class Server(threading.Thread):
 
         if not len(self.voted_validators):
             # start latency recording of consensus process
-            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex)
+            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex,self.port)
 
         if not self.is_validator(msgJson['from']):
             # case when sender is not a validator
@@ -259,7 +267,7 @@ class Server(threading.Thread):
         if not self.consensus_timer_thread:
             logging.debug(f"Contract timer STARTED for index {msgData['newblock']['index']}")
             self.consensus_timer_thread = tmo.Timeout("smart-contract", self.validator_consensus,
-                                                      g.CONSENSUS_TIMEOUT, self.port)
+                                                      g.CONSENSUS_TIMEOUT, self.port,None)
             self.consensus_timer_thread.start()
 
         # if all validators have voted
@@ -314,7 +322,7 @@ class Server(threading.Thread):
         if not len(self.validator_list):
             self.validator_select()
 
-    def validator_consensus(self):
+    def validator_consensus(self,threadNum=None):
         """
         This function will perform consensus among the assigned validators and issue payment/penalties
         """
@@ -359,10 +367,14 @@ class Server(threading.Thread):
                     logging.debug(f"Smart-contract Penalizing {self.hash_to_port[i]}")
                     self.pay(i, g.PENALTY)
 
+            for i in self.reported.keys():
+                if len(self.reported[i]) > len(self.port_to_hash)/2:
+                    self.pay(i, g.PENALTY)
+
             print(f"Updated Wallet values: {list(self.walletList.values())}")
 
             # conclude the latency recording for this consensus
-            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex)
+            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex, self.port)
 
             # update validators
             self.check_validators()
@@ -384,6 +396,7 @@ class Server(threading.Thread):
         This function will clear consensus server variables
         """
         logging.debug("CONSENSUS RESET")
+        self.reported = {}
         self.chains_dict = {}
         self.trans_dict = {}
         self.trans_vote_dict = {}
@@ -468,7 +481,6 @@ class Server(threading.Thread):
 
             # update/create affected wallet
             self.walletList[destHash] += value
-
 
     def validator_select(self):
         """
@@ -595,6 +607,18 @@ class Server(threading.Thread):
         with open("SmartContracts/contractStorage.json", "w") as f:
             json.dump(node_file, f, ensure_ascii=False, indent=4, sort_keys=True)
 
+    def report(self,msgJson, msgData):
+        """
+        This function will report a node for penalty
+        :param msgJson: Json structure of message
+        :param msgData: Json structure of message data
+        """
+        try:
+            if msgJson['from'] not in self.reported[msgData['report']]:
+                self.reported[msgData['report']].append(msgJson['from'])
+        except:
+            if msgData['report'] not in self.reported:
+                self.reported[msgData["report"]] = [(msgJson['from'])]
 
     def run(self):
         """

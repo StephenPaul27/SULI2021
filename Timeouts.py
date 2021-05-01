@@ -10,7 +10,7 @@ class Timeout(threading.Thread):
     This class will act as a thread timer for timing out messages/consensus
     """
 
-    def __init__(self, timer_type, functionCall, duration=g.CONSENSUS_TIMEOUT, port=g.my_port):
+    def __init__(self, timer_type, functionCall, duration=g.CONSENSUS_TIMEOUT, port=g.my_port, threadNum=None, arg=None):
         """
         This function initializes the class object with the type, start time, and thread running condition
         :param timer_type: type of timer for debugging purposes
@@ -24,7 +24,9 @@ class Timeout(threading.Thread):
         self.time = time.time()     # record the start time
         self.running = True
         self.port = port
+        self.threadNum = threadNum
         self.functionCall = functionCall
+        self.arg = arg
 
     def stop(self):
         """
@@ -42,10 +44,15 @@ class Timeout(threading.Thread):
                 # if time exceeds duration
                 if time.time()-self.time > self.duration:
                     # perform the consensus
-                    logging.warning(f"Node {self.port} is performing {self.type} consensus from timeout")
-                    self.functionCall()
+                    logging.warning(f"Node {self.port} is performing {self.type} consensus from timeout "
+                                    f"(threadNum:{self.threadNum})")
+                    if self.arg:
+                        self.functionCall(self.arg, threadNum=self.threadNum)
+                    else:
+                        self.functionCall(threadNum=self.threadNum)
+
                     break
                 # sleep a little to reduce frequency of checks
-                time.sleep(0.1)
+                time.sleep(0.05)
         except Exception as e:
-            logging.error(f"Node {self.port} Timer of type: {self.type} exited because {e}")
+            logging.error(f"Node {self.port} Timer of type: {self.type} exited because {traceback.format_exc()}")

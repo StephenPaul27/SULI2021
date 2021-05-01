@@ -1,5 +1,7 @@
 This is a repo for my code during the SULI 2021 Internship
 
+Full program documentation available here: https://suli2021.readthedocs.io/en/latest/
+
 The code can run a single node from main.py
 <br>terminal usage: <b>python main.py \<port-number\> \<number-of-nodes\></b>
 <br><u><i>port-number</u></i> - port number to start the node. 

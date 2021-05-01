@@ -138,6 +138,9 @@ def update_transactions(port=g.my_port, transactions=None):
     with open(f"Storage/NodeData/node{port}.json", "w") as f:
         json.dump(node_file, f, ensure_ascii=False, indent=4)
 
+    if g.first_node:
+        dr.record_filesize(g.blockchain[-1].index, len(transactions), g.BLOCK_SIZE)
+
 
 def tryLoad(f, port):
 

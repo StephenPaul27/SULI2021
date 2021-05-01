@@ -19,16 +19,19 @@ def main():
             # siphon out the type
             if len(sys.argv) <= 1 or "all" in sys.argv or filearray[1] in sys.argv:
                 if filearray[2] in msgDict:
-                    if int(filearray[3]) == 18 and filearray[1] != 'consensus_process':
+                    if int(filearray[3]) == 8 and int(filearray[4])==8105:
                         latencyArray.append(float(filearray[0]) - msgDict[filearray[2]])
                 else:
                     msgDict[filearray[2]] = float(filearray[0])
             filestring = f.readline()
+    print(f"Data: {latencyArray}")
     a = np.array(latencyArray)
-    plt.hist(a, bins=40, range=(0,1))
-    plt.title(f"20-Node, 1-Block Message Latency ({len(latencyArray)} Messages Total)")
-    plt.xlabel("Latency (s)")
-    plt.ylabel("# of occurrences")
+    plt.hist(a, bins=40)
+    plt.xticks(fontsize=24, rotation=270)
+    plt.yticks(fontsize=24)
+    plt.title(f"1-Node Communication\nLatencies\n({len(latencyArray)} Events, Blocksize:60)",fontsize=30,weight="bold")
+    plt.xlabel("Latency (s)",fontsize=24)
+    plt.ylabel("# of occurrences",fontsize=24)
     plt.show()
 
 

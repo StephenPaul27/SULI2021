@@ -296,7 +296,7 @@ def create_genesis_block(prev=None):
     }, prev)
 
 
-def consensus_and_reset():
+def consensus_and_reset(threadNum=None):
     """
     This function will call consensus and reset its variables
     (used as the timeout callback)
@@ -305,14 +305,14 @@ def consensus_and_reset():
     reset_consensus(g.blockchain[-1].index)
 
 
-def consensus_reset_and_send():
+def consensus_reset_and_send(threadNum=None):
 
     import communication as comm
 
     g.blockchain = consensus()
 
     # record completion of this node's consensus
-    dr.write_msg_time(get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index)
+    dr.write_msg_time(get_hash(g.blockchain[-1].index, g.my_port), "consensus_process", g.consensus_index, g.my_port)
 
     logging.debug(
         f"Node {g.my_port} is sending consensus to the smartcontract for index {g.blockchain[-1].index} with {len(g.consensus_id_list)} votes out of {len(g.node_list) + 1}")
@@ -325,14 +325,14 @@ def consensus_reset_and_send():
         try:
             # set traitor
             if g.my_port in g.TRAITOR_PORTS:
-
+                # idx = -1
                 idx = random.choices([-1, 0], weights=[80, 20], k=1)[0]
                 if not idx:
-                    logging.warning(f"Traitor {g.my_port} is doing its interfering")
-                    # send a different hash
-                    g.blockchain[-1] = create_genesis_block(g.blockchain[-1].previous_hash)
-                    idx = -1
-                    # return    # cause timeout error
+                    logging.warning(f"Traitor {g.my_port} is doing its interfering (contract)")
+                    # send a different block
+                    # g.blockchain[-1] = create_genesis_block(g.blockchain[-1].previous_hash)
+                    # idx = -1
+                    return    # cause timeout error
             else:
                 idx = -1
             message = {

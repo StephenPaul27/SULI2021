@@ -6,6 +6,7 @@ from all_imports import *
 
 
 def decrypt(package, port=g.my_port, pr_key=None):
+    import communication as comm
     """
     This function will decrypt the provided bytes into a usable form
 
@@ -59,7 +60,7 @@ def decrypt(package, port=g.my_port, pr_key=None):
         # print("decrypted message: ",message)
         msgJson = json.loads(message)
         # log reception of message for tracking latency
-        dr.write_msg_time(bf.get_hash(msgJson['from'], msgJson['to'], msgJson['time']), msgJson['type'], g.consensus_index)
+        dr.write_msg_time(bf.get_hash(msgJson['from'], msgJson['to'], msgJson['time']), msgJson['type'], g.consensus_index, g.my_port)
         if msgJson['type'] == 'intro' or msgJson['type'] == 'response':
             msgData = msgJson['data']
             pub_port = msgData['fromport']
@@ -67,12 +68,14 @@ def decrypt(package, port=g.my_port, pr_key=None):
             pub_port = g.hash_to_port[msgJson['from']]
     except Exception as e:
         logging.warning(f"Decrypted message at port {port} was not formatted as a json for the signature: {e}")
+
         return "ERROR"
 
     # verify signature using the decrypted message's 'from' field
     if not check_signature(signature, bf.get_hash(message).encode(g.ENCODING), pub_port):
         print(f"Signature failed at {port} from port {g.hash_to_port[msgJson['from']]} because \"{e}\"")
-        logging.warning(f"Message at port {port} did not match its signature: {e}")
+        logging.warning(f"Message at port {port} did not match its signature")
+        comm.reportNode(msgJson['from'])
         return None
 
     return message
@@ -103,8 +106,10 @@ def encrypt(message, destPort, pr_key=None):
     # obtain public key for the destination port
     pubkey = ke.get_pub_key(destPort)
 
-    # sign un-encrypted symmetric key (instead of message to avoid data size issue)
-    signature = gen_signature(msg_hash, pr_key);
+
+    # sign message hash (instead of message to avoid data size issue)
+    signature = gen_signature(msg_hash, pr_key)
+
     # print("message signed successfully")
 
     # ensure that a public key is available
@@ -165,10 +170,11 @@ def check_signature(signature, message, pub_port):
     :param pub_key: public key of sender
     :returns: boolean value representing validity
     """
-    # get the public key of the port
-    pub_key = ke.get_pub_key(pub_port)
-    # verify the signature with the message
+
     try:
+        # get the public key of the port
+        pub_key = ke.get_pub_key(pub_port)
+        # verify the signature with the message
         pub_key.verify(
             signature,
             message,

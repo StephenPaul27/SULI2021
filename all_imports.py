@@ -15,6 +15,7 @@ import hashlib as hasher
 import datetime as date
 import base64
 import random
+import numpy as np
 import math
 import statistics
 import sys

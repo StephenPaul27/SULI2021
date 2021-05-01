@@ -2,6 +2,13 @@
 
 import csv
 import time
+import os
+
+
+def record_filesize(index,transactions,blocksize):
+    with open("Storage/FileSizes.csv","a") as f:
+        f.write(str(index*blocksize+transactions)+","+str(os.path.getsize("Storage/NodeData/node8101.json")/1024)+",\n")
+
 
 
 def clear_latencies():
@@ -12,14 +19,14 @@ def clear_latencies():
         f.truncate(0)
 
 
-def write_msg_time(id,type,index):
+def write_msg_time(id,type,index,myport):
     """
     This function will write a log of a message's send/receive time to calculate latency
     :param id: id of the sending message to be matched with its reception
     :param type: type of message if there are different latency patterns
     """
     with open("Storage/latencies.txt", "a") as f:
-        f.write(str(time.time())+'|'+str(type)+'|'+str(id)+'|'+str(index)+'\n')
+        f.write(str(time.time())+'|'+str(type)+'|'+str(id)+'|'+str(index)+'|'+str(myport)+'\n')
 
 
 def clear_balances():
