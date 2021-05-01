@@ -202,10 +202,6 @@ class Server(threading.Thread):
         # obtain the index of the message sender hash in the validator list
         # if it does not exist (i.e. the sender is not a validator) it will return None
 
-        if not len(self.voted_validators):
-            # start latency recording of consensus process
-            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex,self.port)
-
         if not self.is_validator(msgJson['from']):
             # case when sender is not a validator
             logging.warning(f"Consensus attempted by non-validator: {msgJson['from']}")
@@ -218,6 +214,10 @@ class Server(threading.Thread):
             logging.warning(f"Received consensus request from {self.hash_to_port[msgJson['from']]}"
                             f" for index:{msgData['newblock']['index']} when last index was: {self.lastIndex}")
             return
+
+        if not len(self.voted_validators):
+            # start latency recording of consensus process
+            dr.write_msg_time(bf.get_hash(self.lastIndex, self.port), "contract_consensus", self.lastIndex,self.port)
 
         # mark the validator as already having voted once in this cycle
         self.voted_validators.append(msgJson['from'])

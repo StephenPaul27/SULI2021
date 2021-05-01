@@ -20,7 +20,7 @@ else:
 MSG_PERIOD = 15             # seconds between broadcast of powerref downstream when not connected to lcdmpc
 MSG_TIMEOUT = 1.5             # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT*2       # seconds until consensus times out
-BLOCK_SIZE = 80             # size of each block of transactions to be added
+BLOCK_SIZE = 100             # size of each block of transactions to be added
 SOCKET_CONNECTIONS = 100    # number of simultaneous socket connections that can be made at a node
 BLOCK_BUFFER = BLOCK_SIZE   # buffer of transactions to make sure they are ordered correctly when put into the blockchain
 PROPOSE_TRIGGER = BLOCK_SIZE + BLOCK_BUFFER  # trigger size for proposing blocks
