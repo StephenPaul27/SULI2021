@@ -1,833 +1,96 @@
-2021-05-06 17:59:37,659 main:50 - INFO: New Session Started
-2021-05-06 17:59:37,659 consensus:25 - DEBUG: Consensus server started at port 8100
-2021-05-06 17:59:37,746 node_editor:157 - WARNING: unable to read <_io.TextIOWrapper name='Storage/NodeData/node8100.json' mode='r' encoding='UTF-8'> for port: 8100, trying again
-2021-05-06 17:59:37,759 main:76 - INFO: Node started at port 8103 with hash 1c35425799ee4d41a6251abfc547965de42b64533fcc78940b50d109ead42c15
-2021-05-06 17:59:37,762 main:76 - INFO: Node started at port 8102 with hash 206a240a2b6dc607b4bbb0dce7b142490bdd99bcdde8db9fa2adb89d7b109035
-2021-05-06 17:59:37,762 main:76 - INFO: Node started at port 8104 with hash be5e40af269ed81990af1063320d606de68ea25ea63ffdbeef637b0dcf979c67
-2021-05-06 17:59:37,768 communication:978 - DEBUG: first node is securing its consensus index
-2021-05-06 17:59:37,775 communication:109 - DEBUG: Validators updated at node 8103 from introduction
-2021-05-06 17:59:37,776 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,778 consensus:530 - DEBUG: selected new validators:[8103]
-2021-05-06 17:59:37,778 consensus:564 - DEBUG: Broadcasting validators from smart contract
-2021-05-06 17:59:37,782 communication:299 - DEBUG: node 8104 received response from 8102, 1/2
-2021-05-06 17:59:37,782 communication:330 - DEBUG: Response timer STARTED at node 8104
-2021-05-06 17:59:37,784 communication:299 - DEBUG: node 8104 received response from 8103, 2/2
-2021-05-06 17:59:37,785 communication:337 - DEBUG: node 8104 is performing consensus after 2/2 
-2021-05-06 17:59:37,785 communication:299 - DEBUG: node 8103 received response from 8102, 1/2
-2021-05-06 17:59:37,785 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8104
-2021-05-06 17:59:37,785 blockchain_funcs:436 - WARNING: consensus failed: popular choice <= half of all nodes, at port 8104: votes:['7376f7719847575ca5075c4f63b39685619c2060fec9d2efcc33a0b436f6f859', '264ae9333612cd6430b3fcf34382f78d65c6da3f6d81c2df0e95385e46e40fcb']
-2021-05-06 17:59:37,785 blockchain_funcs:482 - DEBUG: node 8104 consensus reset
-2021-05-06 17:59:37,785 communication:330 - DEBUG: Response timer STARTED at node 8103
-2021-05-06 17:59:37,789 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:37,791 communication:109 - DEBUG: Validators updated at node 8102 from introduction
-2021-05-06 17:59:37,792 communication:180 - DEBUG: Updating validators at node 8103 from broadcast, me?:True
-2021-05-06 17:59:37,795 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:37,795 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,796 communication:868 - DEBUG: Proposing new block at port 8103 from pay
-2021-05-06 17:59:37,796 blockchain_funcs:482 - DEBUG: node 8103 consensus reset
-2021-05-06 17:59:37,797 communication:916 - WARNING: Node 8103 couldn't put its block in the addblock vote last block index: 0, consensus index: -1, last proposed: -1, 
-Prev:0
-Actual:264ae9333612cd6430b3fcf34382f78d65c6da3f6d81c2df0e95385e46e40fcb
-2021-05-06 17:59:37,797 communication:925 - DEBUG: Node 8103 is requesting index:0 from 8102
-2021-05-06 17:59:37,798 consensus:564 - DEBUG: Broadcasting validators from smart contract
-2021-05-06 17:59:37,798 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 1 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.7615108)
-2021-05-06 17:59:37,800 communication:849 - DEBUG: Node 8102 is correcting its blockchain to idx:0, hash:14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:37,800 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,800 communication:859 - DEBUG: Node 8102 is correcting its transactions to size 2
-2021-05-06 17:59:37,801 communication:861 - DEBUG: Node 8102 transactions popped down to size: 2
-2021-05-06 17:59:37,801 communication:925 - DEBUG: Node 8103 is requesting index:0 from 8104
-2021-05-06 17:59:37,804 communication:226 - DEBUG: Node 8102 received request from 8103 for 0, This node has idx: 0 and cindex of 0
-2021-05-06 17:59:37,806 communication:109 - DEBUG: Validators updated at node 8104 from introduction
-2021-05-06 17:59:37,809 communication:226 - DEBUG: Node 8104 received request from 8103 for 0, This node has idx: 0 and cindex of 0
-2021-05-06 17:59:37,809 communication:782 - DEBUG: node 8103 received addblock from 8102 with index 0>-1,and votes: 1/3 with hash: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:37,809 communication:809 - DEBUG: Addblock timer STARTED at node 8103
-2021-05-06 17:59:37,810 main:76 - INFO: Node started at port 8101 with hash d92b6938006c81fecc4ccf2f612ad6ecdd6b41f16ca4b2e9c718da8a8581aa6e
-2021-05-06 17:59:37,812 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:37,813 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,814 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,816 communication:978 - DEBUG: first node is securing its consensus index
-2021-05-06 17:59:37,816 communication:782 - DEBUG: node 8103 received addblock from 8104 with index 0>-1,and votes: 2/3 with hash: df768e0c5f845601c0708983a1c226c02095185993a05c057ae867a4bd6177e9
-2021-05-06 17:59:37,816 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 1 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.762073)
-2021-05-06 17:59:37,817 communication:849 - DEBUG: Node 8104 is correcting its blockchain to idx:0, hash:14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:37,818 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,818 communication:859 - DEBUG: Node 8104 is correcting its transactions to size 3
-2021-05-06 17:59:37,818 communication:861 - DEBUG: Node 8104 transactions popped down to size: 3
-2021-05-06 17:59:37,823 communication:109 - DEBUG: Validators updated at node 8101 from introduction
-2021-05-06 17:59:37,826 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:37,829 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,832 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,832 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,834 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 1 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.8095748)
-2021-05-06 17:59:37,835 communication:849 - DEBUG: Node 8101 is correcting its blockchain to idx:0, hash:14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:37,836 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:37,836 communication:859 - DEBUG: Node 8101 is correcting its transactions to size 4
-2021-05-06 17:59:37,836 communication:861 - DEBUG: Node 8101 transactions popped down to size: 4
-2021-05-06 17:59:37,932 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:37,981 main:76 - INFO: Node started at port 8106 with hash 6d24cc006d99e2efb235dc00fe7df1d94783bfccefb576b567489d4e0990b240
-2021-05-06 17:59:37,995 communication:109 - DEBUG: Validators updated at node 8106 from introduction
-2021-05-06 17:59:37,998 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:37,998 communication:299 - DEBUG: node 8106 received response from 8101, 1/3
-2021-05-06 17:59:37,998 communication:330 - DEBUG: Response timer STARTED at node 8106
-2021-05-06 17:59:38,001 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,002 communication:299 - DEBUG: node 8106 received response from 8102, 2/4
-2021-05-06 17:59:38,006 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,006 communication:299 - DEBUG: node 8106 received response from 8104, 3/4
-2021-05-06 17:59:38,007 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,007 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,009 communication:299 - DEBUG: node 8106 received response from 8103, 4/4
-2021-05-06 17:59:38,009 communication:337 - DEBUG: node 8106 is performing consensus after 4/4 
-2021-05-06 17:59:38,009 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8106
-2021-05-06 17:59:38,009 blockchain_funcs:419 - DEBUG: node: 8106 bf_consensus (idx:-1) popping e7c5fe0a588ae24070fcae37dcf105adf706713623b312925a3abf8749e7c066
-2021-05-06 17:59:38,009 blockchain_funcs:428 - DEBUG: node: 8106 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,009 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,009 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,009 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,009 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,010 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,010 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8106, resulting size:4
-2021-05-06 17:59:38,011 blockchain_funcs:482 - DEBUG: node 8106 consensus reset
-2021-05-06 17:59:38,012 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,063 consensus:564 - DEBUG: Broadcasting validators from smart contract
-2021-05-06 17:59:38,070 main:76 - INFO: Node started at port 8105 with hash 52e6267b739cbdd70e4bfacbe9f731f24a93bf5f70e9e14c44b6226437f5d414
-2021-05-06 17:59:38,082 communication:109 - DEBUG: Validators updated at node 8105 from introduction
-2021-05-06 17:59:38,085 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:38,085 communication:299 - DEBUG: node 8105 received response from 8101, 1/3
-2021-05-06 17:59:38,086 communication:330 - DEBUG: Response timer STARTED at node 8105
-2021-05-06 17:59:38,088 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,089 communication:299 - DEBUG: node 8105 received response from 8102, 2/4
-2021-05-06 17:59:38,093 communication:299 - DEBUG: node 8105 received response from 8104, 3/4
-2021-05-06 17:59:38,093 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,094 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,095 communication:299 - DEBUG: node 8105 received response from 8103, 4/4
-2021-05-06 17:59:38,095 communication:337 - DEBUG: node 8105 is performing consensus after 4/4 
-2021-05-06 17:59:38,095 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8105
-2021-05-06 17:59:38,095 blockchain_funcs:419 - DEBUG: node: 8105 bf_consensus (idx:-1) popping 2b98fd6a42c3b4dfc125ebd5433540a6217fd8f9a4f678086acf8cba8c45e804
-2021-05-06 17:59:38,095 blockchain_funcs:428 - DEBUG: node: 8105 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,096 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,096 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,096 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,096 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,096 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,096 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,096 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8105, resulting size:5
-2021-05-06 17:59:38,099 blockchain_funcs:482 - DEBUG: node 8105 consensus reset
-2021-05-06 17:59:38,100 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,100 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,103 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,120 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:38,170 main:76 - INFO: Node started at port 8107 with hash 3ff29e889e4badc7406382e426e002d2322856f0b6aaf68feb0a245e25eb15e2
-2021-05-06 17:59:38,184 communication:109 - DEBUG: Validators updated at node 8107 from introduction
-2021-05-06 17:59:38,187 communication:299 - DEBUG: node 8107 received response from 8101, 1/3
-2021-05-06 17:59:38,188 communication:330 - DEBUG: Response timer STARTED at node 8107
-2021-05-06 17:59:38,190 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,191 communication:299 - DEBUG: node 8107 received response from 8102, 2/5
-2021-05-06 17:59:38,194 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:38,195 communication:299 - DEBUG: node 8107 received response from 8103, 3/6
-2021-05-06 17:59:38,195 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,197 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,198 communication:299 - DEBUG: node 8107 received response from 8104, 4/6
-2021-05-06 17:59:38,200 communication:299 - DEBUG: node 8107 received response from 8105, 5/6
-2021-05-06 17:59:38,202 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,203 communication:299 - DEBUG: node 8107 received response from 8106, 6/6
-2021-05-06 17:59:38,203 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,203 communication:337 - DEBUG: node 8107 is performing consensus after 6/6 
-2021-05-06 17:59:38,203 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8107
-2021-05-06 17:59:38,204 blockchain_funcs:419 - DEBUG: node: 8107 bf_consensus (idx:-1) popping a018b9317d57b4b782590546ca32a27e51cb10dbb39241bd9c212be0ca581e77
-2021-05-06 17:59:38,204 blockchain_funcs:428 - DEBUG: node: 8107 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,204 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8107, resulting size:6
-2021-05-06 17:59:38,206 blockchain_funcs:482 - DEBUG: node 8107 consensus reset
-2021-05-06 17:59:38,208 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,324 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:38,372 main:76 - INFO: Node started at port 8108 with hash bc6a88fa3ad8f5388fbe5dd746a91031425b78a4e848ef01c73148ab780ab9f0
-2021-05-06 17:59:38,385 communication:109 - DEBUG: Validators updated at node 8108 from introduction
-2021-05-06 17:59:38,389 communication:299 - DEBUG: node 8108 received response from 8101, 1/3
-2021-05-06 17:59:38,389 communication:330 - DEBUG: Response timer STARTED at node 8108
-2021-05-06 17:59:38,393 communication:299 - DEBUG: node 8108 received response from 8102, 2/4
-2021-05-06 17:59:38,396 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,396 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:38,397 communication:299 - DEBUG: node 8108 received response from 8103, 3/6
-2021-05-06 17:59:38,400 communication:299 - DEBUG: node 8108 received response from 8104, 4/7
-2021-05-06 17:59:38,404 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,404 communication:299 - DEBUG: node 8108 received response from 8105, 5/7
-2021-05-06 17:59:38,406 communication:299 - DEBUG: node 8108 received response from 8106, 6/7
-2021-05-06 17:59:38,407 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,409 communication:299 - DEBUG: node 8108 received response from 8107, 7/7
-2021-05-06 17:59:38,409 communication:337 - DEBUG: node 8108 is performing consensus after 7/7 
-2021-05-06 17:59:38,409 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8108
-2021-05-06 17:59:38,409 blockchain_funcs:419 - DEBUG: node: 8108 bf_consensus (idx:-1) popping 106116dae492b5e2bad1b6ad6b769119f8974d8fd9e4f4158c9f8fc413e809e7
-2021-05-06 17:59:38,409 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,409 blockchain_funcs:428 - DEBUG: node: 8108 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,410 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,410 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8108, resulting size:7
-2021-05-06 17:59:38,411 blockchain_funcs:482 - DEBUG: node 8108 consensus reset
-2021-05-06 17:59:38,412 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,419 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,420 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,422 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,626 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:38,674 main:76 - INFO: Node started at port 8109 with hash 9c7928d87214c003d0ee44b8f686aa753ad0539466e38cc898b106f5f3499467
-2021-05-06 17:59:38,687 communication:109 - DEBUG: Validators updated at node 8109 from introduction
-2021-05-06 17:59:38,690 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:38,691 communication:299 - DEBUG: node 8109 received response from 8101, 1/3
-2021-05-06 17:59:38,691 communication:330 - DEBUG: Response timer STARTED at node 8109
-2021-05-06 17:59:38,693 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,695 communication:299 - DEBUG: node 8109 received response from 8102, 2/5
-2021-05-06 17:59:38,701 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,701 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,703 communication:299 - DEBUG: node 8109 received response from 8104, 3/6
-2021-05-06 17:59:38,706 communication:299 - DEBUG: node 8109 received response from 8103, 4/7
-2021-05-06 17:59:38,708 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,709 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,710 communication:299 - DEBUG: node 8109 received response from 8105, 5/8
-2021-05-06 17:59:38,712 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,713 communication:299 - DEBUG: node 8109 received response from 8106, 6/8
-2021-05-06 17:59:38,716 communication:299 - DEBUG: node 8109 received response from 8107, 7/8
-2021-05-06 17:59:38,716 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,716 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,719 communication:299 - DEBUG: node 8109 received response from 8108, 8/8
-2021-05-06 17:59:38,719 communication:337 - DEBUG: node 8109 is performing consensus after 8/8 
-2021-05-06 17:59:38,719 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8109
-2021-05-06 17:59:38,720 blockchain_funcs:419 - DEBUG: node: 8109 bf_consensus (idx:-1) popping 941b4355675084e664e314d1ab8c24167e0ea971b33cf7e4ba8a609269f0e22f
-2021-05-06 17:59:38,720 blockchain_funcs:428 - DEBUG: node: 8109 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,720 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,720 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,720 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,720 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,721 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8109, resulting size:8
-2021-05-06 17:59:38,723 blockchain_funcs:482 - DEBUG: node 8109 consensus reset
-2021-05-06 17:59:38,725 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,839 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:38,893 main:76 - INFO: Node started at port 8110 with hash 6306a6a82f49d64c95eb84b0307a36703fdafaa871fea76fa42e77fe4321baa4
-2021-05-06 17:59:38,908 communication:109 - DEBUG: Validators updated at node 8110 from introduction
-2021-05-06 17:59:38,912 communication:299 - DEBUG: node 8110 received response from 8101, 1/4
-2021-05-06 17:59:38,912 communication:330 - DEBUG: Response timer STARTED at node 8110
-2021-05-06 17:59:38,916 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,916 communication:299 - DEBUG: node 8110 received response from 8102, 2/5
-2021-05-06 17:59:38,920 communication:299 - DEBUG: node 8110 received response from 8103, 3/5
-2021-05-06 17:59:38,920 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,921 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:38,923 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,924 communication:299 - DEBUG: node 8110 received response from 8104, 4/6
-2021-05-06 17:59:38,928 communication:299 - DEBUG: node 8110 received response from 8105, 5/7
-2021-05-06 17:59:38,931 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,931 communication:299 - DEBUG: node 8110 received response from 8106, 6/7
-2021-05-06 17:59:38,932 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,937 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,937 communication:299 - DEBUG: node 8110 received response from 8107, 7/9
-2021-05-06 17:59:38,941 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,941 communication:299 - DEBUG: node 8110 received response from 8108, 8/9
-2021-05-06 17:59:38,943 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,943 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,944 communication:299 - DEBUG: node 8110 received response from 8109, 9/9
-2021-05-06 17:59:38,944 communication:337 - DEBUG: node 8110 is performing consensus after 9/9 
-2021-05-06 17:59:38,944 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8110
-2021-05-06 17:59:38,945 blockchain_funcs:419 - DEBUG: node: 8110 bf_consensus (idx:-1) popping 1359b1d8ed20a3ddf202fcde5c078809ace4c9b600c82f41180bb98247feae87
-2021-05-06 17:59:38,945 blockchain_funcs:428 - DEBUG: node: 8110 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,945 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:38,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,946 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,946 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,946 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,946 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:38,946 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8110, resulting size:9
-2021-05-06 17:59:38,947 blockchain_funcs:482 - DEBUG: node 8110 consensus reset
-2021-05-06 17:59:38,950 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,062 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:39,115 main:76 - INFO: Node started at port 8111 with hash 9d79b63a89c6e82adaa40a5defa79b5805a95f0cb9b01ddc965db23cd4794ef1
-2021-05-06 17:59:39,129 communication:109 - DEBUG: Validators updated at node 8111 from introduction
-2021-05-06 17:59:39,133 communication:299 - DEBUG: node 8111 received response from 8101, 1/3
-2021-05-06 17:59:39,133 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:39,133 communication:330 - DEBUG: Response timer STARTED at node 8111
-2021-05-06 17:59:39,137 communication:299 - DEBUG: node 8111 received response from 8102, 2/4
-2021-05-06 17:59:39,138 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,143 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,145 communication:299 - DEBUG: node 8111 received response from 8104, 3/7
-2021-05-06 17:59:39,146 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,149 communication:299 - DEBUG: node 8111 received response from 8103, 4/7
-2021-05-06 17:59:39,152 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,153 communication:299 - DEBUG: node 8111 received response from 8105, 5/7
-2021-05-06 17:59:39,158 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,158 communication:299 - DEBUG: node 8111 received response from 8106, 6/8
-2021-05-06 17:59:39,162 communication:299 - DEBUG: node 8111 received response from 8107, 7/8
-2021-05-06 17:59:39,163 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,166 communication:299 - DEBUG: node 8111 received response from 8108, 8/9
-2021-05-06 17:59:39,166 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,172 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,172 communication:299 - DEBUG: node 8111 received response from 8109, 9/10
-2021-05-06 17:59:39,174 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,175 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,175 communication:299 - DEBUG: node 8111 received response from 8110, 10/10
-2021-05-06 17:59:39,176 communication:337 - DEBUG: node 8111 is performing consensus after 10/10 
-2021-05-06 17:59:39,176 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8111
-2021-05-06 17:59:39,176 blockchain_funcs:419 - DEBUG: node: 8111 bf_consensus (idx:-1) popping f775369712f239a932e2699c39e159df2e949dba3d007b5b4126385e44b9da7c
-2021-05-06 17:59:39,176 blockchain_funcs:428 - DEBUG: node: 8111 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,176 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,177 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,177 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,177 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,177 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,177 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8111, resulting size:10
-2021-05-06 17:59:39,178 blockchain_funcs:482 - DEBUG: node 8111 consensus reset
-2021-05-06 17:59:39,181 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,278 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:39,328 main:76 - INFO: Node started at port 8112 with hash 4c9d4c165579f7bc686b2a5befcd264279725782199918610b87dbf855a48f64
-2021-05-06 17:59:39,341 communication:109 - DEBUG: Validators updated at node 8112 from introduction
-2021-05-06 17:59:39,345 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:39,345 communication:299 - DEBUG: node 8112 received response from 8101, 1/3
-2021-05-06 17:59:39,346 communication:330 - DEBUG: Response timer STARTED at node 8112
-2021-05-06 17:59:39,350 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,351 communication:299 - DEBUG: node 8112 received response from 8102, 2/5
-2021-05-06 17:59:39,356 communication:299 - DEBUG: node 8112 received response from 8103, 3/6
-2021-05-06 17:59:39,357 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,358 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,360 communication:299 - DEBUG: node 8112 received response from 8104, 4/7
-2021-05-06 17:59:39,364 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,364 communication:299 - DEBUG: node 8112 received response from 8105, 5/8
-2021-05-06 17:59:39,367 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,368 communication:299 - DEBUG: node 8112 received response from 8106, 6/8
-2021-05-06 17:59:39,371 communication:299 - DEBUG: node 8112 received response from 8107, 7/9
-2021-05-06 17:59:39,371 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,375 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,375 communication:299 - DEBUG: node 8112 received response from 8108, 8/10
-2021-05-06 17:59:39,378 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,380 communication:299 - DEBUG: node 8112 received response from 8109, 9/11
-2021-05-06 17:59:39,383 communication:299 - DEBUG: node 8112 received response from 8110, 10/11
-2021-05-06 17:59:39,383 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,385 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,387 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,387 communication:299 - DEBUG: node 8112 received response from 8111, 11/11
-2021-05-06 17:59:39,388 communication:337 - DEBUG: node 8112 is performing consensus after 11/11 
-2021-05-06 17:59:39,388 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8112
-2021-05-06 17:59:39,388 blockchain_funcs:419 - DEBUG: node: 8112 bf_consensus (idx:-1) popping 9c70cd8baef3c7841f33af15446fba59edced618341b777962d7ac1bd63f631e
-2021-05-06 17:59:39,388 blockchain_funcs:428 - DEBUG: node: 8112 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,388 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,388 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,389 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,389 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,389 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,389 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,389 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8112, resulting size:11
-2021-05-06 17:59:39,390 blockchain_funcs:482 - DEBUG: node 8112 consensus reset
-2021-05-06 17:59:39,392 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,474 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:39,524 main:76 - INFO: Node started at port 8113 with hash c126b05a125d76ff510484e58528912b183c3a46c8e90919dcfd455fa26f28b2
-2021-05-06 17:59:39,537 communication:109 - DEBUG: Validators updated at node 8113 from introduction
-2021-05-06 17:59:39,540 communication:299 - DEBUG: node 8113 received response from 8101, 1/3
-2021-05-06 17:59:39,541 communication:330 - DEBUG: Response timer STARTED at node 8113
-2021-05-06 17:59:39,544 communication:299 - DEBUG: node 8113 received response from 8102, 2/4
-2021-05-06 17:59:39,547 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,547 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:39,548 communication:299 - DEBUG: node 8113 received response from 8103, 3/5
-2021-05-06 17:59:39,551 communication:299 - DEBUG: node 8113 received response from 8104, 4/6
-2021-05-06 17:59:39,554 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,555 communication:299 - DEBUG: node 8113 received response from 8105, 5/8
-2021-05-06 17:59:39,559 communication:299 - DEBUG: node 8113 received response from 8106, 6/8
-2021-05-06 17:59:39,562 communication:299 - DEBUG: node 8113 received response from 8107, 7/9
-2021-05-06 17:59:39,562 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,566 communication:299 - DEBUG: node 8113 received response from 8108, 8/11
-2021-05-06 17:59:39,569 communication:299 - DEBUG: node 8113 received response from 8109, 9/12
-2021-05-06 17:59:39,570 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,572 communication:299 - DEBUG: node 8113 received response from 8110, 10/12
-2021-05-06 17:59:39,574 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,575 communication:299 - DEBUG: node 8113 received response from 8111, 11/12
-2021-05-06 17:59:39,578 communication:299 - DEBUG: node 8113 received response from 8112, 12/12
-2021-05-06 17:59:39,578 communication:337 - DEBUG: node 8113 is performing consensus after 12/12 
-2021-05-06 17:59:39,578 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8113
-2021-05-06 17:59:39,578 blockchain_funcs:419 - DEBUG: node: 8113 bf_consensus (idx:-1) popping 1280f74803acfd7b936b75c2ea49b53c75a8dbaf94bc85ff39cdbd14cbfeb08b
-2021-05-06 17:59:39,578 blockchain_funcs:428 - DEBUG: node: 8113 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,578 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,578 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,579 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,580 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,580 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,580 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,580 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8113, resulting size:12
-2021-05-06 17:59:39,580 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,581 blockchain_funcs:482 - DEBUG: node 8113 consensus reset
-2021-05-06 17:59:39,583 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,587 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,589 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,592 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,593 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,595 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,666 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:39,712 main:76 - INFO: Node started at port 8114 with hash b49f5154475dc35e8bccf06caa9a74ce59a69f2354301ee6782d5dae0cfcd3fc
-2021-05-06 17:59:39,727 communication:109 - DEBUG: Validators updated at node 8114 from introduction
-2021-05-06 17:59:39,730 communication:299 - DEBUG: node 8114 received response from 8101, 1/3
-2021-05-06 17:59:39,731 communication:330 - DEBUG: Response timer STARTED at node 8114
-2021-05-06 17:59:39,734 communication:299 - DEBUG: node 8114 received response from 8102, 2/5
-2021-05-06 17:59:39,737 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:39,738 communication:299 - DEBUG: node 8114 received response from 8103, 3/6
-2021-05-06 17:59:39,739 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,741 communication:299 - DEBUG: node 8114 received response from 8104, 4/6
-2021-05-06 17:59:39,745 communication:299 - DEBUG: node 8114 received response from 8105, 5/7
-2021-05-06 17:59:39,746 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,748 communication:299 - DEBUG: node 8114 received response from 8106, 6/8
-2021-05-06 17:59:39,752 communication:299 - DEBUG: node 8114 received response from 8107, 7/9
-2021-05-06 17:59:39,755 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,756 communication:299 - DEBUG: node 8114 received response from 8108, 8/10
-2021-05-06 17:59:39,760 communication:299 - DEBUG: node 8114 received response from 8109, 9/11
-2021-05-06 17:59:39,761 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,763 communication:299 - DEBUG: node 8114 received response from 8110, 10/13
-2021-05-06 17:59:39,766 communication:299 - DEBUG: node 8114 received response from 8111, 11/13
-2021-05-06 17:59:39,767 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,771 communication:299 - DEBUG: node 8114 received response from 8112, 12/13
-2021-05-06 17:59:39,771 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,774 communication:299 - DEBUG: node 8114 received response from 8113, 13/13
-2021-05-06 17:59:39,774 communication:337 - DEBUG: node 8114 is performing consensus after 13/13 
-2021-05-06 17:59:39,774 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8114
-2021-05-06 17:59:39,774 blockchain_funcs:419 - DEBUG: node: 8114 bf_consensus (idx:-1) popping d9f119396d773f4a9d1d32556a82a681dfd2040e7a1ca4539af8f3a721ca413a
-2021-05-06 17:59:39,774 blockchain_funcs:428 - DEBUG: node: 8114 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,774 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,774 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,774 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,775 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,776 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,776 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,776 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8114, resulting size:13
-2021-05-06 17:59:39,777 blockchain_funcs:482 - DEBUG: node 8114 consensus reset
-2021-05-06 17:59:39,779 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,784 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,785 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,788 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,791 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,791 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,794 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,870 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:39,918 main:76 - INFO: Node started at port 8115 with hash 84140f60e818a36eb35bfbba0138c97d4c07761c2687ffd06e2551bc4f815431
-2021-05-06 17:59:39,931 communication:109 - DEBUG: Validators updated at node 8115 from introduction
-2021-05-06 17:59:39,934 communication:299 - DEBUG: node 8115 received response from 8101, 1/3
-2021-05-06 17:59:39,935 communication:330 - DEBUG: Response timer STARTED at node 8115
-2021-05-06 17:59:39,938 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,939 communication:299 - DEBUG: node 8115 received response from 8102, 2/4
-2021-05-06 17:59:39,943 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:39,943 communication:299 - DEBUG: node 8115 received response from 8103, 3/5
-2021-05-06 17:59:39,945 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,947 communication:299 - DEBUG: node 8115 received response from 8104, 4/6
-2021-05-06 17:59:39,948 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,951 communication:299 - DEBUG: node 8115 received response from 8105, 5/7
-2021-05-06 17:59:39,953 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,956 communication:299 - DEBUG: node 8115 received response from 8106, 6/8
-2021-05-06 17:59:39,957 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,961 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,963 communication:299 - DEBUG: node 8115 received response from 8107, 7/10
-2021-05-06 17:59:39,964 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,967 communication:299 - DEBUG: node 8115 received response from 8108, 8/10
-2021-05-06 17:59:39,969 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,970 communication:299 - DEBUG: node 8115 received response from 8109, 9/11
-2021-05-06 17:59:39,972 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,974 communication:299 - DEBUG: node 8115 received response from 8110, 10/12
-2021-05-06 17:59:39,977 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,978 communication:299 - DEBUG: node 8115 received response from 8111, 11/13
-2021-05-06 17:59:39,981 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,981 communication:299 - DEBUG: node 8115 received response from 8112, 12/14
-2021-05-06 17:59:39,984 communication:299 - DEBUG: node 8115 received response from 8113, 13/14
-2021-05-06 17:59:39,985 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,985 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,986 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,987 communication:299 - DEBUG: node 8115 received response from 8114, 14/14
-2021-05-06 17:59:39,987 communication:337 - DEBUG: node 8115 is performing consensus after 14/14 
-2021-05-06 17:59:39,987 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8115
-2021-05-06 17:59:39,987 blockchain_funcs:419 - DEBUG: node: 8115 bf_consensus (idx:-1) popping 6f88d857f94d18d16ca0fb724866db57d94c153a70bef187d7db5ef7b69717ef
-2021-05-06 17:59:39,988 blockchain_funcs:428 - DEBUG: node: 8115 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,988 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,988 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:39,989 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8115, resulting size:14
-2021-05-06 17:59:39,991 blockchain_funcs:482 - DEBUG: node 8115 consensus reset
-2021-05-06 17:59:39,993 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,096 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:40,148 main:76 - INFO: Node started at port 8116 with hash 42e992cfe671567bcd8b3fa70e828a7544ac70cde50f77bd4ccf14e42f858388
-2021-05-06 17:59:40,162 communication:109 - DEBUG: Validators updated at node 8116 from introduction
-2021-05-06 17:59:40,165 communication:299 - DEBUG: node 8116 received response from 8101, 1/3
-2021-05-06 17:59:40,166 communication:330 - DEBUG: Response timer STARTED at node 8116
-2021-05-06 17:59:40,170 communication:299 - DEBUG: node 8116 received response from 8102, 2/5
-2021-05-06 17:59:40,170 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,172 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:40,174 communication:299 - DEBUG: node 8116 received response from 8103, 3/6
-2021-05-06 17:59:40,176 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,178 communication:299 - DEBUG: node 8116 received response from 8104, 4/7
-2021-05-06 17:59:40,181 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,182 communication:299 - DEBUG: node 8116 received response from 8105, 5/8
-2021-05-06 17:59:40,186 communication:299 - DEBUG: node 8116 received response from 8106, 6/9
-2021-05-06 17:59:40,187 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,189 communication:299 - DEBUG: node 8116 received response from 8107, 7/10
-2021-05-06 17:59:40,191 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,192 communication:299 - DEBUG: node 8116 received response from 8108, 8/11
-2021-05-06 17:59:40,196 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,196 communication:299 - DEBUG: node 8116 received response from 8109, 9/12
-2021-05-06 17:59:40,200 communication:299 - DEBUG: node 8116 received response from 8110, 10/13
-2021-05-06 17:59:40,202 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,203 communication:299 - DEBUG: node 8116 received response from 8111, 11/14
-2021-05-06 17:59:40,206 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,207 communication:299 - DEBUG: node 8116 received response from 8112, 12/15
-2021-05-06 17:59:40,210 communication:299 - DEBUG: node 8116 received response from 8113, 13/15
-2021-05-06 17:59:40,210 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,213 communication:299 - DEBUG: node 8116 received response from 8114, 14/15
-2021-05-06 17:59:40,214 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,217 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,218 communication:299 - DEBUG: node 8116 received response from 8115, 15/15
-2021-05-06 17:59:40,218 communication:337 - DEBUG: node 8116 is performing consensus after 15/15 
-2021-05-06 17:59:40,218 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8116
-2021-05-06 17:59:40,218 blockchain_funcs:419 - DEBUG: node: 8116 bf_consensus (idx:-1) popping 530646c95fe68908b931303898c0e6275b9a9804b0b9ec7c2b7b732deb7ffb94
-2021-05-06 17:59:40,218 blockchain_funcs:428 - DEBUG: node: 8116 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,219 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,219 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,220 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,221 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8116, resulting size:15
-2021-05-06 17:59:40,222 blockchain_funcs:482 - DEBUG: node 8116 consensus reset
-2021-05-06 17:59:40,224 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,227 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,228 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,232 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,317 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:40,368 main:76 - INFO: Node started at port 8117 with hash 5a9eefb91e0f2d8314f6272489b569b89c41f321b9dfb97795ae9963879ffdca
-2021-05-06 17:59:40,382 communication:109 - DEBUG: Validators updated at node 8117 from introduction
-2021-05-06 17:59:40,386 communication:299 - DEBUG: node 8117 received response from 8101, 1/3
-2021-05-06 17:59:40,387 communication:330 - DEBUG: Response timer STARTED at node 8117
-2021-05-06 17:59:40,389 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,391 communication:299 - DEBUG: node 8117 received response from 8102, 2/5
-2021-05-06 17:59:40,395 communication:299 - DEBUG: node 8117 received response from 8103, 3/6
-2021-05-06 17:59:40,395 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:40,396 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,398 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,399 communication:299 - DEBUG: node 8117 received response from 8104, 4/6
-2021-05-06 17:59:40,403 communication:299 - DEBUG: node 8117 received response from 8105, 5/7
-2021-05-06 17:59:40,404 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,406 communication:299 - DEBUG: node 8117 received response from 8106, 6/8
-2021-05-06 17:59:40,407 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,411 communication:299 - DEBUG: node 8117 received response from 8107, 7/9
-2021-05-06 17:59:40,411 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,415 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,415 communication:299 - DEBUG: node 8117 received response from 8108, 8/10
-2021-05-06 17:59:40,419 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,420 communication:299 - DEBUG: node 8117 received response from 8109, 9/11
-2021-05-06 17:59:40,424 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,425 communication:299 - DEBUG: node 8117 received response from 8110, 10/12
-2021-05-06 17:59:40,429 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,431 communication:299 - DEBUG: node 8117 received response from 8111, 11/13
-2021-05-06 17:59:40,433 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,435 communication:299 - DEBUG: node 8117 received response from 8112, 12/14
-2021-05-06 17:59:40,437 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,439 communication:299 - DEBUG: node 8117 received response from 8113, 13/15
-2021-05-06 17:59:40,442 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,443 communication:299 - DEBUG: node 8117 received response from 8114, 14/16
-2021-05-06 17:59:40,444 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,445 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,448 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,449 communication:299 - DEBUG: node 8117 received response from 8115, 15/16
-2021-05-06 17:59:40,452 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 1 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338380.368166)
-2021-05-06 17:59:40,455 communication:299 - DEBUG: node 8117 received response from 8116, 16/16
-2021-05-06 17:59:40,455 communication:337 - DEBUG: node 8117 is performing consensus after 16/16 
-2021-05-06 17:59:40,455 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8117
-2021-05-06 17:59:40,455 blockchain_funcs:419 - DEBUG: node: 8117 bf_consensus (idx:-1) popping 9c7ad9c2d0c63c0a8a4fa624870a2aea98333eeb2287b1277077e6a7d2c876df
-2021-05-06 17:59:40,455 blockchain_funcs:428 - DEBUG: node: 8117 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,455 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 2 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 3 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 4 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 5 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 6 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 7 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 8 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 9 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 10 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 11 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 12 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 13 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 14 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 15 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 16 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 17 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,456 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8117, resulting size:17
-2021-05-06 17:59:40,458 blockchain_funcs:482 - DEBUG: node 8117 consensus reset
-2021-05-06 17:59:40,504 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:40,557 main:76 - INFO: Node started at port 8118 with hash 096f9551fda120f92f06854426e9c0ba781a9f699559f62c805135f6e19b3dde
-2021-05-06 17:59:40,571 communication:109 - DEBUG: Validators updated at node 8118 from introduction
-2021-05-06 17:59:40,575 communication:299 - DEBUG: node 8118 received response from 8101, 1/3
-2021-05-06 17:59:40,575 communication:330 - DEBUG: Response timer STARTED at node 8118
-2021-05-06 17:59:40,578 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,579 communication:299 - DEBUG: node 8118 received response from 8102, 2/4
-2021-05-06 17:59:40,583 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:40,583 communication:299 - DEBUG: node 8118 received response from 8103, 3/5
-2021-05-06 17:59:40,587 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,587 communication:299 - DEBUG: node 8118 received response from 8104, 4/6
-2021-05-06 17:59:40,589 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,591 communication:299 - DEBUG: node 8118 received response from 8105, 5/6
-2021-05-06 17:59:40,595 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,595 communication:299 - DEBUG: node 8118 received response from 8106, 6/7
-2021-05-06 17:59:40,598 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,602 communication:299 - DEBUG: node 8118 received response from 8107, 7/9
-2021-05-06 17:59:40,602 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,606 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,606 communication:299 - DEBUG: node 8118 received response from 8108, 8/10
-2021-05-06 17:59:40,610 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,610 communication:299 - DEBUG: node 8118 received response from 8109, 9/11
-2021-05-06 17:59:40,613 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,614 communication:299 - DEBUG: node 8118 received response from 8110, 10/13
-2021-05-06 17:59:40,617 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,618 communication:299 - DEBUG: node 8118 received response from 8111, 11/13
-2021-05-06 17:59:40,620 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,623 communication:299 - DEBUG: node 8118 received response from 8112, 12/14
-2021-05-06 17:59:40,624 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,627 communication:299 - DEBUG: node 8118 received response from 8113, 13/15
-2021-05-06 17:59:40,628 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,631 communication:299 - DEBUG: node 8118 received response from 8114, 14/16
-2021-05-06 17:59:40,632 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,634 communication:299 - DEBUG: node 8118 received response from 8115, 15/17
-2021-05-06 17:59:40,636 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,637 communication:299 - DEBUG: node 8118 received response from 8116, 16/17
-2021-05-06 17:59:40,638 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,641 communication:299 - DEBUG: node 8118 received response from 8117, 17/17
-2021-05-06 17:59:40,641 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,641 communication:337 - DEBUG: node 8118 is performing consensus after 17/17 
-2021-05-06 17:59:40,641 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8118
-2021-05-06 17:59:40,641 blockchain_funcs:419 - DEBUG: node: 8118 bf_consensus (idx:-1) popping c0e25164b5abac79dfec1f0032a146d3a530c6a54f890233b68f5b81b5db46d7
-2021-05-06 17:59:40,641 blockchain_funcs:428 - DEBUG: node: 8118 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,641 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,641 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,641 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,641 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,641 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,642 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8118, resulting size:17
-2021-05-06 17:59:40,643 blockchain_funcs:482 - DEBUG: node 8118 consensus reset
-2021-05-06 17:59:40,645 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,737 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:40,787 main:76 - INFO: Node started at port 8119 with hash 2041dc2e41a58a6f8e0645bacaa1255f523022826e1b2f24a7afdb5c6810ecb3
-2021-05-06 17:59:40,801 communication:109 - DEBUG: Validators updated at node 8119 from introduction
-2021-05-06 17:59:40,804 communication:299 - DEBUG: node 8119 received response from 8101, 1/3
-2021-05-06 17:59:40,805 communication:330 - DEBUG: Response timer STARTED at node 8119
-2021-05-06 17:59:40,808 communication:299 - DEBUG: node 8119 received response from 8102, 2/5
-2021-05-06 17:59:40,810 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:40,811 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,812 communication:299 - DEBUG: node 8119 received response from 8103, 3/6
-2021-05-06 17:59:40,816 communication:299 - DEBUG: node 8119 received response from 8104, 4/7
-2021-05-06 17:59:40,817 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,819 communication:299 - DEBUG: node 8119 received response from 8105, 5/8
-2021-05-06 17:59:40,823 communication:299 - DEBUG: node 8119 received response from 8106, 6/9
-2021-05-06 17:59:40,823 Timeouts:47 - WARNING: Node None is performing addblock consensus from timeout (threadNum:None)
-2021-05-06 17:59:40,823 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,823 blockchain_funcs:393 - DEBUG: Addblock timer STOPPED at node 8103
-2021-05-06 17:59:40,823 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8103
-2021-05-06 17:59:40,824 blockchain_funcs:317 - DEBUG: Node 8103 is sending consensus to the smartcontract for index 0 with 2 votes out of 18
-2021-05-06 17:59:40,824 blockchain_funcs:482 - DEBUG: node 8103 consensus reset
-2021-05-06 17:59:40,827 communication:299 - DEBUG: node 8119 received response from 8107, 7/10
-2021-05-06 17:59:40,831 communication:299 - DEBUG: node 8119 received response from 8108, 8/11
-2021-05-06 17:59:40,831 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,834 communication:299 - DEBUG: node 8119 received response from 8109, 9/12
-2021-05-06 17:59:40,836 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,838 communication:299 - DEBUG: node 8119 received response from 8110, 10/13
-2021-05-06 17:59:40,841 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,842 communication:299 - DEBUG: node 8119 received response from 8111, 11/14
-2021-05-06 17:59:40,845 communication:299 - DEBUG: node 8119 received response from 8112, 12/15
-2021-05-06 17:59:40,846 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,849 communication:299 - DEBUG: node 8119 received response from 8113, 13/16
-2021-05-06 17:59:40,850 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,852 communication:299 - DEBUG: node 8119 received response from 8114, 14/16
-2021-05-06 17:59:40,854 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,855 communication:299 - DEBUG: node 8119 received response from 8115, 15/17
-2021-05-06 17:59:40,858 communication:299 - DEBUG: node 8119 received response from 8116, 16/18
-2021-05-06 17:59:40,858 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,861 communication:299 - DEBUG: node 8119 received response from 8117, 17/18
-2021-05-06 17:59:40,862 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,865 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,866 communication:299 - DEBUG: node 8119 received response from 8118, 18/18
-2021-05-06 17:59:40,866 communication:337 - DEBUG: node 8119 is performing consensus after 18/18 
-2021-05-06 17:59:40,866 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8119
-2021-05-06 17:59:40,867 blockchain_funcs:419 - DEBUG: node: 8119 bf_consensus (idx:-1) popping a3dc188c72622859895e622c0fb488410e09e9f12219aaaa0e0a3d1aafb6d49b
-2021-05-06 17:59:40,867 blockchain_funcs:428 - DEBUG: node: 8119 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,867 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,867 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,868 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,869 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,869 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,869 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8119, resulting size:18
-2021-05-06 17:59:40,869 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,870 blockchain_funcs:482 - DEBUG: node 8119 consensus reset
-2021-05-06 17:59:40,873 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,876 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,879 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,881 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,882 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,884 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,885 consensus:214 - WARNING: Received consensus request from 8103 for index:0 when last index was: 0
-2021-05-06 17:59:40,930 consensus:143 - DEBUG: Received blank message at port 8100
-2021-05-06 17:59:40,970 main:76 - INFO: Node started at port 8120 with hash dd5f96139cca71dd293d4d52a0f7ee48c880e0b422e184b2d8e1994d7f9a9fe3
-2021-05-06 17:59:40,982 communication:109 - DEBUG: Validators updated at node 8120 from introduction
-2021-05-06 17:59:40,985 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.7583518)
-2021-05-06 17:59:40,985 communication:299 - DEBUG: node 8120 received response from 8101, 1/3
-2021-05-06 17:59:40,986 communication:330 - DEBUG: Response timer STARTED at node 8120
-2021-05-06 17:59:40,987 communication:849 - DEBUG: Node 8103 is correcting its blockchain to idx:0, hash:14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:40,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,989 communication:859 - DEBUG: Node 8103 is correcting its transactions to size 20
-2021-05-06 17:59:40,989 communication:861 - DEBUG: Node 8103 transactions popped down to size: 20
-2021-05-06 17:59:40,989 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,990 communication:299 - DEBUG: node 8120 received response from 8102, 2/5
-2021-05-06 17:59:40,995 communication:299 - DEBUG: node 8120 received response from 8104, 3/6
-2021-05-06 17:59:40,995 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:40,998 communication:299 - DEBUG: node 8120 received response from 8105, 4/7
-2021-05-06 17:59:41,000 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,002 communication:299 - DEBUG: node 8120 received response from 8103, 5/8
-2021-05-06 17:59:41,003 blockchain_funcs:250 - DEBUG: adding transaction at port 8106, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,006 communication:299 - DEBUG: node 8120 received response from 8106, 6/9
-2021-05-06 17:59:41,008 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,010 communication:299 - DEBUG: node 8120 received response from 8107, 7/10
-2021-05-06 17:59:41,012 blockchain_funcs:250 - DEBUG: adding transaction at port 8107, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,014 communication:299 - DEBUG: node 8120 received response from 8108, 8/11
-2021-05-06 17:59:41,017 blockchain_funcs:250 - DEBUG: adding transaction at port 8108, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,018 communication:299 - DEBUG: node 8120 received response from 8109, 9/12
-2021-05-06 17:59:41,020 blockchain_funcs:250 - DEBUG: adding transaction at port 8109, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,021 communication:299 - DEBUG: node 8120 received response from 8110, 10/13
-2021-05-06 17:59:41,024 communication:299 - DEBUG: node 8120 received response from 8111, 11/14
-2021-05-06 17:59:41,024 blockchain_funcs:250 - DEBUG: adding transaction at port 8110, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,028 communication:299 - DEBUG: node 8120 received response from 8112, 12/15
-2021-05-06 17:59:41,030 blockchain_funcs:250 - DEBUG: adding transaction at port 8111, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,031 communication:299 - DEBUG: node 8120 received response from 8113, 13/16
-2021-05-06 17:59:41,034 blockchain_funcs:250 - DEBUG: adding transaction at port 8112, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,036 communication:299 - DEBUG: node 8120 received response from 8114, 14/18
-2021-05-06 17:59:41,039 blockchain_funcs:250 - DEBUG: adding transaction at port 8113, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,040 communication:299 - DEBUG: node 8120 received response from 8115, 15/19
-2021-05-06 17:59:41,042 communication:299 - DEBUG: node 8120 received response from 8116, 16/19
-2021-05-06 17:59:41,042 blockchain_funcs:250 - DEBUG: adding transaction at port 8114, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,045 communication:299 - DEBUG: node 8120 received response from 8117, 17/19
-2021-05-06 17:59:41,045 blockchain_funcs:250 - DEBUG: adding transaction at port 8115, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,048 communication:299 - DEBUG: node 8120 received response from 8118, 18/19
-2021-05-06 17:59:41,048 blockchain_funcs:250 - DEBUG: adding transaction at port 8116, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,050 communication:299 - DEBUG: node 8120 received response from 8119, 19/19
-2021-05-06 17:59:41,050 communication:337 - DEBUG: node 8120 is performing consensus after 19/19 
-2021-05-06 17:59:41,050 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8120
-2021-05-06 17:59:41,050 blockchain_funcs:419 - DEBUG: node: 8120 bf_consensus (idx:-1) popping 36541b81fe99e361558fa8e186614be005375271324fabad30e1341e83394e59
-2021-05-06 17:59:41,050 blockchain_funcs:428 - DEBUG: node: 8120 bf_consensus adding 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:41,050 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 14694fd1a5964f450a7e089cdee56e287b3e6f178068a8f3443e8fb915cceb8f
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 1 (hash: cfc14701236842aca6e4231a6657ce9df5277a08229e9c550a553b201e5964a6, T_time:1620338377.772963 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 2 (hash: b69f665c9b8307d9f49dc0324ac0b165134b0118044a8f002fa253e106b6a56d, T_time:1620338377.7889888 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 3 (hash: 0a326fcbd959e7822a8aa880a5f0e79d17a65e360ddeef4ca441d2804cbf24cb, T_time:1620338377.80436 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 4 (hash: 9e184f2b3047023a4f5f35a0af93d45812ccfb8a69f258e97c86f0d7ad6d4ec6, T_time:1620338377.821003 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 5 (hash: ad30cad33a83f0dac25c14d2db41e122ba47244b2925e81bfe32087946d732f5, T_time:1620338377.992264 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8117, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 6 (hash: 8548412af643f5c868e5008abfa9e62289f5b7482befe6e4af84328f9a926010, T_time:1620338378.079332 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 7 (hash: 5eab843e9d142a3266d38334dac941fdb350e7c67c383f32f08338f27881a16c, T_time:1620338378.1818082 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 8 (hash: 8e8e63066d23cab0998efcdd3ba0a05d6a352d7f26ef20db30be4f30b1b8407d, T_time:1620338378.382932 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 9 (hash: ab1b21f65f49e5b50f7e2dad465f03f09b84470a7cdacb2dd1b04964e0d216fe, T_time:1620338378.684268 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 10 (hash: 8a83e7ecc78d5fbc31b001eb822082dc8a0d16077ead38a21e6b66201ad1ba08, T_time:1620338378.905437 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,051 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 11 (hash: da32328b9a63ad757f85fec25f2314037e01e1c459950c0ccf11915537cd4dc8, T_time:1620338379.1263611 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 12 (hash: 8e6a065666a53ebd535ec4ec421f03562e990075fc0fa5b2bc3b99f1524d3826, T_time:1620338379.3387132 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 13 (hash: 9681e342731459af30cf562a58fa1d6ee6c0bb0de39b5d0c1f57226dac9991f1, T_time:1620338379.5347788 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 14 (hash: 576da41fd80fdcb1c05d5dcdc91f50fbc5a3a137e6d435e02427c43b8e5ac733, T_time:1620338379.724032 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 15 (hash: 22cb4282783570d8654dc2e20a99c847a264b0d2f9204c194df668b13d9c0996, T_time:1620338379.927684 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 16 (hash: 7b3a8840826867bbc92b0321bf2d798088662e12d95229aa97455357c6473869, T_time:1620338380.159057 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 17 (hash: 658d17366e59a0c8420e629a8155cbbdc804175b82ad9f1bdab06079d0903d59, T_time:1620338380.379261 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 18 (hash: 2c4f00e58022271cb4c8fb42b3bb12c42e3a8d86c4ddc92cbe9848f4fe2fdc6b, T_time:1620338380.568079 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 19 (hash: 82efbafac62e06f26955c433272b737def46161297412a6be02e515a89e4e854, T_time:1620338380.798295 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,052 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8120, resulting size:19
-2021-05-06 17:59:41,053 blockchain_funcs:482 - DEBUG: node 8120 consensus reset
-2021-05-06 17:59:41,054 blockchain_funcs:250 - DEBUG: adding transaction at port 8118, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,056 blockchain_funcs:250 - DEBUG: adding transaction at port 8119, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,057 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
-2021-05-06 17:59:41,058 blockchain_funcs:250 - DEBUG: adding transaction at port 8120, new size: 20 (hash: 80b10ba935164b2d59fcfef5e99273893afadd24d35140bd10f1d730ea9ee606, T_time:1620338380.9791732 > B_time(i:0):1620338377.746372)
+2021-05-06 18:40:13,629 main:50 - INFO: New Session Started
+2021-05-06 18:40:13,629 consensus:25 - DEBUG: Consensus server started at port 8100
+2021-05-06 18:40:13,704 main:76 - INFO: Node started at port 8101 with hash 73ef62462b153ee6b09eae1971823f227fc52f85a70639baacf489c1d915c855
+2021-05-06 18:40:13,709 communication:978 - DEBUG: first node is securing its consensus index
+2021-05-06 18:40:13,716 communication:109 - DEBUG: Validators updated at node 8101 from introduction
+2021-05-06 18:40:13,717 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,718 consensus:530 - DEBUG: selected new validators:[8101]
+2021-05-06 18:40:13,718 consensus:564 - DEBUG: Broadcasting validators from smart contract
+2021-05-06 18:40:13,720 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.704013)
+2021-05-06 18:40:13,721 communication:849 - DEBUG: Node 8101 is correcting its blockchain to idx:0, hash:1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:13,721 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,721 communication:859 - DEBUG: Node 8101 is correcting its transactions to size 1
+2021-05-06 18:40:13,722 communication:861 - DEBUG: Node 8101 transactions popped down to size: 1
+2021-05-06 18:40:13,724 communication:180 - DEBUG: Updating validators at node 8101 from broadcast, me?:True
+2021-05-06 18:40:13,773 consensus:143 - DEBUG: Received blank message at port 8100
+2021-05-06 18:40:13,814 main:76 - INFO: Node started at port 8102 with hash 7fc1b8d0c1fc29ae1a2f66787a14602aa5ab7e4e97b1248d8d3ee93abb45c368
+2021-05-06 18:40:13,826 communication:109 - DEBUG: Validators updated at node 8102 from introduction
+2021-05-06 18:40:13,828 communication:299 - DEBUG: node 8102 received response from 8101, 1/1
+2021-05-06 18:40:13,828 communication:330 - DEBUG: Response timer STARTED at node 8102
+2021-05-06 18:40:13,828 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,828 communication:337 - DEBUG: node 8102 is performing consensus after 1/1 
+2021-05-06 18:40:13,828 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8102
+2021-05-06 18:40:13,828 blockchain_funcs:419 - DEBUG: node: 8102 bf_consensus (idx:-1) popping 93f2c7d7af13ca0ba31e16715d6c93712e6c759648ab37a245c85abc071a71af
+2021-05-06 18:40:13,829 blockchain_funcs:428 - DEBUG: node: 8102 bf_consensus adding 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:13,829 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:13,829 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,829 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8102, resulting size:1
+2021-05-06 18:40:13,829 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,830 blockchain_funcs:482 - DEBUG: node 8102 consensus reset
+2021-05-06 18:40:13,832 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:13,962 consensus:143 - DEBUG: Received blank message at port 8100
+2021-05-06 18:40:14,003 main:76 - INFO: Node started at port 8103 with hash 71c8e2834f667e2379b0fca94adb75473c3e2a8359ebe4f98c1553131d57e52d
+2021-05-06 18:40:14,017 communication:109 - DEBUG: Validators updated at node 8103 from introduction
+2021-05-06 18:40:14,020 communication:299 - DEBUG: node 8103 received response from 8101, 1/2
+2021-05-06 18:40:14,020 communication:330 - DEBUG: Response timer STARTED at node 8103
+2021-05-06 18:40:14,020 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,023 communication:299 - DEBUG: node 8103 received response from 8102, 2/2
+2021-05-06 18:40:14,023 communication:337 - DEBUG: node 8103 is performing consensus after 2/2 
+2021-05-06 18:40:14,023 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8103
+2021-05-06 18:40:14,023 blockchain_funcs:419 - DEBUG: node: 8103 bf_consensus (idx:-1) popping ab1b6d2cafbbbc59fe9a5640e574f883c242444f8a28011adc416baa3cc31e4f
+2021-05-06 18:40:14,023 blockchain_funcs:428 - DEBUG: node: 8103 bf_consensus adding 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,023 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,023 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,023 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,023 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,023 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8103, resulting size:2
+2021-05-06 18:40:14,024 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,024 blockchain_funcs:482 - DEBUG: node 8103 consensus reset
+2021-05-06 18:40:14,026 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,177 consensus:143 - DEBUG: Received blank message at port 8100
+2021-05-06 18:40:14,224 main:76 - INFO: Node started at port 8104 with hash c9b0d9a6714870456b50da4b15c322353c51cde668616569c37b3dbd07c05f30
+2021-05-06 18:40:14,239 communication:109 - DEBUG: Validators updated at node 8104 from introduction
+2021-05-06 18:40:14,243 communication:299 - DEBUG: node 8104 received response from 8101, 1/3
+2021-05-06 18:40:14,243 communication:330 - DEBUG: Response timer STARTED at node 8104
+2021-05-06 18:40:14,243 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,246 communication:299 - DEBUG: node 8104 received response from 8102, 2/3
+2021-05-06 18:40:14,247 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,249 communication:299 - DEBUG: node 8104 received response from 8103, 3/3
+2021-05-06 18:40:14,249 communication:337 - DEBUG: node 8104 is performing consensus after 3/3 
+2021-05-06 18:40:14,249 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8104
+2021-05-06 18:40:14,250 blockchain_funcs:419 - DEBUG: node: 8104 bf_consensus (idx:-1) popping cef2f205157cc1b80f3910649add518be55f77eb6cf5643baeeedf6fcf6c3c31
+2021-05-06 18:40:14,250 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,250 blockchain_funcs:428 - DEBUG: node: 8104 bf_consensus adding 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,250 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,250 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,250 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,250 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,250 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8104, resulting size:3
+2021-05-06 18:40:14,250 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,251 blockchain_funcs:482 - DEBUG: node 8104 consensus reset
+2021-05-06 18:40:14,254 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,401 consensus:143 - DEBUG: Received blank message at port 8100
+2021-05-06 18:40:14,442 main:76 - INFO: Node started at port 8105 with hash 663853169f858c68b8a71abb26012c78d2d06cfee3051f741d875c5a9dc54d87
+2021-05-06 18:40:14,453 communication:109 - DEBUG: Validators updated at node 8105 from introduction
+2021-05-06 18:40:14,456 blockchain_funcs:250 - DEBUG: adding transaction at port 8101, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,458 communication:299 - DEBUG: node 8105 received response from 8101, 1/4
+2021-05-06 18:40:14,458 communication:330 - DEBUG: Response timer STARTED at node 8105
+2021-05-06 18:40:14,460 blockchain_funcs:250 - DEBUG: adding transaction at port 8102, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,462 communication:299 - DEBUG: node 8105 received response from 8102, 2/4
+2021-05-06 18:40:14,463 blockchain_funcs:250 - DEBUG: adding transaction at port 8103, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,464 communication:299 - DEBUG: node 8105 received response from 8103, 3/4
+2021-05-06 18:40:14,466 blockchain_funcs:250 - DEBUG: adding transaction at port 8104, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,466 blockchain_funcs:250 - DEBUG: adding transaction at port 8100, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,466 communication:299 - DEBUG: node 8105 received response from 8104, 4/4
+2021-05-06 18:40:14,467 communication:337 - DEBUG: node 8105 is performing consensus after 4/4 
+2021-05-06 18:40:14,467 blockchain_funcs:397 - DEBUG: Response timer STOPPED at node 8105
+2021-05-06 18:40:14,467 blockchain_funcs:419 - DEBUG: node: 8105 bf_consensus (idx:-1) popping e0e401506941f73be77ff0308ffd5906cf3eef2c0d403c39e9799d193dbc483f
+2021-05-06 18:40:14,467 blockchain_funcs:428 - DEBUG: node: 8105 bf_consensus adding 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,467 blockchain_funcs:432 - DEBUG: Consensus performed, resulting chain: 1637811a0e12e35ab0e937c4f89c4035addb1ea2b9c4ac92c3584c8dd8062a30
+2021-05-06 18:40:14,467 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 1 (hash: 408a286104550b6a0cdc2f7590cedec33d9421b82f443f13241ee0d1623e26f8, T_time:1620340813.7143822 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,467 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 2 (hash: 35d68f2be6206ccacca6ada493a90599ecbb4c4aa7879e509e71e3b08475930b, T_time:1620340813.823678 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,467 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 3 (hash: 0160b747bc7c46b40f8d626db0011fe2faf4db0bc30b889e9ad3b2f7a0927612, T_time:1620340814.0149891 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,467 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 4 (hash: f03776a505250e41e5149e85f17b6e3e37d57d82280d54b05370099ac5f968e6, T_time:1620340814.236674 > B_time(i:0):1620340813.696487)
+2021-05-06 18:40:14,468 blockchain_funcs:448 - DEBUG: Transaction Consensus completed at node 8105, resulting size:4
+2021-05-06 18:40:14,468 blockchain_funcs:482 - DEBUG: node 8105 consensus reset
+2021-05-06 18:40:14,470 blockchain_funcs:250 - DEBUG: adding transaction at port 8105, new size: 5 (hash: 42b8e703e04a52cfe53fbb19874de3ccb5410160b15af2f466d9804c843c643f, T_time:1620340814.450707 > B_time(i:0):1620340813.696487)
