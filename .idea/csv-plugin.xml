@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/all_imports.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/blockchain_funcs.py">
           <value>
             <Attribute>
