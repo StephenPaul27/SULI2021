@@ -6,13 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modules &#8212; SULIblockchain  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Supplementary Scripts" href="Scripts.html" />
@@ -51,17 +50,17 @@
 This includes the general structure, consensus, validation, manipulation, data types, etc.</p>
 <dl class="py class">
 <dt id="blockchain_funcs.Block">
-<em class="property">class </em><code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">Block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">timestamp</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">previous_hash</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">Block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_hash</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class defines the structure of a block</p>
 <dl class="py method">
 <dt id="blockchain_funcs.Block.hash_block">
-<code class="sig-name descname">hash_block</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.hash_block" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">hash_block</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.hash_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns the hash of this block, using the index, timestamp, data, and previous hash</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="blockchain_funcs.Block.to_dict">
-<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.to_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns a dict of this block’s fields
 :returns:</p>
 </dd></dl>
@@ -70,13 +69,13 @@ This includes the general structure, consensus, validation, manipulation, data t
 
 <dl class="py function">
 <dt id="blockchain_funcs.add_trans_to_block">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">add_trans_to_block</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.add_trans_to_block" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">add_trans_to_block</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.add_trans_to_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will add a block’s transactions to their blockchain according to the BLOCK_SIZE</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="blockchain_funcs.add_transaction">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">add_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timestamp</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">sender</span></em>, <em class="sig-param"><span class="n">recip</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">listOfTransactions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em>, <em class="sig-param"><span class="n">my_chain</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.add_transaction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">add_transaction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listOfTransactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.add_transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will ‘insort’ a transaction into this nodes transaction list based on the confirmation timestamp</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -99,7 +98,7 @@ This includes the general structure, consensus, validation, manipulation, data t
 
 <dl class="py function">
 <dt id="blockchain_funcs.consensus">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainList</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em>, <em class="sig-param"><span class="n">cons_array</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cindex</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chain_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_dict</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">id_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">trans_vote_dict</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chainList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cons_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cindex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_vote_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for enacting consensus on this node’s blockchain.
 Once all “votes” have been received or the time window has expired, the most popular
 “vote” is copied to our blockchain if it is agreed upon by &gt;50% of the nodes</p>
@@ -124,14 +123,14 @@ Once all “votes” have been received or the time window has expired, the most
 
 <dl class="py function">
 <dt id="blockchain_funcs.consensus_and_reset">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">consensus_and_reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threadNum</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_and_reset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus_and_reset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_and_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will call consensus and reset its variables
 (used as the timeout callback)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="blockchain_funcs.create_genesis_block">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">create_genesis_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prev</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.create_genesis_block" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">create_genesis_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.create_genesis_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function creates the genesis block upon this node’s instantiation.
 This is only relevant if it is the first node in the system, as all other nodes will
 seek consensus and throw away their genesis block</p>
@@ -144,7 +143,7 @@ seek consensus and throw away their genesis block</p>
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_block_objs">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_block_objs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainDict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_block_objs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_block_objs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chainDict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_block_objs" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will do the opposite of <a class="reference internal" href="#blockchain_funcs.get_dict_list" title="blockchain_funcs.get_dict_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">blockchain_funcs.get_dict_list()</span></code></a>, it will take a dictionary list and turn it
 into a list of <a class="reference internal" href="#blockchain_funcs.Block" title="blockchain_funcs.Block"><code class="xref py py-class docutils literal notranslate"><span class="pre">blockchain_funcs.Block</span></code></a> objects, used to copy chains from messages</p>
 <dl class="field-list simple">
@@ -159,7 +158,7 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_dict_list">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_dict_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainList</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_dict_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_dict_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chainList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_dict_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns a dictionary list of a given list of objects (Blocks or Transactions)
 :param chainList: list to get objects from, default None results in global blockchain used
 :returns: returns local blockchain in dictionary form</p>
@@ -167,7 +166,7 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_hash">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_hash" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_hash</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will return a SHA256 hash of the variables(s) provided</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -181,7 +180,7 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_trans_objs">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_trans_objs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chainDict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_trans_objs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_trans_objs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chainDict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_trans_objs" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will take a dictionary list and turn it into a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">blockchain_funcs.Transaction</span></code> objects</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -195,7 +194,7 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.get_transaction_list_hash">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">get_transaction_list_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">this_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_transaction_list_hash" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_transaction_list_hash</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">this_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_transaction_list_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will hash together the list of transactions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -209,7 +208,7 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.in_transactions">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">in_transactions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t_hash</span></em>, <em class="sig-param"><span class="n">t_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.in_transactions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">in_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_hash</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.in_transactions" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will tell if a transaction has already been recorded
 :param t_hash: hash of transaction to search for
 :param t_list: list of transactions
@@ -218,14 +217,14 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 
 <dl class="py function">
 <dt id="blockchain_funcs.reset_consensus">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">reset_consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">newIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.reset_consensus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">reset_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.reset_consensus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function resets global variables used for consensus
 :param newIndex: new index of consensus_index used to keep track of the last agreed block</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="blockchain_funcs.restore_chain">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">restore_chain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.restore_chain" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">restore_chain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.restore_chain" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will restore a blockchain from local storage or generate a genesis block
 if there is no chain stored</p>
 <dl class="field-list simple">
@@ -240,7 +239,7 @@ if there is no chain stored</p>
 
 <dl class="py function">
 <dt id="blockchain_funcs.validate">
-<code class="sig-prename descclassname">blockchain_funcs.</code><code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chain</span></em>, <em class="sig-param"><span class="n">lasthash</span></em>, <em class="sig-param"><span class="n">index</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fromport</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.validate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">validate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lasthash</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function validates a chain against itself and its proposed hash</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -256,17 +255,17 @@ if there is no chain stored</p>
 Every node will have a server for receiving and reacting to messages, and a client for actively sending messages out</p>
 <dl class="py class">
 <dt id="communication.Receiver">
-<em class="property">class </em><code class="sig-prename descclassname">communication.</code><code class="sig-name descname">Receiver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">my_host</span></em>, <em class="sig-param"><span class="n">my_port</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">Receiver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is responsible for receiving and reacting to messages from other nodes</p>
 <dl class="py method">
 <dt id="communication.Receiver.listen">
-<code class="sig-name descname">listen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.listen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">listen</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.listen" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is the listener for incoming messages</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="communication.Receiver.power_consensus">
-<code class="sig-name descname">power_consensus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threadNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.power_consensus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">power_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.power_consensus" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -282,7 +281,7 @@ Every node will have a server for receiving and reacting to messages, and a clie
 
 <dl class="py method">
 <dt id="communication.Receiver.request_power">
-<code class="sig-name descname">request_power</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threadNum</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.request_power" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">request_power</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.request_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will request power for consensus in the event that it does not receive power from upstream
 :param port:
 :return:</p>
@@ -290,7 +289,7 @@ Every node will have a server for receiving and reacting to messages, and a clie
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_addblock">
-<code class="sig-name descname">respond_addblock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_addblock" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_addblock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_addblock" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will perform consensus on addblock messages received from other nodes
 then it will send the result to the smartcontract to finalize</p>
 <dl class="field-list simple">
@@ -305,7 +304,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_confirm">
-<code class="sig-name descname">respond_confirm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_confirm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_confirm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_confirm" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will add the power/sensitivity transaction to the transaction list of this node
 :param msgJson: Json structure of message
 :param msgData: Json structure of message data</p>
@@ -313,7 +312,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_intro">
-<code class="sig-name descname">respond_intro</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_intro" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_intro</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_intro" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for responding to the introduction message of a new node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -327,7 +326,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_pay">
-<code class="sig-name descname">respond_pay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_pay" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_pay</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_pay" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will automatically insort payment transactions from the smartcontract</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,7 +340,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerRequest">
-<code class="sig-name descname">respond_powerRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerRequest" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_powerRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function responds to a request for power reference
 :param msgJson:
 :param msgData:</p>
@@ -349,7 +348,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerResponse">
-<code class="sig-name descname">respond_powerResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerResponse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_powerResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerResponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will do a form of consensus on the powers of other nodes
 :param msgJson:
 :param msgData:
@@ -358,7 +357,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerref">
-<code class="sig-name descname">respond_powerref</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerref" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_powerref</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerref" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for responding to power reference messages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -372,7 +371,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_request">
-<code class="sig-name descname">respond_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_request" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will respond to requests for the blockchain</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -386,7 +385,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_response">
-<code class="sig-name descname">respond_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for responding to introduction responses
 (performing consensus on all of the returned blockchains)</p>
 <dl class="field-list simple">
@@ -401,7 +400,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_sensitivity">
-<code class="sig-name descname">respond_sensitivity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_sensitivity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_sensitivity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_sensitivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for responding to sensitivity messages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -415,7 +414,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_validators">
-<code class="sig-name descname">respond_validators</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_validators" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">respond_validators</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_validators" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is responsible for recording validators broadcasted from the smartcontract</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -429,7 +428,7 @@ then it will send the result to the smartcontract to finalize</p>
 
 <dl class="py method">
 <dt id="communication.Receiver.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method representing the thread’s activity.</p>
 <p>You may override this method in a subclass. The standard run() method
 invokes the callable object passed to the object’s constructor as the
@@ -441,11 +440,11 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py class">
 <dt id="communication.Sender">
-<em class="property">class </em><code class="sig-prename descclassname">communication.</code><code class="sig-name descname">Sender</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">my_host</span></em>, <em class="sig-param"><span class="n">my_port</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">Sender</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is responsible for actively sending data including power references and introduction</p>
 <dl class="py method">
 <dt id="communication.Sender.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method representing the thread’s activity.</p>
 <p>You may override this method in a subclass. The standard run() method
 invokes the callable object passed to the object’s constructor as the
@@ -457,20 +456,20 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="communication.propose_block">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">propose_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msgJson</span></em>, <em class="sig-param"><span class="n">msgData</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.propose_block" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">propose_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.propose_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will propose a block update to all of the other blocks</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="communication.reportNode">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">reportNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.reportNode" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">reportNode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.reportNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will report a node to the smart contract for punishment
 :param node: hash of the node to report</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="communication.sendMessage">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">sendMessage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">destPort</span></em>, <em class="sig-param"><span class="n">pr_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">myport</span><span class="o">=</span><span class="default_value">8100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendMessage" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">sendMessage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destPort</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendMessage" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function sends a given message to a given port</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -486,7 +485,7 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="communication.sendToDMPC">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">sendToDMPC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">myport</span><span class="o">=</span><span class="default_value">8100</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendToDMPC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">sendToDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendToDMPC" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function sends a given message to the lcdmpc program</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -500,19 +499,19 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="communication.updateDMPCPower">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">updateDMPCPower</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fromport</span></em>, <em class="sig-param"><span class="n">power</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateDMPCPower" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">updateDMPCPower</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fromport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateDMPCPower" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will tell the DMPC program to update the power reference input</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="communication.updateDMPCSense">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">updateDMPCSense</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fromport</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateDMPCSense" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">updateDMPCSense</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fromport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateDMPCSense" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will tell the DMPC program to update the sensitivity input</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="communication.updateZDMPC">
-<code class="sig-prename descclassname">communication.</code><code class="sig-name descname">updateZDMPC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">powerVal</span></em>, <em class="sig-param"><span class="n">fromport</span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateZDMPC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">updateZDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">powerVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateZDMPC" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will tell the DMPC program to update the power reference input</p>
 </dd></dl>
 
@@ -522,19 +521,19 @@ from the args and kwargs arguments, respectively.</p>
 <p>This file holds functions that will write data to storage for later analysis</p>
 <dl class="py function">
 <dt id="Data_Recorder.clear_balances">
-<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">clear_balances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_balances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">clear_balances</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_balances" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will clear the csv that balances are written to</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="Data_Recorder.clear_latencies">
-<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">clear_latencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_latencies" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">clear_latencies</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_latencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will clear the latency log</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="Data_Recorder.write_balances">
-<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">write_balances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walletList</span></em>, <em class="sig-param"><span class="n">index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_balances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">write_balances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">walletList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_balances" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will write the current balances to a csv file to be displayed as a graph
 :param walletList: list of wallet values for each node
 :param index: block index to keep</p>
@@ -542,7 +541,7 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="Data_Recorder.write_msg_time">
-<code class="sig-prename descclassname">Data_Recorder.</code><code class="sig-name descname">write_msg_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">myport</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_msg_time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">write_msg_time</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_msg_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will write a log of a message’s send/receive time to calculate latency
 :param id: id of the sending message to be matched with its reception
 :param type: type of message if there are different latency patterns</p>
@@ -554,7 +553,7 @@ from the args and kwargs arguments, respectively.</p>
 <p>This file will contain functions for encrypting and decrypting messages</p>
 <dl class="py function">
 <dt id="encryption.check_signature">
-<code class="sig-prename descclassname">encryption.</code><code class="sig-name descname">check_signature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signature</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">pub_port</span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.check_signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">check_signature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.check_signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will check whether the signature of a message maches a given public key
 :param signature: provided signature
 :param message: message claimed to be signed with signature
@@ -564,7 +563,7 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="encryption.encrypt">
-<code class="sig-prename descclassname">encryption.</code><code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">destPort</span></em>, <em class="sig-param"><span class="n">pr_key</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.encrypt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">encrypt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destPort</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.encrypt" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will encrypt a given string using hybrid encryption</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -582,7 +581,7 @@ from the args and kwargs arguments, respectively.</p>
 
 <dl class="py function">
 <dt id="encryption.gen_signature">
-<code class="sig-prename descclassname">encryption.</code><code class="sig-name descname">gen_signature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">pr_key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.gen_signature" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">gen_signature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.gen_signature" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will generate a signature for a given message
 :param message: message to be signed
 :param pr_key: sending node’s private key
@@ -671,7 +670,7 @@ from the args and kwargs arguments, respectively.</p>
       &copy;2021, Stephen Paul.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
