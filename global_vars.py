@@ -17,7 +17,7 @@ if len(sys.argv)>2 and str.isdigit(sys.argv[2]):
     NUM_NODES = int(sys.argv[2])               # maximum number of nodes in system
 else:
     NUM_NODES = 10
-MSG_PERIOD = 15             # seconds between broadcast of powerref downstream when not connected to lcdmpc
+MSG_PERIOD = 20             # seconds between broadcast of powerref downstream when not connected to lcdmpc
 MSG_TIMEOUT = 1.5             # lifespan of messages before they're cleared
 CONSENSUS_TIMEOUT = MSG_TIMEOUT*2       # seconds until consensus times out
 BLOCK_SIZE = 100             # size of each block of transactions to be added

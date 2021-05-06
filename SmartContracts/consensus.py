@@ -360,8 +360,10 @@ class Server(threading.Thread):
             for i in self.validator_list:
                 # pay all the correct and active voters
                 if i in self.votes[sorted_consensus[0]]:
-                    logging.debug(f"Smart-contract Paying {self.hash_to_port[i]}")
-                    self.pay(i, g.INCENTIVE)
+
+                    if i not in self.reported.keys():
+                        logging.debug(f"Smart-contract Paying {self.hash_to_port[i]}")
+                        self.pay(i, g.INCENTIVE)
                 else:
                     # penalize all else
                     logging.debug(f"Smart-contract Penalizing {self.hash_to_port[i]}")
