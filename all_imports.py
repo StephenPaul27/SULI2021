@@ -20,7 +20,7 @@ import math
 import statistics
 import sys
 import traceback
-import cryptography as testCryptForReadTheDocs
+import cryptography
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
