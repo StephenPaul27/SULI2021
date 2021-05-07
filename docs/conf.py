@@ -56,4 +56,4 @@ html_theme = 'alabaster'
 html_static_path = []
 
 # mock imports for readthedocs
-autodoc_mock_imports = ["cryptography"]
+autodoc_mock_imports = ["cryptography","matplotlib"]
