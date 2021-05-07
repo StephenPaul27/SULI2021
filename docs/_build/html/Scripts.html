@@ -46,6 +46,13 @@
 
 </div></blockquote>
 </div>
+<div class="section" id="node-runner">
+<h2>node_runner<a class="headerlink" href="#node-runner" title="Permalink to this headline">¶</a></h2>
+<p>This bash script is used to run multiple instances of the blockchain program.
+The simulation duration, node quantity, and starting ports can be set.
+If a negative duration is provided, the simulation will run until the user stops it with “pkill -f main.py”.
+This scripts usage is: “bash node_runner &lt;# nodes&gt; &lt;starting port&gt; &lt;duration&gt;</p>
+</div>
 </div>
 
 
@@ -69,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modules</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Supplementary Scripts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#latency-py">Latency.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-runner">node_runner</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">Storage Files</a></li>

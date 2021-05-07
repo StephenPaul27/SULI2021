@@ -33,11 +33,6 @@
             
   <div class="section" id="storage-files">
 <h1>Storage Files<a class="headerlink" href="#storage-files" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="nodedata">
-<h2>NodeData<a class="headerlink" href="#nodedata" title="Permalink to this headline">¶</a></h2>
-<p>Holds all of the files for each node, containing blockchains and transactions</p>
-<p>Formatted: node&lt;port-number&gt;.json</p>
-</div>
 <div class="section" id="balances-csv">
 <h2>balances.csv<a class="headerlink" href="#balances-csv" title="Permalink to this headline">¶</a></h2>
 <p>Record of UtilityToken balances throughout the block history for visualization</p>
@@ -45,6 +40,10 @@
 <div class="section" id="blockchain-log">
 <h2>blockchain.log<a class="headerlink" href="#blockchain-log" title="Permalink to this headline">¶</a></h2>
 <p>Log of debugging, info, warning, and error messages from program execution</p>
+</div>
+<div class="section" id="filesizes-csv">
+<h2>FileSizes.csv<a class="headerlink" href="#filesizes-csv" title="Permalink to this headline">¶</a></h2>
+<p>CSV containing file size progression as transactions are recorded (There is a bug where file sizes are recorded for earlier-than-current transactions)</p>
 </div>
 <div class="section" id="latencies-txt">
 <h2>latencies.txt<a class="headerlink" href="#latencies-txt" title="Permalink to this headline">¶</a></h2>
@@ -60,13 +59,30 @@
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="node-connections-json">
-<h2>node_connections.json<a class="headerlink" href="#node-connections-json" title="Permalink to this headline">¶</a></h2>
-<p>Json containing the upstream and downstream connections from node-to-node for the power/sensitivity exchange</p>
+<div class="section" id="node-connections-dmpc-json">
+<h2>node_connections_dmpc.json<a class="headerlink" href="#node-connections-dmpc-json" title="Permalink to this headline">¶</a></h2>
+<p>Json containing the upstream and downstream connections from node-to-node for the power/sensitivity exchange according to the default setup of LC-DMPC.</p>
+</div>
+<div class="section" id="node-connections-fork-json">
+<h2>node_connections_fork.json<a class="headerlink" href="#node-connections-fork-json" title="Permalink to this headline">¶</a></h2>
+<p>Json containing node connections in a forking configuration.</p>
+</div>
+<div class="section" id="node-connections-linear-json">
+<h2>node_connections_linear.json<a class="headerlink" href="#node-connections-linear-json" title="Permalink to this headline">¶</a></h2>
+<p>Json containing node connections in linear configuration.</p>
+</div>
+<div class="section" id="nodedata">
+<h2>NodeData<a class="headerlink" href="#nodedata" title="Permalink to this headline">¶</a></h2>
+<p>Folder holding all of the files for each node, containing blockchains and transactions</p>
+<p>Formatted: node&lt;port-number&gt;.json</p>
 </div>
 <div class="section" id="public-keys-json">
 <h2>public_keys.json<a class="headerlink" href="#public-keys-json" title="Permalink to this headline">¶</a></h2>
 <p>This json is representative of a key server, responsible for giving access to public keys to decrypt and verify digital signature</p>
+</div>
+<div class="section" id="timeoutdata-txt">
+<h2>TimeoutData.txt<a class="headerlink" href="#timeoutdata-txt" title="Permalink to this headline">¶</a></h2>
+<p>Saved version of latencies.txt containing recordings of timeout events affecting the consensus processes.</p>
 </div>
 </div>
 
@@ -91,13 +107,17 @@
 <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Storage Files</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#nodedata">NodeData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#balances-csv">balances.csv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blockchain-log">blockchain.log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filesizes-csv">FileSizes.csv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#latencies-txt">latencies.txt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#local-key-json">local_key.json</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#node-connections-json">node_connections.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-connections-dmpc-json">node_connections_dmpc.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-connections-fork-json">node_connections_fork.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-connections-linear-json">node_connections_linear.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nodedata">NodeData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#public-keys-json">public_keys.json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeoutdata-txt">TimeoutData.txt</a></li>
 </ul>
 </li>
 </ul>

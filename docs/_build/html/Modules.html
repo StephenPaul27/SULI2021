@@ -40,7 +40,7 @@
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Some files need to reimport files locally because of their ordering in this file</p>
+<p>Some scripts need to reimport files locally because of their ordering in this file</p>
 </div>
 </div></blockquote>
 </div>
@@ -125,7 +125,14 @@ Once all “votes” have been received or the time window has expired, the most
 <dt id="blockchain_funcs.consensus_and_reset">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus_and_reset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_and_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will call consensus and reset its variables
-(used as the timeout callback)</p>
+:param threadNum: Thread number if activated via timeout</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="blockchain_funcs.consensus_reset_and_send">
+<code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus_reset_and_send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_reset_and_send" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will call consensus, reset its variables, then send the result to the smart contract node
+:param threadNum: Thread number if activated via timeout</p>
 </dd></dl>
 
 <dl class="py function">
@@ -266,25 +273,15 @@ Every node will have a server for receiving and reacting to messages, and a clie
 <dl class="py method">
 <dt id="communication.Receiver.power_consensus">
 <code class="sig-name descname"><span class="pre">power_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.power_consensus" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>msgJson</strong> – </p></li>
-<li><p><strong>threadNum</strong> – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
+<dd><p>This function will perform the consensus to fabricate the LC-DMPC grid aggregator power reference
+:param threadNum: Thread number if activated via timeout</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="communication.Receiver.request_power">
 <code class="sig-name descname"><span class="pre">request_power</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.request_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will request power for consensus in the event that it does not receive power from upstream
-:param port:
-:return:</p>
+:param threadNum: Thread number if activated via timeout</p>
 </dd></dl>
 
 <dl class="py method">
@@ -339,20 +336,27 @@ then it will send the result to the smartcontract to finalize</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="communication.Receiver.respond_powerDMPC">
+<code class="sig-name descname"><span class="pre">respond_powerDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerDMPC" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will respond to instructions from the LC-DMPC program to send power references
+:param msgJson: Json structure of message
+:param msgData: Json structure of message data</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="communication.Receiver.respond_powerRequest">
 <code class="sig-name descname"><span class="pre">respond_powerRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function responds to a request for power reference
-:param msgJson:
-:param msgData:</p>
+:param msgJson: Json structure of message
+:param msgData: Json structure of message data</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerResponse">
 <code class="sig-name descname"><span class="pre">respond_powerResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerResponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will do a form of consensus on the powers of other nodes
-:param msgJson:
-:param msgData:
-:return:</p>
+:param msgJson: Json structure of message
+:param msgData: Json structure of message data</p>
 </dd></dl>
 
 <dl class="py method">
@@ -429,11 +433,7 @@ then it will send the result to the smartcontract to finalize</p>
 <dl class="py method">
 <dt id="communication.Receiver.run">
 <code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method representing the thread’s activity.</p>
-<p>You may override this method in a subclass. The standard run() method
-invokes the callable object passed to the object’s constructor as the
-target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively.</p>
+<dd><p>This function is run at the start of the server thread</p>
 </dd></dl>
 
 </dd></dl>
@@ -441,15 +441,12 @@ from the args and kwargs arguments, respectively.</p>
 <dl class="py class">
 <dt id="communication.Sender">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">Sender</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class is responsible for actively sending data including power references and introduction</p>
+<dd><p>This class is responsible for actively sending data including power references and introduction
+It is the client in the server-client P2P node structure</p>
 <dl class="py method">
 <dt id="communication.Sender.run">
 <code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method representing the thread’s activity.</p>
-<p>You may override this method in a subclass. The standard run() method
-invokes the callable object passed to the object’s constructor as the
-target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively.</p>
+<dd><p>This function is the bulk of the thread and will be run as the thread is started</p>
 </dd></dl>
 
 </dd></dl>
@@ -457,7 +454,9 @@ from the args and kwargs arguments, respectively.</p>
 <dl class="py function">
 <dt id="communication.propose_block">
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">propose_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.propose_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will propose a block update to all of the other blocks</p>
+<dd><p>This function will propose a block update to all of the other blocks
+:param msgJson: Json structure of message
+:param msgData: Json structure of message data</p>
 </dd></dl>
 
 <dl class="py function">
@@ -465,6 +464,16 @@ from the args and kwargs arguments, respectively.</p>
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">reportNode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.reportNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will report a node to the smart contract for punishment
 :param node: hash of the node to report</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="communication.report_sensitivity">
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">report_sensitivity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.report_sensitivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will execute similarly to <code class="xref py py-meth docutils literal notranslate"><span class="pre">communication.respond_sensitivity()</span></code>
+but is executed from timeout and thus will omit the missing sensitivity data and
+will report the node that should’ve sent it
+:param msgJson: original power message
+:param threadNum: Thread number if activated via timeout</p>
 </dd></dl>
 
 <dl class="py function">
@@ -484,6 +493,13 @@ from the args and kwargs arguments, respectively.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="communication.sendPowerref">
+<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">sendPowerref</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_power</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendPowerref" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will send power reference data to any downstream nodes from this node
+:param message_power: power value to send (this is a parameter so that LC-DMPC can feed in its own data)</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="communication.sendToDMPC">
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">sendToDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myport</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendToDMPC" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function sends a given message to the lcdmpc program</p>
@@ -491,7 +507,7 @@ from the args and kwargs arguments, respectively.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> – The string message to send</p></li>
-<li><p><strong>myport</strong> – this node’s port for debugging</p></li>
+<li><p><strong>myport</strong> – this node’s port (for debugging)</p></li>
 </ul>
 </dd>
 </dl>
@@ -509,12 +525,6 @@ from the args and kwargs arguments, respectively.</p>
 <dd><p>This function will tell the DMPC program to update the sensitivity input</p>
 </dd></dl>
 
-<dl class="py function">
-<dt id="communication.updateZDMPC">
-<code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">updateZDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">powerVal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.updateZDMPC" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will tell the DMPC program to update the power reference input</p>
-</dd></dl>
-
 </div>
 <div class="section" id="module-Data_Recorder">
 <span id="data-recorder-py"></span><h2>Data_Recorder.py<a class="headerlink" href="#module-Data_Recorder" title="Permalink to this headline">¶</a></h2>
@@ -529,6 +539,15 @@ from the args and kwargs arguments, respectively.</p>
 <dt id="Data_Recorder.clear_latencies">
 <code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">clear_latencies</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.clear_latencies" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will clear the latency log</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="Data_Recorder.record_filesize">
+<code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">record_filesize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocksize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.record_filesize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will record the node file size
+:param index: current block index
+:param transactions: current # of non-stored transactions
+:param blocksize: set blocksize</p>
 </dd></dl>
 
 <dl class="py function">
@@ -559,6 +578,24 @@ from the args and kwargs arguments, respectively.</p>
 :param message: message claimed to be signed with signature
 :param pub_key: public key of sender
 :returns: boolean value representing validity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="encryption.decrypt">
+<code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">decrypt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will decrypt the provided bytes into a usable form</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pr_key</strong> – private key to decrypt with</p></li>
+<li><p><strong>port</strong> – port for debugging</p></li>
+<li><p><strong>package</strong> – message bytes to decrypt</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>decrypted message string</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -595,10 +632,15 @@ from the args and kwargs arguments, respectively.</p>
 </div>
 <div class="section" id="module-key_editor">
 <span id="key-editor-py"></span><h2>key_editor.py<a class="headerlink" href="#module-key_editor" title="Permalink to this headline">¶</a></h2>
+<p>This file holds functions that manipulate keys used for encryption and digital signatures</p>
 </div>
 <div class="section" id="module-node_editor">
 <span id="node-editor-py"></span><h2>node_editor.py<a class="headerlink" href="#module-node_editor" title="Permalink to this headline">¶</a></h2>
 <p>This file contains functions that edit the local storage of the nodes</p>
+</div>
+<div class="section" id="module-Timeouts">
+<span id="timeouts-py"></span><h2>Timeouts.py<a class="headerlink" href="#module-Timeouts" title="Permalink to this headline">¶</a></h2>
+<p>This file will contain functions for timing out any process</p>
 </div>
 </div>
 
@@ -629,6 +671,7 @@ from the args and kwargs arguments, respectively.</p>
 <li class="toctree-l2"><a class="reference internal" href="#module-global_vars">global_vars.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-key_editor">key_editor.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-node_editor">node_editor.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-Timeouts">Timeouts.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>

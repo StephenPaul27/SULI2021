@@ -25,15 +25,15 @@ Json representative of local storage at each node, holding the public and privat
  .. note:: Normally, only the node who owns the private key would be able to view it, but they are grouped here for convenience
 
 node_connections_dmpc.json
----------------------
+--------------------------
 Json containing the upstream and downstream connections from node-to-node for the power/sensitivity exchange according to the default setup of LC-DMPC.
 
 node_connections_fork.json
----------------------
+--------------------------
 Json containing node connections in a forking configuration.
 
 node_connections_linear.json
----------------------
+----------------------------
 Json containing node connections in linear configuration.
 
 NodeData
