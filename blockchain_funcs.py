@@ -299,13 +299,17 @@ def create_genesis_block(prev=None):
 def consensus_and_reset(threadNum=None):
     """
     This function will call consensus and reset its variables
-    (used as the timeout callback)
+    :param threadNum: Thread number if activated via timeout
     """
     g.blockchain = consensus()
     reset_consensus(g.blockchain[-1].index)
 
 
 def consensus_reset_and_send(threadNum=None):
+    """
+    This function will call consensus, reset its variables, then send the result to the smart contract node
+    :param threadNum: Thread number if activated via timeout
+    """
 
     import communication as comm
 

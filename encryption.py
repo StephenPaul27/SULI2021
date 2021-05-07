@@ -6,7 +6,6 @@ from all_imports import *
 
 
 def decrypt(package, port=g.my_port, pr_key=None):
-    import communication as comm
     """
     This function will decrypt the provided bytes into a usable form
 
@@ -15,6 +14,8 @@ def decrypt(package, port=g.my_port, pr_key=None):
     :param package: message bytes to decrypt
     :returns: decrypted message string
     """
+
+    import communication as comm
 
     # correct the default private key
     if pr_key is None:

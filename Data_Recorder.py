@@ -1,4 +1,6 @@
-"""This file holds functions that will write data to storage for later analysis"""
+"""
+This file holds functions that will write data to storage for later analysis
+"""
 
 import csv
 import time
@@ -6,6 +8,13 @@ import os
 
 
 def record_filesize(index,transactions,blocksize):
+    """
+    This function will record the node file size
+    :param index: current block index
+    :param transactions: current # of non-stored transactions
+    :param blocksize: set blocksize
+    """
+    # retrieves the filesize and calculates the number of total transactions before storing in csv
     with open("Storage/FileSizes.csv","a") as f:
         f.write(str(index*blocksize+transactions)+","+str(os.path.getsize("Storage/NodeData/node8101.json")/1024)+",\n")
 

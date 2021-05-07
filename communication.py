@@ -22,6 +22,9 @@ class Receiver(threading.Thread):
         self.port = my_port
 
     def run(self):
+        """
+        This function is run at the start of the server thread
+        """
         self.listen()
 
     def listen(self):
@@ -152,6 +155,11 @@ class Receiver(threading.Thread):
                 print(f"Node {g.my_port} failed because {traceback.format_exc()}")
 
     def respond_powerDMPC(self, msgJson, msgData):
+        """
+        This function will respond to instructions from the LC-DMPC program to send power references
+        :param msgJson: Json structure of message
+        :param msgData: Json structure of message data
+        """
         if g.DMPC_SIM:
             g.my_power = msgData['value']
             # send power if not in traitor ports
@@ -345,8 +353,7 @@ class Receiver(threading.Thread):
     def request_power(self, threadNum):
         """
         This function will request power for consensus in the event that it does not receive power from upstream
-        :param port:
-        :return:
+        :param threadNum: Thread number if activated via timeout
         """
         # stop the timer for the sending node
         if threadNum in g.power_thread:
@@ -369,8 +376,8 @@ class Receiver(threading.Thread):
     def respond_powerRequest(self,msgJson, msgData):
         """
         This function responds to a request for power reference
-        :param msgJson:
-        :param msgData:
+        :param msgJson: Json structure of message
+        :param msgData: Json structure of message data
         """
         # dont respond if traitor (proper response?)
         if g.my_port != msgData['report'] and g.my_power is not None:
@@ -396,9 +403,8 @@ class Receiver(threading.Thread):
     def respond_powerResponse(self, msgJson, msgData):
         """
         This function will do a form of consensus on the powers of other nodes
-        :param msgJson:
-        :param msgData:
-        :return:
+        :param msgJson: Json structure of message
+        :param msgData: Json structure of message data
         """
         # dont take response from culprit node
         if msgJson['from'] == msgData['reported']:
@@ -417,10 +423,8 @@ class Receiver(threading.Thread):
 
     def power_consensus(self, threadNum):
         """
-
-        :param msgJson:
-        :param threadNum:
-        :return:
+        This function will perform the consensus to fabricate the LC-DMPC grid aggregator power reference
+        :param threadNum: Thread number if activated via timeout
         """
 
         # if thread already popped, return
@@ -875,6 +879,8 @@ class Receiver(threading.Thread):
 def propose_block(msgJson, msgData):
     """
     This function will propose a block update to all of the other blocks
+    :param msgJson: Json structure of message
+    :param msgData: Json structure of message data
     """
     # if ready to add a new block, go ahead and put it on your blockchain
     if len(g.this_nodes_transactions) >= g.BLOCK_SIZE and g.blockchain[-1].index < g.consensus_index+1:
@@ -945,13 +951,22 @@ def propose_block(msgJson, msgData):
 class Sender(threading.Thread):
     """
     This class is responsible for actively sending data including power references and introduction
+    It is the client in the server-client P2P node structure
     """
     def __init__(self, my_host, my_port):
+        """
+        This function will initialize the client
+        :param my_host: host of the client
+        :param my_port: port of the client
+        """
         threading.Thread.__init__(self, name="messenger_sender")
         self.my_host = my_host
         self.my_port = my_port
 
     def run(self):
+        """
+        This function is the bulk of the thread and will be run as the thread is started
+        """
 
         # Introduce yourself on the first run
         for i in range(0, g.NUM_NODES+1):  # broadcast to connected clients from BASE_PORT+1 to BASE_PORT+NUM_NODES
@@ -990,10 +1005,16 @@ class Sender(threading.Thread):
             # specify default power reference (using 1 for normalization)
             message_power = 1
 
+            # send power reference message
             sendPowerref(message_power)
 
 
 def sendPowerref(message_power):
+    """
+    This function will send power reference data to any downstream nodes from this node
+    :param message_power: power value to send (this is a parameter so that LC-DMPC can feed in its own data)
+    """
+
     for i in g.node_conn[str(g.my_port)]["downstream"]:  # send power reference to downstream nodes
 
         # skip if node is offline
@@ -1040,18 +1061,18 @@ def sendPowerref(message_power):
                     f"Unable to send power reference broadcast from port {g.my_port} to port {i} because {e}")
 
 
-def updateZDMPC(powerVal,fromport):
-    """
-    This function will tell the DMPC program to update the power reference input
-    """
-    if g.DMPC_SIM:
-        # tell DMPC to update Z
-        message = {
-            "type": "updateZDMPC",
-            "from_index": (fromport - 8101),
-            "data": {"power": powerVal}
-        }
-        sendToDMPC(message)
+# def updateZDMPC(powerVal,fromport):
+#     """
+#     This function will tell the DMPC program to update the power reference input
+#     """
+#     if g.DMPC_SIM:
+#         # tell DMPC to update Z
+#         message = {
+#             "type": "updateZDMPC",
+#             "from_index": (fromport - 8101),
+#             "data": {"power": powerVal}
+#         }
+#         sendToDMPC(message)
 
 def updateDMPCPower(fromport,power):
     """
@@ -1135,7 +1156,7 @@ def sendToDMPC(message, myport=g.my_port):
     This function sends a given message to the lcdmpc program
 
     :param message: The string message to send
-    :param myport: this node's port for debugging
+    :param myport: this node's port (for debugging)
     """
 
     # failsafe
@@ -1164,6 +1185,14 @@ def sendToDMPC(message, myport=g.my_port):
 
 
 def report_sensitivity(msgJson,threadNum):
+    """
+    This function will execute similarly to :meth:`communication.respond_sensitivity`
+    but is executed from timeout and thus will omit the missing sensitivity data and
+    will report the node that should've sent it
+    :param msgJson: original power message
+    :param threadNum: Thread number if activated via timeout
+    """
+
     msgData = msgJson['data']
     if threadNum and g.sense_thread[threadNum]:
         # stop the thread

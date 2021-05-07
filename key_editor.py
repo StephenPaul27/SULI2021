@@ -1,3 +1,7 @@
+"""
+This file holds functions that manipulate keys used for encryption and digital signatures
+"""
+
 from all_imports import *
 
 def create_key(port):

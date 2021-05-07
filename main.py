@@ -2,7 +2,7 @@
 Blockchain Network Code
 Stephen Paul
 
-format: python <filename>.py <port>
+format: python <filename>.py <port> <existing ports on blockchain network (inclusive)>
 
 This program will create a node to be used in a blockchain-like network.
 Nodes will communicate with each other via P2P where each node is both server and client.
@@ -51,9 +51,6 @@ def main():
         # start consensus server
         consensus = cons.Server(g.BASE_HOST, g.BASE_PORT)
         consensus.start()
-
-
-
 
     # create random hash to represent this node (if needed)
     g.my_hash = ne.new_node(g.my_port)

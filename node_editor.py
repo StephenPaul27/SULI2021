@@ -8,7 +8,6 @@ from all_imports import *
 def new_node(port):
     """
     This function will add a node to the local storage with a unique hash if it does not already exist
-
     :param port: port of the node to add
     :return: hash of the node added
     """
@@ -73,6 +72,8 @@ def new_node(port):
 def update_chain(port=g.my_port,chainList=None):
     """
     This function will write a blockchain into local storage
+    :param port: port of this node
+    :param chainList: blockchain to write
     """
 
     # assign the default value
@@ -98,7 +99,7 @@ def update_chain(port=g.my_port,chainList=None):
 def get_transactions(port=g.my_port):
     """
     This function will return the transactions stored locally
-
+    :param port: port of this node
     :return: transaction list
     """
 
@@ -117,6 +118,8 @@ def get_transactions(port=g.my_port):
 def update_transactions(port=g.my_port, transactions=None):
     """
     This function will write the transactions into local storage
+    :param port: port of this node
+    :param transactions: transactions to write
     """
 
     # update default value
@@ -143,7 +146,13 @@ def update_transactions(port=g.my_port, transactions=None):
 
 
 def tryLoad(f, port):
-
+    """
+    This function will attempt to load a json file 5 times with a small delay to allow for a read-write collision to
+    clear
+    :param f: file to read
+    :param port: port of this node
+    :return: (loaded json file, boolean of success)
+    """
     successful = False
     node_file = None
     for i in range(5):

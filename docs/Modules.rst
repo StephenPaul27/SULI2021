@@ -26,23 +26,29 @@ Data_Recorder.py
    :members:
 
 encryption.py
-----------------
+-------------
 
 .. automodule:: encryption
    :members:
 
 global_vars.py
-----------------
+--------------
 
 .. automodule:: global_vars
 
 key_editor.py
-----------------
+-------------
 
 .. automodule:: key_editor
 
 node_editor.py
-----------------
+--------------
 
 .. automodule:: node_editor
+
+
+Timeouts.py
+-----------
+
+.. automodule:: Timeouts
 
