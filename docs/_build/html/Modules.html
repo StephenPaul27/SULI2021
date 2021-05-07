@@ -633,14 +633,105 @@ will report the node that should’ve sent it
 <div class="section" id="module-key_editor">
 <span id="key-editor-py"></span><h2>key_editor.py<a class="headerlink" href="#module-key_editor" title="Permalink to this headline">¶</a></h2>
 <p>This file holds functions that manipulate keys used for encryption and digital signatures</p>
+<dl class="py function">
+<dt id="key_editor.create_key">
+<code class="sig-prename descclassname"><span class="pre">key_editor.</span></code><code class="sig-name descname"><span class="pre">create_key</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#key_editor.create_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will create a private and public key pair for a node if it does not already exist
+Then it will write the keys to a file
+The public_keys file represents a publicly accessible server/database of public keys, whereas the local_keys
+file represents local storage accessible only to each node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – port number associated with the node</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>private key (generated or read)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="key_editor.get_pub_key">
+<code class="sig-prename descclassname"><span class="pre">key_editor.</span></code><code class="sig-name descname"><span class="pre">get_pub_key</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#key_editor.get_pub_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will read the public key of a port</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – The port of which to retrieve the public key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns the public key object read from the json file</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-node_editor">
 <span id="node-editor-py"></span><h2>node_editor.py<a class="headerlink" href="#module-node_editor" title="Permalink to this headline">¶</a></h2>
 <p>This file contains functions that edit the local storage of the nodes</p>
+<dl class="py function">
+<dt id="node_editor.get_transactions">
+<code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">get_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.get_transactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will return the transactions stored locally
+:param port: port of this node
+:return: transaction list</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="node_editor.new_node">
+<code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">new_node</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.new_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will add a node to the local storage with a unique hash if it does not already exist
+:param port: port of the node to add
+:return: hash of the node added</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="node_editor.tryLoad">
+<code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">tryLoad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.tryLoad" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will attempt to load a json file 5 times with a small delay to allow for a read-write collision to
+clear
+:param f: file to read
+:param port: port of this node
+:return: (loaded json file, boolean of success)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="node_editor.update_chain">
+<code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">update_chain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.update_chain" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will write a blockchain into local storage
+:param port: port of this node
+:param chainList: blockchain to write</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="node_editor.update_transactions">
+<code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">update_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.update_transactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will write the transactions into local storage
+:param port: port of this node
+:param transactions: transactions to write</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-Timeouts">
 <span id="timeouts-py"></span><h2>Timeouts.py<a class="headerlink" href="#module-Timeouts" title="Permalink to this headline">¶</a></h2>
 <p>This file will contain functions for timing out any process</p>
+<dl class="py class">
+<dt id="Timeouts.Timeout">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Timeouts.</span></code><code class="sig-name descname"><span class="pre">Timeout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will act as a general thread timer for any process</p>
+<dl class="py method">
+<dt id="Timeouts.Timeout.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the bulk of the thread, it will repeatedly check if the time has exceeded the duration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Timeouts.Timeout.stop">
+<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will effectively stop the thread by setting the run condition to false</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 

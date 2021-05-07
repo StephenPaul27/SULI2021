@@ -35,20 +35,24 @@ global_vars.py
 --------------
 
 .. automodule:: global_vars
+   :members:
 
 key_editor.py
 -------------
 
 .. automodule:: key_editor
+   :members:
 
 node_editor.py
 --------------
 
 .. automodule:: node_editor
+   :members:
 
 
 Timeouts.py
 -----------
 
 .. automodule:: Timeouts
+   :members:
 
