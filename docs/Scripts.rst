@@ -7,6 +7,8 @@ Latency.py
 ----------
 
     .. automodule:: Latency
+        :special-members:
+        :private-members:
         :members:
 
 node_runner

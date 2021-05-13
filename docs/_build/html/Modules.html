@@ -53,6 +53,22 @@ This includes the general structure, consensus, validation, manipulation, data t
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">Block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_hash</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class defines the structure of a block</p>
 <dl class="py method">
+<dt id="blockchain_funcs.Block.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_hash</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function initializes a block
+:param index: index of this block
+:param timestamp: timestamp of this block
+:param data: data to be included in this block (transactions)
+:param previous_hash: hash of previous block in the chain</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="blockchain_funcs.Block.__weakref__">
+<code class="sig-name descname"><span class="pre">__weakref__</span></code><a class="headerlink" href="#blockchain_funcs.Block.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="blockchain_funcs.Block.hash_block">
 <code class="sig-name descname"><span class="pre">hash_block</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.hash_block" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns the hash of this block, using the index, timestamp, data, and previous hash</p>
@@ -265,6 +281,14 @@ Every node will have a server for receiving and reacting to messages, and a clie
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">Receiver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is responsible for receiving and reacting to messages from other nodes</p>
 <dl class="py method">
+<dt id="communication.Receiver.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will initialize the receiver server variables
+:param my_host: host of this node
+:param my_port: port of this node</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="communication.Receiver.listen">
 <code class="sig-name descname"><span class="pre">listen</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.listen" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is the listener for incoming messages</p>
@@ -443,6 +467,14 @@ then it will send the result to the smartcontract to finalize</p>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">Sender</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is responsible for actively sending data including power references and introduction
 It is the client in the server-client P2P node structure</p>
+<dl class="py method">
+<dt id="communication.Sender.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will initialize the client
+:param my_host: host of the client
+:param my_port: port of the client</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="communication.Sender.run">
 <code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.run" title="Permalink to this definition">¶</a></dt>
@@ -718,6 +750,18 @@ clear
 <dt id="Timeouts.Timeout">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Timeouts.</span></code><code class="sig-name descname"><span class="pre">Timeout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class will act as a general thread timer for any process</p>
+<dl class="py method">
+<dt id="Timeouts.Timeout.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function initializes the class object with the type, start time, and thread running condition
+:param timer_type: type of timer for debugging purposes
+:param functionCall: callback function for after timeout expires
+:param duration: duration of the timer
+:param port: port of node calling this function for debugging
+:param threadNum: thread number to pass along if this thread is part of a list of threads
+:param arg: argument to pass into the callback function</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="Timeouts.Timeout.run">
 <code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.run" title="Permalink to this definition">¶</a></dt>
