@@ -14,6 +14,7 @@ Contents:
    Modules
    Scripts
    Storage
+   Pseudocode
 
 Indices and tables
 ==================

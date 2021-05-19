@@ -194,6 +194,7 @@ class Server(threading.Thread):
         """
         This function reacts to consensus messages, collecting consensus results from the validators then
         performing its own consensus using those messages
+        :ref:`(Pseudocode) <pseudo_consensus_response>`
 
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
@@ -325,6 +326,7 @@ class Server(threading.Thread):
     def validator_consensus(self,threadNum=None):
         """
         This function will perform consensus among the assigned validators and issue payment/penalties
+        :ref:`(Pseudocode) <pseudo_validator_consensus>`
         """
 
         # clear the smart contract timer thread if needed
@@ -408,6 +410,7 @@ class Server(threading.Thread):
     def update_wallets(self):
         """
         This function will scan the blockchain to assign current balances for the nodes
+        :ref:`(Pseudocode) <pseudo_update_wallets>`
         """
 
         # reinitialize walletList before adding to it

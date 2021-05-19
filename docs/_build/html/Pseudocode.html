@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pseudocode &#8212; SULIblockchain  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Storage Files" href="Storage.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="pseudocode">
+<h1>Pseudocode<a class="headerlink" href="#pseudocode" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“Necessary Parameters” refers to parameters relevant to the pseudocode</p>
+</div>
+<div class="section" id="consensus-response">
+<span id="pseudo-consensus-response"></span><h2>Consensus Response:<a class="headerlink" href="#consensus-response" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Necessary Parameters:
+    message from node contributing to consensus
+
+Assert that the node is in validator list
+Assert that the node has not already voted on consensus
+Assert that the node is proposing consensus for the correct block index
+
+Put node in list of voted validators
+If a vote has already been created for this blockhash
+    Add voter node’s hash to the list created for the blockhash (to “submit” its vote)
+If this node’s vote introduces a new block and its “previous_hash” field matches the last block on the blockchain
+    Create a vote for this blockhash
+
+Assert that there are no duplicate transactions in the attached list
+    For each transaction in the attached transaction list:
+        Try to submit a vote from this node for the transaction hash
+        If that fails:
+            Create a vote for this transaction hash and store the transaction
+            Then submit a vote from this node for the transaction hash
+
+Begin timeout thread for the Consensus_Process (in case some nodes don’t respond in a timely manner)
+
+If all validators have now voted begin the Consensus_Process
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="decrypt">
+<span id="pseudo-decrypt"></span><h2>Decrypt:<a class="headerlink" href="#decrypt" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Necessary Parameters:
+    JSON package to decrypt
+
+Extract signature, encrypted key, and encrypted message from JSON
+Decrypt symmetric key with this node’s private key
+Decrypt message with decrypted symmetric key
+Retrieve public key of sender node using its “from” hash of the decrypted message
+Calculate hash of decrypted message
+Verify signature using retrieved public key and hash of decrypted message
+
+Return: Decrypted and decoded message
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="encrypt">
+<span id="pseudo-encrypt"></span><h2>Encrypt:<a class="headerlink" href="#encrypt" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Necessary Parameters:
+    message to encrypt
+    destination node
+
+Generate symmetric encryption key
+Create hash of message
+Retrieve public key using destination node
+Create signature using this node’s private key and message hash
+Encrypt message using symmetric key
+Encrypt symmetric key using public key
+Output_JSON = {
+                    signature,
+                    encrypted symmetric key,
+                    encrypted message
+              }
+
+Return: Encoded Output_JSON
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="power-consensus-process-aggregator-fabrication">
+<span id="pseudo-power-consensus-process"></span><h2>Power Consensus Process (Aggregator Fabrication):<a class="headerlink" href="#power-consensus-process-aggregator-fabrication" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">This</span> <span class="n">process</span> <span class="n">enacts</span> <span class="n">upon</span> <span class="n">timing</span> <span class="n">out</span> <span class="k">while</span> <span class="n">awaiting</span> <span class="n">a</span> <span class="n">power</span> <span class="n">reference</span> <span class="n">message</span>
+
+<span class="n">At</span> <span class="n">the</span> <span class="n">node</span> <span class="n">that</span> <span class="n">detected</span> <span class="n">the</span> <span class="n">disconnect</span><span class="p">:</span>
+
+    <span class="n">Kill</span><span class="o">/</span><span class="n">erase</span> <span class="n">the</span> <span class="n">timer</span> <span class="n">thread</span> <span class="n">that</span> <span class="n">called</span> <span class="n">this</span> <span class="n">function</span>
+    <span class="n">The</span> <span class="n">thread</span> <span class="n">identifier</span> <span class="ow">is</span> <span class="n">actually</span> <span class="n">the</span> <span class="n">port</span> <span class="n">of</span> <span class="n">the</span> <span class="n">disconnected</span> <span class="n">node</span><span class="p">,</span> <span class="n">so</span> <span class="n">report</span> <span class="n">it</span> <span class="n">to</span> <span class="n">the</span> <span class="n">smart</span> <span class="n">contract</span>
+    <span class="n">Send</span> <span class="n">power</span> <span class="n">request</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">other</span> <span class="n">connected</span> <span class="n">nodes</span>
+
+<span class="n">At</span> <span class="n">the</span> <span class="n">nodes</span> <span class="n">receiving</span> <span class="n">the</span> <span class="n">power</span> <span class="n">request</span><span class="p">:</span>
+
+    <span class="n">Upon</span> <span class="n">receipt</span> <span class="n">of</span> <span class="n">power</span> <span class="n">request</span><span class="p">,</span> <span class="n">nodes</span> <span class="n">reply</span> <span class="k">with</span> <span class="n">their</span> <span class="n">current</span> <span class="n">power</span><span class="o">/</span><span class="n">last</span> <span class="n">received</span> <span class="n">power</span> <span class="n">reference</span>
+
+<span class="n">At</span> <span class="n">the</span> <span class="n">node</span> <span class="n">that</span> <span class="n">detected</span> <span class="n">the</span> <span class="n">disconnect</span><span class="p">:</span>
+
+    <span class="n">Upon</span> <span class="n">receipt</span> <span class="n">of</span> <span class="n">power</span> <span class="n">reply</span> <span class="kn">from</span> <span class="nn">each</span> <span class="n">node</span><span class="p">:</span>
+        <span class="n">start</span> <span class="n">a</span> <span class="n">timer</span> <span class="k">for</span> <span class="n">consensus</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">started</span> <span class="n">already</span>
+        <span class="n">add</span> <span class="n">received</span> <span class="n">power</span> <span class="n">to</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">node</span> <span class="n">powers</span>
+
+    <span class="k">if</span> <span class="n">received</span> <span class="n">power</span> <span class="kn">from</span> <span class="nn">all</span> <span class="n">nodes</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">timeout</span> <span class="n">above</span> <span class="n">executes</span><span class="p">:</span>
+        <span class="n">kill</span> <span class="n">the</span> <span class="n">thread</span> <span class="p">(</span><span class="k">if</span> <span class="n">applicable</span><span class="p">)</span>
+        <span class="n">create</span> <span class="n">an</span> <span class="n">empty</span> <span class="n">aggregated</span> <span class="n">power</span> <span class="n">reference</span>
+
+        <span class="k">for</span> <span class="n">each</span> <span class="n">recorded</span> <span class="n">power</span> <span class="ow">in</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">node</span> <span class="n">powers</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">Unofficial</span> <span class="n">Estimation</span><span class="p">:)</span>
+            <span class="n">insert</span> <span class="n">current</span> <span class="n">power</span> <span class="n">at</span> <span class="n">beginning</span> <span class="n">of</span> <span class="n">aggregated</span> <span class="n">reference</span>
+            <span class="n">insert</span> <span class="n">horizon</span> <span class="n">at</span> <span class="n">end</span> <span class="n">of</span> <span class="n">aggregated</span> <span class="n">reference</span>
+
+        <span class="n">Tell</span> <span class="n">DMPC</span> <span class="n">program</span> <span class="n">to</span> <span class="n">update</span> <span class="n">the</span> <span class="n">power</span> <span class="n">reference</span> <span class="nb">input</span> <span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="k">with</span> <span class="n">the</span> <span class="n">fabricated</span> <span class="n">aggregated</span> <span class="n">reference</span>
+
+        <span class="n">Attempt</span> <span class="n">to</span> <span class="n">respond</span> <span class="k">with</span> <span class="n">sensitvity</span> <span class="k">as</span> <span class="n">normal</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="timeouts">
+<span id="pseudo-timeouts"></span><h2>Timeouts:<a class="headerlink" href="#timeouts" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Necessary</span> <span class="n">Parameters</span><span class="p">:</span>
+    <span class="n">Callback</span> <span class="n">function</span> <span class="k">for</span> <span class="n">when</span> <span class="n">the</span> <span class="n">timer</span> <span class="n">expires</span>
+    <span class="n">Duration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">timer</span>
+    <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Thread</span> <span class="n">identifier</span> <span class="k">for</span> <span class="n">timer</span> <span class="n">threads</span> <span class="ow">in</span> <span class="n">a</span> <span class="nb">list</span>
+    <span class="p">(</span><span class="n">Optional</span><span class="p">)</span> <span class="n">Argument</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Callback</span> <span class="n">function</span>
+
+<span class="n">Record</span> <span class="n">instantiation</span> <span class="n">time</span> <span class="n">of</span> <span class="n">this</span> <span class="n">thread</span>
+<span class="n">Begin</span> <span class="n">infinite</span> <span class="n">thread</span> <span class="n">loop</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">time</span> <span class="n">since</span> <span class="n">instantiation</span> <span class="n">exceeds</span> <span class="n">specified</span> <span class="n">duration</span><span class="p">:</span>
+        <span class="n">enact</span> <span class="n">the</span> <span class="n">callback</span> <span class="n">function</span> <span class="p">(</span><span class="k">with</span> <span class="n">argument</span> <span class="k">if</span> <span class="n">applicable</span><span class="p">)</span>
+        <span class="n">exit</span><span class="o">/</span><span class="n">kill</span> <span class="n">this</span> <span class="n">thread</span>
+    <span class="n">delay</span> <span class="n">a</span> <span class="n">small</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">time</span> <span class="p">(</span><span class="mf">0.05</span> <span class="n">seconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="update-wallets">
+<span id="pseudo-update-wallets"></span><h2>Update Wallets:<a class="headerlink" href="#update-wallets" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Necessary</span> <span class="n">Parameters</span><span class="p">:</span>
+    <span class="kc">None</span>
+
+<span class="n">Clear</span> <span class="n">current</span> <span class="n">wallet</span><span class="o">/</span><span class="n">balances</span> <span class="n">dictionary</span>
+
+<span class="n">For</span> <span class="n">each</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">blockchain</span><span class="p">:</span>
+    <span class="n">For</span> <span class="n">each</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span>
+        <span class="n">Add</span> <span class="n">transaction</span> <span class="n">value</span> <span class="n">to</span> <span class="n">recipient</span> <span class="n">balance</span>
+
+<span class="n">For</span> <span class="n">each</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">transaction</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="n">Add</span> <span class="n">transaction</span> <span class="n">value</span> <span class="n">to</span> <span class="n">recipient</span> <span class="n">balance</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="validator-consensus">
+<span id="pseudo-validator-consensus"></span><h2>Validator Consensus:<a class="headerlink" href="#validator-consensus" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Necessary Parameters:
+    None (accepts a thread identifier from timeout though)
+
+Kill the timer thread
+Sort validators’ votes by quantity
+
+Append most popular voted block to our blockchain
+Insort any transaction (by timestamp) that has a majority vote
+Pop any transactions that date before this new block
+
+Pay validators incentive if their vote matches the majority
+Pay validators penalty if their vote does not match
+Pay any reported nodes a penalty if they have been reported by a majority of nodes
+
+Select new validators
+Update wallets
+Update chain in file
+Update transactions in file
+Reset consensus variables
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">SULIblockchain</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">Storage Files</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pseudocode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#consensus-response">Consensus Response:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decrypt">Decrypt:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encrypt">Encrypt:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#power-consensus-process-aggregator-fabrication">Power Consensus Process (Aggregator Fabrication):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeouts">Timeouts:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-wallets">Update Wallets:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validator-consensus">Validator Consensus:</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Storage.html" title="previous chapter">Storage Files</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Stephen Paul.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Pseudocode.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

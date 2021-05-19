@@ -353,6 +353,8 @@ class Receiver(threading.Thread):
     def request_power(self, threadNum):
         """
         This function will request power for consensus in the event that it does not receive power from upstream
+        :ref:`(Pseudocode) <pseudo_power_consensus_process>`
+
         :param threadNum: Thread number if activated via timeout
         """
         # stop the timer for the sending node
@@ -376,6 +378,8 @@ class Receiver(threading.Thread):
     def respond_powerRequest(self,msgJson, msgData):
         """
         This function responds to a request for power reference
+        :ref:`(Pseudocode) <pseudo_power_consensus_process>`
+
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
@@ -403,6 +407,8 @@ class Receiver(threading.Thread):
     def respond_powerResponse(self, msgJson, msgData):
         """
         This function will do a form of consensus on the powers of other nodes
+        :ref:`(Pseudocode) <pseudo_power_consensus_process>`
+
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
@@ -424,6 +430,8 @@ class Receiver(threading.Thread):
     def power_consensus(self, threadNum):
         """
         This function will perform the consensus to fabricate the LC-DMPC grid aggregator power reference
+        :ref:`(Pseudocode) <pseudo_power_consensus_process>`
+
         :param threadNum: Thread number if activated via timeout
         """
 

@@ -8,6 +8,7 @@ from all_imports import *
 def decrypt(package, port=g.my_port, pr_key=None):
     """
     This function will decrypt the provided bytes into a usable form
+    :ref:`(Pseudocode) <pseudo_decrypt>`
 
     :param pr_key: private key to decrypt with
     :param port: port for debugging
@@ -85,6 +86,7 @@ def decrypt(package, port=g.my_port, pr_key=None):
 def encrypt(message, destPort, pr_key=None):
     """
     This function will encrypt a given string using hybrid encryption
+    :ref:`(Pseudocode) <pseudo_encrypt>`
 
     :param pr_key: private key of the node trying to encrypt
     :param message: The string to encrypt

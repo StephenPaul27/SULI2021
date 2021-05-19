@@ -9,9 +9,12 @@ blockchain.log
 --------------
 Log of debugging, info, warning, and error messages from program execution
 
+contractStorage.json
+--------------------
+Json for storing the last block index and current validators
+
 FileSizes.csv
 -------------
-
 CSV containing file size progression as transactions are recorded (There is a bug where file sizes are recorded for earlier-than-current transactions)
 
 latencies.txt

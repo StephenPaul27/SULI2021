@@ -25,6 +25,14 @@ communication.py
     :private-members:
     :members:
 
+consensus.py
+------------
+
+.. automodule:: SmartContracts.consensus
+    :special-members:
+    :private-members:
+    :members:
+
 Data_Recorder.py
 ----------------
 

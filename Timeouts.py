@@ -8,6 +8,7 @@ from all_imports import *
 class Timeout(threading.Thread):
     """
     This class will act as a general thread timer for any process
+        :ref:`(Pseudocode) <pseudo_timeouts>`
     """
 
     def __init__(self, timer_type, functionCall, duration=g.CONSENSUS_TIMEOUT, port=g.my_port, threadNum=None, arg=None):

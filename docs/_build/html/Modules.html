@@ -298,14 +298,24 @@ Every node will have a server for receiving and reacting to messages, and a clie
 <dt id="communication.Receiver.power_consensus">
 <code class="sig-name descname"><span class="pre">power_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.power_consensus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will perform the consensus to fabricate the LC-DMPC grid aggregator power reference
-:param threadNum: Thread number if activated via timeout</p>
+<a class="reference internal" href="Pseudocode.html#pseudo-power-consensus-process"><span class="std std-ref">(Pseudocode)</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threadNum</strong> – Thread number if activated via timeout</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="communication.Receiver.request_power">
 <code class="sig-name descname"><span class="pre">request_power</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.request_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will request power for consensus in the event that it does not receive power from upstream
-:param threadNum: Thread number if activated via timeout</p>
+<a class="reference internal" href="Pseudocode.html#pseudo-power-consensus-process"><span class="std std-ref">(Pseudocode)</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threadNum</strong> – Thread number if activated via timeout</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -371,16 +381,30 @@ then it will send the result to the smartcontract to finalize</p>
 <dt id="communication.Receiver.respond_powerRequest">
 <code class="sig-name descname"><span class="pre">respond_powerRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function responds to a request for power reference
-:param msgJson: Json structure of message
-:param msgData: Json structure of message data</p>
+<a class="reference internal" href="Pseudocode.html#pseudo-power-consensus-process"><span class="std std-ref">(Pseudocode)</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerResponse">
 <code class="sig-name descname"><span class="pre">respond_powerResponse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerResponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will do a form of consensus on the powers of other nodes
-:param msgJson: Json structure of message
-:param msgData: Json structure of message data</p>
+<a class="reference internal" href="Pseudocode.html#pseudo-power-consensus-process"><span class="std std-ref">(Pseudocode)</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -558,6 +582,153 @@ will report the node that should’ve sent it
 </dd></dl>
 
 </div>
+<div class="section" id="module-SmartContracts.consensus">
+<span id="consensus-py"></span><h2>consensus.py<a class="headerlink" href="#module-SmartContracts.consensus" title="Permalink to this headline">¶</a></h2>
+<p>This file will act as the centralization necessary to implement the Proof of Stake Algorithm
+It will perform the selection of validators and consensus of blocks</p>
+<dl class="py class">
+<dt id="SmartContracts.consensus.Server">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">SmartContracts.consensus.</span></code><code class="sig-name descname"><span class="pre">Server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is responsible for receiving and reacting to messages for the “smart contract” server</p>
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function initializes the server and its variables
+:param my_host: host of the server (defaults to BASE)
+:param my_port: port of the server (defaults to BASE)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.broadcast_validators">
+<code class="sig-name descname"><span class="pre">broadcast_validators</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.broadcast_validators" title="Permalink to this definition">¶</a></dt>
+<dd><p>This funciton will broadcast the current validators to the rest of the nodes online</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.check_validators">
+<code class="sig-name descname"><span class="pre">check_validators</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.check_validators" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will check if the validators need to be updated</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.consensus_response">
+<code class="sig-name descname"><span class="pre">consensus_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.consensus_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reacts to consensus messages, collecting consensus results from the validators then
+performing its own consensus using those messages
+<a class="reference internal" href="Pseudocode.html#pseudo-consensus-response"><span class="std std-ref">(Pseudocode)</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.introduction_response">
+<code class="sig-name descname"><span class="pre">introduction_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.introduction_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is responsible for responding to the introduction message of a new node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.is_validator">
+<code class="sig-name descname"><span class="pre">is_validator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hash</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.is_validator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will return the index if the hash provided is in the validator list
+:param hash: the hash to check
+:return: index of hash in the validator list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.listen">
+<code class="sig-name descname"><span class="pre">listen</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is the listener for the server, it accepts connections and messages then reacts to them</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.pay">
+<code class="sig-name descname"><span class="pre">pay</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destHash</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.pay" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will send an official message of UtilityToken transfer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destHash</strong> – Destination port</p></li>
+<li><p><strong>value</strong> – UtilityToken Value (negative for penalty)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.read_validators">
+<code class="sig-name descname"><span class="pre">read_validators</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.read_validators" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will read the validators stored in memory</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.report">
+<code class="sig-name descname"><span class="pre">report</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.report" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will report a node for penalty
+:param msgJson: Json structure of message
+:param msgData: Json structure of message data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.reset_consensus">
+<code class="sig-name descname"><span class="pre">reset_consensus</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.reset_consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will clear consensus server variables</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the thread</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.update_wallets">
+<code class="sig-name descname"><span class="pre">update_wallets</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.update_wallets" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will scan the blockchain to assign current balances for the nodes
+<a class="reference internal" href="Pseudocode.html#pseudo-update-wallets"><span class="std std-ref">(Pseudocode)</span></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.validator_consensus">
+<code class="sig-name descname"><span class="pre">validator_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.validator_consensus" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will perform consensus among the assigned validators and issue payment/penalties
+<a class="reference internal" href="Pseudocode.html#pseudo-validator-consensus"><span class="std std-ref">(Pseudocode)</span></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.validator_select">
+<code class="sig-name descname"><span class="pre">validator_select</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.validator_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will select random nodes weighted by their UtilityToken Balance to be validator nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="SmartContracts.consensus.Server.write_validators">
+<code class="sig-name descname"><span class="pre">write_validators</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.Server.write_validators" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will write the validators to memory</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="SmartContracts.consensus.main">
+<code class="sig-prename descclassname"><span class="pre">SmartContracts.consensus.</span></code><code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SmartContracts.consensus.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the main file, it will run if this script is run individually</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-Data_Recorder">
 <span id="data-recorder-py"></span><h2>Data_Recorder.py<a class="headerlink" href="#module-Data_Recorder" title="Permalink to this headline">¶</a></h2>
 <p>This file holds functions that will write data to storage for later analysis</p>
@@ -615,7 +786,8 @@ will report the node that should’ve sent it
 <dl class="py function">
 <dt id="encryption.decrypt">
 <code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">decrypt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.decrypt" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will decrypt the provided bytes into a usable form</p>
+<dd><p>This function will decrypt the provided bytes into a usable form
+<a class="reference internal" href="Pseudocode.html#pseudo-decrypt"><span class="std std-ref">(Pseudocode)</span></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -633,7 +805,8 @@ will report the node that should’ve sent it
 <dl class="py function">
 <dt id="encryption.encrypt">
 <code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">encrypt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destPort</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.encrypt" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will encrypt a given string using hybrid encryption</p>
+<dd><p>This function will encrypt a given string using hybrid encryption
+<a class="reference internal" href="Pseudocode.html#pseudo-encrypt"><span class="std std-ref">(Pseudocode)</span></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -749,7 +922,10 @@ clear
 <dl class="py class">
 <dt id="Timeouts.Timeout">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Timeouts.</span></code><code class="sig-name descname"><span class="pre">Timeout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class will act as a general thread timer for any process</p>
+<dd><dl class="simple">
+<dt>This class will act as a general thread timer for any process</dt><dd><p><a class="reference internal" href="Pseudocode.html#pseudo-timeouts"><span class="std std-ref">(Pseudocode)</span></a></p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="Timeouts.Timeout.__init__">
 <code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.__init__" title="Permalink to this definition">¶</a></dt>
@@ -801,6 +977,7 @@ clear
 <li class="toctree-l2"><a class="reference internal" href="#module-all_imports">all_imports.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-blockchain_funcs">blockchain_funcs.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-communication">communication.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-SmartContracts.consensus">consensus.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-Data_Recorder">Data_Recorder.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-encryption">encryption.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-global_vars">global_vars.py</a></li>
@@ -811,6 +988,7 @@ clear
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Scripts.html">Supplementary Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">Storage Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pseudocode.html">Pseudocode</a></li>
 </ul>
 
 <div class="relations">
