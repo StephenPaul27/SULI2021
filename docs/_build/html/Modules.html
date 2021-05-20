@@ -55,11 +55,17 @@ This includes the general structure, consensus, validation, manipulation, data t
 <dl class="py method">
 <dt id="blockchain_funcs.Block.__init__">
 <code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_hash</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function initializes a block
-:param index: index of this block
-:param timestamp: timestamp of this block
-:param data: data to be included in this block (transactions)
-:param previous_hash: hash of previous block in the chain</p>
+<dd><p>This function initializes a block</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – index of this block</p></li>
+<li><p><strong>timestamp</strong> – timestamp of this block</p></li>
+<li><p><strong>data</strong> – data to be included in this block (transactions)</p></li>
+<li><p><strong>previous_hash</strong> – hash of previous block in the chain</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -77,8 +83,7 @@ This includes the general structure, consensus, validation, manipulation, data t
 <dl class="py method">
 <dt id="blockchain_funcs.Block.to_dict">
 <code class="sig-name descname"><span class="pre">to_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.Block.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns a dict of this block’s fields
-:returns:</p>
+<dd><p>This function returns a dict of this block’s fields</p>
 </dd></dl>
 
 </dd></dl>
@@ -140,15 +145,23 @@ Once all “votes” have been received or the time window has expired, the most
 <dl class="py function">
 <dt id="blockchain_funcs.consensus_and_reset">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus_and_reset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_and_reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will call consensus and reset its variables
-:param threadNum: Thread number if activated via timeout</p>
+<dd><p>This function will call consensus and reset its variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threadNum</strong> – Thread number if activated via timeout</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="blockchain_funcs.consensus_reset_and_send">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">consensus_reset_and_send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.consensus_reset_and_send" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will call consensus, reset its variables, then send the result to the smart contract node
-:param threadNum: Thread number if activated via timeout</p>
+<dd><p>This function will call consensus, reset its variables, then send the result to the smart contract node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threadNum</strong> – Thread number if activated via timeout</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -182,9 +195,15 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 <dl class="py function">
 <dt id="blockchain_funcs.get_dict_list">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">get_dict_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chainList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.get_dict_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns a dictionary list of a given list of objects (Blocks or Transactions)
-:param chainList: list to get objects from, default None results in global blockchain used
-:returns: returns local blockchain in dictionary form</p>
+<dd><p>This function returns a dictionary list of a given list of objects (Blocks or Transactions)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chainList</strong> – list to get objects from, default None results in global blockchain used</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>local blockchain in dictionary form</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -232,17 +251,29 @@ into a list of <a class="reference internal" href="#blockchain_funcs.Block" titl
 <dl class="py function">
 <dt id="blockchain_funcs.in_transactions">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">in_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_hash</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.in_transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will tell if a transaction has already been recorded
-:param t_hash: hash of transaction to search for
-:param t_list: list of transactions
-:returns: Boolean representing whether the transaction was found</p>
+<dd><p>This function will tell if a transaction has already been recorded</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t_hash</strong> – hash of transaction to search for</p></li>
+<li><p><strong>t_list</strong> – list of transactions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Boolean representing whether the transaction was found</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="blockchain_funcs.reset_consensus">
 <code class="sig-prename descclassname"><span class="pre">blockchain_funcs.</span></code><code class="sig-name descname"><span class="pre">reset_consensus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blockchain_funcs.reset_consensus" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function resets global variables used for consensus
-:param newIndex: new index of consensus_index used to keep track of the last agreed block</p>
+<dd><p>This function resets global variables used for consensus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newIndex</strong> – new index of consensus_index used to keep track of the last agreed block</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -283,9 +314,15 @@ Every node will have a server for receiving and reacting to messages, and a clie
 <dl class="py method">
 <dt id="communication.Receiver.__init__">
 <code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will initialize the receiver server variables
-:param my_host: host of this node
-:param my_port: port of this node</p>
+<dd><p>This function will initialize the receiver server variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>my_host</strong> – host of this node</p></li>
+<li><p><strong>my_port</strong> – port of this node</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -336,9 +373,15 @@ then it will send the result to the smartcontract to finalize</p>
 <dl class="py method">
 <dt id="communication.Receiver.respond_confirm">
 <code class="sig-name descname"><span class="pre">respond_confirm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_confirm" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will add the power/sensitivity transaction to the transaction list of this node
-:param msgJson: Json structure of message
-:param msgData: Json structure of message data</p>
+<dd><p>This function will add the power/sensitivity transaction to the transaction list of this node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -372,9 +415,15 @@ then it will send the result to the smartcontract to finalize</p>
 <dl class="py method">
 <dt id="communication.Receiver.respond_powerDMPC">
 <code class="sig-name descname"><span class="pre">respond_powerDMPC</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Receiver.respond_powerDMPC" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will respond to instructions from the LC-DMPC program to send power references
-:param msgJson: Json structure of message
-:param msgData: Json structure of message data</p>
+<dd><p>This function will respond to instructions from the LC-DMPC program to send power references</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -494,9 +543,15 @@ It is the client in the server-client P2P node structure</p>
 <dl class="py method">
 <dt id="communication.Sender.__init__">
 <code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.Sender.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will initialize the client
-:param my_host: host of the client
-:param my_port: port of the client</p>
+<dd><p>This function will initialize the client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>my_host</strong> – host of the client</p></li>
+<li><p><strong>my_port</strong> – port of the client</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -510,16 +565,26 @@ It is the client in the server-client P2P node structure</p>
 <dl class="py function">
 <dt id="communication.propose_block">
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">propose_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msgData</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.propose_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will propose a block update to all of the other blocks
-:param msgJson: Json structure of message
-:param msgData: Json structure of message data</p>
+<dd><p>This function will propose a block update to all of the other blocks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – Json structure of message</p></li>
+<li><p><strong>msgData</strong> – Json structure of message data</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="communication.reportNode">
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">reportNode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.reportNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will report a node to the smart contract for punishment
-:param node: hash of the node to report</p>
+<dd><p>This function will report a node to the smart contract for punishment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – hash of the node to report</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -527,9 +592,15 @@ It is the client in the server-client P2P node structure</p>
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">report_sensitivity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgJson</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.report_sensitivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will execute similarly to <code class="xref py py-meth docutils literal notranslate"><span class="pre">communication.respond_sensitivity()</span></code>
 but is executed from timeout and thus will omit the missing sensitivity data and
-will report the node that should’ve sent it
-:param msgJson: original power message
-:param threadNum: Thread number if activated via timeout</p>
+will report the node that should’ve sent it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msgJson</strong> – original power message</p></li>
+<li><p><strong>threadNum</strong> – Thread number if activated via timeout</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -551,8 +622,12 @@ will report the node that should’ve sent it
 <dl class="py function">
 <dt id="communication.sendPowerref">
 <code class="sig-prename descclassname"><span class="pre">communication.</span></code><code class="sig-name descname"><span class="pre">sendPowerref</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_power</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#communication.sendPowerref" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will send power reference data to any downstream nodes from this node
-:param message_power: power value to send (this is a parameter so that LC-DMPC can feed in its own data)</p>
+<dd><p>This function will send power reference data to any downstream nodes from this node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message_power</strong> – power value to send (this is a parameter so that LC-DMPC can feed in its own data)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -747,26 +822,44 @@ performing its own consensus using those messages
 <dl class="py function">
 <dt id="Data_Recorder.record_filesize">
 <code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">record_filesize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocksize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.record_filesize" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will record the node file size
-:param index: current block index
-:param transactions: current # of non-stored transactions
-:param blocksize: set blocksize</p>
+<dd><p>This function will record the node file size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – current block index</p></li>
+<li><p><strong>transactions</strong> – current # of non-stored transactions</p></li>
+<li><p><strong>blocksize</strong> – set blocksize</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="Data_Recorder.write_balances">
 <code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">write_balances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">walletList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_balances" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will write the current balances to a csv file to be displayed as a graph
-:param walletList: list of wallet values for each node
-:param index: block index to keep</p>
+<dd><p>This function will write the current balances to a csv file to be displayed as a graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>walletList</strong> – list of wallet values for each node</p></li>
+<li><p><strong>index</strong> – block index to keep</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="Data_Recorder.write_msg_time">
 <code class="sig-prename descclassname"><span class="pre">Data_Recorder.</span></code><code class="sig-name descname"><span class="pre">write_msg_time</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">myport</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Data_Recorder.write_msg_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will write a log of a message’s send/receive time to calculate latency
-:param id: id of the sending message to be matched with its reception
-:param type: type of message if there are different latency patterns</p>
+<dd><p>This function will write a log of a message’s send/receive time to calculate latency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – id of the sending message to be matched with its reception</p></li>
+<li><p><strong>type</strong> – type of message if there are different latency patterns</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -776,11 +869,19 @@ performing its own consensus using those messages
 <dl class="py function">
 <dt id="encryption.check_signature">
 <code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">check_signature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pub_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.check_signature" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will check whether the signature of a message maches a given public key
-:param signature: provided signature
-:param message: message claimed to be signed with signature
-:param pub_key: public key of sender
-:returns: boolean value representing validity</p>
+<dd><p>This function will check whether the signature of a message maches a given public key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signature</strong> – provided signature</p></li>
+<li><p><strong>message</strong> – message claimed to be signed with signature</p></li>
+<li><p><strong>pub_key</strong> – public key of sender</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>boolean value representing validity</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -824,10 +925,18 @@ performing its own consensus using those messages
 <dl class="py function">
 <dt id="encryption.gen_signature">
 <code class="sig-prename descclassname"><span class="pre">encryption.</span></code><code class="sig-name descname"><span class="pre">gen_signature</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pr_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#encryption.gen_signature" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will generate a signature for a given message
-:param message: message to be signed
-:param pr_key: sending node’s private key
-:returns: signature</p>
+<dd><p>This function will generate a signature for a given message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> – message to be signed</p></li>
+<li><p><strong>pr_key</strong> – sending node’s private key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>signature</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -876,43 +985,75 @@ file represents local storage accessible only to each node</p>
 <dl class="py function">
 <dt id="node_editor.get_transactions">
 <code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">get_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.get_transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will return the transactions stored locally
-:param port: port of this node
-:return: transaction list</p>
+<dd><p>This function will return the transactions stored locally</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – port of this node</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>transaction list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="node_editor.new_node">
 <code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">new_node</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.new_node" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will add a node to the local storage with a unique hash if it does not already exist
-:param port: port of the node to add
-:return: hash of the node added</p>
+<dd><p>This function will add a node to the local storage with a unique hash if it does not already exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> – port of the node to add</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>hash of the node added</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="node_editor.tryLoad">
 <code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">tryLoad</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.tryLoad" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function will attempt to load a json file 5 times with a small delay to allow for a read-write collision to
-clear
-:param f: file to read
-:param port: port of this node
-:return: (loaded json file, boolean of success)</p>
+clear</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – file to read</p></li>
+<li><p><strong>port</strong> – port of this node</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(loaded json file, boolean of success)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="node_editor.update_chain">
 <code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">update_chain</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.update_chain" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will write a blockchain into local storage
-:param port: port of this node
-:param chainList: blockchain to write</p>
+<dd><p>This function will write a blockchain into local storage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – port of this node</p></li>
+<li><p><strong>chainList</strong> – blockchain to write</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="node_editor.update_transactions">
 <code class="sig-prename descclassname"><span class="pre">node_editor.</span></code><code class="sig-name descname"><span class="pre">update_transactions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#node_editor.update_transactions" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will write the transactions into local storage
-:param port: port of this node
-:param transactions: transactions to write</p>
+<dd><p>This function will write the transactions into local storage</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – port of this node</p></li>
+<li><p><strong>transactions</strong> – transactions to write</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -929,13 +1070,19 @@ clear
 <dl class="py method">
 <dt id="Timeouts.Timeout.__init__">
 <code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timer_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functionCall</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threadNum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Timeouts.Timeout.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function initializes the class object with the type, start time, and thread running condition
-:param timer_type: type of timer for debugging purposes
-:param functionCall: callback function for after timeout expires
-:param duration: duration of the timer
-:param port: port of node calling this function for debugging
-:param threadNum: thread number to pass along if this thread is part of a list of threads
-:param arg: argument to pass into the callback function</p>
+<dd><p>This function initializes the class object with the type, start time, and thread running condition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timer_type</strong> – type of timer for debugging purposes</p></li>
+<li><p><strong>functionCall</strong> – callback function for after timeout expires</p></li>
+<li><p><strong>duration</strong> – duration of the timer</p></li>
+<li><p><strong>port</strong> – port of node calling this function for debugging</p></li>
+<li><p><strong>threadNum</strong> – thread number to pass along if this thread is part of a list of threads</p></li>
+<li><p><strong>arg</strong> – argument to pass into the callback function</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

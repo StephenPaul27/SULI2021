@@ -14,6 +14,7 @@ class Timeout(threading.Thread):
     def __init__(self, timer_type, functionCall, duration=g.CONSENSUS_TIMEOUT, port=g.my_port, threadNum=None, arg=None):
         """
         This function initializes the class object with the type, start time, and thread running condition
+
         :param timer_type: type of timer for debugging purposes
         :param functionCall: callback function for after timeout expires
         :param duration: duration of the timer

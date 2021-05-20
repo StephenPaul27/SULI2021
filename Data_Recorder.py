@@ -10,6 +10,7 @@ import os
 def record_filesize(index,transactions,blocksize):
     """
     This function will record the node file size
+
     :param index: current block index
     :param transactions: current # of non-stored transactions
     :param blocksize: set blocksize
@@ -31,6 +32,7 @@ def clear_latencies():
 def write_msg_time(id,type,index,myport):
     """
     This function will write a log of a message's send/receive time to calculate latency
+
     :param id: id of the sending message to be matched with its reception
     :param type: type of message if there are different latency patterns
     """
@@ -49,6 +51,7 @@ def clear_balances():
 def write_balances(walletList,index):
     """
     This function will write the current balances to a csv file to be displayed as a graph
+
     :param walletList: list of wallet values for each node
     :param index: block index to keep
     """

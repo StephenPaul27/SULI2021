@@ -16,6 +16,7 @@ class Block:
     def __init__(self, index, timestamp, data, previous_hash):
         """
         This function initializes a block
+
         :param index: index of this block
         :param timestamp: timestamp of this block
         :param data: data to be included in this block (transactions)
@@ -38,7 +39,6 @@ class Block:
     def to_dict(self):
         """
         This function returns a dict of this block's fields
-        :returns:
         """
         return {
             "index": self.index,
@@ -71,6 +71,7 @@ class Transaction:
     def __lt__(self, other):
         """
         This function defines the ordering of transactions based on timestamp
+
         :param other: other transaction to compare with
         :returns: boolean of timestamp ordering (least to greatest time)
         """
@@ -132,8 +133,9 @@ def get_hash(*s):
 def get_dict_list(chainList=None):
     """
     This function returns a dictionary list of a given list of objects (Blocks or Transactions)
+
     :param chainList: list to get objects from, default None results in global blockchain used
-    :returns: returns local blockchain in dictionary form
+    :returns: local blockchain in dictionary form
     """
 
     # update default parameter
@@ -299,6 +301,7 @@ def create_genesis_block(prev=None):
 def consensus_and_reset(threadNum=None):
     """
     This function will call consensus and reset its variables
+
     :param threadNum: Thread number if activated via timeout
     """
     g.blockchain = consensus()
@@ -308,6 +311,7 @@ def consensus_and_reset(threadNum=None):
 def consensus_reset_and_send(threadNum=None):
     """
     This function will call consensus, reset its variables, then send the result to the smart contract node
+
     :param threadNum: Thread number if activated via timeout
     """
 
@@ -461,6 +465,7 @@ def consensus(chainList=None, port=g.my_port, cons_array=None, cindex=None,
 def in_transactions(t_hash, t_list=None):
     """
     This function will tell if a transaction has already been recorded
+
     :param t_hash: hash of transaction to search for
     :param t_list: list of transactions
     :returns: Boolean representing whether the transaction was found
@@ -480,6 +485,7 @@ def in_transactions(t_hash, t_list=None):
 def reset_consensus(newIndex):
     """
     This function resets global variables used for consensus
+
     :param newIndex: new index of consensus_index used to keep track of the last agreed block
     """
 

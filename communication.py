@@ -14,6 +14,7 @@ class Receiver(threading.Thread):
     def __init__(self, my_host, my_port):
         """
         This function will initialize the receiver server variables
+
         :param my_host: host of this node
         :param my_port: port of this node
         """
@@ -157,6 +158,7 @@ class Receiver(threading.Thread):
     def respond_powerDMPC(self, msgJson, msgData):
         """
         This function will respond to instructions from the LC-DMPC program to send power references
+
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
@@ -707,6 +709,7 @@ class Receiver(threading.Thread):
     def respond_confirm(self, msgJson, msgData):
         """
         This function will add the power/sensitivity transaction to the transaction list of this node
+
         :param msgJson: Json structure of message
         :param msgData: Json structure of message data
         """
@@ -887,6 +890,7 @@ class Receiver(threading.Thread):
 def propose_block(msgJson, msgData):
     """
     This function will propose a block update to all of the other blocks
+
     :param msgJson: Json structure of message
     :param msgData: Json structure of message data
     """
@@ -964,6 +968,7 @@ class Sender(threading.Thread):
     def __init__(self, my_host, my_port):
         """
         This function will initialize the client
+
         :param my_host: host of the client
         :param my_port: port of the client
         """
@@ -1020,6 +1025,7 @@ class Sender(threading.Thread):
 def sendPowerref(message_power):
     """
     This function will send power reference data to any downstream nodes from this node
+
     :param message_power: power value to send (this is a parameter so that LC-DMPC can feed in its own data)
     """
 
@@ -1197,6 +1203,7 @@ def report_sensitivity(msgJson,threadNum):
     This function will execute similarly to :meth:`communication.respond_sensitivity`
     but is executed from timeout and thus will omit the missing sensitivity data and
     will report the node that should've sent it
+
     :param msgJson: original power message
     :param threadNum: Thread number if activated via timeout
     """
@@ -1269,6 +1276,7 @@ def report_sensitivity(msgJson,threadNum):
 def reportNode(node):
     """
     This function will report a node to the smart contract for punishment
+
     :param node: hash of the node to report
     """
     logging.warning(f"Node {g.my_port} is reporting {g.hash_to_port[node]} to the smart contract")

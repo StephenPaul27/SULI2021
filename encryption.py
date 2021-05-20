@@ -150,6 +150,7 @@ def encrypt(message, destPort, pr_key=None):
 def gen_signature(message, pr_key):
     """
     This function will generate a signature for a given message
+
     :param message: message to be signed
     :param pr_key: sending node's private key
     :returns: signature
@@ -168,6 +169,7 @@ def gen_signature(message, pr_key):
 def check_signature(signature, message, pub_port):
     """
     This function will check whether the signature of a message maches a given public key
+
     :param signature: provided signature
     :param message: message claimed to be signed with signature
     :param pub_key: public key of sender
