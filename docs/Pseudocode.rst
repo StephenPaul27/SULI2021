@@ -5,8 +5,8 @@ Pseudocode
 
 .. _pseudo_consensus_response:
 
-Consensus Response:
--------------------
+Consensus Response
+------------------
 
     ::
 
@@ -37,8 +37,8 @@ Consensus Response:
 
 .. _pseudo_decrypt:
 
-Decrypt:
---------
+Decrypt
+-------
 
     ::
 
@@ -56,8 +56,8 @@ Decrypt:
 
 .. _pseudo_encrypt:
 
-Encrypt:
---------
+Encrypt
+-------
 
     ::
 
@@ -81,8 +81,8 @@ Encrypt:
 
 .. _pseudo_power_consensus_process:
 
-Power Consensus Process (Aggregator Fabrication):
--------------------------------------------------
+Power Consensus Process (Aggregator Fabrication)
+------------------------------------------------
 
     ::
 
@@ -120,8 +120,8 @@ Power Consensus Process (Aggregator Fabrication):
 
 .. _pseudo_timeouts:
 
-Timeouts:
----------
+Timeouts
+--------
 
     ::
 
@@ -142,8 +142,8 @@ Timeouts:
 
 .. _pseudo_update_wallets:
 
-Update Wallets:
----------------
+Update Wallets
+--------------
 
     ::
 
@@ -162,8 +162,8 @@ Update Wallets:
 
 .. _pseudo_validator_consensus:
 
-Validator Consensus:
---------------------
+Validator Consensus
+-------------------
 
     ::
 
