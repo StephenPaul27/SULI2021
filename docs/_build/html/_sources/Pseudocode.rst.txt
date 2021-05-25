@@ -30,9 +30,9 @@ Consensus Response:
                     Create a vote for this transaction hash and store the transaction
                     Then submit a vote from this node for the transaction hash
 
-        Begin timeout thread for the Consensus_Process (in case some nodes don’t respond in a timely manner)
+        Begin timeout thread for the Validator Consensus (in case some nodes don’t respond in a timely manner)
 
-        If all validators have now voted begin the Consensus_Process
+        If all validators have now voted, begin the Validator Consensus
 
 
 .. _pseudo_decrypt:
